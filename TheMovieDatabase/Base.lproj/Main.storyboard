@@ -84,7 +84,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nwY-w2-uH1"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Movies" largeTitleDisplayMode="always" id="FUM-EJ-eqr"/>
+                    <navigationItem key="navigationItem" title="Movies" id="FUM-EJ-eqr"/>
                     <connections>
                         <outlet property="tableView" destination="izS-uZ-Axf" id="XsD-I6-IHL"/>
                     </connections>
@@ -93,10 +93,10 @@
             </objects>
             <point key="canvasLocation" x="832.79999999999995" y="818.14092953523243"/>
         </scene>
-        <!--Detailed View Controller-->
+        <!--Movie Details View Controller-->
         <scene sceneID="WWm-Fk-lJU">
             <objects>
-                <viewController id="1C8-io-P9d" customClass="DetailedViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1C8-io-P9d" customClass="MovieDetailsViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pRw-vr-4an">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -112,7 +112,7 @@
         <!--Search-->
         <scene sceneID="U7U-WM-9Ya">
             <objects>
-                <viewController id="AWT-cv-75X" customClass="SearchViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="AWT-cv-75X" customClass="SearchMovieViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jwo-hU-llb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -167,8 +167,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OiH-lL-Jlh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Feed" image="iconFeed" id="iS8-v9-nMf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VBv-CL-JqE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="VBv-CL-JqE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
