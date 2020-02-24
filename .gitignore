@@ -88,3 +88,5 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+*.xcuserstate
+TheMovieDatabase.xcodeproj/project.xcworkspace/xcuserdata/jj.xcuserdatad/UserInterfaceState.xcuserstate
