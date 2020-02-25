@@ -14,6 +14,8 @@ class FeedViewController: UIViewController {
 
     var movies: [Movie] = []
 
+    var currentPageNum = 1
+
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -37,20 +39,26 @@ class FeedViewController: UIViewController {
 
     private func loadMovies() {
 
+        let apiKey = "43c76333cdbd2a5869d68050de560ceb"
+
         let manager = NetworkService()
 
         let currentPageUrl: String = """
-        https://api.themoviedb.org/3/movie/popular?api_key=43c76333cdbd2a5869d68050de560ceb&language=en-US&page=1
+        https://api.themoviedb.org/3/movie/popular?api_key=\(
+        apiKey
+        )&language=en-US&page=\(
+        currentPageNum
+        )
         """
 
         manager.loadMovies(withUrl: currentPageUrl) { LoadMoviesResponse in
             guard let results = LoadMoviesResponse.results else {
                 return
             }
-            self.movies = results
+            self.movies.append(contentsOf: results)
             self.tableView.reloadData()
-
         }
+        currentPageNum += 1
     }
 }
 
@@ -75,7 +83,7 @@ extension FeedViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 5 {
-
+            loadMovies()
         }
     }
 
