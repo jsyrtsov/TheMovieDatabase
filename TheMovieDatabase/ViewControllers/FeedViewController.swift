@@ -34,11 +34,13 @@ class FeedViewController: UIViewController {
 
     private func loadMovies() {
 
+        let manager = NetworkService()
+
         let currentPageUrl: String = """
         https://api.themoviedb.org/3/movie/popular?api_key=43c76333cdbd2a5869d68050de560ceb&language=en-US&page=1
         """
 
-        NetworkService.loadMovies(withUrl: currentPageUrl) { LoadMoviesResponse in
+        manager.loadMovies(withUrl: currentPageUrl) { LoadMoviesResponse in
             guard let results = LoadMoviesResponse.results else {
                 return
             }

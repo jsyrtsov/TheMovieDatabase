@@ -10,7 +10,7 @@ import Foundation
 
 class NetworkService {
 
-    static func loadMovies(withUrl url: String, completion: @escaping (LoadMoviesResponse) -> Void) {
+    func loadMovies(withUrl url: String, completion: @escaping (LoadMoviesResponse) -> Void) {
 
         guard let url = URL(string: url) else {
             return
