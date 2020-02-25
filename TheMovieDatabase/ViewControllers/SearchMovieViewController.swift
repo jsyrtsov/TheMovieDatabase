@@ -12,6 +12,9 @@ class SearchMovieViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let search = UISearchController(searchResultsController: nil)
+        search.searchResultsUpdater = self as? UISearchResultsUpdating
+        self.navigationItem.searchController = search
 
     }
 

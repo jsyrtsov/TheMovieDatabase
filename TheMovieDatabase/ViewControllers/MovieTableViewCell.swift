@@ -14,4 +14,8 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak private var movieNameLabel: UILabel!
     @IBOutlet weak private var movieDescriptionLabel: UILabel!
 
+    func configureCell (withMovie movie: Movie) {
+        movieNameLabel.text = movie.title
+        movieDescriptionLabel.text = movie.overview
+    }
 }
