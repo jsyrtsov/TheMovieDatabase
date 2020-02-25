@@ -28,7 +28,6 @@ class NetworkService {
                 } catch {
                     print(error)
                 }
-
             }
         }.resume()
     }

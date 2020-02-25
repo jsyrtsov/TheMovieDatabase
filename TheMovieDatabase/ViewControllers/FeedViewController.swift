@@ -18,6 +18,13 @@ class FeedViewController: UIViewController {
 
         super.viewDidLoad()
 
+        configureView()
+
+        loadMovies()
+    }
+
+    private func configureView() {
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
@@ -25,10 +32,6 @@ class FeedViewController: UIViewController {
         let items = ["Popular", "Upcoming", "Now Playing"]
         let segmentedControll = UISegmentedControl(items: items)
         tableView.tableHeaderView = segmentedControll
-
-        loadMovies()
-
-        print(movies)
 
     }
 
@@ -48,9 +51,7 @@ class FeedViewController: UIViewController {
             self.tableView.reloadData()
 
         }
-
     }
-
 }
 
 // MARK: TableViewDelegate
