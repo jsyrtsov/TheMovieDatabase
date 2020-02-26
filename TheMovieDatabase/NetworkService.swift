@@ -12,6 +12,8 @@ import UIKit
 
 class NetworkService {
 
+    let apiKey = "43c76333cdbd2a5869d68050de560ceb"
+
     func loadMovies(withUrl url: String, completion: @escaping (LoadMoviesResponse) -> Void) {
 
         guard let url = URL(string: url) else {
@@ -32,9 +34,5 @@ class NetworkService {
                 }
             }
         }.resume()
-    }
-
-    func loadPoster() {
-
     }
 }

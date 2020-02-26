@@ -15,15 +15,9 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak private var movieNameLabel: UILabel!
     @IBOutlet weak private var movieDescriptionLabel: UILabel!
 
-    func configureCell (withMovie movie: Movie) {
-
-        let blankImageUrl = "https://image.tmdb.org/t/p/w500"
+    func configure (withMovie movie: Movie) {
         movieNameLabel.text = movie.title
         movieDescriptionLabel.text = movie.overview
-        if let imageUrlString = movie.posterPath,
-            let imageUrl = URL(string: blankImageUrl + imageUrlString) {
-
-            Nuke.loadImage(with: imageUrl, into: movieImage)
-        }
+        movieImage.loadPoster(withPosterPath: movie.posterPath)
     }
 }

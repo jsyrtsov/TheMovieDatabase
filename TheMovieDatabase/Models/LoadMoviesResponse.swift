@@ -11,6 +11,6 @@ import Foundation
 struct LoadMoviesResponse: Codable {
     let page: Int?
     let totalResults: Int?
-    let totaPages: Int?
+    let totalPages: Int?
     let results: [Movie]?
 }
