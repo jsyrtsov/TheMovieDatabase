@@ -12,9 +12,9 @@ class FeedViewController: UIViewController {
 
     @IBOutlet weak private var tableView: UITableView!
 
-    let manager = MoviesService()
+    private let manager = MoviesService()
 
-    var movies: [Movie] = []
+    private var movies: [Movie] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +29,11 @@ class FeedViewController: UIViewController {
     }
 
     private func loadMovies() {
-        manager.loadMovies {loadMoviesResponse in
-            guard let results = loadMoviesResponse else {
+        manager.loadMovies {results in
+            guard let movies = results else {
                 return
             }
-            self.movies.append(contentsOf: results)
+            self.movies.append(contentsOf: movies)
             self.tableView.reloadData()
         }
     }

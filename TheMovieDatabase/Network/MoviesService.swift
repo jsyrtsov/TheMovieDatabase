@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 class MoviesService {
-    let apiKey = "43c76333cdbd2a5869d68050de560ceb"
-    var currentPageNum = 0
+    private let apiKey = "43c76333cdbd2a5869d68050de560ceb"
+    private var currentPageNum = 0
 
     func loadMovies(completion: @escaping ([Movie]?) -> Void) {
         currentPageNum += 1
@@ -42,4 +42,11 @@ class MoviesService {
             completion(nil)
         }.resume()
     }
+}
+
+struct MoviesListResponse: Codable {
+    let page: Int?
+    let totalResults: Int?
+    let totalPages: Int?
+    let results: [Movie]?
 }
