@@ -7,32 +7,40 @@
 //
 
 import Foundation
-import Nuke
 import UIKit
 
-class NetworkService {
-
+class MoviesService {
     let apiKey = "43c76333cdbd2a5869d68050de560ceb"
+    var currentPageNum = 0
 
-    func loadMovies(withUrl url: String, completion: @escaping (LoadMoviesResponse) -> Void) {
-
-        guard let url = URL(string: url) else {
+    func loadMovies(completion: @escaping (MoviesListResponse?) -> Void) {
+        currentPageNum += 1
+        let urlString = """
+        https://api.themoviedb.org/3/movie/popular?api_key=\(
+        apiKey
+        )&language=en-US&page=\(
+        currentPageNum
+        )
+        """
+        guard let url = URL(string: urlString) else {
             return
         }
+
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             if let data = data {
                 do {
-                    let result = try decoder.decode(LoadMoviesResponse.self, from: data)
+                    let result = try decoder.decode(MoviesListResponse.self, from: data)
                     DispatchQueue.main.async {
                         completion(result)
                         print(result)
                     }
                 } catch {
-                    print(error)
+                    completion(nil)
                 }
             }
+            completion(nil)
         }.resume()
     }
 }

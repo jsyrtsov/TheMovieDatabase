@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LoadMoviesResponse: Codable {
+struct MoviesListResponse: Codable {
     let page: Int?
     let totalResults: Int?
     let totalPages: Int?
