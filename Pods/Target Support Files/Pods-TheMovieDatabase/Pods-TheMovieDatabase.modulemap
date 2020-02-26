@@ -1,0 +1,6 @@
+framework module Pods_TheMovieDatabase {
+  umbrella header "Pods-TheMovieDatabase-umbrella.h"
+
+  export *
+  module * { export * }
+}

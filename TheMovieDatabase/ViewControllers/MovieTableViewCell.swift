@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class MovieTableViewCell: UITableViewCell {
 
@@ -15,7 +16,14 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak private var movieDescriptionLabel: UILabel!
 
     func configureCell (withMovie movie: Movie) {
+
+        let blankImageUrl = "https://image.tmdb.org/t/p/w500"
         movieNameLabel.text = movie.title
         movieDescriptionLabel.text = movie.overview
+        if let imageUrlString = movie.posterPath,
+            let imageUrl = URL(string: blankImageUrl + imageUrlString) {
+
+            Nuke.loadImage(with: imageUrl, into: movieImage)
+        }
     }
 }

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Nuke
+import UIKit
 
 class NetworkService {
 
@@ -30,5 +32,9 @@ class NetworkService {
                 }
             }
         }.resume()
+    }
+
+    func loadPoster() {
+
     }
 }
