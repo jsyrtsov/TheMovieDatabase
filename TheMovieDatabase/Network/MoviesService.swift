@@ -44,7 +44,7 @@ class MoviesService {
     }
 }
 
-struct MoviesListResponse: Codable {
+private struct MoviesListResponse: Codable {
     let page: Int?
     let totalResults: Int?
     let totalPages: Int?
