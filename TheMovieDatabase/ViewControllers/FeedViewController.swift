@@ -12,6 +12,8 @@ class FeedViewController: UIViewController {
 
     @IBOutlet weak private var tableView: UITableView!
 
+    let manager = MoviesService()
+
     var movies: [Movie] = []
 
     override func viewDidLoad() {
@@ -31,7 +33,6 @@ class FeedViewController: UIViewController {
     }
 
     private func loadMovies() {
-        let manager = MoviesService()
         manager.loadMovies {loadMoviesResponse in
             guard let results = loadMoviesResponse?.results else {
                 return
