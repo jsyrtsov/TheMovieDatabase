@@ -26,15 +26,11 @@ class FeedViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-
-        let items = ["Popular", "Upcoming", "Now Playing"]
-        let segmentedControll = UISegmentedControl(items: items)
-        tableView.tableHeaderView = segmentedControll
     }
 
     private func loadMovies() {
         manager.loadMovies {loadMoviesResponse in
-            guard let results = loadMoviesResponse?.results else {
+            guard let results = loadMoviesResponse else {
                 return
             }
             self.movies.append(contentsOf: results)
@@ -67,5 +63,4 @@ extension FeedViewController: UITableViewDataSource {
             loadMovies()
         }
     }
-
 }

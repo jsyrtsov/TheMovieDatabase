@@ -13,7 +13,7 @@ class MoviesService {
     let apiKey = "43c76333cdbd2a5869d68050de560ceb"
     var currentPageNum = 0
 
-    func loadMovies(completion: @escaping (MoviesListResponse?) -> Void) {
+    func loadMovies(completion: @escaping ([Movie]?) -> Void) {
         currentPageNum += 1
         let urlString = """
         https://api.themoviedb.org/3/movie/popular?api_key=\(
@@ -33,8 +33,7 @@ class MoviesService {
                 do {
                     let result = try decoder.decode(MoviesListResponse.self, from: data)
                     DispatchQueue.main.async {
-                        completion(result)
-                        print(result)
+                        completion(result.results)
                     }
                 } catch {
                     completion(nil)
