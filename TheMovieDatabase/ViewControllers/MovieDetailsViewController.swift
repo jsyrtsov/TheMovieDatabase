@@ -1,18 +1,15 @@
 //
-//  SearchViewController.swift
+//  DetailedViewController.swift
 //  TheMovieDatabase
 //
-//  Created by Evgeny Syrtsov on 2/21/20.
+//  Created by Evgeny Syrtsov on 2/22/20.
 //  Copyright © 2020 Evgeny Syrtsov. All rights reserved.
 //
 
 import UIKit
 
-class SearchMovieViewController: UIViewController {
-
+class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-
 }
