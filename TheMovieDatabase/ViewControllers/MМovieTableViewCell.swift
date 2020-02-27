@@ -1,23 +1,27 @@
 //
-//  MovieTableViewCell.swift
+//  MMovieTableViewCell.swift
 //  TheMovieDatabase
 //
-//  Created by Evgeny Syrtsov on 2/21/20.
+//  Created by Evgeny Syrtsov on 2/27/20.
 //  Copyright © 2020 Evgeny Syrtsov. All rights reserved.
 //
 
 import UIKit
-import Nuke
 
-class MovieTableViewCell: UITableViewCell {
+class MМovieTableViewCell: UITableViewCell {
 
-    @IBOutlet weak private var movieImage: UIImageView!
+    @IBOutlet weak private var movieImageView: UIImageView!
     @IBOutlet weak private var movieNameLabel: UILabel!
     @IBOutlet weak private var movieDescriptionLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
 
     func configure (withMovie movie: Movie) {
         movieNameLabel.text = movie.title
         movieDescriptionLabel.text = movie.overview
-        movieImage.loadPoster(withPosterPath: movie.posterPath)
+        movieImageView.loadPoster(withPosterPath: movie.posterPath)
     }
 }

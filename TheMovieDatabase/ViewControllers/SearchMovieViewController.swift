@@ -9,10 +9,79 @@
 import UIKit
 
 class SearchMovieViewController: UIViewController {
+
+    @IBOutlet weak private var tableView: UITableView!
+
+    private let manager = SearchService()
+    private var searchWords = ""
+    private var movies: [Movie] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureView()
+
+    }
+
+    private func configureView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.tableFooterView = UIView()
+        tableView.register(UINib(nibName: "MMovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
         let search = UISearchController(searchResultsController: nil)
-        search.searchResultsUpdater = self as? UISearchResultsUpdating
         self.navigationItem.searchController = search
+        search.searchBar.delegate = self
+    }
+
+    private func loadMovies() {
+        manager.loadMovies(withSearchWords: searchWords) { results in
+            guard let movies = results else {
+                return
+            }
+            if self.manager.currentPageNum == 1 {
+                self.movies = movies
+            } else {
+                self.movies.append(contentsOf: movies)
+            }
+            self.tableView.reloadData()
+        }
+    }
+}
+
+// MARK: UITableViewDataSource
+extension SearchMovieViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? MМovieTableViewCell
+        cell?.configure(withMovie: movies[indexPath.row])
+        return cell ?? UITableViewCell()
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == movies.count - 5 {
+            manager.currentPageNum += 1
+            loadMovies()
+        }
+    }
+}
+
+// MARK: UITableViewDelegate
+extension SearchMovieViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: UISearchBarDelegate
+extension SearchMovieViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let searchW = searchBar.text {
+            searchWords = searchW
+        }
+        print(searchWords as Any)
+        loadMovies()
     }
 }
