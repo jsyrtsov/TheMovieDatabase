@@ -82,6 +82,7 @@ extension SearchMovieViewController: UISearchBarDelegate {
             searchWords = searchW
         }
         print(searchWords as Any)
+        manager.currentPageNum = 1
         loadMovies()
     }
 }
