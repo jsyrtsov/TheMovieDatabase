@@ -60,8 +60,9 @@ extension SearchMovieViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 5 {
-            manager.currentPageNum += 1
-            loadMovies()
+            if manager.currentPageNum < manager.totalPages {
+                loadMovies()
+            }
         }
     }
 }

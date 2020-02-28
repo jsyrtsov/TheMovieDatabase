@@ -62,7 +62,9 @@ extension FeedViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 5 {
-            loadMovies()
+            if manager.currentPageNum < manager.totalPages {
+                loadMovies()
+            }
         }
     }
 }

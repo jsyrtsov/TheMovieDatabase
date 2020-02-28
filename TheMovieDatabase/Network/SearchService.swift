@@ -12,6 +12,7 @@ import UIKit
 class SearchService {
     private let apiKey = "43c76333cdbd2a5869d68050de560ceb"
     var currentPageNum = 1
+    var totalPages = 1
 
     func loadMovies(withSearchWords searchWords: String, completion: @escaping ([Movie]?) -> Void) {
         let urlString = """
@@ -36,7 +37,15 @@ class SearchService {
                     let result = try decoder.decode(MoviesListResponse.self, from: data)
                     DispatchQueue.main.async {
                         completion(result.results)
-
+                        guard let totalPages = result.totalPages, let page = result.page else {
+                            return
+                        }
+                        self.totalPages = totalPages
+                        if page < totalPages {
+                            self.currentPageNum += 1
+                        } else {
+                            self.currentPageNum = totalPages
+                        }
                     }
                 } catch {
                     completion(nil)

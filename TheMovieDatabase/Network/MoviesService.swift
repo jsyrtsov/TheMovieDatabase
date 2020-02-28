@@ -10,14 +10,11 @@ import Foundation
 import UIKit
 
 class MoviesService {
-    private let searchKey = """
-    https://api.themoviedb.org/3/search/movie?api_key=43c76333cdbd2a5869d68050de560ceb&language=en-US&query=MYSEARCH
-    """
     private let apiKey = "43c76333cdbd2a5869d68050de560ceb"
-    private var currentPageNum = 0
+    var currentPageNum = 1
+    var totalPages = 1
 
     func loadMovies(completion: @escaping ([Movie]?) -> Void) {
-        currentPageNum += 1
         let urlString = """
         https://api.themoviedb.org/3/movie/popular?api_key=\(
         apiKey
@@ -37,6 +34,15 @@ class MoviesService {
                     let result = try decoder.decode(MoviesListResponse.self, from: data)
                     DispatchQueue.main.async {
                         completion(result.results)
+                        guard let totalPages = result.totalPages, let page = result.page else {
+                            return
+                        }
+                        self.totalPages = totalPages
+                        if page < totalPages {
+                            self.currentPageNum += 1
+                        } else {
+                            self.currentPageNum = totalPages
+                        }
                     }
                 } catch {
                     completion(nil)
