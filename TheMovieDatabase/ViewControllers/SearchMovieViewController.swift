@@ -19,7 +19,6 @@ class SearchMovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-
     }
 
     private func configureView() {
@@ -79,9 +78,9 @@ extension SearchMovieViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let searchW = searchBar.text {
-            searchWords = searchW
+            let replaced = searchW.replacingOccurrences(of: " ", with: "%20")
+            searchWords = replaced
         }
-        print(searchWords as Any)
         manager.currentPageNum = 1
         loadMovies()
     }
