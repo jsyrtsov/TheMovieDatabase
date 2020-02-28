@@ -26,7 +26,7 @@ class SearchMovieViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: "MMovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
+        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
         let search = UISearchController(searchResultsController: nil)
         self.navigationItem.searchController = search
         search.searchBar.delegate = self
@@ -54,7 +54,7 @@ extension SearchMovieViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? MМovieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? МovieTableViewCell
         cell?.configure(withMovie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }
