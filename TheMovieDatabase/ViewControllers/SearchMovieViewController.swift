@@ -54,7 +54,7 @@ extension SearchMovieViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? МovieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? MovieTableViewCell
         cell?.configure(withMovie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }

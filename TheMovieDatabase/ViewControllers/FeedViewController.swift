@@ -26,7 +26,8 @@ class FeedViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
+        tableView.register(UINib(nibName: String(describing: MovieTableViewCell.self), bundle: nil),
+                           forCellReuseIdentifier: "moviesCell")
     }
 
     private func loadMovies() {
@@ -54,7 +55,7 @@ extension FeedViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? МovieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? MovieTableViewCell
         cell?.configure(withMovie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }
