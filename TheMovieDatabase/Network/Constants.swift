@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum MoviesManagerLoadingStrategy {
+enum MoviesServiceLoadingStrategy {
     case popular
     case upcoming
     case nowPlaying
-    case search
+    case search(query: String?)
 }
 
 enum urlKeys {

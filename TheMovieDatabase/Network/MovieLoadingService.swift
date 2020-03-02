@@ -8,15 +8,14 @@
 
 import Foundation
 
-class MovieLoadingManager {
+class MovieLoadingService {
     private var totalPages: Int = 1
     private var currentPage: Int = 1
-    private var strategy: MoviesManagerLoadingStrategy
+    private var strategy: MoviesServiceLoadingStrategy
     private var query: String?
     var canLoadMore: Bool = false
-    init(strategy: MoviesManagerLoadingStrategy, query: String?) {
+    init(strategy: MoviesServiceLoadingStrategy) {
         self.strategy = strategy
-        self.query = query
     }
 
     func loadMovies(completion: @escaping ([Movie]?) -> Void) {
@@ -28,7 +27,7 @@ class MovieLoadingManager {
             url = URL(string: urlKeys.baseUrl + "movie/upcoming")
         case .nowPlaying:
             url = URL(string: urlKeys.baseUrl + "movie/now_playing")
-        case .search:
+        case .search(let query):
             url = URL(string: urlKeys.baseUrl + "search/movie")
             url = url?.appending("query", value: query)
         }
@@ -68,7 +67,7 @@ class MovieLoadingManager {
     }
 }
 
-struct MoviesListResponse: Codable {
+private struct MoviesListResponse: Codable {
     let page: Int?
     let totalResults: Int?
     let totalPages: Int?
