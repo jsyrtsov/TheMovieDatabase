@@ -13,8 +13,8 @@ class SearchMovieViewController: UIViewController {
     @IBOutlet weak private var tableView: UITableView!
 
     private let manager = SearchManager()
+    private lazy var manager2 = MovieLoadingManager(strategy: .search, query: searchWords)
     private var searchWords = ""
-    private let manager2 = MovieLoadingManager(strategy: .search, query: "mySearch")
     private var movies: [Movie] = []
 
     override func viewDidLoad() {
@@ -30,6 +30,26 @@ class SearchMovieViewController: UIViewController {
         let search = UISearchController(searchResultsController: nil)
         self.navigationItem.searchController = search
         search.searchBar.delegate = self
+    }
+
+    private func addMovies() {
+        manager2.loadMovies { (results) in
+            guard let movies = results?.results else {
+                return
+            }
+            self.movies.append(contentsOf: movies)
+            self.tableView.reloadData()
+        }
+    }
+
+    private func loadMovies2() {
+        manager2.loadMovies { (results) in
+            guard let movies = results?.results else {
+                return
+            }
+            self.movies = movies
+            self.tableView.reloadData()
+        }
     }
 
     private func loadMovies() {
@@ -65,10 +85,8 @@ extension SearchMovieViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 5 {
-            if manager.currentPageNum < manager.totalPages {
-                loadMovies()
-            }
+        if indexPath.row == movies.count - 5, manager2.canLoadMore == true {
+            addMovies()
         }
     }
 }
@@ -87,7 +105,7 @@ extension SearchMovieViewController: UISearchBarDelegate {
         if let searchQuery = searchBar.text {
             searchWords = searchQuery.replacingOccurrences(of: " ", with: "%20")
         }
-        manager.currentPageNum = 1
-        loadMovies()
+        self.manager2 = MovieLoadingManager(strategy: .search, query: searchWords)
+        loadMovies2()
     }
 }

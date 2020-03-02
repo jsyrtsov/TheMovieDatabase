@@ -30,7 +30,7 @@ class MovieLoadingManager {
             urlString = urlKey + "movie/now_playing"
         case .search:
             if let query = query {
-                urlString = urlKey + "search/movie?query=\(query)"
+                urlString = urlKey + "search/movie?query=\(query.replacingOccurrences(of: " ", with: "%20"))"
             }
             urlString = urlKey + "search/movie?query="
         }
@@ -38,6 +38,7 @@ class MovieLoadingManager {
         guard let url = URL(string: urlString) else {
             return
         }
+        print(urlString)
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
