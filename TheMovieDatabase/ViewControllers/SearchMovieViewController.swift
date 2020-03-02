@@ -93,4 +93,9 @@ extension SearchMovieViewController: UISearchBarDelegate {
         self.service = MovieLoadingService(strategy: .search(query: searchWords))
         loadMovies()
     }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        movies = []
+        tableView.reloadData()
+    }
 }
