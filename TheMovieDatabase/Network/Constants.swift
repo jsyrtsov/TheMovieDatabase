@@ -15,5 +15,7 @@ enum MoviesManagerLoadingStrategy {
     case search
 }
 
-let apiKey = "43c76333cdbd2a5869d68050de560ceb"
-let urlKey = "https://api.themoviedb.org/3/"
+enum urlKeys {
+    static let apiKey = "43c76333cdbd2a5869d68050de560ceb"
+    static let baseUrl = "https://api.themoviedb.org/3/"
+}

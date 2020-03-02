@@ -8,29 +8,6 @@
 
 import Foundation
 
-extension URL {
-    func appending(_ queryItem: String, value: String?) -> URL? {
-        guard var urlComponents = URLComponents(string: absoluteString) else {
-            return absoluteURL
-        }
-
-        // Create array of existing query items
-        var queryItems: [URLQueryItem] = urlComponents.queryItems ??  []
-
-        // Create query item
-        let queryItem = URLQueryItem(name: queryItem, value: value)
-
-        // Append the new query item in the existing query items array
-        queryItems.append(queryItem)
-
-        // Append updated query items array in the url component object
-        urlComponents.queryItems = queryItems
-
-        // Returns the url from new url components
-        return urlComponents.url
-    }
-}
-
 class MovieLoadingManager {
     private var totalPages: Int = 1
     private var currentPage: Int = 1
@@ -46,17 +23,17 @@ class MovieLoadingManager {
         var url: URL?
         switch strategy {
         case .popular:
-            url = URL(string: urlKey + "movie/popular")
+            url = URL(string: urlKeys.baseUrl + "movie/popular")
         case .upcoming:
-            url = URL(string: urlKey + "movie/upcoming")
+            url = URL(string: urlKeys.baseUrl + "movie/upcoming")
         case .nowPlaying:
-            url = URL(string: urlKey + "movie/now_playing")
+            url = URL(string: urlKeys.baseUrl + "movie/now_playing")
         case .search:
-            url = URL(string: urlKey + "search/movie")
+            url = URL(string: urlKeys.baseUrl + "search/movie")
             url = url?.appending("query", value: query)
         }
 
-        url = url?.appending("api_key", value: apiKey)
+        url = url?.appending("api_key", value: urlKeys.apiKey)
         url = url?.appending("page", value: String(currentPage))
 
         guard let loadingURL = url else {
