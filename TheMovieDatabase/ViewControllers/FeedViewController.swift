@@ -12,38 +12,26 @@ class FeedViewController: UIViewController {
 
     @IBOutlet weak private var tableView: UITableView!
 
-    private let manager = MoviesManager()
-    private let manager2 = MovieLoadingManager(strategy: .popular, query: nil)
+    private let manager = MovieLoadingManager(strategy: .popular, query: nil)
 
     private var movies: [Movie] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        loadMovies2()
+        loadMovies()
     }
 
     private func configureView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: String(describing: MovieTableViewCell.self), bundle: nil),
-                           forCellReuseIdentifier: "moviesCell")
-    }
-
-    private func loadMovies2() {
-        manager2.loadMovies { (results) in
-            guard let movies = results?.results else {
-                return
-            }
-            self.movies.append(contentsOf: movies)
-            self.tableView.reloadData()
-        }
+        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
     }
 
     private func loadMovies() {
-        manager.loadMovies {results in
-            guard let movies = results else {
+        manager.loadMovies { (results) in
+            guard let movies = results?.results else {
                 return
             }
             self.movies.append(contentsOf: movies)
@@ -77,8 +65,8 @@ extension FeedViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 5, manager2.canLoadMore == true {
-            loadMovies2()
+        if indexPath.row == movies.count - 5, manager.canLoadMore == true {
+            loadMovies()
         }
     }
 }

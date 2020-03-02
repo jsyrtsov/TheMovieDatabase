@@ -14,6 +14,7 @@ class SearchMovieViewController: UIViewController {
 
     private let manager = SearchManager()
     private var searchWords = ""
+    private let manager2 = MovieLoadingManager(strategy: .search, query: "mySearch")
     private var movies: [Movie] = []
 
     override func viewDidLoad() {
@@ -83,9 +84,8 @@ extension SearchMovieViewController: UITableViewDelegate {
 extension SearchMovieViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if let searchW = searchBar.text {
-            let replaced = searchW.replacingOccurrences(of: " ", with: "%20")
-            searchWords = replaced
+        if let searchQuery = searchBar.text {
+            searchWords = searchQuery.replacingOccurrences(of: " ", with: "%20")
         }
         manager.currentPageNum = 1
         loadMovies()

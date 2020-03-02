@@ -53,6 +53,8 @@ class MovieLoadingManager {
                     self.totalPages = totalPages
                     if self.currentPage < totalPages {
                         self.canLoadMore = true
+                    } else {
+                        self.canLoadMore = false
                     }
                     self.currentPage += 1
                     completion(result)
