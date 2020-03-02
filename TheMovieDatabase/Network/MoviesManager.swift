@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MoviesService {
+class MoviesManager {
     private let apiKey = "43c76333cdbd2a5869d68050de560ceb"
     var currentPageNum = 1
     var totalPages = 1
@@ -40,8 +40,6 @@ class MoviesService {
                         self.totalPages = totalPages
                         if page < totalPages {
                             self.currentPageNum += 1
-                        } else {
-                            self.currentPageNum = totalPages
                         }
                     }
                 } catch {
@@ -51,11 +49,4 @@ class MoviesService {
             completion(nil)
         }.resume()
     }
-}
-
-private struct MoviesListResponse: Codable {
-    let page: Int?
-    let totalResults: Int?
-    let totalPages: Int?
-    let results: [Movie]?
 }

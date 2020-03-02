@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SearchService {
+class SearchManager {
     private let apiKey = "43c76333cdbd2a5869d68050de560ceb"
     var currentPageNum = 1
     var totalPages = 1
@@ -43,9 +43,10 @@ class SearchService {
                         self.totalPages = totalPages
                         if page < totalPages {
                             self.currentPageNum += 1
-                        } else {
-                            self.currentPageNum = totalPages
                         }
+                        print("current page from server = \(page)")
+                        print("total pages from server = \(totalPages)")
+                        print("my current page = \(self.currentPageNum)")
                     }
                 } catch {
                     completion(nil)
@@ -54,11 +55,4 @@ class SearchService {
             completion(nil)
         }.resume()
     }
-}
-
-private struct MoviesListResponse: Codable {
-    let page: Int?
-    let totalResults: Int?
-    let totalPages: Int?
-    let results: [Movie]?
 }

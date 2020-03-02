@@ -14,11 +14,6 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak private var movieNameLabel: UILabel!
     @IBOutlet weak private var movieDescriptionLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
     func configure (withMovie movie: Movie) {
         movieNameLabel.text = movie.title
         movieDescriptionLabel.text = movie.overview

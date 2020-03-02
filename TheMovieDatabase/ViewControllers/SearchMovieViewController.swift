@@ -12,7 +12,7 @@ class SearchMovieViewController: UIViewController {
 
     @IBOutlet weak private var tableView: UITableView!
 
-    private let manager = SearchService()
+    private let manager = SearchManager()
     private var searchWords = ""
     private var movies: [Movie] = []
 
@@ -48,6 +48,11 @@ class SearchMovieViewController: UIViewController {
 
 // MARK: UITableViewDataSource
 extension SearchMovieViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 129
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
