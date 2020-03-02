@@ -34,7 +34,7 @@ class SearchMovieViewController: UIViewController {
 
     private func addMovies() {
         manager2.loadMovies { (results) in
-            guard let movies = results?.results else {
+            guard let movies = results else {
                 return
             }
             self.movies.append(contentsOf: movies)
@@ -44,7 +44,7 @@ class SearchMovieViewController: UIViewController {
 
     private func loadMovies2() {
         manager2.loadMovies { (results) in
-            guard let movies = results?.results else {
+            guard let movies = results else {
                 return
             }
             self.movies = movies
@@ -103,7 +103,7 @@ extension SearchMovieViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let searchQuery = searchBar.text {
-            searchWords = searchQuery.replacingOccurrences(of: " ", with: "%20")
+            searchWords = searchQuery
         }
         self.manager2 = MovieLoadingManager(strategy: .search, query: searchWords)
         loadMovies2()

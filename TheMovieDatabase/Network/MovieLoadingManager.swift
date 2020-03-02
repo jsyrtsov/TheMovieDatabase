@@ -8,6 +8,29 @@
 
 import Foundation
 
+extension URL {
+    func appending(_ queryItem: String, value: String?) -> URL? {
+        guard var urlComponents = URLComponents(string: absoluteString) else {
+            return absoluteURL
+        }
+
+        // Create array of existing query items
+        var queryItems: [URLQueryItem] = urlComponents.queryItems ??  []
+
+        // Create query item
+        let queryItem = URLQueryItem(name: queryItem, value: value)
+
+        // Append the new query item in the existing query items array
+        queryItems.append(queryItem)
+
+        // Append updated query items array in the url component object
+        urlComponents.queryItems = queryItems
+
+        // Returns the url from new url components
+        return urlComponents.url
+    }
+}
+
 class MovieLoadingManager {
     private var totalPages: Int = 1
     private var currentPage: Int = 1
@@ -19,27 +42,28 @@ class MovieLoadingManager {
         self.query = query
     }
 
-    func loadMovies(completion: @escaping (MoviesListResponse?) -> Void) {
-        var urlString: String = ""
+    func loadMovies(completion: @escaping ([Movie]?) -> Void) {
+        var url: URL?
         switch strategy {
         case .popular:
-            urlString = urlKey + "movie/popular"
+            url = URL(string: urlKey + "movie/popular")
         case .upcoming:
-            urlString = urlKey + "movie/upcoming"
+            url = URL(string: urlKey + "movie/upcoming")
         case .nowPlaying:
-            urlString = urlKey + "movie/now_playing"
+            url = URL(string: urlKey + "movie/now_playing")
         case .search:
-            if let query = query {
-                urlString = urlKey + "search/movie?query=\(query.replacingOccurrences(of: " ", with: "%20"))"
-            }
-            urlString = urlKey + "search/movie?query="
+            url = URL(string: urlKey + "search/movie")
+            url = url?.appending("query", value: query)
         }
-        urlString += "?api_key=\(apiKey)&page=\(currentPage)"
-        guard let url = URL(string: urlString) else {
+
+        url = url?.appending("api_key", value: apiKey)
+        url = url?.appending("page", value: String(currentPage))
+
+        guard let loadingURL = url else {
             return
         }
-        print(urlString)
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        print(loadingURL.absoluteString)
+        URLSession.shared.dataTask(with: loadingURL) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
@@ -58,7 +82,7 @@ class MovieLoadingManager {
                         self.canLoadMore = false
                     }
                     self.currentPage += 1
-                    completion(result)
+                    completion(result.results)
                 }
             } catch {
                 completion(nil)

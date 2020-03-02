@@ -31,7 +31,7 @@ class FeedViewController: UIViewController {
 
     private func loadMovies() {
         manager.loadMovies { (results) in
-            guard let movies = results?.results else {
+            guard let movies = results else {
                 return
             }
             self.movies.append(contentsOf: movies)
