@@ -12,7 +12,7 @@ class FeedViewController: UIViewController {
 
     @IBOutlet weak private var tableView: UITableView!
 
-    private let manager = MoviesService()
+    private let service = MovieLoadingService(strategy: .popular)
 
     private var movies: [Movie] = []
 
@@ -26,10 +26,11 @@ class FeedViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
     }
 
     private func loadMovies() {
-        manager.loadMovies {results in
+        service.loadMovies { (results) in
             guard let movies = results else {
                 return
             }
@@ -48,18 +49,23 @@ extension FeedViewController: UITableViewDelegate {
 
 // MARK: TableViewDataSource
 extension FeedViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 129
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? MovieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? MovieTableViewCell
         cell?.configure(withMovie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 5 {
+        if indexPath.row == movies.count - 5, service.loadMore == true {
             loadMovies()
         }
     }

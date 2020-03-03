@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="moviesCell" rowHeight="129" id="KGk-i7-Jjw" customClass="MovieTableViewCell" customModule="TheMovieDatabase" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="293" height="129"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yj5-a9-uxF">
+                        <rect key="frame" x="16" y="8" width="75" height="113"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="75" id="733-vi-Mjr"/>
+                            <constraint firstAttribute="height" constant="113" id="m0L-76-PKr"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iid-fX-qUl">
+                        <rect key="frame" x="99" y="15" width="186" height="19"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="y3H-1s-8AD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yui-Q6-I1z">
+                        <rect key="frame" x="99" y="38" width="186" height="76"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="76" id="opG-bP-fpw"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Yj5-a9-uxF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="BDF-hZ-aNs"/>
+                    <constraint firstItem="Yj5-a9-uxF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="MOh-tb-T83"/>
+                    <constraint firstAttribute="bottom" secondItem="Yui-Q6-I1z" secondAttribute="bottom" constant="15" id="QXf-YF-JuA"/>
+                    <constraint firstAttribute="trailing" secondItem="Yui-Q6-I1z" secondAttribute="trailing" constant="8" id="WRB-TI-5cn"/>
+                    <constraint firstItem="iid-fX-qUl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="ZyD-3Q-XSX"/>
+                    <constraint firstItem="iid-fX-qUl" firstAttribute="leading" secondItem="Yj5-a9-uxF" secondAttribute="trailing" constant="8" id="iyn-f6-boj"/>
+                    <constraint firstItem="Yui-Q6-I1z" firstAttribute="leading" secondItem="Yj5-a9-uxF" secondAttribute="trailing" constant="8" id="k0v-It-vjY"/>
+                    <constraint firstItem="Yui-Q6-I1z" firstAttribute="top" secondItem="iid-fX-qUl" secondAttribute="bottom" constant="4" id="m75-UN-eq5"/>
+                    <constraint firstAttribute="trailing" secondItem="iid-fX-qUl" secondAttribute="trailing" constant="8" id="mo7-tC-xRG"/>
+                    <constraint firstAttribute="bottom" secondItem="Yj5-a9-uxF" secondAttribute="bottom" constant="8" id="zj7-qO-g0I"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="movieDescriptionLabel" destination="Yui-Q6-I1z" id="6FS-QU-8Eh"/>
+                <outlet property="movieImageView" destination="Yj5-a9-uxF" id="G0o-KZ-8gj"/>
+                <outlet property="movieNameLabel" destination="iid-fX-qUl" id="sfx-eC-eor"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="85.379464285714278"/>
+        </tableViewCell>
+    </objects>
+</document>
