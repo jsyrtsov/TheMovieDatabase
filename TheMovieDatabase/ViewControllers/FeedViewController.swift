@@ -10,9 +10,10 @@ import UIKit
 
 class FeedViewController: UIViewController {
 
+    @IBOutlet weak private var segmentedControl: UISegmentedControl!
     @IBOutlet weak private var tableView: UITableView!
 
-    private let service = MoviesLoadingService(strategy: .popular)
+    private var service = MoviesLoadingService(strategy: .popular)
 
     private var movies: [Movie] = []
 
@@ -27,6 +28,26 @@ class FeedViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
+    }
+
+    @IBAction private func segmentChanged(_ sender: Any) {
+        let segmentIndex = segmentedControl.selectedSegmentIndex
+        switch segmentIndex {
+        case 0:
+            movies = []
+            service = MoviesLoadingService(strategy: .popular)
+            loadMovies()
+        case 1:
+            movies = []
+            service = MoviesLoadingService(strategy: .upcoming)
+            loadMovies()
+        case 2:
+            movies = []
+            service = MoviesLoadingService(strategy: .nowPlaying)
+            loadMovies()
+        default:
+            break
+        }
     }
 
     private func loadMovies() {

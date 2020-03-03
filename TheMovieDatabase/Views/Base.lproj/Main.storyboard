@@ -19,13 +19,16 @@
                                 <rect key="frame" x="0.0" y="127" width="375" height="540"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yPj-Ah-hzb">
+                            <segmentedControl opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yPj-Ah-hzb">
                                 <rect key="frame" x="0.0" y="96" width="375" height="32"/>
                                 <segments>
                                     <segment title="Popular"/>
                                     <segment title="Upcoming"/>
                                     <segment title="Now playing"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="AFD-8N-qi5" eventType="valueChanged" id="Zzi-eW-WyT"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -42,6 +45,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="FUM-EJ-eqr"/>
                     <connections>
+                        <outlet property="segmentedControl" destination="yPj-Ah-hzb" id="BEX-hz-Ver"/>
                         <outlet property="tableView" destination="izS-uZ-Axf" id="XsD-I6-IHL"/>
                     </connections>
                 </viewController>
