@@ -15,7 +15,7 @@ enum MoviesServiceLoadingStrategy {
     case search(query: String?)
 }
 
-enum urlKeys {
+enum UrlParts {
     static let apiKey = "43c76333cdbd2a5869d68050de560ceb"
     static let baseUrl = "https://api.themoviedb.org/3/"
 }

@@ -12,8 +12,7 @@ class SearchMovieViewController: UIViewController {
 
     @IBOutlet weak private var tableView: UITableView!
 
-    private lazy var service = MovieLoadingService(strategy: .search(query: searchWords))
-    private var searchWords = ""
+    private lazy var service = MovieLoadingService(strategy: .search(query: ""))
     private var movies: [Movie] = []
 
     override func viewDidLoad() {
@@ -70,7 +69,7 @@ extension SearchMovieViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 5, service.canLoadMore == true {
+        if indexPath.row == movies.count - 5, service.loadMore == true {
             addMovies()
         }
     }
@@ -88,9 +87,8 @@ extension SearchMovieViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let searchQuery = searchBar.text {
-            searchWords = searchQuery
+            self.service = MovieLoadingService(strategy: .search(query: searchQuery))
         }
-        self.service = MovieLoadingService(strategy: .search(query: searchWords))
         loadMovies()
     }
 

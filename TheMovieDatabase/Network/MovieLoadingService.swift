@@ -13,7 +13,7 @@ class MovieLoadingService {
     private var currentPage: Int = 1
     private var strategy: MoviesServiceLoadingStrategy
     private var query: String?
-    var canLoadMore: Bool = false
+    var loadMore: Bool = false
     init(strategy: MoviesServiceLoadingStrategy) {
         self.strategy = strategy
     }
@@ -22,17 +22,17 @@ class MovieLoadingService {
         var url: URL?
         switch strategy {
         case .popular:
-            url = URL(string: urlKeys.baseUrl + "movie/popular")
+            url = URL(string: UrlParts.baseUrl + "movie/popular")
         case .upcoming:
-            url = URL(string: urlKeys.baseUrl + "movie/upcoming")
+            url = URL(string: UrlParts.baseUrl + "movie/upcoming")
         case .nowPlaying:
-            url = URL(string: urlKeys.baseUrl + "movie/now_playing")
+            url = URL(string: UrlParts.baseUrl + "movie/now_playing")
         case .search(let query):
-            url = URL(string: urlKeys.baseUrl + "search/movie")
+            url = URL(string: UrlParts.baseUrl + "search/movie")
             url = url?.appending("query", value: query)
         }
 
-        url = url?.appending("api_key", value: urlKeys.apiKey)
+        url = url?.appending("api_key", value: UrlParts.apiKey)
         url = url?.appending("page", value: String(currentPage))
 
         guard let loadingURL = url else {
@@ -53,9 +53,9 @@ class MovieLoadingService {
                     }
                     self.totalPages = totalPages
                     if self.currentPage < totalPages {
-                        self.canLoadMore = true
+                        self.loadMore = true
                     } else {
-                        self.canLoadMore = false
+                        self.loadMore = false
                     }
                     self.currentPage += 1
                     completion(result.results)
