@@ -86,9 +86,10 @@ extension SearchMovieViewController: UITableViewDelegate {
 extension SearchMovieViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if let searchQuery = searchBar.text {
-            self.service = MovieLoadingService(strategy: .search(query: searchQuery))
+        guard let searchQuery = searchBar.text else {
+            return
         }
+        self.service = MovieLoadingService(strategy: .search(query: searchQuery))
         loadMovies()
     }
 
