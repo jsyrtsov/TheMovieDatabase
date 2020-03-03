@@ -10,6 +10,7 @@ import UIKit
 
 class SearchMovieViewController: UIViewController {
 
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
 
     private lazy var service = MoviesLoadingService(strategy: .search(query: ""))
@@ -21,6 +22,7 @@ class SearchMovieViewController: UIViewController {
     }
 
     private func configureView() {
+        activityIndicator.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
@@ -47,6 +49,8 @@ class SearchMovieViewController: UIViewController {
             }
             self.movies = movies
             self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
         }
     }
 }
@@ -86,6 +90,8 @@ extension SearchMovieViewController: UITableViewDelegate {
 extension SearchMovieViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
         guard let searchQuery = searchBar.text else {
             return
         }
@@ -96,5 +102,7 @@ extension SearchMovieViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         movies = []
         tableView.reloadData()
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
     }
 }

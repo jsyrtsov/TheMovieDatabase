@@ -58,18 +58,26 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="buV-xb-bUI">
+                                <rect key="frame" x="177.5" y="322" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="hoD-gO-AqE" secondAttribute="bottom" id="4xw-r6-vRQ"/>
+                            <constraint firstItem="buV-xb-bUI" firstAttribute="leading" secondItem="COR-tC-oyL" secondAttribute="leading" constant="177.5" id="8Nu-3y-EvH"/>
                             <constraint firstItem="hoD-gO-AqE" firstAttribute="top" secondItem="jwo-hU-llb" secondAttribute="top" id="Bvj-UM-Jp6"/>
+                            <constraint firstItem="COR-tC-oyL" firstAttribute="trailing" secondItem="buV-xb-bUI" secondAttribute="trailing" constant="177.5" id="Ceq-Lh-Yku"/>
+                            <constraint firstItem="COR-tC-oyL" firstAttribute="bottom" secondItem="buV-xb-bUI" secondAttribute="bottom" constant="276" id="FxY-Zb-JPy"/>
                             <constraint firstItem="hoD-gO-AqE" firstAttribute="trailing" secondItem="COR-tC-oyL" secondAttribute="trailing" id="KG2-14-6f9"/>
+                            <constraint firstItem="buV-xb-bUI" firstAttribute="top" secondItem="COR-tC-oyL" secondAttribute="top" constant="226" id="RCJ-hw-xbm"/>
                             <constraint firstItem="hoD-gO-AqE" firstAttribute="leading" secondItem="COR-tC-oyL" secondAttribute="leading" id="bcz-VC-Yaw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="COR-tC-oyL"/>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="rys-lg-DpQ"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="buV-xb-bUI" id="bl6-eV-SfV"/>
                         <outlet property="tableView" destination="hoD-gO-AqE" id="Oj0-eB-QLr"/>
                     </connections>
                 </viewController>
