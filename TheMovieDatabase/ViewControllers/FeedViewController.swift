@@ -12,7 +12,7 @@ class FeedViewController: UIViewController {
 
     @IBOutlet weak private var tableView: UITableView!
 
-    private let service = MovieLoadingService(strategy: .popular)
+    private let service = MoviesLoadingService(strategy: .popular)
 
     private var movies: [Movie] = []
 
@@ -65,7 +65,7 @@ extension FeedViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 5, service.loadMore == true {
+        if indexPath.row == movies.count - 5, service.canLoadMore == true {
             loadMovies()
         }
     }

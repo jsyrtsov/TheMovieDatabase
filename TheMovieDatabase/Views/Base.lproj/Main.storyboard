@@ -16,16 +16,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="izS-uZ-Axf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="127" width="375" height="540"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yPj-Ah-hzb">
+                                <rect key="frame" x="0.0" y="96" width="375" height="32"/>
+                                <segments>
+                                    <segment title="Popular"/>
+                                    <segment title="Upcoming"/>
+                                    <segment title="Now playing"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="izS-uZ-Axf" firstAttribute="leading" secondItem="nwY-w2-uH1" secondAttribute="leading" id="3JX-jq-NKL"/>
-                            <constraint firstItem="izS-uZ-Axf" firstAttribute="top" secondItem="ysG-wD-OUp" secondAttribute="top" id="4TY-So-WYk"/>
+                            <constraint firstItem="yPj-Ah-hzb" firstAttribute="trailing" secondItem="nwY-w2-uH1" secondAttribute="trailing" id="Cjz-bz-fiE"/>
+                            <constraint firstItem="yPj-Ah-hzb" firstAttribute="leading" secondItem="nwY-w2-uH1" secondAttribute="leading" id="Fkr-0l-6Va"/>
+                            <constraint firstItem="izS-uZ-Axf" firstAttribute="top" secondItem="yPj-Ah-hzb" secondAttribute="bottom" id="nqX-De-JMJ"/>
                             <constraint firstItem="izS-uZ-Axf" firstAttribute="trailing" secondItem="nwY-w2-uH1" secondAttribute="trailing" id="riq-qy-tNI"/>
                             <constraint firstAttribute="bottom" secondItem="izS-uZ-Axf" secondAttribute="bottom" id="v4a-yK-o62"/>
+                            <constraint firstItem="yPj-Ah-hzb" firstAttribute="top" secondItem="nwY-w2-uH1" secondAttribute="top" id="xAe-O4-WSN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nwY-w2-uH1"/>
                     </view>
