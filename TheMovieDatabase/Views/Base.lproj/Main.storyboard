@@ -19,18 +19,26 @@
                                 <rect key="frame" x="0.0" y="96" width="375" height="571"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="gC7-Ge-pX7">
+                                <rect key="frame" x="177.5" y="322" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="nwY-w2-uH1" firstAttribute="bottom" secondItem="gC7-Ge-pX7" secondAttribute="bottom" constant="276" id="3Gh-in-7sB"/>
                             <constraint firstItem="izS-uZ-Axf" firstAttribute="leading" secondItem="nwY-w2-uH1" secondAttribute="leading" id="3JX-jq-NKL"/>
+                            <constraint firstItem="nwY-w2-uH1" firstAttribute="trailing" secondItem="gC7-Ge-pX7" secondAttribute="trailing" constant="177.5" id="5JW-rq-PGX"/>
                             <constraint firstItem="izS-uZ-Axf" firstAttribute="top" secondItem="nwY-w2-uH1" secondAttribute="top" id="lAR-60-r1Z"/>
                             <constraint firstItem="izS-uZ-Axf" firstAttribute="trailing" secondItem="nwY-w2-uH1" secondAttribute="trailing" id="riq-qy-tNI"/>
+                            <constraint firstItem="gC7-Ge-pX7" firstAttribute="top" secondItem="nwY-w2-uH1" secondAttribute="top" constant="226" id="so1-Up-boG"/>
                             <constraint firstAttribute="bottom" secondItem="izS-uZ-Axf" secondAttribute="bottom" id="v4a-yK-o62"/>
+                            <constraint firstItem="gC7-Ge-pX7" firstAttribute="leading" secondItem="nwY-w2-uH1" secondAttribute="leading" constant="177.5" id="yrG-4G-OOB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nwY-w2-uH1"/>
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="FUM-EJ-eqr"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="gC7-Ge-pX7" id="gRu-vw-BQF"/>
                         <outlet property="tableView" destination="izS-uZ-Axf" id="XsD-I6-IHL"/>
                     </connections>
                 </viewController>

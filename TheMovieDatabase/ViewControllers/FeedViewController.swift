@@ -12,6 +12,7 @@ class FeedViewController: UIViewController {
 
     private var segmentedControl: UISegmentedControl?
 
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
 
     private var service = MoviesLoadingService(strategy: .popular)
@@ -42,16 +43,25 @@ class FeedViewController: UIViewController {
         let segmentIndex = segmentedControl?.selectedSegmentIndex
         switch segmentIndex {
         case 0:
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
             movies = []
+            tableView.reloadData()
             service = MoviesLoadingService(strategy: .popular)
             loadMovies()
         case 1:
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
             movies = []
+            tableView.reloadData()
             service = MoviesLoadingService(strategy: .upcoming)
             loadMovies()
 
         case 2:
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
             movies = []
+            tableView.reloadData()
             service = MoviesLoadingService(strategy: .nowPlaying)
             loadMovies()
         default:
@@ -65,6 +75,8 @@ class FeedViewController: UIViewController {
                 return
             }
             self.movies.append(contentsOf: movies)
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
             self.tableView.reloadData()
         }
     }
