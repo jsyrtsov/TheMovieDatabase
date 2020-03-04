@@ -38,7 +38,6 @@ class MoviesLoadingService {
         guard let loadingURL = url else {
             return
         }
-        print(loadingURL.absoluteString)
         URLSession.shared.dataTask(with: loadingURL) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase

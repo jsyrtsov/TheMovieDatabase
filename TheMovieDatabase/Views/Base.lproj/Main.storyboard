@@ -112,7 +112,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="846-za-Myt">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank" translatesAutoresizingMaskIntoConstraints="NO" id="SXw-t1-w7j">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SXw-t1-w7j">
                                         <rect key="frame" x="71" y="8" width="233" height="351"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="233" id="F1n-dt-BMf"/>
@@ -211,6 +211,10 @@
                                         <rect key="frame" x="0.0" y="686.5" width="375" height="30"/>
                                         <state key="normal" title="    Show Images"/>
                                     </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="lK3-UH-a3v">
+                                        <rect key="frame" x="177" y="173" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="b2f-BU-q8N" firstAttribute="leading" secondItem="846-za-Myt" secondAttribute="leading" constant="16" id="0ms-D5-89V"/>
@@ -271,6 +275,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="900"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="lK3-UH-a3v" id="iYi-Jg-rYz"/>
                         <outlet property="budgetLabel" destination="Id8-xq-0r3" id="XfR-sh-qTz"/>
                         <outlet property="descriptionLabel" destination="jeL-KW-yDR" id="xft-gc-hx9"/>
                         <outlet property="imageView" destination="SXw-t1-w7j" id="Gay-B2-8f0"/>
@@ -363,7 +368,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="blank" width="61" height="77"/>
         <image name="iconFavorite" width="28" height="24"/>
         <image name="iconFeed" width="27" height="25"/>
         <image name="iconSearch" width="25" height="25"/>

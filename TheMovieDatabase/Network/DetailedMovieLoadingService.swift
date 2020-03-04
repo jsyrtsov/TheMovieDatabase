@@ -11,7 +11,6 @@ import Foundation
 class DetailedMovieLoadingService {
     func loadDetails(withMovieId movieId: Int, completion: @escaping (DetailedMovie?) -> Void) {
         let urlString = "\(UrlParts.baseUrl)movie/\(movieId)?api_key=\(UrlParts.apiKey)"
-        print(urlString)
         guard let url = URL(string: urlString) else {
             return
         }

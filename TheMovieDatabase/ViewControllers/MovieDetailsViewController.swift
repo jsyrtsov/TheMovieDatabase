@@ -21,10 +21,19 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak private var revenueLabel: UILabel!
     @IBOutlet weak private var runtimeLabel: UILabel!
     @IBOutlet weak private var originalLangLabel: UILabel!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureView()
         loadDetails()
+    }
+
+    private func configureView() {
+        activityIndicator.startAnimating()
+        imageView.isHidden = true
+        descriptionLabel.isHidden = true
+        budgetLabel.isHidden = true
     }
 
     private func loadDetails() {
@@ -36,10 +45,16 @@ class MovieDetailsViewController: UIViewController {
                 return
             }
             self.details = result
-            self.configureView()
+            self.parseData()
         }
     }
-    private func configureView() {
+
+    private func parseData() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        imageView.isHidden = false
+        descriptionLabel.isHidden = false
+        budgetLabel.isHidden = false
         nameLabel.text = details?.title
         descriptionLabel.text = details?.overview
         switch details?.budget {
