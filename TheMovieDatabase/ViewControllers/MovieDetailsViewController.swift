@@ -14,6 +14,8 @@ class MovieDetailsViewController: UIViewController {
     private let service = DetailedMovieLoadingService()
     private var details: DetailedMovie?
 
+    @IBOutlet weak private var playTrailerButton: UIButton!
+    @IBOutlet weak private var showImagesButton: UIButton!
     @IBOutlet weak private var imageView: UIImageView!
     @IBOutlet weak private var nameLabel: UILabel!
     @IBOutlet weak private var descriptionLabel: UILabel!
@@ -30,6 +32,12 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func configureView() {
+        playTrailerButton.isHidden = true
+        showImagesButton.isHidden = true
+        playTrailerButton.layer.borderColor = UIColor.gray.cgColor
+        playTrailerButton.layer.borderWidth = 0.5
+        showImagesButton.layer.borderColor = UIColor.gray.cgColor
+        showImagesButton.layer.borderWidth = 0.5
         navigationItem.largeTitleDisplayMode = .never
         activityIndicator.startAnimating()
         imageView.isHidden = true
@@ -76,8 +84,19 @@ class MovieDetailsViewController: UIViewController {
         default:
             revenueLabel.text = "\(details?.revenue ?? 0)$"
         }
-        runtimeLabel.text = "\(details?.runtime ?? 0)"
+        if let runtime = details?.runtime {
+            let runtimeHours = runtime / 60
+            let runtimeMins = runtime % 60
+            runtimeLabel.text = "\(runtimeHours)h \(runtimeMins)m"
+        }
         originalLangLabel.text = details?.originalLanguage
         imageView.loadPoster(withPosterPath: details?.posterPath)
+    }
+
+    @IBAction private func playTrailerPressed(_ sender: Any) {
+
+    }
+
+    @IBAction private func showImagesPressed(_ sender: Any) {
     }
 }
