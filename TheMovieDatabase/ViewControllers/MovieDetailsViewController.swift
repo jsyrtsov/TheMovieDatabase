@@ -30,10 +30,14 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func configureView() {
+        navigationItem.largeTitleDisplayMode = .never
         activityIndicator.startAnimating()
         imageView.isHidden = true
         descriptionLabel.isHidden = true
         budgetLabel.isHidden = true
+        revenueLabel.isHidden = true
+        runtimeLabel.isHidden = true
+        originalLangLabel.isHidden = true
     }
 
     private func loadDetails() {
@@ -55,6 +59,9 @@ class MovieDetailsViewController: UIViewController {
         imageView.isHidden = false
         descriptionLabel.isHidden = false
         budgetLabel.isHidden = false
+        revenueLabel.isHidden = false
+        runtimeLabel.isHidden = false
+        originalLangLabel.isHidden = false
         nameLabel.text = details?.title
         descriptionLabel.text = details?.overview
         switch details?.budget {
