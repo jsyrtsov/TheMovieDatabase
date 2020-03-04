@@ -8,12 +8,12 @@
 
 import Foundation
 
-class MovieLoadingService {
+class MoviesLoadingService {
     private var totalPages: Int = 1
     private var currentPage: Int = 1
     private var strategy: MoviesServiceLoadingStrategy
     private var query: String?
-    var loadMore: Bool = false
+    var canLoadMore: Bool = false
     init(strategy: MoviesServiceLoadingStrategy) {
         self.strategy = strategy
     }
@@ -38,12 +38,11 @@ class MovieLoadingService {
         guard let loadingURL = url else {
             return
         }
-        print(loadingURL.absoluteString)
         URLSession.shared.dataTask(with: loadingURL) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return
+                return completion(nil)
             }
             do {
                 let result = try decoder.decode(MoviesListResponse.self, from: data)
@@ -53,9 +52,9 @@ class MovieLoadingService {
                     }
                     self.totalPages = totalPages
                     if self.currentPage < totalPages {
-                        self.loadMore = true
+                        self.canLoadMore = true
                     } else {
-                        self.loadMore = false
+                        self.canLoadMore = false
                     }
                     self.currentPage += 1
                     completion(result.results)

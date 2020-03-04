@@ -10,9 +10,12 @@ import UIKit
 
 class FeedViewController: UIViewController {
 
+    private var segmentedControl: UISegmentedControl?
+
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
 
-    private let service = MovieLoadingService(strategy: .popular)
+    private var service = MoviesLoadingService(strategy: .popular)
 
     private var movies: [Movie] = []
 
@@ -27,6 +30,43 @@ class FeedViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
+        let items = ["Popular", "Upcoming", "Now Playing"]
+        segmentedControl = UISegmentedControl(items: items)
+        segmentedControl?.selectedSegmentIndex = 0
+        tableView.tableHeaderView = segmentedControl
+        segmentedControl?.addTarget(self, action: #selector(FeedViewController.indexChanged(_:)), for: .valueChanged)
+
+    }
+
+    @objc
+    private func indexChanged(_ sender: UISegmentedControl) {
+        let segmentIndex = segmentedControl?.selectedSegmentIndex
+        switch segmentIndex {
+        case 0:
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
+            movies = []
+            tableView.reloadData()
+            service = MoviesLoadingService(strategy: .popular)
+            loadMovies()
+        case 1:
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
+            movies = []
+            tableView.reloadData()
+            service = MoviesLoadingService(strategy: .upcoming)
+            loadMovies()
+
+        case 2:
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
+            movies = []
+            tableView.reloadData()
+            service = MoviesLoadingService(strategy: .nowPlaying)
+            loadMovies()
+        default:
+            break
+        }
     }
 
     private func loadMovies() {
@@ -35,6 +75,8 @@ class FeedViewController: UIViewController {
                 return
             }
             self.movies.append(contentsOf: movies)
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
             self.tableView.reloadData()
         }
     }
@@ -44,6 +86,13 @@ class FeedViewController: UIViewController {
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController")
+            as? MovieDetailsViewController  else {
+            return
+        }
+        navigationController?.pushViewController(detailedVC, animated: true)
+        detailedVC.movieId = movies[indexPath.row].id
     }
 }
 
@@ -65,7 +114,7 @@ extension FeedViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 5, service.loadMore == true {
+        if indexPath.row == movies.count - 5, service.canLoadMore == true {
             loadMovies()
         }
     }

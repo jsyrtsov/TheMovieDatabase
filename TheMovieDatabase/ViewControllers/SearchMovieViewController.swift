@@ -10,9 +10,10 @@ import UIKit
 
 class SearchMovieViewController: UIViewController {
 
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
 
-    private lazy var service = MovieLoadingService(strategy: .search(query: ""))
+    private lazy var service = MoviesLoadingService(strategy: .search(query: ""))
     private var movies: [Movie] = []
 
     override func viewDidLoad() {
@@ -21,6 +22,7 @@ class SearchMovieViewController: UIViewController {
     }
 
     private func configureView() {
+        activityIndicator.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
@@ -47,6 +49,8 @@ class SearchMovieViewController: UIViewController {
             }
             self.movies = movies
             self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
         }
     }
 }
@@ -69,7 +73,7 @@ extension SearchMovieViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == movies.count - 5, service.loadMore == true {
+        if indexPath.row == movies.count - 5, service.canLoadMore == true {
             addMovies()
         }
     }
@@ -79,6 +83,13 @@ extension SearchMovieViewController: UITableViewDataSource {
 extension SearchMovieViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController")
+            as? MovieDetailsViewController  else {
+            return
+        }
+        navigationController?.pushViewController(detailedVC, animated: true)
+        detailedVC.movieId = movies[indexPath.row].id
     }
 }
 
@@ -86,15 +97,19 @@ extension SearchMovieViewController: UITableViewDelegate {
 extension SearchMovieViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
         guard let searchQuery = searchBar.text else {
             return
         }
-        self.service = MovieLoadingService(strategy: .search(query: searchQuery))
+        self.service = MoviesLoadingService(strategy: .search(query: searchQuery))
         loadMovies()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         movies = []
         tableView.reloadData()
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
     }
 }
