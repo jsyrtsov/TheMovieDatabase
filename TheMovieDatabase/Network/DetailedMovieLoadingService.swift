@@ -10,11 +10,13 @@ import Foundation
 
 class DetailedMovieLoadingService {
     func loadDetails(withMovieId movieId: Int, completion: @escaping (DetailedMovie?) -> Void) {
-        let urlString = "\(UrlParts.baseUrl)movie/\(movieId)?api_key=\(UrlParts.apiKey)"
-        guard let url = URL(string: urlString) else {
+        var url: URL?
+        url = URL(string: UrlParts.baseUrl + "movie/\(movieId)")
+        url = url?.appending("api_key", value: UrlParts.apiKey)
+        guard let urlLoading = url else {
             return
         }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        URLSession.shared.dataTask(with: urlLoading) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
