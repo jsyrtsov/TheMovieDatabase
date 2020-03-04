@@ -18,7 +18,7 @@ class DetailedMovieLoadingService {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return
+                return completion(nil)
             }
             do {
                 let result = try decoder.decode(DetailedMovie.self, from: data)

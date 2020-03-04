@@ -57,11 +57,11 @@ class MovieDetailsViewController: UIViewController {
                 return
             }
             self.details = result
-            self.parseData()
+            self.updateView()
         }
     }
 
-    private func parseData() {
+    private func updateView() {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
         imageView.isHidden = false
@@ -72,16 +72,14 @@ class MovieDetailsViewController: UIViewController {
         originalLangLabel.isHidden = false
         nameLabel.text = details?.title
         descriptionLabel.text = details?.overview
-        switch details?.budget {
-        case 0:
+        if details?.budget == 0 {
             budgetLabel.text = "Information is coming soon"
-        default:
+        } else {
             budgetLabel.text = "\(details?.budget ?? 0)$"
         }
-        switch details?.revenue {
-        case 0:
+        if details?.revenue == 0 {
             revenueLabel.text = "Information is coming soon"
-        default:
+        } else {
             revenueLabel.text = "\(details?.revenue ?? 0)$"
         }
         if let runtime = details?.runtime {
