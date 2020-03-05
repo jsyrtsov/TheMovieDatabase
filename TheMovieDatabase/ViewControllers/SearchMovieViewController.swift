@@ -43,8 +43,11 @@ class SearchMovieViewController: UIViewController {
     }
 
     private func loadMovies() {
-        service.loadMovies { (results) in
+        service.loadMovies { [weak self] (results) in
             guard let movies = results else {
+                return
+            }
+            guard let self = self else {
                 return
             }
             self.movies = movies

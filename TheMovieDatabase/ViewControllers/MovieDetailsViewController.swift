@@ -52,8 +52,11 @@ class MovieDetailsViewController: UIViewController {
         guard let movieId = movieId else {
             return
         }
-        service.loadDetails(withMovieId: movieId) { (result) in
+        service.loadDetails(withMovieId: movieId) { [weak self] (result) in
             guard let result = result else {
+                return
+            }
+            guard let self = self else {
                 return
             }
             self.details = result
