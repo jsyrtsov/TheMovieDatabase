@@ -18,4 +18,11 @@ extension UIImageView {
             Nuke.loadImage(with: imageUrl, into: self)
         }
     }
+    func loadFullPic(withPath path: String?) {
+        let blankImageUrl = "https://image.tmdb.org/t/p/original"
+        if let imageUrlString = path,
+            let imageUrl = URL(string: blankImageUrl + imageUrlString) {
+            Nuke.loadImage(with: imageUrl, into: self)
+        }
+    }
 }

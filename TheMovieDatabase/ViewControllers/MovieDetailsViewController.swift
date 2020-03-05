@@ -32,8 +32,6 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func configureView() {
-        playTrailerButton.isHidden = true
-        showImagesButton.isHidden = true
         playTrailerButton.layer.borderColor = UIColor.gray.cgColor
         playTrailerButton.layer.borderWidth = 0.5
         showImagesButton.layer.borderColor = UIColor.gray.cgColor
@@ -46,6 +44,22 @@ class MovieDetailsViewController: UIViewController {
         revenueLabel.isHidden = true
         runtimeLabel.isHidden = true
         originalLangLabel.isHidden = true
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        imageView.addGestureRecognizer(tap)
+        imageView.isUserInteractionEnabled = true
+    }
+
+    @objc
+    private func imageTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let fullViewVC = storyboard.instantiateViewController(withIdentifier: "FullPosterViewController")
+            as? FullPosterViewController  else {
+            return
+        }
+        navigationController?.pushViewController(fullViewVC, animated: true)
+        fullViewVC.movieId = movieId
+        fullViewVC.posterPath = details?.posterPath
     }
 
     private func loadDetails() {
