@@ -32,6 +32,8 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func configureView() {
+        playTrailerButton.isHidden = true
+        showImagesButton.isHidden = true
         playTrailerButton.layer.borderColor = UIColor.gray.cgColor
         playTrailerButton.layer.borderWidth = 0.5
         showImagesButton.layer.borderColor = UIColor.gray.cgColor
