@@ -16,7 +16,6 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak private var blankTitle: UILabel!
 
     var movieObjects: Results<MovieObject>?
-    var movies: [Movie] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -49,6 +48,13 @@ class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController")
+            as? DetailedMovieViewController  else {
+            return
+        }
+        navigationController?.pushViewController(detailedVC, animated: true)
+        detailedVC.movieId = movieObjects?[indexPath.row].id.value
     }
 }
 

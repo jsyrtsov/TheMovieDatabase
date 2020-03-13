@@ -169,6 +169,14 @@ class DetailedMovieViewController: UIViewController {
                         }
                     }
                 }
+                let detailedMovieObjects = realm.objects(DetailedMovieObject.self)
+                for element in detailedMovieObjects {
+                    if movieId == element.id.value {
+                        try realm.write {
+                            realm.delete(element)
+                        }
+                    }
+                }
             } catch {
                 print(error)
             }
