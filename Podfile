@@ -8,6 +8,7 @@ target 'TheMovieDatabase' do
   # Pods for TheMovieDatabase
 
 pod 'Nuke'
+pod 'RealmSwift'
 
   target 'TheMovieDatabaseTests' do
     inherit! :search_paths
