@@ -18,6 +18,11 @@ class FavoritesViewController: UIViewController {
     var movieObjects: Results<MovieObject>?
     var movies: [Movie] = []
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.reloadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -30,7 +35,6 @@ class FavoritesViewController: UIViewController {
 
         let realm = try? Realm()
         movieObjects = realm?.objects(MovieObject.self)
-        tableView.reloadData()
         if movieObjects?.isEmpty == true {
             blankImage.isHidden = false
             blankTitle.isHidden = false

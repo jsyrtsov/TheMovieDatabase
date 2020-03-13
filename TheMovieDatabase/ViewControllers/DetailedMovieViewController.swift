@@ -16,7 +16,7 @@ class DetailedMovieViewController: UIViewController {
     private var detailedMovie: DetailedMovie?
     private var detailedMovieObject: DetailedMovieObject?
     private var movieObject: MovieObject?
-    private var isFavorite = false
+    private var isLiked = false
     private var buttonImage = #imageLiteral(resourceName: "likeUntatted")
     private let likeButton = UIButton(type: .custom)
 
@@ -140,13 +140,13 @@ class DetailedMovieViewController: UIViewController {
         guard let detailedMovieObject = detailedMovieObject, let movieObject = movieObject else {
             return
         }
-        if isFavorite == true {
-            isFavorite = false
+        if isLiked == true {
+            isLiked = false
             buttonImage = #imageLiteral(resourceName: "likeUntatted")
             likeButton.setImage(buttonImage, for: .normal)
             storageService.deleteDetailedMovie(withMovie: detailedMovieObject)
         } else {
-            isFavorite = true
+            isLiked = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
             likeButton.setImage(buttonImage, for: .normal)
             storageService.saveDetailedMovie(withMovie: detailedMovieObject)
