@@ -32,8 +32,6 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func configureView() {
-        playTrailerButton.isHidden = true
-        showImagesButton.isHidden = true
         playTrailerButton.layer.borderColor = UIColor.gray.cgColor
         playTrailerButton.layer.borderWidth = 0.5
         showImagesButton.layer.borderColor = UIColor.gray.cgColor
@@ -50,6 +48,18 @@ class MovieDetailsViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
+
+        let likeButton = UIButton(type: .custom)
+        let buttonImage = #imageLiteral(resourceName: "iconFavorite")
+        likeButton.setImage(buttonImage, for: .normal)
+        likeButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
+        let barButtonItem = UIBarButtonItem(customView: likeButton)
+        navigationItem.rightBarButtonItem = barButtonItem
+    }
+
+    @objc
+    private func likeTapped() {
+        print("like was tapped")
     }
 
     @objc

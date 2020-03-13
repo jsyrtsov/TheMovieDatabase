@@ -14,6 +14,8 @@
 		28520073240D719300A8FB05 /* MoviesLoadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28520072240D719300A8FB05 /* MoviesLoadingService.swift */; };
 		28520077240DA55700A8FB05 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28520076240DA55700A8FB05 /* URL.swift */; };
 		288E935B240667F700D67930 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288E935A240667F700D67930 /* UIImageView.swift */; };
+		28908AF6241BDB1A00B64835 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908AF5241BDB1A00B64835 /* StorageService.swift */; };
+		28908AF9241BDCA800B64835 /* MovieObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908AF8241BDCA800B64835 /* MovieObject.swift */; };
 		2896608F240F8B5800505732 /* DetailedMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896608E240F8B5800505732 /* DetailedMovie.swift */; };
 		28966091240F8C7700505732 /* DetailedMovieLoadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28966090240F8C7700505732 /* DetailedMovieLoadingService.swift */; };
 		28966093240FDD9000505732 /* FullPosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28966092240FDD9000505732 /* FullPosterViewController.swift */; };
@@ -50,6 +52,8 @@
 		28520072240D719300A8FB05 /* MoviesLoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLoadingService.swift; sourceTree = "<group>"; };
 		28520076240DA55700A8FB05 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		288E935A240667F700D67930 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		28908AF5241BDB1A00B64835 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		28908AF8241BDCA800B64835 /* MovieObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieObject.swift; sourceTree = "<group>"; };
 		2896608E240F8B5800505732 /* DetailedMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedMovie.swift; sourceTree = "<group>"; };
 		28966090240F8C7700505732 /* DetailedMovieLoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedMovieLoadingService.swift; sourceTree = "<group>"; };
 		28966092240FDD9000505732 /* FullPosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPosterViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +120,15 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		28908AF7241BDB2000B64835 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				28908AF5241BDB1A00B64835 /* StorageService.swift */,
+				28908AF8241BDCA800B64835 /* MovieObject.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		289AE6E2240033740029719B = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +156,7 @@
 				28FD53CA24058E5300AD4923 /* Models */,
 				28FD53CC24058F7C00AD4923 /* Views */,
 				28FD53CB24058E6C00AD4923 /* ViewControllers */,
+				28908AF7241BDB2000B64835 /* Realm */,
 				288E935D240673F300D67930 /* Network */,
 				288E935C240667FC00D67930 /* Extensions */,
 				289AE6F0240033740029719B /* SceneDelegate.swift */,
@@ -412,8 +426,10 @@
 				289AE7112400675A0029719B /* FeedViewController.swift in Sources */,
 				28966091240F8C7700505732 /* DetailedMovieLoadingService.swift in Sources */,
 				289AE713240067790029719B /* FavoritesViewController.swift in Sources */,
+				28908AF6241BDB1A00B64835 /* StorageService.swift in Sources */,
 				2896608F240F8B5800505732 /* DetailedMovie.swift in Sources */,
 				289AE6F1240033740029719B /* SceneDelegate.swift in Sources */,
+				28908AF9241BDCA800B64835 /* MovieObject.swift in Sources */,
 				28520071240A698F00A8FB05 /* UrlParts.swift in Sources */,
 				28520077240DA55700A8FB05 /* URL.swift in Sources */,
 			);
