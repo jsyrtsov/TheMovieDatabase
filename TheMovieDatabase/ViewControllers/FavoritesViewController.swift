@@ -15,10 +15,28 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak private var blankImage: UIImageView!
     @IBOutlet weak private var blankTitle: UILabel!
 
-    var movieObjects: Results<MovieObject>?
+    private var movieObjects: Results<MovieObject>?
+    private var isEmpty: Bool = true
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        let realm = try? Realm()
+        movieObjects = realm?.objects(MovieObject.self)
+        if movieObjects?.isEmpty == true {
+            isEmpty = true
+        } else {
+            isEmpty = false
+        }
+        switch isEmpty {
+        case true:
+            tableView.isHidden = true
+            blankImage.isHidden = false
+            blankTitle.isHidden = false
+        case false:
+            tableView.isHidden = false
+            blankImage.isHidden = true
+            blankTitle.isHidden = true
+        }
         tableView.reloadData()
     }
 
@@ -31,16 +49,7 @@ class FavoritesViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
-
-        let realm = try? Realm()
-        movieObjects = realm?.objects(MovieObject.self)
-        if movieObjects?.isEmpty == true {
-            blankImage.isHidden = false
-            blankTitle.isHidden = false
-        } else {
-            blankImage.isHidden = true
-            blankTitle.isHidden = true
-        }
+        tableView.tableFooterView = UIView()
     }
 }
 
