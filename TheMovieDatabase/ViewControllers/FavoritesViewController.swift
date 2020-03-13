@@ -88,4 +88,44 @@ extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 129
     }
+
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        var movieId: Int = 0
+        do {
+            let realm = try Realm()
+            let movieObjects = realm.objects(MovieObject.self)
+            guard let movieIdNotNil = movieObjects[indexPath.row].id.value else {
+                return
+            }
+            movieId = movieIdNotNil
+        } catch {
+            print(error)
+        }
+        if editingStyle == .delete {
+            do {
+                let realm = try Realm()
+                let movieObjects = realm.objects(MovieObject.self)
+                for element in movieObjects {
+                    if movieId == element.id.value {
+                        try realm.write {
+                            realm.delete(element)
+                        }
+                    }
+                }
+                let detailedMovieObjects = realm.objects(DetailedMovieObject.self)
+                for element in detailedMovieObjects {
+                    if movieId == element.id.value {
+                        try realm.write {
+                            realm.delete(element)
+                        }
+                    }
+                }
+            } catch {
+                print(error)
+            }
+            tableView.reloadData()
+        }
+    }
 }
