@@ -126,6 +126,15 @@ extension FavoritesViewController: UITableViewDataSource {
                 print(error)
             }
             tableView.reloadData()
+            if movieObjects?.isEmpty == true {
+                tableView.isHidden = true
+                blankImage.isHidden = false
+                blankTitle.isHidden = false
+            } else {
+                tableView.isHidden = false
+                blankImage.isHidden = true
+                blankTitle.isHidden = true
+            }
         }
     }
 }

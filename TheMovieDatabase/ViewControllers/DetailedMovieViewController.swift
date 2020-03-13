@@ -34,7 +34,7 @@ class DetailedMovieViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-
+        checkLike()
         switch isLiked {
         case true:
             buttonImage = #imageLiteral(resourceName: "likeTapped")
@@ -49,7 +49,6 @@ class DetailedMovieViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         loadDetails()
-        checkLike()
 
     }
 
