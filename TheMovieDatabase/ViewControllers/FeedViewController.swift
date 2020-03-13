@@ -91,7 +91,7 @@ extension FeedViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController")
-            as? MovieDetailsViewController  else {
+            as? DetailedMovieViewController  else {
             return
         }
         navigationController?.pushViewController(detailedVC, animated: true)

@@ -8,11 +8,14 @@
 
 import UIKit
 
-class MovieDetailsViewController: UIViewController {
+class DetailedMovieViewController: UIViewController {
 
     var movieId: Int?
     private let service = DetailedMovieLoadingService()
     private var details: DetailedMovie?
+    private var isFavorite = false
+    private var buttonImage = #imageLiteral(resourceName: "likeUntatted")
+    private let likeButton = UIButton(type: .custom)
 
     @IBOutlet weak private var playTrailerButton: UIButton!
     @IBOutlet weak private var showImagesButton: UIButton!
@@ -49,8 +52,6 @@ class MovieDetailsViewController: UIViewController {
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
 
-        let likeButton = UIButton(type: .custom)
-        let buttonImage = #imageLiteral(resourceName: "iconFavorite")
         likeButton.setImage(buttonImage, for: .normal)
         likeButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: likeButton)
@@ -59,7 +60,15 @@ class MovieDetailsViewController: UIViewController {
 
     @objc
     private func likeTapped() {
-        print("like was tapped")
+        if isFavorite == true {
+            isFavorite = false
+            buttonImage = #imageLiteral(resourceName: "likeUntatted")
+            likeButton.setImage(buttonImage, for: .normal)
+        } else {
+            isFavorite = true
+            buttonImage = #imageLiteral(resourceName: "likeTapped")
+            likeButton.setImage(buttonImage, for: .normal)
+        }
     }
 
     @objc
