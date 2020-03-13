@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class DetailedMovieViewController: UIViewController {
 
@@ -31,10 +32,25 @@ class DetailedMovieViewController: UIViewController {
     @IBOutlet weak private var originalLangLabel: UILabel!
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+        switch isLiked {
+        case true:
+            buttonImage = #imageLiteral(resourceName: "likeTapped")
+            likeButton.setImage(buttonImage, for: .normal)
+        case false:
+            buttonImage = #imageLiteral(resourceName: "likeUntatted")
+            likeButton.setImage(buttonImage, for: .normal)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         loadDetails()
+        checkLike()
+
     }
 
     private func configureView() {
@@ -61,8 +77,6 @@ class DetailedMovieViewController: UIViewController {
         likeButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: likeButton)
         navigationItem.rightBarButtonItem = barButtonItem
-
-        checkLike()
     }
 
     private func loadDetails() {
@@ -140,12 +154,25 @@ class DetailedMovieViewController: UIViewController {
         guard let detailedMovieObject = detailedMovieObject, let movieObject = movieObject else {
             return
         }
-        if isLiked == true {
+        switch isLiked {
+        case true:
             isLiked = false
             buttonImage = #imageLiteral(resourceName: "likeUntatted")
             likeButton.setImage(buttonImage, for: .normal)
-            storageService.deleteDetailedMovie(withMovie: detailedMovieObject)
-        } else {
+            do {
+                let realm = try Realm()
+                let movieObjects = realm.objects(MovieObject.self)
+                for element in movieObjects {
+                    if movieId == element.id.value {
+                        try realm.write {
+                            realm.delete(element)
+                        }
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        case false:
             isLiked = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
             likeButton.setImage(buttonImage, for: .normal)
@@ -155,7 +182,25 @@ class DetailedMovieViewController: UIViewController {
     }
 
     private func checkLike() {
-
+        var num = 0
+        do {
+            let realm = try Realm()
+            let movieObjects = realm.objects(MovieObject.self)
+            for element in movieObjects {
+                if element.id.value == movieId {
+                    num += 1
+                } else {
+                    num += 0
+                }
+            }
+        } catch {
+            print(error)
+        }
+        if num > 0 {
+            isLiked = true
+        } else {
+            isLiked = false
+        }
     }
 
     @IBAction private func playTrailerPressed(_ sender: Any) {

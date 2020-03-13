@@ -64,7 +64,7 @@ extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? MovieTableViewCell
         guard let movieObjects = movieObjects else {
-            return cell ?? UITableViewCell()
+            return UITableViewCell()
         }
         cell?.configure(withObject: movieObjects[indexPath.row])
         return cell ?? UITableViewCell()
