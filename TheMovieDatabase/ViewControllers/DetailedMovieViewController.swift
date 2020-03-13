@@ -11,8 +11,10 @@ import UIKit
 class DetailedMovieViewController: UIViewController {
 
     var movieId: Int?
+    private let storageService = StorageService()
     private let service = DetailedMovieLoadingService()
-    private var details: DetailedMovie?
+    private var detailedMovie: DetailedMovie?
+    private var detailedMovieObject: DetailedMovieObject?
     private var isFavorite = false
     private var buttonImage = #imageLiteral(resourceName: "likeUntatted")
     private let likeButton = UIButton(type: .custom)
@@ -68,6 +70,17 @@ class DetailedMovieViewController: UIViewController {
             isFavorite = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
             likeButton.setImage(buttonImage, for: .normal)
+            detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
+                                                      overview: detailedMovie?.overview,
+                                                      posterPath: detailedMovie?.posterPath,
+                                                      originalLanguage: detailedMovie?.originalLanguage,
+                                                      runtime: detailedMovie?.runtime,
+                                                      budget: detailedMovie?.budget,
+                                                      revenue: detailedMovie?.revenue)
+            guard let detailedMovieObject = detailedMovieObject else {
+                return
+            }
+            storageService.saveDetailedMovie(withMovie: detailedMovieObject)
         }
     }
 
@@ -80,7 +93,7 @@ class DetailedMovieViewController: UIViewController {
         }
         navigationController?.pushViewController(fullViewVC, animated: true)
         fullViewVC.movieId = movieId
-        fullViewVC.posterPath = details?.posterPath
+        fullViewVC.posterPath = detailedMovie?.posterPath
     }
 
     private func loadDetails() {
@@ -94,7 +107,7 @@ class DetailedMovieViewController: UIViewController {
             guard let self = self else {
                 return
             }
-            self.details = result
+            self.detailedMovie = result
             self.updateView()
         }
     }
@@ -108,25 +121,25 @@ class DetailedMovieViewController: UIViewController {
         revenueLabel.isHidden = false
         runtimeLabel.isHidden = false
         originalLangLabel.isHidden = false
-        nameLabel.text = details?.title
-        descriptionLabel.text = details?.overview
-        if details?.budget == 0 {
+        nameLabel.text = detailedMovie?.title
+        descriptionLabel.text = detailedMovie?.overview
+        if detailedMovie?.budget == 0 {
             budgetLabel.text = "Information is coming soon"
         } else {
-            budgetLabel.text = "\(details?.budget ?? 0)$"
+            budgetLabel.text = "\(detailedMovie?.budget ?? 0)$"
         }
-        if details?.revenue == 0 {
+        if detailedMovie?.revenue == 0 {
             revenueLabel.text = "Information is coming soon"
         } else {
-            revenueLabel.text = "\(details?.revenue ?? 0)$"
+            revenueLabel.text = "\(detailedMovie?.revenue ?? 0)$"
         }
-        if let runtime = details?.runtime {
+        if let runtime = detailedMovie?.runtime {
             let runtimeHours = runtime / 60
             let runtimeMins = runtime % 60
             runtimeLabel.text = "\(runtimeHours)h \(runtimeMins)m"
         }
-        originalLangLabel.text = details?.originalLanguage
-        imageView.loadPoster(withPosterPath: details?.posterPath)
+        originalLangLabel.text = detailedMovie?.originalLanguage
+        imageView.loadPoster(withPosterPath: detailedMovie?.posterPath)
     }
 
     @IBAction private func playTrailerPressed(_ sender: Any) {

@@ -9,4 +9,8 @@
 import RealmSwift
 
 class MovieObject: Object {
+    let id = RealmOptional<Int>()
+    @objc dynamic var posterPath: String?
+    @objc dynamic var title: String?
+    @objc dynamic var overview: String?
 }

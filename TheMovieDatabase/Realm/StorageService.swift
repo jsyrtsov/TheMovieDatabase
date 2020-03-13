@@ -10,15 +10,15 @@ import RealmSwift
 
 let realm = try? Realm()
 
-class StorageManager {
+class StorageService {
 
-    func saveObject(withMovie movie: MovieObject) {
+    func saveDetailedMovie(withMovie movie: DetailedMovieObject) {
         try? realm?.write {
             realm?.add(movie)
         }
     }
 
-    func deleteObject(withMovie movie: MovieObject) {
+    func deleteDetailedMovie(withMovie movie: DetailedMovieObject) {
         try? realm?.write {
             realm?.delete(movie)
         }
