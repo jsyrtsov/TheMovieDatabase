@@ -16,4 +16,5 @@ struct DetailedMovie: Codable {
     let runtime: Int?
     let originalLanguage: String?
     let posterPath: String?
+    let id: Int?
 }

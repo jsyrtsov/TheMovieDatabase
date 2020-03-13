@@ -16,13 +16,15 @@ class DetailedMovieObject: Object {
     let runtime = RealmOptional<Int>()
     let budget = RealmOptional<Int>()
     let revenue = RealmOptional<Int>()
+    let id = RealmOptional<Int>()
     convenience init(title: String?,
                      overview: String?,
                      posterPath: String?,
                      originalLanguage: String?,
                      runtime: Int?,
                      budget: Int?,
-                     revenue: Int?) {
+                     revenue: Int?,
+                     id: Int?) {
         self.init()
         self.overview = overview
         self.title = title
@@ -31,6 +33,6 @@ class DetailedMovieObject: Object {
         self.runtime.value = runtime
         self.budget.value = budget
         self.revenue.value = revenue
-
+        self.id.value = id
     }
 }

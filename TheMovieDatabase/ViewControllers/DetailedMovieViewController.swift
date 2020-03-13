@@ -62,24 +62,26 @@ class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
+        detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
+                                                  overview: detailedMovie?.overview,
+                                                  posterPath: detailedMovie?.posterPath,
+                                                  originalLanguage: detailedMovie?.originalLanguage,
+                                                  runtime: detailedMovie?.runtime,
+                                                  budget: detailedMovie?.budget,
+                                                  revenue: detailedMovie?.revenue,
+                                                  id: movieId)
+        guard let detailedMovieObject = detailedMovieObject else {
+            return
+        }
         if isFavorite == true {
             isFavorite = false
             buttonImage = #imageLiteral(resourceName: "likeUntatted")
             likeButton.setImage(buttonImage, for: .normal)
+            storageService.deleteDetailedMovie(withMovie: detailedMovieObject)
         } else {
             isFavorite = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
             likeButton.setImage(buttonImage, for: .normal)
-            detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
-                                                      overview: detailedMovie?.overview,
-                                                      posterPath: detailedMovie?.posterPath,
-                                                      originalLanguage: detailedMovie?.originalLanguage,
-                                                      runtime: detailedMovie?.runtime,
-                                                      budget: detailedMovie?.budget,
-                                                      revenue: detailedMovie?.revenue)
-            guard let detailedMovieObject = detailedMovieObject else {
-                return
-            }
             storageService.saveDetailedMovie(withMovie: detailedMovieObject)
         }
     }
@@ -92,7 +94,7 @@ class DetailedMovieViewController: UIViewController {
             return
         }
         navigationController?.pushViewController(fullViewVC, animated: true)
-        fullViewVC.movieId = movieId
+        fullViewVC.movieId = detailedMovie?.id
         fullViewVC.posterPath = detailedMovie?.posterPath
     }
 
