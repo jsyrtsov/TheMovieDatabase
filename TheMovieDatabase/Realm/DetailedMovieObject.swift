@@ -17,6 +17,7 @@ class DetailedMovieObject: Object {
     let budget = RealmOptional<Int>()
     let revenue = RealmOptional<Int>()
     let id = RealmOptional<Int>()
+
     convenience init(title: String?,
                      overview: String?,
                      posterPath: String?,

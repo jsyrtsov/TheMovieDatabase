@@ -97,18 +97,37 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank" translatesAutoresizingMaskIntoConstraints="NO" id="5Dr-I6-NGt">
+                                <rect key="frame" x="161" y="252" width="53" height="89"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is nothing. Try to add something in favorites" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9P8-O9-eY2">
+                                <rect key="frame" x="87" y="352" width="200" height="32"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="VmW-sV-0Fx" secondAttribute="bottom" id="3BJ-Ns-fsN"/>
                             <constraint firstItem="VmW-sV-0Fx" firstAttribute="trailing" secondItem="fa2-cd-A84" secondAttribute="trailing" id="7eN-nC-XFP"/>
+                            <constraint firstItem="5Dr-I6-NGt" firstAttribute="top" secondItem="fa2-cd-A84" secondAttribute="top" constant="156" id="Bh9-1c-ee5"/>
+                            <constraint firstItem="9P8-O9-eY2" firstAttribute="leading" secondItem="fa2-cd-A84" secondAttribute="leading" constant="87" id="Dib-wC-XEq"/>
+                            <constraint firstItem="fa2-cd-A84" firstAttribute="trailing" secondItem="5Dr-I6-NGt" secondAttribute="trailing" constant="161" id="Ffu-01-veD"/>
                             <constraint firstItem="VmW-sV-0Fx" firstAttribute="leading" secondItem="fa2-cd-A84" secondAttribute="leading" id="dXP-Y6-Cvo"/>
+                            <constraint firstItem="5Dr-I6-NGt" firstAttribute="leading" secondItem="fa2-cd-A84" secondAttribute="leading" constant="161" id="eAz-AC-eaV"/>
+                            <constraint firstItem="fa2-cd-A84" firstAttribute="bottom" secondItem="9P8-O9-eY2" secondAttribute="bottom" constant="234" id="fQU-xq-08r"/>
+                            <constraint firstItem="fa2-cd-A84" firstAttribute="bottom" secondItem="5Dr-I6-NGt" secondAttribute="bottom" constant="277" id="h5c-Kw-Lvf"/>
+                            <constraint firstItem="9P8-O9-eY2" firstAttribute="top" secondItem="5Dr-I6-NGt" secondAttribute="bottom" constant="11" id="lQv-Yc-EdX"/>
+                            <constraint firstItem="fa2-cd-A84" firstAttribute="trailing" secondItem="9P8-O9-eY2" secondAttribute="trailing" constant="88" id="oG9-W0-FQR"/>
                             <constraint firstItem="VmW-sV-0Fx" firstAttribute="top" secondItem="l1y-74-xnB" secondAttribute="top" id="xxn-4U-YwV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fa2-cd-A84"/>
                     </view>
                     <navigationItem key="navigationItem" title="Favorites" id="7Vf-7y-eC5"/>
                     <connections>
+                        <outlet property="blankImage" destination="5Dr-I6-NGt" id="pPC-Tq-vxu"/>
+                        <outlet property="blankTitle" destination="9P8-O9-eY2" id="za7-fJ-vAb"/>
                         <outlet property="tableView" destination="VmW-sV-0Fx" id="m4M-uo-Jez"/>
                     </connections>
                 </viewController>
@@ -434,6 +453,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="blank" width="61" height="77"/>
         <image name="iconFavorite" width="28" height="24"/>
         <image name="iconFeed" width="27" height="25"/>
         <image name="iconSearch" width="25" height="25"/>

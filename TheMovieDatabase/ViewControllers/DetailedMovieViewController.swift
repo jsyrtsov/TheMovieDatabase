@@ -15,6 +15,7 @@ class DetailedMovieViewController: UIViewController {
     private let service = DetailedMovieLoadingService()
     private var detailedMovie: DetailedMovie?
     private var detailedMovieObject: DetailedMovieObject?
+    private var movieObject: MovieObject?
     private var isFavorite = false
     private var buttonImage = #imageLiteral(resourceName: "likeUntatted")
     private let likeButton = UIButton(type: .custom)
@@ -41,7 +42,9 @@ class DetailedMovieViewController: UIViewController {
         playTrailerButton.layer.borderWidth = 0.5
         showImagesButton.layer.borderColor = UIColor.gray.cgColor
         showImagesButton.layer.borderWidth = 0.5
+
         navigationItem.largeTitleDisplayMode = .never
+
         activityIndicator.startAnimating()
         imageView.isHidden = true
         descriptionLabel.isHidden = true
@@ -58,44 +61,8 @@ class DetailedMovieViewController: UIViewController {
         likeButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: likeButton)
         navigationItem.rightBarButtonItem = barButtonItem
-    }
 
-    @objc
-    private func likeTapped() {
-        detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
-                                                  overview: detailedMovie?.overview,
-                                                  posterPath: detailedMovie?.posterPath,
-                                                  originalLanguage: detailedMovie?.originalLanguage,
-                                                  runtime: detailedMovie?.runtime,
-                                                  budget: detailedMovie?.budget,
-                                                  revenue: detailedMovie?.revenue,
-                                                  id: movieId)
-        guard let detailedMovieObject = detailedMovieObject else {
-            return
-        }
-        if isFavorite == true {
-            isFavorite = false
-            buttonImage = #imageLiteral(resourceName: "likeUntatted")
-            likeButton.setImage(buttonImage, for: .normal)
-            storageService.deleteDetailedMovie(withMovie: detailedMovieObject)
-        } else {
-            isFavorite = true
-            buttonImage = #imageLiteral(resourceName: "likeTapped")
-            likeButton.setImage(buttonImage, for: .normal)
-            storageService.saveDetailedMovie(withMovie: detailedMovieObject)
-        }
-    }
-
-    @objc
-    private func imageTapped() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let fullViewVC = storyboard.instantiateViewController(withIdentifier: "FullPosterViewController")
-            as? FullPosterViewController  else {
-            return
-        }
-        navigationController?.pushViewController(fullViewVC, animated: true)
-        fullViewVC.movieId = detailedMovie?.id
-        fullViewVC.posterPath = detailedMovie?.posterPath
+        checkLike()
     }
 
     private func loadDetails() {
@@ -103,10 +70,7 @@ class DetailedMovieViewController: UIViewController {
             return
         }
         service.loadDetails(withMovieId: movieId) { [weak self] (result) in
-            guard let result = result else {
-                return
-            }
-            guard let self = self else {
+            guard let result = result, let self = self else {
                 return
             }
             self.detailedMovie = result
@@ -123,6 +87,7 @@ class DetailedMovieViewController: UIViewController {
         revenueLabel.isHidden = false
         runtimeLabel.isHidden = false
         originalLangLabel.isHidden = false
+
         nameLabel.text = detailedMovie?.title
         descriptionLabel.text = detailedMovie?.overview
         if detailedMovie?.budget == 0 {
@@ -142,6 +107,55 @@ class DetailedMovieViewController: UIViewController {
         }
         originalLangLabel.text = detailedMovie?.originalLanguage
         imageView.loadPoster(withPosterPath: detailedMovie?.posterPath)
+    }
+
+    @objc
+    private func imageTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let fullViewVC = storyboard.instantiateViewController(withIdentifier: "FullPosterViewController")
+            as? FullPosterViewController  else {
+            return
+        }
+        navigationController?.pushViewController(fullViewVC, animated: true)
+        fullViewVC.movieId = detailedMovie?.id
+        fullViewVC.posterPath = detailedMovie?.posterPath
+    }
+
+    @objc
+    private func likeTapped() {
+        movieObject = MovieObject(id: detailedMovie?.id,
+                                  posterPath: detailedMovie?.posterPath,
+                                  title: detailedMovie?.title,
+                                  overview: detailedMovie?.overview)
+
+        detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
+                                                  overview: detailedMovie?.overview,
+                                                  posterPath: detailedMovie?.posterPath,
+                                                  originalLanguage: detailedMovie?.originalLanguage,
+                                                  runtime: detailedMovie?.runtime,
+                                                  budget: detailedMovie?.budget,
+                                                  revenue: detailedMovie?.revenue,
+                                                  id: detailedMovie?.id)
+
+        guard let detailedMovieObject = detailedMovieObject, let movieObject = movieObject else {
+            return
+        }
+        if isFavorite == true {
+            isFavorite = false
+            buttonImage = #imageLiteral(resourceName: "likeUntatted")
+            likeButton.setImage(buttonImage, for: .normal)
+            storageService.deleteDetailedMovie(withMovie: detailedMovieObject)
+        } else {
+            isFavorite = true
+            buttonImage = #imageLiteral(resourceName: "likeTapped")
+            likeButton.setImage(buttonImage, for: .normal)
+            storageService.saveDetailedMovie(withMovie: detailedMovieObject)
+            storageService.saveMovie(withMovie: movieObject)
+        }
+    }
+
+    private func checkLike() {
+
     }
 
     @IBAction private func playTrailerPressed(_ sender: Any) {

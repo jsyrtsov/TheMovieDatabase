@@ -33,8 +33,8 @@ class SearchMovieViewController: UIViewController {
     }
 
     private func addMovies() {
-        service.loadMovies { (results) in
-            guard let movies = results else {
+        service.loadMovies { [weak self] (results) in
+            guard let movies = results, let self = self else {
                 return
             }
             self.movies.append(contentsOf: movies)
@@ -44,10 +44,7 @@ class SearchMovieViewController: UIViewController {
 
     private func loadMovies() {
         service.loadMovies { [weak self] (results) in
-            guard let movies = results else {
-                return
-            }
-            guard let self = self else {
+            guard let movies = results, let self = self else {
                 return
             }
             self.movies = movies

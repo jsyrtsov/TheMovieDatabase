@@ -13,4 +13,15 @@ class MovieObject: Object {
     @objc dynamic var posterPath: String?
     @objc dynamic var title: String?
     @objc dynamic var overview: String?
+
+    convenience init(id: Int?,
+                     posterPath: String?,
+                     title: String?,
+                     overview: String?) {
+        self.init()
+        self.id.value = id
+        self.posterPath = posterPath
+        self.title = title
+        self.overview = overview
+    }
 }

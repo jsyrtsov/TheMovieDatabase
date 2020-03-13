@@ -23,4 +23,10 @@ class StorageService {
             realm?.delete(movie)
         }
     }
+
+    func saveMovie(withMovie movie: MovieObject) {
+        try? realm?.write {
+            realm?.add(movie)
+        }
+    }
 }
