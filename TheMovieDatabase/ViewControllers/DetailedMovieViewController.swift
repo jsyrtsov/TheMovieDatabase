@@ -15,9 +15,7 @@ class DetailedMovieViewController: UIViewController {
     private let storageService = StorageService()
     private let service = DetailedMovieLoadingService()
     private var detailedMovie: DetailedMovie?
-    private var detailedMovieObject: DetailedMovieObject?
-    private var movieObject: MovieObject?
-    private var isLiked = false
+    private var isFavorite = false
     private var buttonImage = #imageLiteral(resourceName: "likeUntatted")
     private let likeButton = UIButton(type: .custom)
 
@@ -35,14 +33,6 @@ class DetailedMovieViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         checkLike()
-        switch isLiked {
-        case true:
-            buttonImage = #imageLiteral(resourceName: "likeTapped")
-            likeButton.setImage(buttonImage, for: .normal)
-        case false:
-            buttonImage = #imageLiteral(resourceName: "likeUntatted")
-            likeButton.setImage(buttonImage, for: .normal)
-        }
     }
 
     override func viewDidLoad() {
@@ -136,6 +126,8 @@ class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
+        var detailedMovieObject: DetailedMovieObject?
+        var movieObject: MovieObject?
         movieObject = MovieObject(id: detailedMovie?.id,
                                   posterPath: detailedMovie?.posterPath,
                                   title: detailedMovie?.title,
@@ -150,12 +142,8 @@ class DetailedMovieViewController: UIViewController {
                                                   revenue: detailedMovie?.revenue,
                                                   id: detailedMovie?.id)
 
-        guard let detailedMovieObject = detailedMovieObject, let movieObject = movieObject else {
-            return
-        }
-        switch isLiked {
-        case true:
-            isLiked = false
+        if isFavorite {
+            isFavorite = false
             buttonImage = #imageLiteral(resourceName: "likeUntatted")
             likeButton.setImage(buttonImage, for: .normal)
             do {
@@ -179,12 +167,15 @@ class DetailedMovieViewController: UIViewController {
             } catch {
                 print(error)
             }
-        case false:
-            isLiked = true
+        } else {
+            isFavorite = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
             likeButton.setImage(buttonImage, for: .normal)
-            storageService.saveDetailedMovie(withMovie: detailedMovieObject)
-            storageService.saveMovie(withMovie: movieObject)
+            guard let detailedMovieObject = detailedMovieObject, let movieObject = movieObject else {
+                return
+            }
+            storageService.saveDetailedMovie(movie: detailedMovieObject)
+            storageService.saveMovie(movie: movieObject)
         }
     }
 
@@ -204,14 +195,17 @@ class DetailedMovieViewController: UIViewController {
             print(error)
         }
         if num > 0 {
-            isLiked = true
+            isFavorite = true
+            buttonImage = #imageLiteral(resourceName: "likeTapped")
+            likeButton.setImage(buttonImage, for: .normal)
         } else {
-            isLiked = false
+            isFavorite = false
+            buttonImage = #imageLiteral(resourceName: "likeUntatted")
+            likeButton.setImage(buttonImage, for: .normal)
         }
     }
 
     @IBAction private func playTrailerPressed(_ sender: Any) {
-
     }
 
     @IBAction private func showImagesPressed(_ sender: Any) {

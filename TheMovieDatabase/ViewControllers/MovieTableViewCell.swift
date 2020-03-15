@@ -26,5 +26,3 @@ class MovieTableViewCell: UITableViewCell {
         movieImageView.loadPoster(withPosterPath: movie.posterPath)
     }
 }
-
-//TEST COMMIT
