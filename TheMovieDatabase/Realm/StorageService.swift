@@ -21,7 +21,7 @@ class StorageService {
         }
     }
 
-    func ckeckLike<T>(object: T, id: Int?) -> Bool {
+    func isFavorite<T>(object: T, id: Int?) -> Bool {
         guard let object = object as? Object.Type, let id = id else {
             return false
         }
