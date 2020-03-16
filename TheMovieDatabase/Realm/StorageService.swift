@@ -21,22 +21,31 @@ class StorageService {
         }
     }
 
-    func findObjectWithId<T>(object: T, id: Int) -> Object? {
-        guard let object = object as? Object.Type else {
-            return nil
+    func ckeckLike<T>(object: T, id: Int?) -> Bool {
+        guard let object = object as? Object.Type, let id = id else {
+            return false
         }
-        // swiftlint:disable first_where
-        let filtered = realm?.objects(object.self).filter("id == \(id)").first
-        // swiftlint:enable first_where
-        return filtered
+        guard let filtered = realm?.objects(object.self).filter("id == \(id)") else {
+            return false
+        }
+        if filtered.isEmpty {
+            return false
+        } else {
+            return true
+        }
     }
 
-    func removeObject<T>(object: T) {
-        guard let object = object as? Object else {
+    func removeObjectWithId<T>(object: T, id: Int?) where T: Object {
+        guard let id = id else {
             return
         }
+        // swiftlint:disable first_where
+        guard let foundObject = realm?.objects(T.self).filter("id == \(id)").first else {
+            return
+        }
+        // swiftlint:enable first_where
         try? realm?.write {
-            realm?.delete(object)
+            realm?.delete(foundObject)
         }
     }
 

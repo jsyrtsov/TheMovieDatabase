@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 class DetailedMovieViewController: UIViewController {
 
@@ -146,27 +145,11 @@ class DetailedMovieViewController: UIViewController {
             isFavorite = false
             buttonImage = #imageLiteral(resourceName: "likeUntatted")
             likeButton.setImage(buttonImage, for: .normal)
-            do {
-                let realm = try Realm()
-                let movieObjects = realm.objects(MovieObject.self)
-                for element in movieObjects {
-                    if movieId == element.id.value {
-                        try realm.write {
-                            realm.delete(element)
-                        }
-                    }
-                }
-                let detailedMovieObjects = realm.objects(DetailedMovieObject.self)
-                for element in detailedMovieObjects {
-                    if movieId == element.id.value {
-                        try realm.write {
-                            realm.delete(element)
-                        }
-                    }
-                }
-            } catch {
-                print(error)
+            guard let movieObjectNotNil = movieObject, let detailedMovieObjectNotNil = detailedMovieObject else {
+                return
             }
+            storageService.removeObjectWithId(object: movieObjectNotNil, id: movieId)
+            storageService.removeObjectWithId(object: detailedMovieObjectNotNil, id: movieId)
         } else {
             isFavorite = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
@@ -177,21 +160,7 @@ class DetailedMovieViewController: UIViewController {
     }
 
     private func checkLike() {
-        var num = 0
-        do {
-            let realm = try Realm()
-            let movieObjects = realm.objects(MovieObject.self)
-            for element in movieObjects {
-                if element.id.value == movieId {
-                    num += 1
-                } else {
-                    num += 0
-                }
-            }
-        } catch {
-            print(error)
-        }
-        if num > 0 {
+        if storageService.ckeckLike(object: MovieObject.self, id: movieId) {
             isFavorite = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
             likeButton.setImage(buttonImage, for: .normal)
