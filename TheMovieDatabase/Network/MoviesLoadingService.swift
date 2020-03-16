@@ -7,14 +7,17 @@
 //
 
 import Foundation
+import RealmSwift
 
 class MoviesLoadingService {
+    private let storageService = StorageService()
     private let storageMoviesService = StorageMoviesService()
     private var totalPages: Int = 1
     private var currentPage: Int = 1
     private var query: String?
     var canLoadMore: Bool = false
 
+    // MARK: Network methods
     func loadMovies(strategy: MoviesServiceLoadingStrategy, completion: @escaping ([Movie]?) -> Void) {
         var url: URL?
         switch strategy {
@@ -89,6 +92,27 @@ class MoviesLoadingService {
                 }
             }
         }.resume()
+    }
+
+    // MARK: Storage methods
+    func saveObject<T: Object>(object: T?) {
+        storageService.saveObject(object: object)
+    }
+
+    func isFavorite<T>(object: T, id: Int?) -> Bool {
+        storageService.isFavorite(object: object, id: id)
+    }
+
+    func removeObjectWithId<T: Object>(object: T.Type, id: Int?) {
+        storageService.removeObjectWithId(object: object, id: id)
+    }
+
+    func getFavMovies() -> [Movie] {
+        storageMoviesService.getFavMovies()
+    }
+
+    func getMovieInfo(id: Int?) -> DetailedMovie? {
+        storageMoviesService.getMovieInfo(id: id)
     }
 }
 

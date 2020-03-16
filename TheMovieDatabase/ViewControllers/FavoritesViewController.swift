@@ -14,13 +14,12 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak private var blankImage: UIImageView!
     @IBOutlet weak private var blankTitle: UILabel!
 
-    private let storageService = StorageService()
-    private let storageMoviesService = StorageMoviesService()
+    private let service = MoviesLoadingService()
     private var movies: [Movie] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        movies = storageMoviesService.getFavMovies()
+        movies = service.getFavMovies()
         if movies.isEmpty {
             tableView.isHidden = true
             blankImage.isHidden = false
@@ -83,10 +82,10 @@ extension FavoritesViewController: UITableViewDataSource {
             return
         }
         if editingStyle == .delete {
-            storageService.removeObjectWithId(object: MovieObject.self, id: movieId)
-            storageService.removeObjectWithId(object: DetailedMovieObject.self, id: movieId)
+            service.removeObjectWithId(object: MovieObject.self, id: movieId)
+            service.removeObjectWithId(object: DetailedMovieObject.self, id: movieId)
         }
-        movies = storageMoviesService.getFavMovies()
+        movies = service.getFavMovies()
         if movies.isEmpty {
             tableView.isHidden = true
             blankImage.isHidden = false

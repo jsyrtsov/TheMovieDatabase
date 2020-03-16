@@ -11,7 +11,6 @@ import UIKit
 class DetailedMovieViewController: UIViewController {
 
     var movieId: Int?
-    private let storageService = StorageService()
     private let service = MoviesLoadingService()
     private var detailedMovie: DetailedMovie?
     private var isFavorite = false
@@ -144,19 +143,19 @@ class DetailedMovieViewController: UIViewController {
             isFavorite = false
             buttonImage = #imageLiteral(resourceName: "likeUntatted")
             favoriteButton.setImage(buttonImage, for: .normal)
-            storageService.removeObjectWithId(object: MovieObject.self, id: movieId)
-            storageService.removeObjectWithId(object: DetailedMovieObject.self, id: movieId)
+            service.removeObjectWithId(object: MovieObject.self, id: movieId)
+            service.removeObjectWithId(object: DetailedMovieObject.self, id: movieId)
         } else {
             isFavorite = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
             favoriteButton.setImage(buttonImage, for: .normal)
-            storageService.saveObject(object: detailedMovieObject)
-            storageService.saveObject(object: movieObject)
+            service.saveObject(object: detailedMovieObject)
+            service.saveObject(object: movieObject)
         }
     }
 
     private func checkFavorite() {
-        if storageService.isFavorite(object: MovieObject.self, id: movieId) {
+        if service.isFavorite(object: MovieObject.self, id: movieId) {
             isFavorite = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
             favoriteButton.setImage(buttonImage, for: .normal)
