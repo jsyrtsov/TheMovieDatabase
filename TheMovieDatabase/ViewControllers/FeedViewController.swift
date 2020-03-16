@@ -15,7 +15,7 @@ class FeedViewController: UIViewController {
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
 
-    private let service = MoviesLoadingService()
+    private lazy var service = MoviesLoadingService()
 
     private var movies: [Movie] = []
 
