@@ -11,14 +11,10 @@ import Foundation
 class MoviesLoadingService {
     private var totalPages: Int = 1
     private var currentPage: Int = 1
-    private var strategy: MoviesServiceLoadingStrategy
     private var query: String?
     var canLoadMore: Bool = false
-    init(strategy: MoviesServiceLoadingStrategy) {
-        self.strategy = strategy
-    }
 
-    func loadMovies(completion: @escaping ([Movie]?) -> Void) {
+    func loadMovies(strategy: MoviesServiceLoadingStrategy, completion: @escaping ([Movie]?) -> Void) {
         var url: URL?
         switch strategy {
         case .popular:
@@ -58,6 +54,30 @@ class MoviesLoadingService {
                     }
                     self.currentPage += 1
                     completion(result.results)
+                }
+            } catch {
+                completion(nil)
+            }
+        }.resume()
+    }
+
+    func loadDetails(withMovieId movieId: Int, completion: @escaping (DetailedMovie?) -> Void) {
+        var url: URL?
+        url = URL(string: UrlParts.baseUrl + "movie/\(movieId)")
+        url = url?.appending("api_key", value: UrlParts.apiKey)
+        guard let urlLoading = url else {
+            return
+        }
+        URLSession.shared.dataTask(with: urlLoading) { (data, response, error) in
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            guard let data = data else {
+                return completion(nil)
+            }
+            do {
+                let result = try decoder.decode(DetailedMovie.self, from: data)
+                DispatchQueue.main.async {
+                    completion(result)
                 }
             } catch {
                 completion(nil)

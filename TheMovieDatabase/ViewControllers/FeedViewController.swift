@@ -15,9 +15,10 @@ class FeedViewController: UIViewController {
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
 
-    private var service = MoviesLoadingService(strategy: .popular)
+    private let service = MoviesLoadingService()
 
     private var movies: [Movie] = []
+    private var strategy: MoviesServiceLoadingStrategy = .popular
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,14 +48,14 @@ class FeedViewController: UIViewController {
             self.activityIndicator.startAnimating()
             movies = []
             tableView.reloadData()
-            service = MoviesLoadingService(strategy: .popular)
+            strategy = .popular
             loadMovies()
         case 1:
             self.activityIndicator.isHidden = false
             self.activityIndicator.startAnimating()
             movies = []
             tableView.reloadData()
-            service = MoviesLoadingService(strategy: .upcoming)
+            strategy = .upcoming
             loadMovies()
 
         case 2:
@@ -62,7 +63,7 @@ class FeedViewController: UIViewController {
             self.activityIndicator.startAnimating()
             movies = []
             tableView.reloadData()
-            service = MoviesLoadingService(strategy: .nowPlaying)
+            strategy = .nowPlaying
             loadMovies()
         default:
             break
@@ -70,7 +71,7 @@ class FeedViewController: UIViewController {
     }
 
     private func loadMovies() {
-        service.loadMovies { [weak self] (results) in
+        service.loadMovies(strategy: strategy) { [weak self] (results) in
             guard let movies = results else {
                 return
             }

@@ -12,7 +12,7 @@ class DetailedMovieViewController: UIViewController {
 
     var movieId: Int?
     private let storageService = StorageService()
-    private let service = DetailedMovieLoadingService()
+    private let service = MoviesLoadingService()
     private var detailedMovie: DetailedMovie?
     private var isFavorite = false
     private var buttonImage = #imageLiteral(resourceName: "likeUntatted")

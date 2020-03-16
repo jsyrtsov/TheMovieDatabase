@@ -13,7 +13,8 @@ class SearchMovieViewController: UIViewController {
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
 
-    private lazy var service = MoviesLoadingService(strategy: .search(query: ""))
+    private var service = MoviesLoadingService()
+    private var query = ""
     private var movies: [Movie] = []
 
     override func viewDidLoad() {
@@ -32,8 +33,8 @@ class SearchMovieViewController: UIViewController {
         search.searchBar.delegate = self
     }
 
-    private func addMovies() {
-        service.loadMovies { [weak self] (results) in
+    private func addMovies(query: String) {
+        service.loadMovies(strategy: .search(query: query)) { [weak self] (results) in
             guard let movies = results, let self = self else {
                 return
             }
@@ -42,8 +43,8 @@ class SearchMovieViewController: UIViewController {
         }
     }
 
-    private func loadMovies() {
-        service.loadMovies { [weak self] (results) in
+    private func loadMovies(query: String) {
+        service.loadMovies(strategy: .search(query: query)) { [weak self] (results) in
             guard let movies = results, let self = self else {
                 return
             }
@@ -74,7 +75,7 @@ extension SearchMovieViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 5, service.canLoadMore == true {
-            addMovies()
+            addMovies(query: query)
         }
     }
 }
@@ -102,8 +103,9 @@ extension SearchMovieViewController: UISearchBarDelegate {
         guard let searchQuery = searchBar.text else {
             return
         }
-        self.service = MoviesLoadingService(strategy: .search(query: searchQuery))
-        loadMovies()
+        service = MoviesLoadingService()
+        query = searchQuery
+        loadMovies(query: query)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
