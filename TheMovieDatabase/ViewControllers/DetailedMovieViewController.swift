@@ -144,11 +144,8 @@ class DetailedMovieViewController: UIViewController {
             isFavorite = false
             buttonImage = #imageLiteral(resourceName: "likeUntatted")
             likeButton.setImage(buttonImage, for: .normal)
-            guard let movieObjectNotNil = movieObject, let detailedMovieObjectNotNil = detailedMovieObject else {
-                return
-            }
-            storageService.removeObjectWithId(object: movieObjectNotNil, id: movieId)
-            storageService.removeObjectWithId(object: detailedMovieObjectNotNil, id: movieId)
+            storageService.removeObjectWithId(object: MovieObject.self, id: movieId)
+            storageService.removeObjectWithId(object: DetailedMovieObject.self, id: movieId)
         } else {
             isFavorite = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")

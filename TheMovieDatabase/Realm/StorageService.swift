@@ -35,7 +35,7 @@ class StorageService {
         }
     }
 
-    func removeObjectWithId<T>(object: T, id: Int?) where T: Object {
+    func removeObjectWithId<T: Object>(object: T.Type, id: Int?) {
         guard let id = id else {
             return
         }

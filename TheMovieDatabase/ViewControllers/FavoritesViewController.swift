@@ -82,10 +82,8 @@ extension FavoritesViewController: UITableViewDataSource {
             return
         }
         if editingStyle == .delete {
-            let movieObject = MovieObject()
-            let detailedMovieObject = DetailedMovieObject()
-            storageService.removeObjectWithId(object: movieObject, id: movieId)
-            storageService.removeObjectWithId(object: detailedMovieObject, id: movieId)
+            storageService.removeObjectWithId(object: MovieObject.self, id: movieId)
+            storageService.removeObjectWithId(object: DetailedMovieObject.self, id: movieId)
         }
         movies = storageService.getFavMovies()
         if movies.isEmpty {
