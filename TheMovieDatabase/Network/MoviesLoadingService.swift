@@ -9,6 +9,7 @@
 import Foundation
 
 class MoviesLoadingService {
+    private let storageMoviesService = StorageMoviesService()
     private var totalPages: Int = 1
     private var currentPage: Int = 1
     private var query: String?
@@ -72,7 +73,7 @@ class MoviesLoadingService {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return completion(nil)
+                return completion(self.storageMoviesService.getMovieInfo(id: movieId))
             }
             do {
                 let result = try decoder.decode(DetailedMovie.self, from: data)
@@ -80,7 +81,7 @@ class MoviesLoadingService {
                     completion(result)
                 }
             } catch {
-                completion(nil)
+                completion(self.storageMoviesService.getMovieInfo(id: movieId))
             }
         }.resume()
     }

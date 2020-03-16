@@ -48,19 +48,4 @@ class StorageService {
             realm?.delete(foundObject)
         }
     }
-
-    func getFavMovies() -> [Movie] {
-        guard let objects = realm?.objects(MovieObject.self) else {
-            return []
-        }
-        var movies: [Movie] = []
-        for element in objects {
-            let movie = Movie(posterPath: element.posterPath,
-                              id: element.id.value,
-                              title: element.title,
-                              overview: element.overview)
-            movies.append(movie)
-        }
-        return movies
-    }
 }
