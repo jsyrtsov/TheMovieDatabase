@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="359" id="KGk-i7-Jjw" customClass="NewMovieTableViewCell" customModule="TheMovieDatabase" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="359" height="359"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="359" height="359"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hXi-vg-IeR">
+                        <rect key="frame" x="0.0" y="0.0" width="359" height="202"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="202" id="1Ip-fQ-iAm"/>
+                            <constraint firstAttribute="width" constant="359" id="hCe-1u-zR2"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0s-0K-SDX">
+                        <rect key="frame" x="20" y="217" width="254" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="Cfp-EY-0WG"/>
+                            <constraint firstAttribute="width" constant="254" id="Y5h-BJ-DeM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="34"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ar6-Zf-tSC">
+                        <rect key="frame" x="14" y="269" width="331" height="70"/>
+                        <string key="text">During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.</string>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reY-I6-VnP">
+                        <rect key="frame" x="294" y="210" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="f30-L8-dQp"/>
+                            <constraint firstAttribute="height" constant="45" id="qWD-MX-s2l"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1C8-vc-yJI">
+                        <rect key="frame" x="294" y="248" width="45" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="guL-AX-DZW"/>
+                            <constraint firstAttribute="height" constant="16" id="rDG-lZ-zn8"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <color key="textColor" white="0.21802761130000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ar6-Zf-tSC" firstAttribute="top" secondItem="reY-I6-VnP" secondAttribute="bottom" constant="14" id="2rZ-ce-pqz"/>
+                    <constraint firstItem="Ar6-Zf-tSC" firstAttribute="top" secondItem="1C8-vc-yJI" secondAttribute="bottom" constant="5" id="7BA-zh-Whj"/>
+                    <constraint firstItem="hXi-vg-IeR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8dj-Wk-f1k"/>
+                    <constraint firstItem="Ar6-Zf-tSC" firstAttribute="top" secondItem="R0s-0K-SDX" secondAttribute="bottom" constant="9" id="8hb-BU-0wR"/>
+                    <constraint firstAttribute="trailing" secondItem="reY-I6-VnP" secondAttribute="trailing" constant="20" id="CYN-jY-pPZ"/>
+                    <constraint firstItem="hXi-vg-IeR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Fj1-XS-czv"/>
+                    <constraint firstItem="Ar6-Zf-tSC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="M7Q-bP-M6m"/>
+                    <constraint firstItem="reY-I6-VnP" firstAttribute="top" secondItem="hXi-vg-IeR" secondAttribute="bottom" constant="8" id="Ner-sS-35b"/>
+                    <constraint firstAttribute="trailing" secondItem="1C8-vc-yJI" secondAttribute="trailing" constant="20" id="YER-Ot-aMQ"/>
+                    <constraint firstAttribute="bottom" secondItem="hXi-vg-IeR" secondAttribute="bottom" constant="157" id="Zcq-W5-Ddh"/>
+                    <constraint firstItem="R0s-0K-SDX" firstAttribute="top" secondItem="hXi-vg-IeR" secondAttribute="bottom" constant="15" id="aNm-K2-GxG"/>
+                    <constraint firstAttribute="trailing" secondItem="hXi-vg-IeR" secondAttribute="trailing" id="aOh-Bl-Ria"/>
+                    <constraint firstItem="1C8-vc-yJI" firstAttribute="leading" secondItem="R0s-0K-SDX" secondAttribute="trailing" constant="20" id="eGj-LM-sz8"/>
+                    <constraint firstItem="reY-I6-VnP" firstAttribute="leading" secondItem="R0s-0K-SDX" secondAttribute="trailing" constant="20" id="hcc-fH-pYa"/>
+                    <constraint firstItem="R0s-0K-SDX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="jsV-ZZ-7Ma"/>
+                    <constraint firstAttribute="bottom" secondItem="Ar6-Zf-tSC" secondAttribute="bottom" constant="20" id="mSf-LZ-Z1f"/>
+                    <constraint firstAttribute="trailing" secondItem="Ar6-Zf-tSC" secondAttribute="trailing" constant="14" id="prb-0k-a7g"/>
+                    <constraint firstItem="1C8-vc-yJI" firstAttribute="top" secondItem="hXi-vg-IeR" secondAttribute="bottom" constant="46" id="wV0-T9-PcX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="109.42028985507247" y="238.05803571428569"/>
+        </tableViewCell>
+    </objects>
+</document>
