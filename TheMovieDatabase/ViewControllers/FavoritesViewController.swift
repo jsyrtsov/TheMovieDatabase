@@ -15,24 +15,18 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak private var blankImage: UIImageView!
     @IBOutlet weak private var blankTitle: UILabel!
 
-    private var movieObjects: Results<MovieObject>?
-    private var isEmpty: Bool = true
+    //private var movieObjects: Results<MovieObject>?
+    private let storageService = StorageService()
+    private var movies: [Movie] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        let realm = try? Realm()
-        movieObjects = realm?.objects(MovieObject.self)
-        if movieObjects?.isEmpty == true {
-            isEmpty = true
-        } else {
-            isEmpty = false
-        }
-        switch isEmpty {
-        case true:
+        movies = storageService.getFavMovies()
+        if movies.isEmpty {
             tableView.isHidden = true
             blankImage.isHidden = false
             blankTitle.isHidden = false
-        case false:
+        } else {
             tableView.isHidden = false
             blankImage.isHidden = true
             blankTitle.isHidden = true
@@ -63,25 +57,19 @@ extension FavoritesViewController: UITableViewDelegate {
             return
         }
         navigationController?.pushViewController(detailedVC, animated: true)
-        detailedVC.movieId = movieObjects?[indexPath.row].id.value
+        detailedVC.movieId = movies[indexPath.row].id
     }
 }
 
 // MARK: TableViewDataSource
 extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let num = movieObjects?.count else {
-            return 0
-        }
-        return num
+        return movies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? MovieTableViewCell
-        guard let movieObjects = movieObjects else {
-            return UITableViewCell()
-        }
-        cell?.configure(withObject: movieObjects[indexPath.row])
+        cell?.configure(withMovie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }
 
@@ -92,16 +80,8 @@ extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
-        var movieId: Int = 0
-        do {
-            let realm = try Realm()
-            let movieObjects = realm.objects(MovieObject.self)
-            guard let movieIdNotNil = movieObjects[indexPath.row].id.value else {
-                return
-            }
-            movieId = movieIdNotNil
-        } catch {
-            print(error)
+        guard let movieId = movies[indexPath.row].id else {
+            return
         }
         if editingStyle == .delete {
             do {
@@ -125,16 +105,17 @@ extension FavoritesViewController: UITableViewDataSource {
             } catch {
                 print(error)
             }
-            tableView.reloadData()
-            if movieObjects?.isEmpty == true {
-                tableView.isHidden = true
-                blankImage.isHidden = false
-                blankTitle.isHidden = false
-            } else {
-                tableView.isHidden = false
-                blankImage.isHidden = true
-                blankTitle.isHidden = true
-            }
         }
+        movies = storageService.getFavMovies()
+        if movies.isEmpty {
+            tableView.isHidden = true
+            blankImage.isHidden = false
+            blankTitle.isHidden = false
+        } else {
+            tableView.isHidden = false
+            blankImage.isHidden = true
+            blankTitle.isHidden = true
+        }
+        tableView.reloadData()
     }
 }

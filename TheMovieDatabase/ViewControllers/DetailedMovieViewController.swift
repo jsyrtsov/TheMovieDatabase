@@ -171,11 +171,8 @@ class DetailedMovieViewController: UIViewController {
             isFavorite = true
             buttonImage = #imageLiteral(resourceName: "likeTapped")
             likeButton.setImage(buttonImage, for: .normal)
-            guard let detailedMovieObject = detailedMovieObject, let movieObject = movieObject else {
-                return
-            }
-            storageService.saveDetailedMovie(movie: detailedMovieObject)
-            storageService.saveMovie(movie: movieObject)
+            storageService.saveObject(object: detailedMovieObject)
+            storageService.saveObject(object: movieObject)
         }
     }
 
