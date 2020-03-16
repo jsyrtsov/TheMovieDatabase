@@ -73,7 +73,10 @@ class MoviesLoadingService {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return completion(self.storageMoviesService.getMovieInfo(id: movieId))
+                return
+                    DispatchQueue.main.async {
+                        completion(self.storageMoviesService.getMovieInfo(id: movieId))
+                    }
             }
             do {
                 let result = try decoder.decode(DetailedMovie.self, from: data)
@@ -81,7 +84,9 @@ class MoviesLoadingService {
                     completion(result)
                 }
             } catch {
-                completion(self.storageMoviesService.getMovieInfo(id: movieId))
+                DispatchQueue.main.async {
+                    completion(self.storageMoviesService.getMovieInfo(id: movieId))
+                }
             }
         }.resume()
     }
