@@ -19,10 +19,4 @@ class MovieTableViewCell: UITableViewCell {
         movieDescriptionLabel.text = movie.overview
         movieImageView.loadPoster(withPosterPath: movie.posterPath)
     }
-
-    func configure (withObject movie: MovieObject) {
-        movieNameLabel.text = movie.title
-        movieDescriptionLabel.text = movie.overview
-        movieImageView.loadPoster(withPosterPath: movie.posterPath)
-    }
 }
