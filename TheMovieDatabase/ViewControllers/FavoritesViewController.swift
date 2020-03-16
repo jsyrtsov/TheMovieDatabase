@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 class FavoritesViewController: UIViewController {
 
@@ -15,7 +14,6 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak private var blankImage: UIImageView!
     @IBOutlet weak private var blankTitle: UILabel!
 
-    //private var movieObjects: Results<MovieObject>?
     private let storageService = StorageService()
     private var movies: [Movie] = []
 
@@ -84,27 +82,10 @@ extension FavoritesViewController: UITableViewDataSource {
             return
         }
         if editingStyle == .delete {
-            do {
-                let realm = try Realm()
-                let movieObjects = realm.objects(MovieObject.self)
-                for element in movieObjects {
-                    if movieId == element.id.value {
-                        try realm.write {
-                            realm.delete(element)
-                        }
-                    }
-                }
-                let detailedMovieObjects = realm.objects(DetailedMovieObject.self)
-                for element in detailedMovieObjects {
-                    if movieId == element.id.value {
-                        try realm.write {
-                            realm.delete(element)
-                        }
-                    }
-                }
-            } catch {
-                print(error)
-            }
+            let movieObject = MovieObject()
+            let detailedMovieObject = DetailedMovieObject()
+            storageService.removeObjectWithId(object: movieObject, id: movieId)
+            storageService.removeObjectWithId(object: detailedMovieObject, id: movieId)
         }
         movies = storageService.getFavMovies()
         if movies.isEmpty {

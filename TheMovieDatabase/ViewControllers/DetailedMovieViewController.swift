@@ -38,7 +38,6 @@ class DetailedMovieViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         loadDetails()
-
     }
 
     private func configureView() {
