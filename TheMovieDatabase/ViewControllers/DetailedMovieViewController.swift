@@ -39,6 +39,9 @@ class DetailedMovieViewController: UIViewController {
     }
 
     private func configureView() {
+        imageView.layer.cornerRadius = 7
+        imageView.clipsToBounds = true
+
         playTrailerButton.layer.borderColor = UIColor.gray.cgColor
         playTrailerButton.layer.borderWidth = 0.5
         showImagesButton.layer.borderColor = UIColor.gray.cgColor
@@ -105,7 +108,7 @@ class DetailedMovieViewController: UIViewController {
             runtimeLabel.text = "\(runtimeHours)h \(runtimeMins)m"
         }
         originalLangLabel.text = detailedMovie?.originalLanguage
-        imageView.loadPoster(withPosterPath: detailedMovie?.posterPath)
+        imageView.loadPoster(withPosterPath: detailedMovie?.backdropPath)
     }
 
     @objc
