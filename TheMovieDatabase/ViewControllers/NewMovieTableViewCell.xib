@@ -41,9 +41,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reY-I6-VnP">
-                                <rect key="frame" x="316.5" y="26.5" width="25.5" height="21.5"/>
+                                <rect key="frame" x="302" y="13" width="40" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="4Jz-xu-sjJ"/>
+                                    <constraint firstAttribute="height" constant="32" id="cXl-lX-1Jc"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0s-0K-SDX">
@@ -59,13 +63,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="1C8-vc-yJI" firstAttribute="top" secondItem="R0s-0K-SDX" secondAttribute="bottom" constant="-1" id="IjK-Nt-te3"/>
-                            <constraint firstItem="Ar6-Zf-tSC" firstAttribute="top" secondItem="reY-I6-VnP" secondAttribute="bottom" constant="9" id="IuW-7k-B7r"/>
                             <constraint firstAttribute="trailing" secondItem="Ar6-Zf-tSC" secondAttribute="trailing" constant="15" id="LAg-ia-aMt"/>
-                            <constraint firstAttribute="trailing" secondItem="reY-I6-VnP" secondAttribute="trailing" constant="17" id="ThF-oC-1XZ"/>
                             <constraint firstItem="R0s-0K-SDX" firstAttribute="top" secondItem="g3m-fi-4WO" secondAttribute="top" constant="17" id="WtU-Oq-nvl"/>
+                            <constraint firstItem="reY-I6-VnP" firstAttribute="centerY" secondItem="R0s-0K-SDX" secondAttribute="centerY" id="agf-vb-FwS"/>
+                            <constraint firstAttribute="trailing" secondItem="reY-I6-VnP" secondAttribute="trailing" constant="17" id="kH6-ke-CXJ"/>
                             <constraint firstAttribute="bottom" secondItem="Ar6-Zf-tSC" secondAttribute="bottom" constant="16" id="l00-ve-FyR"/>
                             <constraint firstItem="Ar6-Zf-tSC" firstAttribute="top" secondItem="1C8-vc-yJI" secondAttribute="bottom" constant="6" id="mF2-TV-Ib0"/>
-                            <constraint firstItem="reY-I6-VnP" firstAttribute="leading" secondItem="R0s-0K-SDX" secondAttribute="trailing" constant="16.5" id="yxd-Dr-DUV"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISq-uu-xHE">

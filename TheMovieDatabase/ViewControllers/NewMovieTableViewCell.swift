@@ -19,6 +19,8 @@ class NewMovieTableViewCell: UITableViewCell {
     @IBOutlet weak private var year: UILabel!
     @IBOutlet weak private var voteAverage: UILabel!
 
+    private var vote: Double = 0.0
+
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
@@ -30,12 +32,27 @@ class NewMovieTableViewCell: UITableViewCell {
         guard let vote = movie.voteAverage else {
             return
         }
-        voteAverage.text = String(vote)
+        self.vote = vote
+        voteAverage.text = String(self.vote)
         guard let yearStr = movie.releaseDate?.prefix(4) else {
             return
         }
         year.text = String(yearStr)
         posterImageView.loadPoster(withPosterPath: movie.posterPath)
+
+        if vote > 7.5 {
+            voteAverage.textColor = UIColor(red: 30 / 255,
+                                            green: 134 / 255,
+                                            blue: 53 / 255,
+                                            alpha: 1)
+        } else if vote == 0.0 {
+            voteAverage.isHidden = true
+        } else if vote < 6.0 {
+            voteAverage.textColor = UIColor(red: 155 / 255,
+                                            green: 36 / 255,
+                                            blue: 36 / 255,
+                                            alpha: 1)
+        }
     }
 
     private func configureUI() {
