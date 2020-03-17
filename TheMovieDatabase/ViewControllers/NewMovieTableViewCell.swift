@@ -48,7 +48,7 @@ class NewMovieTableViewCell: UITableViewCell {
         shadowImageView.layer.shadowOpacity = 0.25
         shadowImageView.layer.masksToBounds = false
         shadowImageView.layer.shadowOffset = CGSize(width: 1, height: 0)
-        shadowImageView.layer.shadowRadius = 8
+        shadowImageView.layer.shadowRadius = 5
 
         cellView.layer.cornerRadius = 10
         shadowCellView.layer.cornerRadius = 10
