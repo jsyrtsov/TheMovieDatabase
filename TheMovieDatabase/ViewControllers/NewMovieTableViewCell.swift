@@ -52,6 +52,11 @@ class NewMovieTableViewCell: UITableViewCell {
                                             green: 36 / 255,
                                             blue: 36 / 255,
                                             alpha: 1)
+        } else {
+            voteAverage.textColor = UIColor(red: 124 / 255,
+                                            green: 124 / 255,
+                                            blue: 124 / 255,
+                                            alpha: 1)
         }
     }
 
