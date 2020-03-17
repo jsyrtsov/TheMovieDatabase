@@ -13,7 +13,7 @@ class StorageMoviesService: StorageService {
 
     private let realm = try? Realm()
 
-    func getFavMovies() -> [Movie] {
+    func getFavoriteMovies() -> [Movie] {
         guard let objects = realm?.objects(MovieObject.self) else {
             return []
         }

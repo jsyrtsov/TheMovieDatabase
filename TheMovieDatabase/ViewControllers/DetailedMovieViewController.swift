@@ -14,7 +14,6 @@ class DetailedMovieViewController: UIViewController {
     private let service = MoviesLoadingService()
     private var detailedMovie: DetailedMovie?
     private var isFavorite = false
-    private var buttonImage = #imageLiteral(resourceName: "likeUntatted")
     private let favoriteButton = UIButton(type: .custom)
 
     @IBOutlet weak private var playTrailerButton: UIButton!
@@ -59,7 +58,7 @@ class DetailedMovieViewController: UIViewController {
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
 
-        favoriteButton.setImage(buttonImage, for: .normal)
+        favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
         favoriteButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: favoriteButton)
         navigationItem.rightBarButtonItem = barButtonItem
@@ -141,14 +140,12 @@ class DetailedMovieViewController: UIViewController {
 
         if isFavorite {
             isFavorite = false
-            buttonImage = #imageLiteral(resourceName: "likeUntatted")
-            favoriteButton.setImage(buttonImage, for: .normal)
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
             service.removeObjectWithId(object: MovieObject.self, id: movieId)
             service.removeObjectWithId(object: DetailedMovieObject.self, id: movieId)
         } else {
             isFavorite = true
-            buttonImage = #imageLiteral(resourceName: "likeTapped")
-            favoriteButton.setImage(buttonImage, for: .normal)
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
             service.saveObject(object: detailedMovieObject)
             service.saveObject(object: movieObject)
         }
@@ -157,12 +154,10 @@ class DetailedMovieViewController: UIViewController {
     private func checkFavorite() {
         if service.isFavorite(object: MovieObject.self, id: movieId) {
             isFavorite = true
-            buttonImage = #imageLiteral(resourceName: "likeTapped")
-            favoriteButton.setImage(buttonImage, for: .normal)
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
         } else {
             isFavorite = false
-            buttonImage = #imageLiteral(resourceName: "likeUntatted")
-            favoriteButton.setImage(buttonImage, for: .normal)
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
         }
     }
 

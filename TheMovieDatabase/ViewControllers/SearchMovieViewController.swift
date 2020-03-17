@@ -34,7 +34,8 @@ class SearchMovieViewController: UIViewController {
     }
 
     private func addMovies(query: String) {
-        service.loadMovies(strategy: .search(query: query)) { [weak self] (results) in
+        service.strategy = .search(query: query)
+        service.loadMovies { [weak self] (results) in
             guard let movies = results, let self = self else {
                 return
             }
@@ -44,7 +45,8 @@ class SearchMovieViewController: UIViewController {
     }
 
     private func loadMovies(query: String) {
-        service.loadMovies(strategy: .search(query: query)) { [weak self] (results) in
+        service.strategy = .search(query: query)
+        service.loadMovies { [weak self] (results) in
             guard let movies = results, let self = self else {
                 return
             }
