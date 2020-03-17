@@ -10,15 +10,52 @@ import UIKit
 
 class NewMovieTableViewCell: UITableViewCell {
 
+    @IBOutlet weak private var cellView: UIView!
+    @IBOutlet weak private var shadowImageView: UIView!
+    @IBOutlet weak private var shadowCellView: UIView!
+    @IBOutlet weak private var posterImageView: UIImageView!
+    @IBOutlet weak private var title: UILabel!
+    @IBOutlet weak private var overview: UILabel!
+    @IBOutlet weak private var year: UILabel!
+    @IBOutlet weak private var voteAverage: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        configureUI()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configure(movie: Movie) {
+        title.text = movie.title
+        overview.text = movie.overview
+        guard let vote = movie.voteAverage else {
+            return
+        }
+        voteAverage.text = String(vote)
+        guard let yearStr = movie.releaseDate?.prefix(4) else {
+            return
+        }
+        year.text = String(yearStr)
+        posterImageView.loadPoster(withPosterPath: movie.posterPath)
     }
-    
+
+    private func configureUI() {
+        posterImageView.layer.cornerRadius = 5
+        posterImageView.clipsToBounds = true
+
+        shadowImageView.layer.cornerRadius = 5
+        let color: UIColor = .black
+        shadowImageView.layer.shadowColor = color.cgColor
+        shadowImageView.layer.shadowOpacity = 0.25
+        shadowImageView.layer.masksToBounds = false
+        shadowImageView.layer.shadowOffset = CGSize(width: 1, height: 0)
+        shadowImageView.layer.shadowRadius = 8
+
+        cellView.layer.cornerRadius = 10
+        shadowCellView.layer.cornerRadius = 10
+        shadowCellView.layer.masksToBounds = false
+        shadowCellView.layer.shadowColor = color.cgColor
+        shadowCellView.layer.shadowOpacity = 0.15
+        shadowCellView.layer.shadowOffset = CGSize(width: 4, height: 4)
+        shadowCellView.layer.shadowRadius = 5
+    }
 }
