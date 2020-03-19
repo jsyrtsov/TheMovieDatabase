@@ -122,37 +122,22 @@ class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
-        var detailedMovieObject: DetailedMovieObject?
-        var movieObject: MovieObject?
-        movieObject = MovieObject(id: detailedMovie?.id,
-                                  posterPath: detailedMovie?.posterPath,
-                                  title: detailedMovie?.title,
-                                  overview: detailedMovie?.overview)
-
-        detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
-                                                  overview: detailedMovie?.overview,
-                                                  posterPath: detailedMovie?.posterPath,
-                                                  originalLanguage: detailedMovie?.originalLanguage,
-                                                  runtime: detailedMovie?.runtime,
-                                                  budget: detailedMovie?.budget,
-                                                  revenue: detailedMovie?.revenue,
-                                                  id: detailedMovie?.id)
 
         if isFavorite {
             isFavorite = false
             favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
-            service.removeObjectWithId(object: MovieObject.self, id: movieId)
-            service.removeObjectWithId(object: DetailedMovieObject.self, id: movieId)
+            service.removeMovie(id: movieId)
+            service.removeDetailedMovie(id: movieId)
         } else {
             isFavorite = true
             favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
-            service.saveObject(object: detailedMovieObject)
-            service.saveObject(object: movieObject)
+            service.saveDetailedMovie(detailedMovie: detailedMovie)
+            service.saveMovie(detailedMovie: detailedMovie)
         }
     }
 
     private func checkFavorite() {
-        if service.isFavorite(object: MovieObject.self, id: movieId) {
+        if service.isListedMovie(id: movieId) {
             isFavorite = true
             favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
         } else {

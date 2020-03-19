@@ -21,8 +21,8 @@ class StorageService {
         }
     }
 
-    func isFavorite<T>(object: T, id: Int?) -> Bool {
-        guard let object = object as? Object.Type, let id = id else {
+    func isListed<T: Object>(object: T.Type, id: Int?) -> Bool {
+        guard let id = id else {
             return false
         }
         guard let filtered = realm?.objects(object.self).filter("id == \(id)") else {
@@ -40,7 +40,7 @@ class StorageService {
             return
         }
         // swiftlint:disable first_where
-        guard let foundObject = realm?.objects(T.self).filter("id == \(id)").first else {
+        guard let foundObject = realm?.objects(object.self).filter("id == \(id)").first else {
             return
         }
         // swiftlint:enable first_where

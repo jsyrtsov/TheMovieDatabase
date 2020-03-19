@@ -47,4 +47,43 @@ class StorageMoviesService: StorageService {
                                   id: object.id.value)
         return movie
     }
+
+    func isListedMovie(id: Int?) -> Bool {
+        return isListed(object: MovieObject.self, id: id)
+    }
+
+    func saveDetailedMovie(detailedMovie: DetailedMovie?) {
+        var detailedMovieObject: DetailedMovieObject?
+        detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
+                                                  overview: detailedMovie?.overview,
+                                                  posterPath: detailedMovie?.posterPath,
+                                                  originalLanguage: detailedMovie?.originalLanguage,
+                                                  runtime: detailedMovie?.runtime,
+                                                  budget: detailedMovie?.budget,
+                                                  revenue: detailedMovie?.revenue,
+                                                  id: detailedMovie?.id)
+        saveObject(object: detailedMovieObject)
+    }
+
+    func removeMovieWithId(id: Int?) {
+        removeObjectWithId(object: MovieObject.self, id: id)
+    }
+
+    func removeDetailedMovieWithId(id: Int?) {
+        removeObjectWithId(object: DetailedMovieObject.self, id: id)
+    }
+
+    func saveMovie(detailedMovie: DetailedMovie?) {
+        let movie = Movie(posterPath: detailedMovie?.posterPath,
+                          id: detailedMovie?.id,
+                          title: detailedMovie?.title,
+                          overview: detailedMovie?.overview)
+
+        var movieObject: MovieObject?
+        movieObject = MovieObject(id: movie.id,
+                                  posterPath: movie.posterPath,
+                                  title: movie.title,
+                                  overview: movie.overview)
+        saveObject(object: movieObject)
+    }
 }

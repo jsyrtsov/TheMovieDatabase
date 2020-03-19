@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 class MoviesLoadingService {
     private let storageMoviesService = StorageMoviesService()
@@ -93,16 +92,24 @@ class MoviesLoadingService {
         }.resume()
     }
 
-    func saveObject<T: Object>(object: T?) {
-        storageMoviesService.saveObject(object: object)
+    func saveMovie(detailedMovie: DetailedMovie?) {
+        storageMoviesService.saveMovie(detailedMovie: detailedMovie)
     }
 
-    func isFavorite<T>(object: T, id: Int?) -> Bool {
-        storageMoviesService.isFavorite(object: object, id: id)
+    func saveDetailedMovie(detailedMovie: DetailedMovie?) {
+        storageMoviesService.saveDetailedMovie(detailedMovie: detailedMovie)
     }
 
-    func removeObjectWithId<T: Object>(object: T.Type, id: Int?) {
-        storageMoviesService.removeObjectWithId(object: object, id: id)
+    func isListedMovie(id: Int?) -> Bool {
+        return storageMoviesService.isListedMovie(id: id)
+    }
+
+    func removeMovie(id: Int?) {
+        storageMoviesService.removeMovieWithId(id: id)
+    }
+
+    func removeDetailedMovie(id: Int?) {
+        storageMoviesService.removeDetailedMovieWithId(id: id)
     }
 
     func getFavMovies() -> [Movie] {

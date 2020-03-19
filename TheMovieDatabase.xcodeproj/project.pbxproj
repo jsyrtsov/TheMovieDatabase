@@ -50,7 +50,7 @@
 		02DCEF5A2409058B00807EB5 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		280AFE6F240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesServiceLoadingStrategy.swift; sourceTree = "<group>"; };
 		28520070240A698F00A8FB05 /* UrlParts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlParts.swift; sourceTree = "<group>"; };
-		28520072240D719300A8FB05 /* MoviesLoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLoadingService.swift; sourceTree = "<group>"; };
+		28520072240D719300A8FB05 /* MoviesLoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoviesLoadingService.swift; path = ../Network/MoviesLoadingService.swift; sourceTree = "<group>"; };
 		28520076240DA55700A8FB05 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		285924C4241FDA5300E5F54A /* StorageMoviesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMoviesService.swift; sourceTree = "<group>"; };
 		288E935A240667F700D67930 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
@@ -114,7 +114,6 @@
 		288E935D240673F300D67930 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				28520072240D719300A8FB05 /* MoviesLoadingService.swift */,
 				280AFE6F240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift */,
 				28520070240A698F00A8FB05 /* UrlParts.swift */,
 			);
@@ -130,6 +129,14 @@
 				28908AFA241BECAE00B64835 /* DetailedMovieObject.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		28939DDC24239E7D003772C7 /* Main Service */ = {
+			isa = PBXGroup;
+			children = (
+				28520072240D719300A8FB05 /* MoviesLoadingService.swift */,
+			);
+			path = "Main Service";
 			sourceTree = "<group>";
 		};
 		289AE6E2240033740029719B = {
@@ -160,6 +167,7 @@
 				28FD53CC24058F7C00AD4923 /* Views */,
 				28FD53CB24058E6C00AD4923 /* ViewControllers */,
 				28908AF7241BDB2000B64835 /* Realm */,
+				28939DDC24239E7D003772C7 /* Main Service */,
 				288E935D240673F300D67930 /* Network */,
 				288E935C240667FC00D67930 /* Extensions */,
 				289AE6F0240033740029719B /* SceneDelegate.swift */,
