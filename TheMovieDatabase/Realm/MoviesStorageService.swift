@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class StorageMoviesService: StorageService {
+class MoviesStorageService: StorageService {
 
     private let realm = try? Realm()
 

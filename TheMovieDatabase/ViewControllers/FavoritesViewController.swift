@@ -19,7 +19,7 @@ class FavoritesViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        movies = service.getFavMovies()
+        movies = service.getFavoriteMovies()
         if movies.isEmpty {
             tableView.isHidden = true
             blankImage.isHidden = false
@@ -85,7 +85,7 @@ extension FavoritesViewController: UITableViewDataSource {
             service.removeMovie(id: movieId)
             service.removeDetailedMovie(id: movieId)
         }
-        movies = service.getFavMovies()
+        movies = service.getFavoriteMovies()
         if movies.isEmpty {
             tableView.isHidden = true
             blankImage.isHidden = false

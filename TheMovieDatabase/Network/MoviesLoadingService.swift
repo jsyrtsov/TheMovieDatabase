@@ -9,7 +9,7 @@
 import Foundation
 
 class MoviesLoadingService {
-    private let storageMoviesService = StorageMoviesService()
+    private let storageMoviesService = MoviesStorageService()
     private var totalPages: Int = 1
     private var currentPage: Int = 1
     private var query: String?
@@ -117,7 +117,7 @@ class MoviesLoadingService {
         storageMoviesService.removeDetailedMovieWithId(id: id)
     }
 
-    func getFavMovies() -> [Movie] {
+    func getFavoriteMovies() -> [Movie] {
         storageMoviesService.getFavoriteMovies()
     }
 
