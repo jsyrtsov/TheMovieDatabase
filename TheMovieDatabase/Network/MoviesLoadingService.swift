@@ -14,7 +14,11 @@ class MoviesLoadingService {
     private var currentPage: Int = 1
     private var query: String?
     var canLoadMore: Bool = false
-    var strategy: MoviesServiceLoadingStrategy = .popular
+    var strategy: MoviesServiceLoadingStrategy = .popular {
+        didSet {
+            currentPage = 1
+        }
+    }
 
     func loadMovies(completion: @escaping ([Movie]?) -> Void) {
         var url: URL?
@@ -36,6 +40,7 @@ class MoviesLoadingService {
         guard let loadingURL = url else {
             return
         }
+        print(loadingURL.absoluteString)
         URLSession.shared.dataTask(with: loadingURL) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase

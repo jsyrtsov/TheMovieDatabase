@@ -34,7 +34,6 @@ class SearchMovieViewController: UIViewController {
     }
 
     private func addMovies(query: String) {
-        service.strategy = .search(query: query)
         service.loadMovies { [weak self] (results) in
             guard let movies = results, let self = self else {
                 return
@@ -105,7 +104,6 @@ extension SearchMovieViewController: UISearchBarDelegate {
         guard let searchQuery = searchBar.text else {
             return
         }
-        service = MoviesLoadingService()
         query = searchQuery
         loadMovies(query: query)
     }
