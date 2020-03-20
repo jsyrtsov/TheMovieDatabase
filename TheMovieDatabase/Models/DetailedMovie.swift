@@ -20,4 +20,5 @@ struct DetailedMovie: Codable {
     let id: Int?
     let voteAverage: Double?
     let releaseDate: String?
+    let tagline: String?
 }

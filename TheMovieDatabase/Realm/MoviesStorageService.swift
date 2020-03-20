@@ -50,7 +50,8 @@ class MoviesStorageService: StorageService {
                                   posterPath: object.posterPath,
                                   id: object.id.value,
                                   voteAverage: object.voteAverage.value,
-                                  releaseDate: object.releaseDate)
+                                  releaseDate: object.releaseDate,
+                                  tagline: object.tagline)
         return movie
     }
 
@@ -70,7 +71,8 @@ class MoviesStorageService: StorageService {
                                                   revenue: detailedMovie?.revenue,
                                                   id: detailedMovie?.id,
                                                   voteAverage: detailedMovie?.voteAverage,
-                                                  releaseDate: detailedMovie?.releaseDate)
+                                                  releaseDate: detailedMovie?.releaseDate,
+                                                  tagline: detailedMovie?.tagline)
         saveObject(object: detailedMovieObject)
     }
 

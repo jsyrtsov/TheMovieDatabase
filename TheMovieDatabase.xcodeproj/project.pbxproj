@@ -31,6 +31,7 @@
 		289AE7112400675A0029719B /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AE7102400675A0029719B /* FeedViewController.swift */; };
 		289AE713240067790029719B /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AE712240067790029719B /* FavoritesViewController.swift */; };
 		289AE7152400678D0029719B /* SearchMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AE7142400678D0029719B /* SearchMovieViewController.swift */; };
+		28C75EE824257EFC00BB6E70 /* NewDetailedMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EE724257EFC00BB6E70 /* NewDetailedMovieViewController.swift */; };
 		28FD53C124007E3C00AD4923 /* DetailedMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FD53C024007E3C00AD4923 /* DetailedMovieViewController.swift */; };
 		28FD53C924058E4D00AD4923 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FD53C824058E4D00AD4923 /* Movie.swift */; };
 		2B3E8D15B75E737D19A7370A /* Pods_TheMovieDatabaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B12158B312180164C1BF06 /* Pods_TheMovieDatabaseTests.framework */; };
@@ -76,6 +77,7 @@
 		289AE7102400675A0029719B /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		289AE712240067790029719B /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		289AE7142400678D0029719B /* SearchMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieViewController.swift; sourceTree = "<group>"; };
+		28C75EE724257EFC00BB6E70 /* NewDetailedMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDetailedMovieViewController.swift; sourceTree = "<group>"; };
 		28FD53C024007E3C00AD4923 /* DetailedMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedMovieViewController.swift; sourceTree = "<group>"; };
 		28FD53C824058E4D00AD4923 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		42A61C9BA9287CA1FB662FC4 /* Pods-TheMovieDatabase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMovieDatabase.debug.xcconfig"; path = "Target Support Files/Pods-TheMovieDatabase/Pods-TheMovieDatabase.debug.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			children = (
 				289AE7102400675A0029719B /* FeedViewController.swift */,
 				28FD53C024007E3C00AD4923 /* DetailedMovieViewController.swift */,
+				28C75EE724257EFC00BB6E70 /* NewDetailedMovieViewController.swift */,
 				28966092240FDD9000505732 /* FullPosterViewController.swift */,
 				289AE712240067790029719B /* FavoritesViewController.swift */,
 				289AE7142400678D0029719B /* SearchMovieViewController.swift */,
@@ -435,6 +438,7 @@
 				285924C5241FDA5300E5F54A /* MoviesStorageService.swift in Sources */,
 				28FD53C124007E3C00AD4923 /* DetailedMovieViewController.swift in Sources */,
 				288E935B240667F700D67930 /* UIImageView.swift in Sources */,
+				28C75EE824257EFC00BB6E70 /* NewDetailedMovieViewController.swift in Sources */,
 				02DCEF5B2409058B00807EB5 /* MovieTableViewCell.swift in Sources */,
 				289AE7152400678D0029719B /* SearchMovieViewController.swift in Sources */,
 				280AFE70240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift in Sources */,

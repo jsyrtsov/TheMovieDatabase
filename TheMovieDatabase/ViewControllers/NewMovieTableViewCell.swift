@@ -19,7 +19,7 @@ class NewMovieTableViewCell: UITableViewCell {
     @IBOutlet weak private var year: UILabel!
     @IBOutlet weak private var voteAverage: UILabel!
 
-    private var vote: Double = 0.0
+    //private var vote: Double = 0.0
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,8 +32,8 @@ class NewMovieTableViewCell: UITableViewCell {
         guard let vote = movie.voteAverage else {
             return
         }
-        self.vote = vote
-        voteAverage.text = String(self.vote)
+        //self.vote = vote
+        voteAverage.text = String(vote)
         guard let yearStr = movie.releaseDate?.prefix(4) else {
             return
         }

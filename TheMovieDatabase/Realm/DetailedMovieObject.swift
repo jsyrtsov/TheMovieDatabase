@@ -20,6 +20,7 @@ class DetailedMovieObject: Object {
     let budget = RealmOptional<Int>()
     let revenue = RealmOptional<Int>()
     let id = RealmOptional<Int>()
+    @objc dynamic var tagline: String?
 
     convenience init(title: String?,
                      backdropPath: String?,
@@ -31,7 +32,8 @@ class DetailedMovieObject: Object {
                      revenue: Int?,
                      id: Int?,
                      voteAverage: Double?,
-                     releaseDate: String?) {
+                     releaseDate: String?,
+                     tagline: String?) {
         self.init()
         self.backdropPath = backdropPath
         self.voteAverage.value = voteAverage
@@ -44,5 +46,6 @@ class DetailedMovieObject: Object {
         self.budget.value = budget
         self.revenue.value = revenue
         self.id.value = id
+        self.tagline = tagline
     }
 }
