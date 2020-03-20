@@ -19,10 +19,13 @@ class MoviesStorageService: StorageService {
         }
         var movies: [Movie] = []
         for element in objects {
-            let movie = Movie(posterPath: element.posterPath,
+            let movie = Movie(backdropPath: element.backdropPath,
+                              posterPath: element.posterPath,
                               id: element.id.value,
                               title: element.title,
-                              overview: element.overview)
+                              voteAverage: element.voteAverage.value,
+                              overview: element.overview,
+                              releaseDate: element.releaseDate)
             movies.append(movie)
         }
         return movies
@@ -37,14 +40,17 @@ class MoviesStorageService: StorageService {
             return nil
         }
         // swiftlint:enable first_where
-        let movie = DetailedMovie(overview: object.overview,
+        let movie = DetailedMovie(backdropPath: object.backdropPath,
+                                  overview: object.overview,
                                   budget: object.budget.value,
                                   revenue: object.revenue.value,
                                   title: object.title,
                                   runtime: object.runtime.value,
                                   originalLanguage: object.originalLanguage,
                                   posterPath: object.posterPath,
-                                  id: object.id.value)
+                                  id: object.id.value,
+                                  voteAverage: object.voteAverage.value,
+                                  releaseDate: object.releaseDate)
         return movie
     }
 
@@ -55,13 +61,16 @@ class MoviesStorageService: StorageService {
     func saveDetailedMovie(detailedMovie: DetailedMovie?) {
         var detailedMovieObject: DetailedMovieObject?
         detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
+                                                  backdropPath: detailedMovie?.backdropPath,
                                                   overview: detailedMovie?.overview,
                                                   posterPath: detailedMovie?.posterPath,
                                                   originalLanguage: detailedMovie?.originalLanguage,
                                                   runtime: detailedMovie?.runtime,
                                                   budget: detailedMovie?.budget,
                                                   revenue: detailedMovie?.revenue,
-                                                  id: detailedMovie?.id)
+                                                  id: detailedMovie?.id,
+                                                  voteAverage: detailedMovie?.voteAverage,
+                                                  releaseDate: detailedMovie?.releaseDate)
         saveObject(object: detailedMovieObject)
     }
 
@@ -74,13 +83,20 @@ class MoviesStorageService: StorageService {
     }
 
     func saveMovie(detailedMovie: DetailedMovie?) {
-        let movie = Movie(posterPath: detailedMovie?.posterPath,
+
+        let movie = Movie(backdropPath: detailedMovie?.backdropPath,
+                          posterPath: detailedMovie?.posterPath,
                           id: detailedMovie?.id,
                           title: detailedMovie?.title,
-                          overview: detailedMovie?.overview)
+                          voteAverage: detailedMovie?.voteAverage,
+                          overview: detailedMovie?.overview,
+                          releaseDate: detailedMovie?.releaseDate)
 
         var movieObject: MovieObject?
-        movieObject = MovieObject(id: movie.id,
+        movieObject = MovieObject(backdropPath: movie.backdropPath,
+                                  id: movie.id,
+                                  voteAverage: movie.voteAverage,
+                                  releaseDate: movie.releaseDate,
                                   posterPath: movie.posterPath,
                                   title: movie.title,
                                   overview: movie.overview)
