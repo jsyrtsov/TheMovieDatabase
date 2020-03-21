@@ -89,8 +89,8 @@
             <connections>
                 <outlet property="baseShadowView" destination="4NA-id-U4z" id="Wrj-UT-4xV"/>
                 <outlet property="characterLabel" destination="wMh-Y5-46h" id="cts-6O-Sca"/>
-                <outlet property="faceView" destination="BdO-dT-d4b" id="If9-vg-gKW"/>
                 <outlet property="nameLabel" destination="yB5-Gv-AWI" id="HkN-gK-HxE"/>
+                <outlet property="profileImage" destination="BdO-dT-d4b" id="If9-vg-gKW"/>
             </connections>
             <point key="canvasLocation" x="205.07246376811597" y="148.32589285714286"/>
         </collectionViewCell>

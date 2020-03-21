@@ -1,5 +1,5 @@
 //
-//  PersonCollectionViewCell.swift
+//  CrewCollectionViewCell.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/21/20.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class CastCollectionViewCell: UICollectionViewCell {
+class CrewCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak private var name: UILabel!
+    @IBOutlet weak private var job: UILabel!
     @IBOutlet weak private var baseShadowView: UIView!
     @IBOutlet weak private var profileImage: UIImageView!
-    @IBOutlet weak private var nameLabel: UILabel!
-    @IBOutlet weak private var characterLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,9 +26,9 @@ class CastCollectionViewCell: UICollectionViewCell {
         baseShadowView.applyShadow(radius: 6, opacity: 0.07, offsetW: 3, offsetH: 3)
     }
 
-    func configure(castEntry: CastEntry) {
-        profileImage.loadPicture(withPosterPath: castEntry.profilePath)
-        nameLabel.text = castEntry.name
-        characterLabel.text = castEntry.character
+    func configure(crewEntry: CrewEntry) {
+        name.text = crewEntry.name
+        job.text = crewEntry.job
+        profileImage.loadPicture(withPosterPath: crewEntry.profilePath)
     }
 }

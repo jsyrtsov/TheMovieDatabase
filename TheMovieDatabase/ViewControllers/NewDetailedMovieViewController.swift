@@ -13,7 +13,9 @@ class NewDetailedMovieViewController: UIViewController {
     var movieId: Int?
     private let service = MoviesLoadingService()
     private var detailedMovie: DetailedMovie?
+    private var crew: [CrewEntry] = []
     private var cast: [CastEntry] = []
+    private let crewCell = "crewCell"
     private let castCell = "castCell"
     private var isFavorite = false
     private let favoriteButton = UIButton(type: .custom)
@@ -32,7 +34,8 @@ class NewDetailedMovieViewController: UIViewController {
     @IBOutlet weak private var imageShadowView: UIView!
     @IBOutlet weak private var backdropImage: UIImageView!
     @IBOutlet weak private var baseShadowView: UIView!
-    @IBOutlet weak private var collectionViewCast: UICollectionView!
+    @IBOutlet weak private var castCollectionView: UICollectionView!
+    @IBOutlet weak private var crewCollectionView: UICollectionView!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -55,12 +58,18 @@ class NewDetailedMovieViewController: UIViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
-        collectionViewCast.delegate = self
-        collectionViewCast.dataSource = self
+        crewCollectionView.delegate = self
+        crewCollectionView.dataSource = self
+        crewCollectionView.register(UINib(nibName: "CrewCollectionViewCell", bundle: nil),
+                                    forCellWithReuseIdentifier: crewCell)
+
+        castCollectionView.delegate = self
+        castCollectionView.dataSource = self
+        castCollectionView.register(UINib(nibName: "CastCollectionViewCell", bundle: nil),
+                                    forCellWithReuseIdentifier: castCell)
+
         backdropImage.clipsToBounds = true
         backdropImage.layer.cornerRadius = 10
-        collectionViewCast.register(UINib(nibName: "CastCollectionViewCell",
-                                      bundle: nil), forCellWithReuseIdentifier: castCell)
         configureShadows()
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
@@ -77,19 +86,29 @@ class NewDetailedMovieViewController: UIViewController {
         guard let movieId = movieId else {
             return
         }
-        service.loadCast(movieId: movieId) { [weak self] (result) in
-        guard let result = result, let self = self else {
-                return
-            }
-            self.cast = result
-            self.collectionViewCast.reloadData()
-        }
         service.loadDetails(movieId: movieId) { [weak self] (result) in
             guard let result = result, let self = self else {
                 return
             }
             self.detailedMovie = result
             self.updateView()
+        }
+        service.loadCastAndCrew(movieId: movieId) { [weak self] (result) in
+            guard let resultCast = result?.cast,
+                let resultCrew = result?.crew,
+                let self = self else {
+                return
+            }
+            self.crew = resultCrew
+            self.cast = resultCast
+            guard let director = self.crew.first(where: { $0.job == "Director" }),
+                let directorIndex = self.crew.firstIndex(where: { $0.job == "Director" }) else {
+                return
+            }
+            self.crew.remove(at: directorIndex)
+            self.crew.insert(director, at: 0)
+            self.castCollectionView.reloadData()
+            self.crewCollectionView.reloadData()
         }
     }
 
@@ -104,18 +123,21 @@ class NewDetailedMovieViewController: UIViewController {
 
         if detailedMovie?.budget == 0 {
             budget.text = "Information is coming soon"
-        } else {
-            budget.text = "\(detailedMovie?.budget ?? 0)$"
+        } else if var budget = detailedMovie?.budget {
+            let budgetB = budget / 1000000000
+            let budgetM = (budget / 1000000) % 1000
+            let budgetT = (budget / 1000) % 1000
+            budget = budget % 1000
+            self.budget.text = "\(budgetB)B \(budgetM)M \(budgetT)T \(budget) $"
         }
         if detailedMovie?.revenue == 0 {
             revenue.text = "Information is coming soon"
-        } else if let revenue = detailedMovie?.revenue {
-
+        } else if var revenue = detailedMovie?.revenue {
             let revenueB = revenue / 1000000000
-            let revenueM = revenue / 1000000
-            let revenueT = revenue / 1000
-            let revenueH = revenue % 1000
-            self.revenue.text = "\(revenueB)B \(revenueM)M \(revenueT)T \(revenueH)$"
+            let revenueM = (revenue / 1000000) % 1000
+            let revenueT = (revenue / 1000) % 1000
+            revenue = revenue % 1000
+            self.revenue.text = "\(revenueB)B \(revenueM)M \(revenueT)T \(revenue) $"
         }
         if detailedMovie?.runtime == 0 {
             runtime.text = "Information is coming soon"
@@ -214,15 +236,29 @@ extension NewDetailedMovieViewController: UICollectionViewDelegate {
 
 extension NewDetailedMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cast.count
+        if collectionView == crewCollectionView {
+            return crew.count
+        } else if collectionView == castCollectionView {
+            return cast.count
+        } else {
+            return 0
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: castCell,
-                                                      for: indexPath) as? CastCollectionViewCell
-        cell?.configure(castEntry: cast[indexPath.row])
-        return cell ?? UICollectionViewCell()
+        if collectionView == crewCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: crewCell,
+                                                          for: indexPath) as? CrewCollectionViewCell
+            cell?.configure(crewEntry: crew[indexPath.row])
+            return cell ?? UICollectionViewCell()
+        } else if collectionView == castCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: castCell,
+                                                          for: indexPath) as? CastCollectionViewCell
+            cell?.configure(castEntry: cast[indexPath.row])
+            return cell ?? UICollectionViewCell()
+        } else {
+            return UICollectionViewCell()
+        }
     }
-
 }

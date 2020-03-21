@@ -37,6 +37,8 @@
 		28C75EEE24260DD300BB6E70 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EED24260DD300BB6E70 /* UIView.swift */; };
 		28C75EF22426181500BB6E70 /* CastEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EF12426181500BB6E70 /* CastEntry.swift */; };
 		28C75EF42426181C00BB6E70 /* CrewEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EF32426181C00BB6E70 /* CrewEntry.swift */; };
+		28C75EF72426598600BB6E70 /* CrewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EF52426598600BB6E70 /* CrewCollectionViewCell.swift */; };
+		28C75EF82426598600BB6E70 /* CrewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C75EF62426598600BB6E70 /* CrewCollectionViewCell.xib */; };
 		28FD53C124007E3C00AD4923 /* DetailedMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FD53C024007E3C00AD4923 /* DetailedMovieViewController.swift */; };
 		28FD53C924058E4D00AD4923 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FD53C824058E4D00AD4923 /* Movie.swift */; };
 		2B3E8D15B75E737D19A7370A /* Pods_TheMovieDatabaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B12158B312180164C1BF06 /* Pods_TheMovieDatabaseTests.framework */; };
@@ -88,6 +90,8 @@
 		28C75EED24260DD300BB6E70 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		28C75EF12426181500BB6E70 /* CastEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastEntry.swift; sourceTree = "<group>"; };
 		28C75EF32426181C00BB6E70 /* CrewEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewEntry.swift; sourceTree = "<group>"; };
+		28C75EF52426598600BB6E70 /* CrewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewCollectionViewCell.swift; sourceTree = "<group>"; };
+		28C75EF62426598600BB6E70 /* CrewCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CrewCollectionViewCell.xib; sourceTree = "<group>"; };
 		28FD53C024007E3C00AD4923 /* DetailedMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedMovieViewController.swift; sourceTree = "<group>"; };
 		28FD53C824058E4D00AD4923 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		42A61C9BA9287CA1FB662FC4 /* Pods-TheMovieDatabase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMovieDatabase.debug.xcconfig"; path = "Target Support Files/Pods-TheMovieDatabase/Pods-TheMovieDatabase.debug.xcconfig"; sourceTree = "<group>"; };
@@ -226,6 +230,7 @@
 				289AE7142400678D0029719B /* SearchMovieViewController.swift */,
 				02DCEF5A2409058B00807EB5 /* MovieTableViewCell.swift */,
 				28C75EE924260D8E00BB6E70 /* CastCollectionViewCell.swift */,
+				28C75EF52426598600BB6E70 /* CrewCollectionViewCell.swift */,
 				283892872420200400016011 /* NewMovieTableViewCell.swift */,
 			);
 			path = ViewControllers;
@@ -235,9 +240,10 @@
 			isa = PBXGroup;
 			children = (
 				289AE6F4240033740029719B /* Main.storyboard */,
-				28C75EEA24260D8E00BB6E70 /* CastCollectionViewCell.xib */,
 				283892882420200400016011 /* NewMovieTableViewCell.xib */,
 				02DCEF572409045300807EB5 /* MovieTableViewCell.xib */,
+				28C75EEA24260D8E00BB6E70 /* CastCollectionViewCell.xib */,
+				28C75EF62426598600BB6E70 /* CrewCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -350,6 +356,7 @@
 				289AE6FB240033770029719B /* LaunchScreen.storyboard in Resources */,
 				28C75EEC24260D8E00BB6E70 /* CastCollectionViewCell.xib in Resources */,
 				02DCEF592409045300807EB5 /* MovieTableViewCell.xib in Resources */,
+				28C75EF82426598600BB6E70 /* CrewCollectionViewCell.xib in Resources */,
 				289AE6F8240033770029719B /* Assets.xcassets in Resources */,
 				2838928A2420200400016011 /* NewMovieTableViewCell.xib in Resources */,
 				289AE6F6240033740029719B /* Main.storyboard in Resources */,
@@ -470,6 +477,7 @@
 				28C75EF22426181500BB6E70 /* CastEntry.swift in Sources */,
 				289AE713240067790029719B /* FavoritesViewController.swift in Sources */,
 				28908AF6241BDB1A00B64835 /* StorageService.swift in Sources */,
+				28C75EF72426598600BB6E70 /* CrewCollectionViewCell.swift in Sources */,
 				2896608F240F8B5800505732 /* DetailedMovie.swift in Sources */,
 				289AE6F1240033740029719B /* SceneDelegate.swift in Sources */,
 				28908AF9241BDCA800B64835 /* MovieObject.swift in Sources */,

@@ -438,7 +438,7 @@
                                                                 </collectionViewCellContentView>
                                                             </collectionViewCell>
                                                         </cells>
-                                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="footerView" id="VsM-n6-S5B">
+                                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="castFooterView" id="VsM-n6-S5B">
                                                             <rect key="frame" x="50" y="0.0" width="10" height="85"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </collectionReusableView>
@@ -529,15 +529,15 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="85" id="L0D-bS-r3q"/>
                                                         </constraints>
-                                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="K4E-2o-nNs">
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="K4E-2o-nNs">
                                                             <size key="itemSize" width="50" height="50"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="footerReferenceSize" width="10" height="0.0"/>
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="crewCell" id="mV6-5L-W1h">
-                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <rect key="frame" x="0.0" y="17.5" width="50" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="iyQ-I2-yBM">
                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -545,6 +545,10 @@
                                                                 </collectionViewCellContentView>
                                                             </collectionViewCell>
                                                         </cells>
+                                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="crewFooterView" id="oP3-jM-YOf">
+                                                            <rect key="frame" x="50" y="0.0" width="10" height="85"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </collectionReusableView>
                                                     </collectionView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -661,7 +665,8 @@
                         <outlet property="backdropImage" destination="HyP-OJ-vrR" id="dOv-S6-F1b"/>
                         <outlet property="baseShadowView" destination="EVf-B2-n0S" id="Nd4-GS-G38"/>
                         <outlet property="budget" destination="fBw-1k-lHe" id="3Aa-61-vI8"/>
-                        <outlet property="collectionViewCast" destination="d5x-hx-z2a" id="gRH-ei-fyQ"/>
+                        <outlet property="castCollectionView" destination="d5x-hx-z2a" id="gRH-ei-fyQ"/>
+                        <outlet property="crewCollectionView" destination="KEP-U1-eMx" id="By5-HC-g0F"/>
                         <outlet property="imageShadowView" destination="lfv-CE-6TH" id="LgA-J3-6sE"/>
                         <outlet property="originalLanguage" destination="0vt-nV-QZ2" id="Lxa-cc-gEh"/>
                         <outlet property="overviewLabel" destination="iKW-yI-u5U" id="JBe-Un-Wae"/>

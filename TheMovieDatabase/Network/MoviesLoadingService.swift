@@ -95,7 +95,7 @@ class MoviesLoadingService {
         }.resume()
     }
 
-    func loadCast(movieId: Int, completion: @escaping ([CastEntry]?) -> Void) {
+    func loadCastAndCrew(movieId: Int, completion: @escaping (CreditsResponse?) -> Void) {
         var url: URL?
         url = URL(string: UrlParts.baseUrl + "movie/\(movieId)/credits")
         url = url?.appending("api_key", value: UrlParts.apiKey)
@@ -111,7 +111,7 @@ class MoviesLoadingService {
             do {
                 let result = try self.decoder.decode(CreditsResponse.self, from: data)
                 DispatchQueue.main.async {
-                    completion(result.cast)
+                    completion(result)
                 }
             } catch {
                 print(error)
@@ -148,7 +148,7 @@ class MoviesLoadingService {
     }
 }
 
-private struct CreditsResponse: Codable {
+struct CreditsResponse: Codable {
     let id: Int?
     let cast: [CastEntry]?
     let crew: [CrewEntry]?
