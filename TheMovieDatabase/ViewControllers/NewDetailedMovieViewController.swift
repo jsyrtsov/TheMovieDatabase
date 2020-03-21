@@ -107,6 +107,8 @@ class NewDetailedMovieViewController: UIViewController {
             }
             self.crew.remove(at: directorIndex)
             self.crew.insert(director, at: 0)
+            self.crew = Array(self.crew.prefix(15))
+            self.cast = Array(self.cast.prefix(15))
             self.castCollectionView.reloadData()
             self.crewCollectionView.reloadData()
         }
