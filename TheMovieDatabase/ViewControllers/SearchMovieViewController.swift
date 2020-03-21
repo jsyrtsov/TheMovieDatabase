@@ -93,8 +93,13 @@ extension SearchMovieViewController: UITableViewDelegate {
             as? DetailedMovieViewController  else {
             return
         }
-        navigationController?.pushViewController(detailedVC, animated: true)
         detailedVC.movieId = movies[indexPath.row].id
+        guard let newDetailedVC = storyboard.instantiateViewController(withIdentifier: "DetailedMovieViewController")
+            as? NewDetailedMovieViewController else {
+            return
+        }
+        navigationController?.pushViewController(newDetailedVC, animated: true)
+        newDetailedVC.movieId = movies[indexPath.row].id
     }
 }
 

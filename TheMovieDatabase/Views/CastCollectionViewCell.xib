@@ -30,20 +30,20 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joaquin Phoenix" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yB5-Gv-AWI">
-                                        <rect key="frame" x="52" y="6.5" width="81" height="24"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                        <rect key="frame" x="52" y="5" width="81" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="as" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvx-Tq-5Yo">
-                                        <rect key="frame" x="87" y="30.5" width="11" height="11"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <rect key="frame" x="86.5" y="29.5" width="12" height="13.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arthur Fleck / Joker" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMh-Y5-46h">
-                                        <rect key="frame" x="52" y="41.5" width="81" height="25.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                        <rect key="frame" x="52" y="41" width="81" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -53,15 +53,15 @@
                                     <constraint firstAttribute="trailing" secondItem="wMh-Y5-46h" secondAttribute="trailing" constant="4" id="4qv-PI-IUm"/>
                                     <constraint firstItem="bvx-Tq-5Yo" firstAttribute="centerX" secondItem="yB5-Gv-AWI" secondAttribute="centerX" id="Cak-HE-bh5"/>
                                     <constraint firstItem="wMh-Y5-46h" firstAttribute="leading" secondItem="BdO-dT-d4b" secondAttribute="trailing" constant="4" id="CxP-n0-rGq"/>
+                                    <constraint firstAttribute="bottom" secondItem="wMh-Y5-46h" secondAttribute="bottom" constant="4.5" id="H3D-gk-1uJ"/>
                                     <constraint firstItem="yB5-Gv-AWI" firstAttribute="leading" secondItem="BdO-dT-d4b" secondAttribute="trailing" constant="4" id="HdP-QT-375"/>
                                     <constraint firstItem="bvx-Tq-5Yo" firstAttribute="centerY" secondItem="BdO-dT-d4b" secondAttribute="centerY" id="MvU-DQ-YSq"/>
-                                    <constraint firstItem="yB5-Gv-AWI" firstAttribute="top" secondItem="4NA-id-U4z" secondAttribute="top" constant="6.5" id="RoW-pT-oCd"/>
-                                    <constraint firstItem="bvx-Tq-5Yo" firstAttribute="top" secondItem="yB5-Gv-AWI" secondAttribute="bottom" id="TMD-hD-QeS"/>
-                                    <constraint firstAttribute="bottom" secondItem="wMh-Y5-46h" secondAttribute="bottom" constant="5" id="VNP-h3-xya"/>
+                                    <constraint firstItem="bvx-Tq-5Yo" firstAttribute="top" secondItem="yB5-Gv-AWI" secondAttribute="bottom" constant="-2" id="TMD-hD-QeS"/>
                                     <constraint firstItem="BdO-dT-d4b" firstAttribute="top" secondItem="4NA-id-U4z" secondAttribute="top" id="XNT-wT-FcH"/>
                                     <constraint firstAttribute="bottom" secondItem="BdO-dT-d4b" secondAttribute="bottom" id="k2a-mQ-IIb"/>
                                     <constraint firstAttribute="trailing" secondItem="yB5-Gv-AWI" secondAttribute="trailing" constant="4" id="mGQ-TH-TLq"/>
-                                    <constraint firstItem="wMh-Y5-46h" firstAttribute="top" secondItem="bvx-Tq-5Yo" secondAttribute="bottom" id="qXZ-J5-4jq"/>
+                                    <constraint firstItem="yB5-Gv-AWI" firstAttribute="top" secondItem="4NA-id-U4z" secondAttribute="top" constant="5" id="pzE-1q-7FX"/>
+                                    <constraint firstItem="wMh-Y5-46h" firstAttribute="top" secondItem="bvx-Tq-5Yo" secondAttribute="bottom" constant="-2" id="qXZ-J5-4jq"/>
                                     <constraint firstItem="BdO-dT-d4b" firstAttribute="leading" secondItem="4NA-id-U4z" secondAttribute="leading" id="rmL-P3-TDM"/>
                                 </constraints>
                             </view>

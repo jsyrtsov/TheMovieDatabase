@@ -18,6 +18,7 @@ class NewDetailedMovieViewController: UIViewController {
     private var isFavorite = false
     private let favoriteButton = UIButton(type: .custom)
 
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var runtime: UILabel!
     @IBOutlet weak private var revenue: UILabel!
     @IBOutlet weak private var budget: UILabel!
@@ -45,6 +46,15 @@ class NewDetailedMovieViewController: UIViewController {
     }
 
     private func configureView() {
+        activityIndicator.startAnimating()
+        titleLabel.isHidden = true
+        overviewLabel.isHidden = true
+        voteLabel.isHidden = true
+        releaseYearLabel.isHidden = true
+        taglineLabel.isHidden = true
+
+        navigationItem.largeTitleDisplayMode = .never
+
         collectionViewCast.delegate = self
         collectionViewCast.dataSource = self
         backdropImage.clipsToBounds = true
@@ -84,6 +94,14 @@ class NewDetailedMovieViewController: UIViewController {
     }
 
     private func updateView() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        titleLabel.isHidden = false
+        overviewLabel.isHidden = false
+        voteLabel.isHidden = false
+        releaseYearLabel.isHidden = false
+        taglineLabel.isHidden = false
+
         if detailedMovie?.budget == 0 {
             budget.text = "Information is coming soon"
         } else {
@@ -98,13 +116,15 @@ class NewDetailedMovieViewController: UIViewController {
             let revenueT = revenue / 1000
             let revenueH = revenue % 1000
             self.revenue.text = "\(revenueB)B \(revenueM)M \(revenueT)T \(revenueH)$"
-            //revenue.text = "\(detailedMovie?.revenue ?? 0)$"
         }
-        if let runtime = detailedMovie?.runtime {
+        if detailedMovie?.runtime == 0 {
+            runtime.text = "Information is coming soon"
+        } else if let runtime = detailedMovie?.runtime {
             let runtimeHours = runtime / 60
             let runtimeMins = runtime % 60
             self.runtime.text = "\(runtimeHours)h \(runtimeMins)m"
         }
+
         originalLanguage.text = detailedMovie?.originalLanguage
         backdropImage.loadFullPicture(withPath: detailedMovie?.backdropPath)
         guard let date = detailedMovie?.releaseDate?.prefix(4), let vote = detailedMovie?.voteAverage else {
