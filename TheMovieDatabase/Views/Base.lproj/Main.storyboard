@@ -136,10 +136,10 @@
             </objects>
             <point key="canvasLocation" x="1560.8" y="817.24137931034488"/>
         </scene>
-        <!--New Detailed Movie View Controller-->
+        <!--Detailed Movie View Controller-->
         <scene sceneID="QGL-pQ-zge">
             <objects>
-                <viewController storyboardIdentifier="DetailedMovieViewController" id="eq5-SJ-Nt4" customClass="NewDetailedMovieViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailedMovieViewController" id="eq5-SJ-Nt4" customClass="DetailedMovieViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IFx-95-rbg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

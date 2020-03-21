@@ -29,7 +29,7 @@ class FeedViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: "NewMovieTableViewCell", bundle: nil),
+        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "myCell")
         let items = ["Popular", "Upcoming", "Now Playing"]
         segmentedControl = UISegmentedControl(items: items)
@@ -91,12 +91,12 @@ extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let newDetailedVC = storyboard.instantiateViewController(withIdentifier: "DetailedMovieViewController")
-            as? NewDetailedMovieViewController else {
+        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "DetailedMovieViewController")
+            as? DetailedMovieViewController else {
             return
         }
-        navigationController?.pushViewController(newDetailedVC, animated: true)
-        newDetailedVC.movieId = movies[indexPath.row].id
+        navigationController?.pushViewController(detailedVC, animated: true)
+        detailedVC.movieId = movies[indexPath.row].id
     }
 }
 

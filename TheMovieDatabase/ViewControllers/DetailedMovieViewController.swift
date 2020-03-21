@@ -1,5 +1,5 @@
 //
-//  NewDetailedMovieViewController.swift
+//  DetailedMovieViewController.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/21/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewDetailedMovieViewController: UIViewController {
+class DetailedMovieViewController: UIViewController {
 
     var movieId: Int?
     private let service = MoviesLoadingService()
@@ -230,13 +230,13 @@ class NewDetailedMovieViewController: UIViewController {
     }
 }
 
-extension NewDetailedMovieViewController: UICollectionViewDelegate {
+extension DetailedMovieViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
 
-extension NewDetailedMovieViewController: UICollectionViewDataSource {
+extension DetailedMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == crewCollectionView {
             return crew.count
