@@ -400,8 +400,8 @@
                                                 <color key="textColor" red="0.30589240789413452" green="0.30587217211723328" blue="0.30588293075561523" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GR-2I-Km6">
-                                                <rect key="frame" x="10" y="281.5" width="329" height="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GR-2I-Km6">
+                                                <rect key="frame" x="14" y="281.5" width="321" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -419,8 +419,8 @@
                                             <constraint firstItem="ChQ-hk-MPj" firstAttribute="top" secondItem="tpy-ud-grR" secondAttribute="bottom" constant="2" id="SKN-LU-gPe"/>
                                             <constraint firstItem="i7p-uA-m8K" firstAttribute="top" secondItem="PGN-Pe-7ts" secondAttribute="top" id="TmY-RI-bjM"/>
                                             <constraint firstItem="veD-TW-3gG" firstAttribute="leading" secondItem="PGN-Pe-7ts" secondAttribute="leading" constant="10" id="UjZ-5U-ciN"/>
-                                            <constraint firstAttribute="trailing" secondItem="0GR-2I-Km6" secondAttribute="trailing" constant="10" id="X87-IC-35Q"/>
-                                            <constraint firstItem="0GR-2I-Km6" firstAttribute="leading" secondItem="PGN-Pe-7ts" secondAttribute="leading" constant="10" id="YBM-n0-yvW"/>
+                                            <constraint firstAttribute="trailing" secondItem="0GR-2I-Km6" secondAttribute="trailing" constant="14" id="X87-IC-35Q"/>
+                                            <constraint firstItem="0GR-2I-Km6" firstAttribute="leading" secondItem="PGN-Pe-7ts" secondAttribute="leading" constant="14" id="YBM-n0-yvW"/>
                                             <constraint firstItem="0GR-2I-Km6" firstAttribute="top" secondItem="k6N-yT-K0k" secondAttribute="bottom" constant="16" id="dXH-Ug-fds"/>
                                             <constraint firstAttribute="trailing" secondItem="i7p-uA-m8K" secondAttribute="trailing" constant="-5" id="fo7-nA-DMc"/>
                                             <constraint firstItem="ChQ-hk-MPj" firstAttribute="leading" secondItem="k6N-yT-K0k" secondAttribute="trailing" constant="38" id="iYr-HH-lBc"/>

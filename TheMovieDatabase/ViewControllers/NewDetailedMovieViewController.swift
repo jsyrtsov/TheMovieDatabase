@@ -94,7 +94,7 @@ class NewDetailedMovieViewController: UIViewController {
         imageShadowView.layer.masksToBounds = false
         imageShadowView.layer.cornerRadius = 10
         imageShadowView.layer.shadowOffset = CGSize(width: 2, height: 2)
-        imageShadowView.layer.shadowOpacity = 0.13
+        imageShadowView.layer.shadowOpacity = 0.2
         imageShadowView.layer.shadowColor = color.cgColor
         imageShadowView.layer.shadowRadius = 10
     }
