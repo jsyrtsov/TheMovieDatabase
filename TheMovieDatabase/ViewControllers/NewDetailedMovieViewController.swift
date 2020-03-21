@@ -14,14 +14,14 @@ class NewDetailedMovieViewController: UIViewController {
     private let service = MoviesLoadingService()
     private var detailedMovie: DetailedMovie?
 
-    @IBOutlet weak private var releaseYearLabel: UILabel!
-    @IBOutlet weak private var taglineLabel: UILabel!
     @IBOutlet weak private var overviewLabel: UILabel!
+    @IBOutlet weak private var releaseYearLabel: UILabel!
     @IBOutlet weak private var voteLabel: UILabel!
+    @IBOutlet weak private var taglineLabel: UILabel!
     @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak private var imageShadowView: UIView!
     @IBOutlet weak private var backdropImage: UIImageView!
     @IBOutlet weak private var baseShadowView: UIView!
-    @IBOutlet weak private var imageShadowView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
