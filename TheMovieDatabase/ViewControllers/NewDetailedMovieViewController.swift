@@ -14,7 +14,9 @@ class NewDetailedMovieViewController: UIViewController {
     private let service = MoviesLoadingService()
     private var detailedMovie: DetailedMovie?
     private var cast: [CastEntry] = []
-    private let personCell = "personCell"
+    private let castCell = "castCell"
+    private var isFavorite = false
+    private let favoriteButton = UIButton(type: .custom)
 
     @IBOutlet weak private var runtime: UILabel!
     @IBOutlet weak private var revenue: UILabel!
@@ -29,7 +31,12 @@ class NewDetailedMovieViewController: UIViewController {
     @IBOutlet weak private var imageShadowView: UIView!
     @IBOutlet weak private var backdropImage: UIImageView!
     @IBOutlet weak private var baseShadowView: UIView!
-    @IBOutlet weak private var collectionView: UICollectionView!
+    @IBOutlet weak private var collectionViewCast: UICollectionView!
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        checkFavorite()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +45,22 @@ class NewDetailedMovieViewController: UIViewController {
     }
 
     private func configureView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionViewCast.delegate = self
+        collectionViewCast.dataSource = self
         backdropImage.clipsToBounds = true
         backdropImage.layer.cornerRadius = 10
-        collectionView.register(UINib(nibName: "PersonCollectionViewCell",
-                                      bundle: nil), forCellWithReuseIdentifier: personCell)
+        collectionViewCast.register(UINib(nibName: "CastCollectionViewCell",
+                                      bundle: nil), forCellWithReuseIdentifier: castCell)
         configureShadows()
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        backdropImage.addGestureRecognizer(tap)
+        backdropImage.isUserInteractionEnabled = true
+
+        favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
+        favoriteButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
+        let barButtonItem = UIBarButtonItem(customView: favoriteButton)
+        navigationItem.rightBarButtonItem = barButtonItem
     }
 
     private func loadDetails() {
@@ -56,7 +72,7 @@ class NewDetailedMovieViewController: UIViewController {
                 return
             }
             self.cast = result
-            self.collectionView.reloadData()
+            self.collectionViewCast.reloadData()
         }
         service.loadDetails(movieId: movieId) { [weak self] (result) in
             guard let result = result, let self = self else {
@@ -130,6 +146,44 @@ class NewDetailedMovieViewController: UIViewController {
         imageShadowView.applyShadow(radius: 10, opacity: 0.2, offsetW: 2, offsetH: 2)
         imageShadowView.layer.cornerRadius = 10
     }
+
+    @objc
+    private func imageTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let fullViewVC = storyboard.instantiateViewController(withIdentifier: "FullPosterViewController")
+            as? FullPosterViewController  else {
+            return
+        }
+        navigationController?.pushViewController(fullViewVC, animated: true)
+        fullViewVC.movieId = detailedMovie?.id
+        fullViewVC.posterPath = detailedMovie?.posterPath
+    }
+
+    @objc
+    private func likeTapped() {
+
+        if isFavorite {
+            isFavorite = false
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
+            service.removeMovie(id: movieId)
+            service.removeDetailedMovie(id: movieId)
+        } else {
+            isFavorite = true
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
+            service.saveDetailedMovie(detailedMovie: detailedMovie)
+            service.saveMovie(detailedMovie: detailedMovie)
+        }
+    }
+
+    private func checkFavorite() {
+        if service.isListedMovie(id: movieId) {
+            isFavorite = true
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
+        } else {
+            isFavorite = false
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
+        }
+    }
 }
 
 extension NewDetailedMovieViewController: UICollectionViewDelegate {
@@ -145,8 +199,8 @@ extension NewDetailedMovieViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: personCell,
-                                                      for: indexPath) as? PersonCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: castCell,
+                                                      for: indexPath) as? CastCollectionViewCell
         cell?.configure(castEntry: cast[indexPath.row])
         return cell ?? UICollectionViewCell()
     }
