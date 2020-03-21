@@ -71,7 +71,7 @@ class DetailedMovieViewController: UIViewController {
         guard let movieId = movieId else {
             return
         }
-        service.loadDetails(withMovieId: movieId) { [weak self] (result) in
+        service.loadDetails(movieId: movieId) { [weak self] (result) in
             guard let result = result, let self = self else {
                 return
             }
@@ -108,7 +108,7 @@ class DetailedMovieViewController: UIViewController {
             runtimeLabel.text = "\(runtimeHours)h \(runtimeMins)m"
         }
         originalLangLabel.text = detailedMovie?.originalLanguage
-        imageView.loadPoster(withPosterPath: detailedMovie?.backdropPath)
+        imageView.loadPicture(withPosterPath: detailedMovie?.backdropPath)
     }
 
     @objc

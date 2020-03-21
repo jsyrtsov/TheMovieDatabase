@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -352,7 +353,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVf-B2-n0S">
-                                                <rect key="frame" x="13" y="10" width="349" height="365"/>
+                                                <rect key="frame" x="13" y="10" width="349" height="522"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKW-yI-u5U">
                                                         <rect key="frame" x="14" y="278" width="321" height="67"/>
@@ -409,34 +410,72 @@
                                                             <constraint firstAttribute="width" constant="20" id="r0p-eZ-ezi"/>
                                                         </constraints>
                                                     </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CAST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GL0-3X-Vci">
+                                                        <rect key="frame" x="14" y="375" width="321" height="17"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                        <color key="textColor" red="0.24314561486244202" green="0.24312889575958252" blue="0.24313771724700928" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="d5x-hx-z2a">
+                                                        <rect key="frame" x="14" y="402" width="321" height="100"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="100" id="DSO-h9-1ca"/>
+                                                        </constraints>
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bbS-6t-QSa">
+                                                            <size key="itemSize" width="50" height="50"/>
+                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="footerReferenceSize" width="10" height="0.0"/>
+                                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        </collectionViewFlowLayout>
+                                                        <cells>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="personCell" id="0BB-FW-dhR">
+                                                                <rect key="frame" x="0.0" y="25" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="MHM-a6-Rc0">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </collectionViewCellContentView>
+                                                            </collectionViewCell>
+                                                        </cells>
+                                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="footerView" id="VsM-n6-S5B">
+                                                            <rect key="frame" x="50" y="0.0" width="10" height="100"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </collectionReusableView>
+                                                    </collectionView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstItem="Vyp-Gw-c51" firstAttribute="centerY" secondItem="DBy-gd-X38" secondAttribute="centerY" id="3i2-FV-pRt"/>
                                                     <constraint firstItem="vUn-bD-J4p" firstAttribute="leading" secondItem="EVf-B2-n0S" secondAttribute="leading" constant="14" id="4Zo-I2-Wo8"/>
                                                     <constraint firstAttribute="trailing" secondItem="Vyp-Gw-c51" secondAttribute="trailing" constant="20" id="4cf-c3-U3a"/>
+                                                    <constraint firstItem="GL0-3X-Vci" firstAttribute="top" secondItem="iKW-yI-u5U" secondAttribute="bottom" constant="30" id="5uS-sQ-yUv"/>
                                                     <constraint firstItem="fdc-T9-Oog" firstAttribute="top" secondItem="Vyp-Gw-c51" secondAttribute="bottom" constant="-1.5" id="ATX-Ub-b0R"/>
                                                     <constraint firstItem="Vyp-Gw-c51" firstAttribute="leading" secondItem="adn-AG-uav" secondAttribute="trailing" constant="8" id="BHz-2r-EUF"/>
+                                                    <constraint firstAttribute="bottom" secondItem="d5x-hx-z2a" secondAttribute="bottom" constant="20" id="CZh-tr-XDF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="d5x-hx-z2a" secondAttribute="trailing" constant="14" id="Esn-Ec-nbU"/>
+                                                    <constraint firstItem="GL0-3X-Vci" firstAttribute="leading" secondItem="EVf-B2-n0S" secondAttribute="leading" constant="14" id="GVr-Eh-RCk"/>
                                                     <constraint firstItem="vUn-bD-J4p" firstAttribute="top" secondItem="DBy-gd-X38" secondAttribute="bottom" constant="-2" id="Jzu-do-IKZ"/>
                                                     <constraint firstAttribute="trailing" secondItem="fdc-T9-Oog" secondAttribute="trailing" constant="20" id="MaQ-41-Fyf"/>
                                                     <constraint firstItem="Vyp-Gw-c51" firstAttribute="top" secondItem="HyP-OJ-vrR" secondAttribute="bottom" constant="17.5" id="ONl-8v-SCx"/>
                                                     <constraint firstAttribute="trailing" secondItem="iKW-yI-u5U" secondAttribute="trailing" constant="14" id="PbG-ri-f08"/>
                                                     <constraint firstItem="DBy-gd-X38" firstAttribute="leading" secondItem="EVf-B2-n0S" secondAttribute="leading" constant="14" id="YE4-8k-nlq"/>
                                                     <constraint firstAttribute="trailing" secondItem="adn-AG-uav" secondAttribute="trailing" constant="70" id="azf-aC-ioK"/>
+                                                    <constraint firstItem="d5x-hx-z2a" firstAttribute="top" secondItem="GL0-3X-Vci" secondAttribute="bottom" constant="10" id="c56-aG-y3G"/>
                                                     <constraint firstItem="iKW-yI-u5U" firstAttribute="leading" secondItem="EVf-B2-n0S" secondAttribute="leading" constant="14" id="c74-dU-dkO"/>
                                                     <constraint firstItem="fdc-T9-Oog" firstAttribute="leading" secondItem="adn-AG-uav" secondAttribute="trailing" constant="15" id="d83-5b-bbb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="GL0-3X-Vci" secondAttribute="trailing" constant="14" id="kIl-Sd-0ih"/>
                                                     <constraint firstItem="adn-AG-uav" firstAttribute="top" secondItem="HyP-OJ-vrR" secondAttribute="bottom" constant="20" id="pa9-dR-bm0"/>
                                                     <constraint firstItem="adn-AG-uav" firstAttribute="leading" secondItem="vUn-bD-J4p" secondAttribute="trailing" id="shB-lO-MCa"/>
-                                                    <constraint firstAttribute="bottom" secondItem="iKW-yI-u5U" secondAttribute="bottom" constant="20" id="soS-7h-2od"/>
                                                     <constraint firstItem="adn-AG-uav" firstAttribute="leading" secondItem="DBy-gd-X38" secondAttribute="trailing" id="uaG-fV-fBT"/>
                                                     <constraint firstItem="iKW-yI-u5U" firstAttribute="top" secondItem="vUn-bD-J4p" secondAttribute="bottom" constant="16" id="xGZ-c2-Kqf"/>
                                                     <constraint firstItem="DBy-gd-X38" firstAttribute="top" secondItem="HyP-OJ-vrR" secondAttribute="bottom" constant="14" id="yxI-vq-m1Q"/>
+                                                    <constraint firstItem="d5x-hx-z2a" firstAttribute="leading" secondItem="EVf-B2-n0S" secondAttribute="leading" constant="14" id="zbc-5l-hrT"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="EVf-B2-n0S" firstAttribute="top" secondItem="vIR-ZU-x2j" secondAttribute="top" constant="10" id="73z-Jk-vv6"/>
-                                            <constraint firstItem="lfv-CE-6TH" firstAttribute="centerX" secondItem="vIR-ZU-x2j" secondAttribute="centerX" id="Ce7-Yd-Xo2"/>
                                             <constraint firstAttribute="trailing" secondItem="EVf-B2-n0S" secondAttribute="trailing" constant="13" id="I5P-DP-2GK"/>
                                             <constraint firstAttribute="bottom" secondItem="EVf-B2-n0S" secondAttribute="bottom" constant="50" id="LyH-4c-cIy"/>
                                             <constraint firstAttribute="trailing" secondItem="lfv-CE-6TH" secondAttribute="trailing" constant="8" id="Wnk-iG-Eo2"/>
@@ -471,6 +510,7 @@
                     <connections>
                         <outlet property="backdropImage" destination="HyP-OJ-vrR" id="dOv-S6-F1b"/>
                         <outlet property="baseShadowView" destination="EVf-B2-n0S" id="Nd4-GS-G38"/>
+                        <outlet property="collectionView" destination="d5x-hx-z2a" id="gRH-ei-fyQ"/>
                         <outlet property="imageShadowView" destination="lfv-CE-6TH" id="LgA-J3-6sE"/>
                         <outlet property="overviewLabel" destination="iKW-yI-u5U" id="JBe-Un-Wae"/>
                         <outlet property="releaseYearLabel" destination="fdc-T9-Oog" id="oeN-Gl-mjJ"/>

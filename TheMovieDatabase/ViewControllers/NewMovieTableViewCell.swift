@@ -19,8 +19,6 @@ class NewMovieTableViewCell: UITableViewCell {
     @IBOutlet weak private var year: UILabel!
     @IBOutlet weak private var voteAverage: UILabel!
 
-    //private var vote: Double = 0.0
-
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
@@ -32,13 +30,12 @@ class NewMovieTableViewCell: UITableViewCell {
         guard let vote = movie.voteAverage else {
             return
         }
-        //self.vote = vote
         voteAverage.text = String(vote)
         guard let yearStr = movie.releaseDate?.prefix(4) else {
             return
         }
         year.text = String(yearStr)
-        posterImageView.loadPoster(withPosterPath: movie.posterPath)
+        posterImageView.loadPicture(withPosterPath: movie.posterPath)
 
         if vote > 7.5 {
             voteAverage.textColor = UIColor(red: 30 / 255,
@@ -64,23 +61,15 @@ class NewMovieTableViewCell: UITableViewCell {
     }
 
     private func configureUI() {
+        cellView.layer.cornerRadius = 10
+
         posterImageView.layer.cornerRadius = 5
         posterImageView.clipsToBounds = true
 
+        shadowImageView.applyShadow(radius: 5, opacity: 0.25, offsetW: 1, offsetH: 0)
         shadowImageView.layer.cornerRadius = 5
-        let color: UIColor = .black
-        shadowImageView.layer.shadowColor = color.cgColor
-        shadowImageView.layer.shadowOpacity = 0.25
-        shadowImageView.layer.masksToBounds = false
-        shadowImageView.layer.shadowOffset = CGSize(width: 1, height: 0)
-        shadowImageView.layer.shadowRadius = 5
 
-        cellView.layer.cornerRadius = 10
+        shadowCellView.applyShadow(radius: 6, opacity: 0.1, offsetW: 4, offsetH: 4)
         shadowCellView.layer.cornerRadius = 10
-        shadowCellView.layer.masksToBounds = false
-        shadowCellView.layer.shadowColor = color.cgColor
-        shadowCellView.layer.shadowOpacity = 0.1
-        shadowCellView.layer.shadowOffset = CGSize(width: 4, height: 4)
-        shadowCellView.layer.shadowRadius = 6
     }
 }

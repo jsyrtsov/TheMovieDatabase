@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="personCell" id="gTV-IL-0wX" customClass="PersonCollectionViewCell" customModule="TheMovieDatabase" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="116" height="76"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="116" height="76"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ni8-l1-wJR">
+                        <rect key="frame" x="0.0" y="0.0" width="116" height="76"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NA-id-U4z">
+                                <rect key="frame" x="0.0" y="0.0" width="110" height="60"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BdO-dT-d4b">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="N9G-xJ-lKB"/>
+                                            <constraint firstAttribute="width" constant="40" id="oNa-4c-Tk1"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joaquin Phoenix" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yB5-Gv-AWI">
+                                        <rect key="frame" x="44" y="3" width="62" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="as" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvx-Tq-5Yo">
+                                        <rect key="frame" x="69.5" y="24.5" width="11" height="11"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arthur Fleck / Joker" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMh-Y5-46h">
+                                        <rect key="frame" x="44" y="35.5" width="62" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="9"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="wMh-Y5-46h" secondAttribute="trailing" constant="4" id="4qv-PI-IUm"/>
+                                    <constraint firstAttribute="bottom" secondItem="wMh-Y5-46h" secondAttribute="bottom" constant="3" id="7Q5-sa-SQ9"/>
+                                    <constraint firstItem="bvx-Tq-5Yo" firstAttribute="centerX" secondItem="yB5-Gv-AWI" secondAttribute="centerX" id="Cak-HE-bh5"/>
+                                    <constraint firstItem="wMh-Y5-46h" firstAttribute="leading" secondItem="BdO-dT-d4b" secondAttribute="trailing" constant="4" id="CxP-n0-rGq"/>
+                                    <constraint firstItem="yB5-Gv-AWI" firstAttribute="leading" secondItem="BdO-dT-d4b" secondAttribute="trailing" constant="4" id="HdP-QT-375"/>
+                                    <constraint firstItem="bvx-Tq-5Yo" firstAttribute="centerY" secondItem="BdO-dT-d4b" secondAttribute="centerY" id="MvU-DQ-YSq"/>
+                                    <constraint firstItem="bvx-Tq-5Yo" firstAttribute="top" secondItem="yB5-Gv-AWI" secondAttribute="bottom" id="TMD-hD-QeS"/>
+                                    <constraint firstItem="BdO-dT-d4b" firstAttribute="top" secondItem="4NA-id-U4z" secondAttribute="top" id="XNT-wT-FcH"/>
+                                    <constraint firstAttribute="bottom" secondItem="BdO-dT-d4b" secondAttribute="bottom" id="k2a-mQ-IIb"/>
+                                    <constraint firstItem="yB5-Gv-AWI" firstAttribute="top" secondItem="4NA-id-U4z" secondAttribute="top" constant="3" id="l8D-Wp-j0H"/>
+                                    <constraint firstAttribute="trailing" secondItem="yB5-Gv-AWI" secondAttribute="trailing" constant="4" id="mGQ-TH-TLq"/>
+                                    <constraint firstItem="wMh-Y5-46h" firstAttribute="top" secondItem="bvx-Tq-5Yo" secondAttribute="bottom" id="qXZ-J5-4jq"/>
+                                    <constraint firstItem="BdO-dT-d4b" firstAttribute="leading" secondItem="4NA-id-U4z" secondAttribute="leading" id="rmL-P3-TDM"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="4NA-id-U4z" firstAttribute="top" secondItem="Ni8-l1-wJR" secondAttribute="top" id="KCe-du-hi4"/>
+                            <constraint firstAttribute="bottom" secondItem="4NA-id-U4z" secondAttribute="bottom" constant="16" id="Nhj-Fc-usB"/>
+                            <constraint firstItem="4NA-id-U4z" firstAttribute="leading" secondItem="Ni8-l1-wJR" secondAttribute="leading" id="SDR-YS-vcE"/>
+                            <constraint firstAttribute="trailing" secondItem="4NA-id-U4z" secondAttribute="trailing" constant="6" id="slt-M3-EUr"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Ni8-l1-wJR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="DPj-lp-5v2"/>
+                <constraint firstItem="Ni8-l1-wJR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="QwF-OA-525"/>
+                <constraint firstAttribute="trailing" secondItem="Ni8-l1-wJR" secondAttribute="trailing" id="TED-oO-mCl"/>
+                <constraint firstAttribute="bottom" secondItem="Ni8-l1-wJR" secondAttribute="bottom" id="uXl-W4-fbr"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="116" height="76"/>
+            <connections>
+                <outlet property="baseShadowView" destination="4NA-id-U4z" id="Wrj-UT-4xV"/>
+                <outlet property="characterLabel" destination="wMh-Y5-46h" id="cts-6O-Sca"/>
+                <outlet property="faceView" destination="BdO-dT-d4b" id="If9-vg-gKW"/>
+                <outlet property="nameLabel" destination="yB5-Gv-AWI" id="HkN-gK-HxE"/>
+            </connections>
+            <point key="canvasLocation" x="185.50724637681162" y="145.3125"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -11,14 +11,14 @@ import UIKit
 import Nuke
 
 extension UIImageView {
-    func loadPoster(withPosterPath posterPath: String?) {
+    func loadPicture(withPosterPath posterPath: String?) {
         let blankImageUrl = "https://image.tmdb.org/t/p/w500"
         if let imageUrlString = posterPath,
             let imageUrl = URL(string: blankImageUrl + imageUrlString) {
             Nuke.loadImage(with: imageUrl, into: self)
         }
     }
-    func loadFullPic(withPath path: String?) {
+    func loadFullPicture(withPath path: String?) {
         let blankImageUrl = "https://image.tmdb.org/t/p/original"
         if let imageUrlString = path,
             let imageUrl = URL(string: blankImageUrl + imageUrlString) {
