@@ -41,7 +41,6 @@ class FavoritesViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "NewMovieTableViewCell", bundle: nil), forCellReuseIdentifier: "myCell")
-        //tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
         tableView.tableFooterView = UIView()
     }
 }
@@ -51,11 +50,6 @@ extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController")
-            as? DetailedMovieViewController  else {
-            return
-        }
-        detailedVC.movieId = movies[indexPath.row].id
         guard let newDetailedVC = storyboard.instantiateViewController(withIdentifier: "DetailedMovieViewController")
             as? NewDetailedMovieViewController else {
             return
@@ -72,16 +66,10 @@ extension FavoritesViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? MovieTableViewCell
-//        cell?.configure(withMovie: movies[indexPath.row])
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as? NewMovieTableViewCell
         cell?.configure(movie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }
-
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 129
-//    }
 
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,

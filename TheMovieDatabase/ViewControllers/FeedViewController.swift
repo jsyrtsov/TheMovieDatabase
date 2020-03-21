@@ -29,7 +29,8 @@ class FeedViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: "NewMovieTableViewCell", bundle: nil), forCellReuseIdentifier: "myCell")
+        tableView.register(UINib(nibName: "NewMovieTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "myCell")
         let items = ["Popular", "Upcoming", "Now Playing"]
         segmentedControl = UISegmentedControl(items: items)
         segmentedControl?.selectedSegmentIndex = 0
