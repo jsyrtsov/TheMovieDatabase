@@ -1,5 +1,5 @@
 //
-//  NewMovieTableViewCell.swift
+//  MovieTableViewCell.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/16/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewMovieTableViewCell: UITableViewCell {
+class MovieTableViewCell: UITableViewCell {
 
     @IBOutlet weak private var cellView: UIView!
     @IBOutlet weak private var shadowImageView: UIView!
