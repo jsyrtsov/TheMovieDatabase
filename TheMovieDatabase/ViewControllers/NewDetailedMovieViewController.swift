@@ -16,6 +16,11 @@ class NewDetailedMovieViewController: UIViewController {
     private var cast: [CastEntry] = []
     private let personCell = "personCell"
 
+    @IBOutlet weak private var runtime: UILabel!
+    @IBOutlet weak private var revenue: UILabel!
+    @IBOutlet weak private var budget: UILabel!
+    @IBOutlet weak private var originalLanguage: UILabel!
+    @IBOutlet weak private var releaseDate: UILabel!
     @IBOutlet weak private var overviewLabel: UILabel!
     @IBOutlet weak private var releaseYearLabel: UILabel!
     @IBOutlet weak private var voteLabel: UILabel!
@@ -63,6 +68,28 @@ class NewDetailedMovieViewController: UIViewController {
     }
 
     private func updateView() {
+        if detailedMovie?.budget == 0 {
+            budget.text = "Information is coming soon"
+        } else {
+            budget.text = "\(detailedMovie?.budget ?? 0)$"
+        }
+        if detailedMovie?.revenue == 0 {
+            revenue.text = "Information is coming soon"
+        } else if let revenue = detailedMovie?.revenue {
+
+            let revenueB = revenue / 1000000000
+            let revenueM = revenue / 1000000
+            let revenueT = revenue / 1000
+            let revenueH = revenue % 1000
+            self.revenue.text = "\(revenueB)B \(revenueM)M \(revenueT)T \(revenueH)$"
+            //revenue.text = "\(detailedMovie?.revenue ?? 0)$"
+        }
+        if let runtime = detailedMovie?.runtime {
+            let runtimeHours = runtime / 60
+            let runtimeMins = runtime % 60
+            self.runtime.text = "\(runtimeHours)h \(runtimeMins)m"
+        }
+        originalLanguage.text = detailedMovie?.originalLanguage
         backdropImage.loadFullPicture(withPath: detailedMovie?.backdropPath)
         guard let date = detailedMovie?.releaseDate?.prefix(4), let vote = detailedMovie?.voteAverage else {
             return
@@ -88,6 +115,7 @@ class NewDetailedMovieViewController: UIViewController {
                                             blue: 124 / 255,
                                             alpha: 1)
         }
+        releaseDate.text = String(date)
         releaseYearLabel.text = String(date)
         taglineLabel.text = detailedMovie?.tagline
         overviewLabel.text = detailedMovie?.overview

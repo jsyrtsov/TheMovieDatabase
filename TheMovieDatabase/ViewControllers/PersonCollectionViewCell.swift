@@ -22,7 +22,6 @@ class PersonCollectionViewCell: UICollectionViewCell {
 
     private func configureView() {
         faceView.layer.cornerRadius = 5
-        
         baseShadowView.layer.cornerRadius = 5
         baseShadowView.applyShadow(radius: 6, opacity: 0.07, offsetW: 2, offsetH: 2)
     }
