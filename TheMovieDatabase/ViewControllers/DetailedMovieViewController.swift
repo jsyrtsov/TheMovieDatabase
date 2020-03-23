@@ -15,8 +15,9 @@ class DetailedMovieViewController: UIViewController {
     private var detailedMovie: DetailedMovie?
     private var crew: [CrewEntry] = []
     private var cast: [CastEntry] = []
-    private let crewCell = "crewCell"
-    private let castCell = "castCell"
+    private var videos: [Video] = []
+    private let videoCell = "videoCell"
+    private let personCell = "castCell"
     private var isFavorite = false
     private let favoriteButton = UIButton(type: .custom)
 
@@ -34,6 +35,7 @@ class DetailedMovieViewController: UIViewController {
     @IBOutlet weak private var imageShadowView: UIView!
     @IBOutlet weak private var backdropImage: UIImageView!
     @IBOutlet weak private var baseShadowView: UIView!
+    @IBOutlet weak private var videosCollectionView: UICollectionView!
     @IBOutlet weak private var castCollectionView: UICollectionView!
     @IBOutlet weak private var crewCollectionView: UICollectionView!
 
@@ -58,15 +60,20 @@ class DetailedMovieViewController: UIViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
+        videosCollectionView.delegate = self
+        videosCollectionView.dataSource = self
+        videosCollectionView.register(UINib(nibName: "VideoCollectionViewCell", bundle: nil),
+                                      forCellWithReuseIdentifier: videoCell)
+
         crewCollectionView.delegate = self
         crewCollectionView.dataSource = self
-        crewCollectionView.register(UINib(nibName: "CrewCollectionViewCell", bundle: nil),
-                                    forCellWithReuseIdentifier: crewCell)
+        crewCollectionView.register(UINib(nibName: "PersonCollectionViewCell", bundle: nil),
+                                    forCellWithReuseIdentifier: personCell)
 
         castCollectionView.delegate = self
         castCollectionView.dataSource = self
-        castCollectionView.register(UINib(nibName: "CastCollectionViewCell", bundle: nil),
-                                    forCellWithReuseIdentifier: castCell)
+        castCollectionView.register(UINib(nibName: "PersonCollectionViewCell", bundle: nil),
+                                    forCellWithReuseIdentifier: personCell)
 
         backdropImage.clipsToBounds = true
         backdropImage.layer.cornerRadius = 10
@@ -86,6 +93,14 @@ class DetailedMovieViewController: UIViewController {
         guard let movieId = movieId else {
             return
         }
+        service.loadVideos(movieId: movieId) { [weak self] (result) in
+            guard let result = result, let self = self else {
+                return
+            }
+            self.videos = result
+            self.videosCollectionView.reloadData()
+        }
+
         service.loadDetails(movieId: movieId) { [weak self] (result) in
             guard let result = result, let self = self else {
                 return
@@ -93,18 +108,18 @@ class DetailedMovieViewController: UIViewController {
             self.detailedMovie = result
             self.updateView()
         }
-        service.loadCastAndCrew(movieId: movieId) { [weak self] (result) in
-            guard let resultCast = result?.cast,
-                let resultCrew = result?.crew,
+        service.loadCastAndCrew(movieId: movieId) { [weak self] (resultCast, resultCrew) in
+            guard let resultCast = resultCast,
+                let resultCrew = resultCrew,
                 let self = self else {
                 return
             }
             self.crew = resultCrew
             self.cast = resultCast
-            guard let director = self.crew.first(where: { $0.job == "Director" }),
-                let directorIndex = self.crew.firstIndex(where: { $0.job == "Director" }) else {
+            guard let directorIndex = self.crew.firstIndex(where: { $0.job == "Director" }) else {
                 return
             }
+            let director = self.crew[directorIndex]
             self.crew.remove(at: directorIndex)
             self.crew.insert(director, at: 0)
             self.crew = Array(self.crew.prefix(15))
@@ -250,14 +265,18 @@ extension DetailedMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == crewCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: crewCell,
-                                                          for: indexPath) as? CrewCollectionViewCell
-            cell?.configure(crewEntry: crew[indexPath.row])
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: personCell,
+                                                          for: indexPath) as? PersonCollectionViewCell
+            cell?.configureCrew(crewEntry: crew[indexPath.row])
             return cell ?? UICollectionViewCell()
         } else if collectionView == castCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: castCell,
-                                                          for: indexPath) as? CastCollectionViewCell
-            cell?.configure(castEntry: cast[indexPath.row])
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: personCell,
+                                                          for: indexPath) as? PersonCollectionViewCell
+            cell?.configureCast(castEntry: cast[indexPath.row])
+            return cell ?? UICollectionViewCell()
+        } else if collectionView == videosCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: videoCell,
+                                                          for: indexPath) as? VideoCollectionViewCell
             return cell ?? UICollectionViewCell()
         } else {
             return UICollectionViewCell()
