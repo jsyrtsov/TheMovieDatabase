@@ -27,37 +27,29 @@ class MovieTableViewCell: UITableViewCell {
     func configure(movie: Movie) {
         title.text = movie.title
         overview.text = movie.overview
-        guard let vote = movie.voteAverage else {
-            return
+        if let vote = movie.voteAverage {
+            voteAverage.text = String(vote)
+            if vote > 7.5 {
+                voteAverage.textColor = UIColor(red: 30 / 255,
+                                                green: 134 / 255,
+                                                blue: 53 / 255,
+                                                alpha: 1)
+            } else if vote == 0.0 {
+                voteAverage.textColor = UIColor(red: 124 / 255,
+                                                           green: 124 / 255,
+                                                           blue: 124 / 255,
+                                                           alpha: 1)
+            } else if vote < 6.0 {
+                voteAverage.textColor = UIColor(red: 155 / 255,
+                                                green: 36 / 255,
+                                                blue: 36 / 255,
+                                                alpha: 1)
+            }
         }
-        voteAverage.text = String(vote)
-        guard let yearStr = movie.releaseDate?.prefix(4) else {
-            return
+        if let yearStr = movie.releaseDate?.prefix(4) {
+            year.text = String(yearStr)
         }
-        year.text = String(yearStr)
         posterImageView.loadPicture(withPosterPath: movie.posterPath)
-
-        if vote > 7.5 {
-            voteAverage.textColor = UIColor(red: 30 / 255,
-                                            green: 134 / 255,
-                                            blue: 53 / 255,
-                                            alpha: 1)
-        } else if vote == 0.0 {
-            voteAverage.textColor = UIColor(red: 124 / 255,
-                                            green: 124 / 255,
-                                            blue: 124 / 255,
-                                            alpha: 1)
-        } else if vote < 6.0 {
-            voteAverage.textColor = UIColor(red: 155 / 255,
-                                            green: 36 / 255,
-                                            blue: 36 / 255,
-                                            alpha: 1)
-        } else {
-            voteAverage.textColor = UIColor(red: 124 / 255,
-                                            green: 124 / 255,
-                                            blue: 124 / 255,
-                                            alpha: 1)
-        }
     }
 
     private func configureUI() {

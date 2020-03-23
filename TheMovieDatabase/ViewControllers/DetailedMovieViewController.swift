@@ -17,7 +17,7 @@ class DetailedMovieViewController: UIViewController {
     private var cast: [CastEntry] = []
     private var videos: [Video] = []
     private let videoCell = "videoCell"
-    private let personCell = "castCell"
+    private let personCell = "personCell"
     private var isFavorite = false
     private let favoriteButton = UIButton(type: .custom)
 
