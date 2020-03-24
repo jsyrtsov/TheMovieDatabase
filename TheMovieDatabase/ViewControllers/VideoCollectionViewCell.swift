@@ -29,7 +29,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         previewImage.layer.cornerRadius = 5
         previewImage.clipsToBounds = true
         imageShadowView.layer.cornerRadius = 5
-        imageShadowView.applyShadow(radius: 10, opacity: 0.2, offsetW: 2, offsetH: 2)
+        imageShadowView.applyShadow(radius: 6, opacity: 0.07, offsetW: 3, offsetH: 3)
         baseShadowView.layer.cornerRadius = 5
         baseShadowView.applyShadow(radius: 6, opacity: 0.07, offsetW: 3, offsetH: 3)
     }

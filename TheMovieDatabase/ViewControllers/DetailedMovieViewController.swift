@@ -8,7 +8,6 @@
 
 import UIKit
 import AVKit
-//import AVFoundation
 
 class DetailedMovieViewController: UIViewController {
 
@@ -177,12 +176,7 @@ class DetailedMovieViewController: UIViewController {
                                             green: 134 / 255,
                                             blue: 53 / 255,
                                             alpha: 1)
-        } else if vote == 0.0 {
-            voteLabel.textColor = UIColor(red: 124 / 255,
-                                            green: 124 / 255,
-                                            blue: 124 / 255,
-                                            alpha: 1)
-        } else if vote < 6.0 {
+        } else if vote < 6.0 && vote > 0.0 {
             voteLabel.textColor = UIColor(red: 155 / 255,
                                             green: 36 / 255,
                                             blue: 36 / 255,
@@ -253,7 +247,10 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
         collectionView.deselectItem(at: indexPath, animated: true)
         if collectionView == videosCollectionView {
             print("item selected")
-            extractor.getUrlFromKey(key: videos[indexPath.row].key) { (url) in
+            extractor.getUrlFromKey(key: videos[indexPath.row].key) { [weak self] (url) in
+                guard let self = self else {
+                    return
+                }
                 let player = AVPlayer(url: url)
                 let vc = AVPlayerViewController()
                 vc.player = player

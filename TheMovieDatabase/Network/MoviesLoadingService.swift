@@ -9,7 +9,6 @@
 import Foundation
 
 class MoviesLoadingService {
-    private let decoder = JSONDecoder()
     private let storageMoviesService = MoviesStorageService()
     private var totalPages: Int = 1
     private var currentPage: Int = 1
@@ -42,12 +41,13 @@ class MoviesLoadingService {
             return
         }
         URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
-            self.decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
                 return completion(nil)
             }
             do {
-                let result = try self.decoder.decode(MoviesListResponse.self, from: data)
+                let result = try decoder.decode(MoviesListResponse.self, from: data)
                 DispatchQueue.main.async {
                     guard let totalPages = result.totalPages else {
                         return
@@ -75,7 +75,8 @@ class MoviesLoadingService {
             return
         }
         URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
-            self.decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
                 return
                     DispatchQueue.main.async {
@@ -83,7 +84,7 @@ class MoviesLoadingService {
                     }
             }
             do {
-                let result = try self.decoder.decode(DetailedMovie.self, from: data)
+                let result = try decoder.decode(DetailedMovie.self, from: data)
                 DispatchQueue.main.async {
                     completion(result)
                 }
@@ -103,12 +104,13 @@ class MoviesLoadingService {
             return
         }
         URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
-            self.decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
                 return
             }
             do {
-                let result = try self.decoder.decode(CreditsResponse.self, from: data)
+                let result = try decoder.decode(CreditsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(result.cast, result.crew)
                 }
@@ -126,12 +128,13 @@ class MoviesLoadingService {
             return
         }
         URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
-            self.decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
                 return
             }
             do {
-                let result = try self.decoder.decode(VideosResponse.self, from: data)
+                let result = try decoder.decode(VideosResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(result.results)
                 }
