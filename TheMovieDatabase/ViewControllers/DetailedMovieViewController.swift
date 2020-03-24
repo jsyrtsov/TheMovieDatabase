@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import AVKit
+//import AVFoundation
 
 class DetailedMovieViewController: UIViewController {
 
     var movieId: Int?
+    private let extractor = LinkExtractor()
     private let service = MoviesLoadingService()
     private var detailedMovie: DetailedMovie?
     private var crew: [CrewEntry] = []
@@ -165,7 +168,7 @@ class DetailedMovieViewController: UIViewController {
         }
 
         originalLanguage.text = detailedMovie?.originalLanguage
-        backdropImage.loadFullPicture(withPath: detailedMovie?.backdropPath)
+        backdropImage.loadFullPicture(path: detailedMovie?.backdropPath)
         guard let date = detailedMovie?.releaseDate?.prefix(4), let vote = detailedMovie?.voteAverage else {
             return
         }
@@ -248,6 +251,17 @@ class DetailedMovieViewController: UIViewController {
 extension DetailedMovieViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        if collectionView == videosCollectionView {
+            print("item selected")
+            extractor.getUrlFromKey(key: videos[indexPath.row].key) { (url) in
+                let player = AVPlayer(url: url)
+                let vc = AVPlayerViewController()
+                vc.player = player
+                self.present(vc, animated: true) {
+                    vc.player?.play()
+                }
+            }
+        }
     }
 }
 
@@ -257,6 +271,8 @@ extension DetailedMovieViewController: UICollectionViewDataSource {
             return crew.count
         } else if collectionView == castCollectionView {
             return cast.count
+        } else if collectionView == videosCollectionView {
+            return videos.count
         } else {
             return 0
         }
@@ -277,6 +293,7 @@ extension DetailedMovieViewController: UICollectionViewDataSource {
         } else if collectionView == videosCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: videoCell,
                                                           for: indexPath) as? VideoCollectionViewCell
+            cell?.configure(video: videos[indexPath.row])
             return cell ?? UICollectionViewCell()
         } else {
             return UICollectionViewCell()

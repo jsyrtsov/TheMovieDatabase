@@ -49,7 +49,7 @@ class MovieTableViewCell: UITableViewCell {
         if let yearStr = movie.releaseDate?.prefix(4) {
             year.text = String(yearStr)
         }
-        posterImageView.loadPicture(withPosterPath: movie.posterPath)
+        posterImageView.loadPicture(posterPath: movie.posterPath)
     }
 
     private func configureUI() {

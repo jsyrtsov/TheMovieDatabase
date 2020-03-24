@@ -21,7 +21,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
     }
 
     func configureCast(castEntry: CastEntry) {
-        profileImage.loadPicture(withPosterPath: castEntry.profilePath)
+        profileImage.loadPicture(posterPath: castEntry.profilePath)
         nameLabel.text = castEntry.name
         characterOrJobLabel.text = castEntry.character
     }
@@ -29,7 +29,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
     func configureCrew(crewEntry: CrewEntry) {
         nameLabel.text = crewEntry.name
         characterOrJobLabel.text = crewEntry.job
-        profileImage.loadPicture(withPosterPath: crewEntry.profilePath)
+        profileImage.loadPicture(posterPath: crewEntry.profilePath)
     }
 
     private func configureView() {
