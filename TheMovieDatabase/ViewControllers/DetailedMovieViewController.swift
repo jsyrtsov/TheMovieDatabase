@@ -171,22 +171,7 @@ class DetailedMovieViewController: UIViewController {
         guard let date = detailedMovie?.releaseDate?.prefix(4), let vote = detailedMovie?.voteAverage else {
             return
         }
-        if vote > 7.5 {
-            voteLabel.textColor = UIColor(red: 30 / 255,
-                                            green: 134 / 255,
-                                            blue: 53 / 255,
-                                            alpha: 1)
-        } else if vote < 6.0 && vote > 0.0 {
-            voteLabel.textColor = UIColor(red: 155 / 255,
-                                            green: 36 / 255,
-                                            blue: 36 / 255,
-                                            alpha: 1)
-        } else {
-            voteLabel.textColor = UIColor(red: 124 / 255,
-                                            green: 124 / 255,
-                                            blue: 124 / 255,
-                                            alpha: 1)
-        }
+        voteLabel.textColor = UIColor.colorForVote(vote: vote)
         releaseDate.text = String(date)
         releaseYearLabel.text = String(date)
         taglineLabel.text = detailedMovie?.tagline
