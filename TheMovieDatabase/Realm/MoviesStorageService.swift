@@ -1,5 +1,5 @@
 //
-//  StorageMoviesService.swift
+//  MoviesStorageService.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/16/20.

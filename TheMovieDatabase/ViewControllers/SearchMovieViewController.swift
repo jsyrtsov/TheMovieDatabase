@@ -1,5 +1,5 @@
 //
-//  SearchViewController.swift
+//  SearchMovieViewController.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 2/21/20.

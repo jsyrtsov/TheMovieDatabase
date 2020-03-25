@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  UrlParts.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 2/29/20.

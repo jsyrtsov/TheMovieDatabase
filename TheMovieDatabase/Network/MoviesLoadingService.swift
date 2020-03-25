@@ -1,5 +1,5 @@
 //
-//  MovieLoadingManager.swift
+//  MoviesLoadingService.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/2/20.
