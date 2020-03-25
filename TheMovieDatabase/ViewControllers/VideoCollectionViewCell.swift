@@ -10,6 +10,8 @@ import UIKit
 
 class VideoCollectionViewCell: UICollectionViewCell {
 
+    static let identifier = String(describing: VideoCollectionViewCell.self)
+
     @IBOutlet weak private var baseShadowView: UIView!
     @IBOutlet weak private var imageShadowView: UIView!
     @IBOutlet weak private var previewImage: UIImageView!

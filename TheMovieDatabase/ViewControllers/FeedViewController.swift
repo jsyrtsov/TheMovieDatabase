@@ -29,8 +29,8 @@ class FeedViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: "myCell")
+        tableView.register(UINib(nibName: MovieTableViewCell.identifier, bundle: nil),
+                           forCellReuseIdentifier: MovieTableViewCell.identifier)
         let items = ["Popular", "Upcoming", "Now Playing"]
         segmentedControl = UISegmentedControl(items: items)
         segmentedControl?.selectedSegmentIndex = 0
@@ -108,7 +108,8 @@ extension FeedViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as? MovieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier,
+                                                 for: indexPath) as? MovieTableViewCell
         cell?.configure(movie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }

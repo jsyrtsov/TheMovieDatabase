@@ -18,8 +18,6 @@ class DetailedMovieViewController: UIViewController {
     private var crew: [CrewEntry] = []
     private var cast: [CastEntry] = []
     private var videos: [Video] = []
-    private let videoCell = "videoCell"
-    private let personCell = "personCell"
     private var isFavorite = false
     private let favoriteButton = UIButton(type: .custom)
 
@@ -64,18 +62,18 @@ class DetailedMovieViewController: UIViewController {
 
         videosCollectionView.delegate = self
         videosCollectionView.dataSource = self
-        videosCollectionView.register(UINib(nibName: "VideoCollectionViewCell", bundle: nil),
-                                      forCellWithReuseIdentifier: videoCell)
+        videosCollectionView.register(UINib(nibName: VideoCollectionViewCell.identifier, bundle: nil),
+                                      forCellWithReuseIdentifier: VideoCollectionViewCell.identifier)
 
         crewCollectionView.delegate = self
         crewCollectionView.dataSource = self
-        crewCollectionView.register(UINib(nibName: "PersonCollectionViewCell", bundle: nil),
-                                    forCellWithReuseIdentifier: personCell)
+        crewCollectionView.register(UINib(nibName: PersonCollectionViewCell.identifier, bundle: nil),
+                                    forCellWithReuseIdentifier: PersonCollectionViewCell.identifier)
 
         castCollectionView.delegate = self
         castCollectionView.dataSource = self
-        castCollectionView.register(UINib(nibName: "PersonCollectionViewCell", bundle: nil),
-                                    forCellWithReuseIdentifier: personCell)
+        castCollectionView.register(UINib(nibName: PersonCollectionViewCell.identifier, bundle: nil),
+                                    forCellWithReuseIdentifier: PersonCollectionViewCell.identifier)
 
         backdropImage.clipsToBounds = true
         backdropImage.layer.cornerRadius = 10
@@ -231,7 +229,6 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         if collectionView == videosCollectionView {
-            print("item selected")
             extractor.getUrlFromKey(key: videos[indexPath.row].key) { [weak self] (url) in
                 guard let self = self else {
                     return
@@ -263,17 +260,17 @@ extension DetailedMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == crewCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: personCell,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonCollectionViewCell.identifier,
                                                           for: indexPath) as? PersonCollectionViewCell
             cell?.configureCrew(crewEntry: crew[indexPath.row])
             return cell ?? UICollectionViewCell()
         } else if collectionView == castCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: personCell,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonCollectionViewCell.identifier,
                                                           for: indexPath) as? PersonCollectionViewCell
             cell?.configureCast(castEntry: cast[indexPath.row])
             return cell ?? UICollectionViewCell()
         } else if collectionView == videosCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: videoCell,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCollectionViewCell.identifier,
                                                           for: indexPath) as? VideoCollectionViewCell
             cell?.configure(video: videos[indexPath.row])
             return cell ?? UICollectionViewCell()

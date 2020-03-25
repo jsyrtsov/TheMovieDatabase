@@ -10,6 +10,8 @@ import UIKit
 
 class PersonCollectionViewCell: UICollectionViewCell {
 
+    static let identifier = String(describing: PersonCollectionViewCell.self)
+
     @IBOutlet weak private var baseShadowView: UIView!
     @IBOutlet weak private var profileImage: UIImageView!
     @IBOutlet weak private var nameLabel: UILabel!

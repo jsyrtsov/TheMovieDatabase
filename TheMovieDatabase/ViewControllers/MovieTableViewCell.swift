@@ -10,6 +10,8 @@ import UIKit
 
 class MovieTableViewCell: UITableViewCell {
 
+    static let identifier = String(describing: MovieTableViewCell.self)
+
     @IBOutlet weak private var cellView: UIView!
     @IBOutlet weak private var shadowImageView: UIView!
     @IBOutlet weak private var shadowCellView: UIView!
