@@ -1,5 +1,5 @@
 //
-//  MovieLoadingStrategy.swift
+//  MoviesServiceLoadingStrategy.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/3/20.

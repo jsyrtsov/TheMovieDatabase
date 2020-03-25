@@ -15,7 +15,7 @@ class FeedViewController: UIViewController {
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
 
-    private let service = MoviesLoadingService()
+    private lazy var service = MoviesLoadingService()
 
     private var movies: [Movie] = []
 
@@ -29,7 +29,8 @@ class FeedViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "moviesCell")
+        tableView.register(UINib(nibName: MovieTableViewCell.identifier, bundle: nil),
+                           forCellReuseIdentifier: MovieTableViewCell.identifier)
         let items = ["Popular", "Upcoming", "Now Playing"]
         segmentedControl = UISegmentedControl(items: items)
         segmentedControl?.selectedSegmentIndex = 0
@@ -90,8 +91,8 @@ extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController")
-            as? DetailedMovieViewController  else {
+        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "DetailedMovieViewController")
+            as? DetailedMovieViewController else {
             return
         }
         navigationController?.pushViewController(detailedVC, animated: true)
@@ -102,17 +103,14 @@ extension FeedViewController: UITableViewDelegate {
 // MARK: TableViewDataSource
 extension FeedViewController: UITableViewDataSource {
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 129
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as? MovieTableViewCell
-        cell?.configure(withMovie: movies[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier,
+                                                 for: indexPath) as? MovieTableViewCell
+        cell?.configure(movie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }
 

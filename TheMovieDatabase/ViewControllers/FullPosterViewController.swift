@@ -27,7 +27,7 @@ class FullPosterViewController: UIViewController {
     }
 
     private func loadPic() {
-        imageView.loadFullPic(withPath: posterPath)
+        imageView.loadFullPicture(path: posterPath)
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
     }

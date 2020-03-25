@@ -1,5 +1,5 @@
 //
-//  MovieLoadingManager.swift
+//  MoviesLoadingService.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/2/20.
@@ -37,11 +37,10 @@ class MoviesLoadingService {
         url = url?.appending("api_key", value: UrlParts.apiKey)
         url = url?.appending("page", value: String(currentPage))
 
-        guard let loadingURL = url else {
+        guard let urlNotNil = url else {
             return
         }
-        print(loadingURL.absoluteString)
-        URLSession.shared.dataTask(with: loadingURL) { (data, response, error) in
+        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
@@ -68,14 +67,14 @@ class MoviesLoadingService {
         }.resume()
     }
 
-    func loadDetails(withMovieId movieId: Int, completion: @escaping (DetailedMovie?) -> Void) {
+    func loadDetails(movieId: Int, completion: @escaping (DetailedMovie?) -> Void) {
         var url: URL?
         url = URL(string: UrlParts.baseUrl + "movie/\(movieId)")
         url = url?.appending("api_key", value: UrlParts.apiKey)
-        guard let urlLoading = url else {
+        guard let urlNotNil = url else {
             return
         }
-        URLSession.shared.dataTask(with: urlLoading) { (data, response, error) in
+        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
@@ -93,6 +92,54 @@ class MoviesLoadingService {
                 DispatchQueue.main.async {
                     completion(self.storageMoviesService.getMovieInfo(id: movieId))
                 }
+            }
+        }.resume()
+    }
+
+    func loadCastAndCrew(movieId: Int, completion: @escaping ([CastEntry]?, [CrewEntry]?) -> Void) {
+        var url: URL?
+        url = URL(string: UrlParts.baseUrl + "movie/\(movieId)/credits")
+        url = url?.appending("api_key", value: UrlParts.apiKey)
+        guard let urlNotNil = url else {
+            return
+        }
+        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            guard let data = data else {
+                return
+            }
+            do {
+                let result = try decoder.decode(CreditsResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(result.cast, result.crew)
+                }
+            } catch {
+                completion(nil, nil)
+            }
+        }.resume()
+    }
+
+    func loadVideos(movieId: Int, completion: @escaping ([Video]?) -> Void) {
+        var url: URL?
+        url = URL(string: UrlParts.baseUrl + "movie/\(movieId)/videos")
+        url = url?.appending("api_key", value: UrlParts.apiKey)
+        guard let urlNotNil = url else {
+            return
+        }
+        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            guard let data = data else {
+                return
+            }
+            do {
+                let result = try decoder.decode(VideosResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(result.results)
+                }
+            } catch {
+                completion(nil)
             }
         }.resume()
     }
@@ -126,6 +173,16 @@ class MoviesLoadingService {
     }
 }
 
+private struct VideosResponse: Codable {
+    let id: Int?
+    let results: [Video]?
+}
+
+private struct CreditsResponse: Codable {
+    let id: Int?
+    let cast: [CastEntry]?
+    let crew: [CrewEntry]?
+}
 private struct MoviesListResponse: Codable {
     let page: Int?
     let totalResults: Int?
