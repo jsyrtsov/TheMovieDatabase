@@ -31,7 +31,7 @@ class MovieTableViewCell: UITableViewCell {
         overview.text = movie.overview
         if let vote = movie.voteAverage {
             voteAverage.text = String(vote)
-            voteAverage.textColor = UIColor.colorForVote(vote: vote)
+            voteAverage.textColor = UIColor.color(forVote: vote)
         }
         if let yearStr = movie.releaseDate?.prefix(4) {
             year.text = String(yearStr)

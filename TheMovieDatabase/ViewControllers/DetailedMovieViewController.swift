@@ -169,7 +169,7 @@ class DetailedMovieViewController: UIViewController {
         guard let date = detailedMovie?.releaseDate?.prefix(4), let vote = detailedMovie?.voteAverage else {
             return
         }
-        voteLabel.textColor = UIColor.colorForVote(vote: vote)
+        voteLabel.textColor = UIColor.color(forVote: vote)
         releaseDate.text = String(date)
         releaseYearLabel.text = String(date)
         taglineLabel.text = detailedMovie?.tagline
