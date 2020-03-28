@@ -14,6 +14,3 @@ enum MoviesServiceLoadingStrategy {
     case nowPlaying
     case search(query: String?)
 }
-
-
-//test commit on new branch
