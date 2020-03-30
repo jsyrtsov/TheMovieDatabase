@@ -563,10 +563,40 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1B-wW-yOr">
-                                                <rect key="frame" x="13" y="227" width="349" height="250"/>
+                                                <rect key="frame" x="13" y="227" width="349" height="224.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BIOGRAPHY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwx-Ea-3xW">
+                                                        <rect key="frame" x="14" y="15" width="321" height="17"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                        <color key="textColor" red="0.2431456149" green="0.24312889579999999" blue="0.24313771719999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ln4-kL-8PD" customClass="ExpandableLabel" customModule="ExpandableLabel">
+                                                        <rect key="frame" x="14" y="42" width="321" height="100.5"/>
+                                                        <string key="text">American film actor Joaquin Rafael Phoenix, born Joaquin Rafael Bottom has ventured behind the camera, directing music videos as well as producing movies and television shows. Phoenix recorded an album, the soundtrack to “Walk the Line”</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOVIES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffL-qz-2rr">
+                                                        <rect key="frame" x="14" y="157.5" width="321" height="17"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                        <color key="textColor" red="0.2431456149" green="0.24312889579999999" blue="0.24313771719999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="250" id="WzU-W0-6Eg"/>
+                                                    <constraint firstItem="Ln4-kL-8PD" firstAttribute="top" secondItem="xwx-Ea-3xW" secondAttribute="bottom" constant="10" id="2nB-Rk-h6s"/>
+                                                    <constraint firstItem="ffL-qz-2rr" firstAttribute="top" secondItem="Ln4-kL-8PD" secondAttribute="bottom" constant="15" id="CxV-4i-x26"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xwx-Ea-3xW" secondAttribute="trailing" constant="14" id="Kyv-mf-qGQ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ffL-qz-2rr" secondAttribute="bottom" constant="50" id="MSF-tm-oQ9"/>
+                                                    <constraint firstItem="xwx-Ea-3xW" firstAttribute="top" secondItem="f1B-wW-yOr" secondAttribute="top" constant="15" id="Sjc-1z-wVR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Ln4-kL-8PD" secondAttribute="trailing" constant="14" id="WjI-4l-TX9"/>
+                                                    <constraint firstItem="ffL-qz-2rr" firstAttribute="leading" secondItem="f1B-wW-yOr" secondAttribute="leading" constant="14" id="e4u-Wm-Zx8"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ffL-qz-2rr" secondAttribute="trailing" constant="14" id="hPq-jb-5uF"/>
+                                                    <constraint firstItem="xwx-Ea-3xW" firstAttribute="leading" secondItem="f1B-wW-yOr" secondAttribute="leading" constant="14" id="idc-si-KC4"/>
+                                                    <constraint firstItem="Ln4-kL-8PD" firstAttribute="leading" secondItem="f1B-wW-yOr" secondAttribute="leading" constant="14" id="n1p-pJ-8fW"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -607,6 +637,7 @@
                     <connections>
                         <outlet property="additionalInfoShadow" destination="f1B-wW-yOr" id="SiS-hb-XCe"/>
                         <outlet property="baseInfoShadow" destination="cXC-XZ-Xp9" id="DTk-Pj-id2"/>
+                        <outlet property="biography" destination="Ln4-kL-8PD" id="U8v-0p-KhA"/>
                         <outlet property="birthday" destination="bhB-06-uZv" id="fO5-eY-WgM"/>
                         <outlet property="imagesCollectionView" destination="ToV-5c-0LY" id="p5k-KU-zIQ"/>
                         <outlet property="name" destination="Wtc-aX-Msk" id="vpz-rO-L8J"/>

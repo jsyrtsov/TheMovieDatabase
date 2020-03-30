@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ExpandableLabel
 
 class PersonViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class PersonViewController: UIViewController {
     @IBOutlet weak private var name: UILabel!
     @IBOutlet weak private var birthday: UILabel!
     @IBOutlet weak private var placeOfBirth: UILabel!
+    @IBOutlet weak private var biography: ExpandableLabel!
     @IBOutlet weak private var profileImage: UIImageView!
     @IBOutlet weak private var baseInfoShadow: UIView!
     @IBOutlet weak private var additionalInfoShadow: UIView!
@@ -50,6 +52,10 @@ class PersonViewController: UIViewController {
     }
 
     private func configureView() {
+        biography.numberOfLines = 6
+        biography.collapsedAttributedLink = NSAttributedString(string: "Show more")
+        biography.expandedAttributedLink = NSAttributedString(string: "")
+
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
         imagesCollectionView.register(UINib(nibName: PersonImagesCollectionViewCell.identifier, bundle: nil),
@@ -68,6 +74,7 @@ class PersonViewController: UIViewController {
         birthday.text = person?.birthday
         placeOfBirth.text = person?.placeOfBirth
         profileImage.loadPicture(posterPath: person?.profilePath)
+        biography.text = person?.biography
     }
 }
 
