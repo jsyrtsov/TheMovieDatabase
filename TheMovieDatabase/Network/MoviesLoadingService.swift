@@ -231,6 +231,7 @@ private struct CreditsResponse: Codable {
     let cast: [CastEntry]?
     let crew: [CrewEntry]?
 }
+
 private struct MoviesListResponse: Codable {
     let page: Int?
     let totalResults: Int?
