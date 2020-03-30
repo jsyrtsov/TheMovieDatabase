@@ -23,15 +23,23 @@ class PersonCollectionViewCell: UICollectionViewCell {
     }
 
     func configureCast(castEntry: CastEntry) {
-        profileImage.loadPicture(posterPath: castEntry.profilePath)
+        if castEntry.profilePath == nil {
+            profileImage.image = #imageLiteral(resourceName: "person")
+        } else {
+            profileImage.loadPicture(posterPath: castEntry.profilePath)
+        }
         nameLabel.text = castEntry.name
         characterOrJobLabel.text = castEntry.character
     }
 
     func configureCrew(crewEntry: CrewEntry) {
+        if crewEntry.profilePath == nil {
+            profileImage.image = #imageLiteral(resourceName: "person")
+        } else {
+            profileImage.loadPicture(posterPath: crewEntry.profilePath)
+        }
         nameLabel.text = crewEntry.name
         characterOrJobLabel.text = crewEntry.job
-        profileImage.loadPicture(posterPath: crewEntry.profilePath)
     }
 
     private func configureView() {

@@ -83,7 +83,7 @@ class DetailedMovieViewController: UIViewController {
         backdropImage.addGestureRecognizer(tap)
         backdropImage.isUserInteractionEnabled = true
 
-        favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
+        favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
         favoriteButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: favoriteButton)
         navigationItem.rightBarButtonItem = barButtonItem
@@ -203,7 +203,7 @@ class DetailedMovieViewController: UIViewController {
 
         if isFavorite {
             isFavorite = false
-            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
             service.removeMovie(id: movieId)
             service.removeDetailedMovie(id: movieId)
         } else {
@@ -220,7 +220,7 @@ class DetailedMovieViewController: UIViewController {
             favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
         } else {
             isFavorite = false
-            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
         }
     }
 }
