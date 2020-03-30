@@ -532,7 +532,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="77" id="RQN-H5-7Dh"/>
                                                         </constraints>
-                                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DWb-Gw-z08">
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DWb-Gw-z08">
                                                             <size key="itemSize" width="128" height="128"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -563,10 +563,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1B-wW-yOr">
-                                                <rect key="frame" x="13" y="227" width="349" height="150"/>
+                                                <rect key="frame" x="13" y="227" width="349" height="250"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="WzU-W0-6Eg"/>
+                                                    <constraint firstAttribute="height" constant="250" id="WzU-W0-6Eg"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -608,6 +608,7 @@
                         <outlet property="additionalInfoShadow" destination="f1B-wW-yOr" id="SiS-hb-XCe"/>
                         <outlet property="baseInfoShadow" destination="cXC-XZ-Xp9" id="DTk-Pj-id2"/>
                         <outlet property="birthday" destination="bhB-06-uZv" id="fO5-eY-WgM"/>
+                        <outlet property="imagesCollectionView" destination="ToV-5c-0LY" id="p5k-KU-zIQ"/>
                         <outlet property="name" destination="Wtc-aX-Msk" id="vpz-rO-L8J"/>
                         <outlet property="placeOfBirth" destination="qPn-FC-hAZ" id="5CI-eL-NCQ"/>
                         <outlet property="profileImage" destination="su1-cO-0yb" id="Tiz-3M-jDT"/>
