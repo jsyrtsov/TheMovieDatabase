@@ -225,6 +225,8 @@ class DetailedMovieViewController: UIViewController {
     }
 }
 
+// MARK: UICollectionViewDelegate
+
 extension DetailedMovieViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
@@ -240,9 +242,27 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
                     vc.player?.play()
                 }
             }
+        } else if collectionView == castCollectionView {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let personVC = storyboard.instantiateViewController(identifier: "PersonViewController")
+                as? PersonViewController else {
+                return
+            }
+            navigationController?.pushViewController(personVC, animated: true)
+            personVC.personId = cast[indexPath.row].id
+        } else if collectionView == crewCollectionView {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let personVC = storyboard.instantiateViewController(identifier: "PersonViewController")
+                as? PersonViewController else {
+                return
+            }
+            navigationController?.pushViewController(personVC, animated: true)
+            personVC.personId = crew[indexPath.row].id
         }
     }
 }
+
+// MARK: UICollectionViewDataSource
 
 extension DetailedMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
