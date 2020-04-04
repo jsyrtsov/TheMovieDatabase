@@ -10,6 +10,8 @@ import UIKit
 
 class FullPosterViewController: UIViewController {
 
+    static let identifier = String(describing: FullPosterViewController.self)
+
     var movieId: Int?
     var posterPath: String?
 

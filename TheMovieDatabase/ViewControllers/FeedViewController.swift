@@ -31,6 +31,7 @@ class FeedViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.register(UINib(nibName: MovieTableViewCell.identifier, bundle: nil),
                            forCellReuseIdentifier: MovieTableViewCell.identifier)
+
         let items = ["Popular", "Upcoming", "Now Playing"]
         segmentedControl = UISegmentedControl(items: items)
         segmentedControl?.selectedSegmentIndex = 0
@@ -72,10 +73,10 @@ class FeedViewController: UIViewController {
 
     private func loadMovies() {
         service.loadMovies { [weak self] (results) in
-            guard let movies = results else {
-                return
-            }
-            guard let self = self else {
+            guard
+                let movies = results,
+                let self = self
+            else {
                 return
             }
             self.movies.append(contentsOf: movies)
@@ -86,21 +87,24 @@ class FeedViewController: UIViewController {
     }
 }
 
-// MARK: TableViewDelegate
+// MARK: - TableViewDelegate
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "DetailedMovieViewController")
-            as? DetailedMovieViewController else {
+        guard
+            let detailedVC = storyboard.instantiateViewController(
+                withIdentifier: DetailedMovieViewController.identifier
+            ) as? DetailedMovieViewController
+        else {
             return
         }
-        navigationController?.pushViewController(detailedVC, animated: true)
         detailedVC.movieId = movies[indexPath.row].id
+        navigationController?.pushViewController(detailedVC, animated: true)
     }
 }
 
-// MARK: TableViewDataSource
+// MARK: - TableViewDataSource
 extension FeedViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,8 +112,10 @@ extension FeedViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier,
-                                                 for: indexPath) as? MovieTableViewCell
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: MovieTableViewCell.identifier,
+            for: indexPath
+        ) as? MovieTableViewCell
         cell?.configure(movie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }

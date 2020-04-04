@@ -21,26 +21,26 @@ class MoviesLoadingService {
     }
 
     func loadMovies(completion: @escaping ([Movie]?) -> Void) {
-        var url: URL?
+        var baseUrl: URL?
         switch strategy {
         case .popular:
-            url = URL(string: UrlParts.baseUrl + "movie/popular")
+            baseUrl = URL(string: UrlParts.baseUrl + "movie/popular")
         case .upcoming:
-            url = URL(string: UrlParts.baseUrl + "movie/upcoming")
+            baseUrl = URL(string: UrlParts.baseUrl + "movie/upcoming")
         case .nowPlaying:
-            url = URL(string: UrlParts.baseUrl + "movie/now_playing")
+            baseUrl = URL(string: UrlParts.baseUrl + "movie/now_playing")
         case .search(let query):
-            url = URL(string: UrlParts.baseUrl + "search/movie")
-            url = url?.appending("query", value: query)
+            baseUrl = URL(string: UrlParts.baseUrl + "search/movie")?
+                .appending("query", value: query)
         }
 
-        url = url?.appending("api_key", value: UrlParts.apiKey)
-        url = url?.appending("page", value: String(currentPage))
-
-        guard let urlNotNil = url else {
+        guard
+            let url = baseUrl?.appending("api_key", value: UrlParts.apiKey)?
+                .appending("page", value: String(currentPage))
+        else {
             return
         }
-        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
@@ -68,13 +68,13 @@ class MoviesLoadingService {
     }
 
     func loadDetails(movieId: Int, completion: @escaping (DetailedMovie?) -> Void) {
-        var url: URL?
-        url = URL(string: UrlParts.baseUrl + "movie/\(movieId)")
-        url = url?.appending("api_key", value: UrlParts.apiKey)
-        guard let urlNotNil = url else {
+        guard
+            let url = URL(string: UrlParts.baseUrl + "movie/\(movieId)")?
+                .appending("api_key", value: UrlParts.apiKey)
+        else {
             return
         }
-        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
@@ -97,13 +97,13 @@ class MoviesLoadingService {
     }
 
     func loadCastAndCrew(movieId: Int, completion: @escaping ([CastEntry]?, [CrewEntry]?) -> Void) {
-        var url: URL?
-        url = URL(string: UrlParts.baseUrl + "movie/\(movieId)/credits")
-        url = url?.appending("api_key", value: UrlParts.apiKey)
-        guard let urlNotNil = url else {
+        guard
+            let url = URL(string: UrlParts.baseUrl + "movie/\(movieId)/credits")?
+                .appending("api_key", value: UrlParts.apiKey)
+        else {
             return
         }
-        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
@@ -121,13 +121,13 @@ class MoviesLoadingService {
     }
 
     func loadVideos(movieId: Int, completion: @escaping ([Video]?) -> Void) {
-        var url: URL?
-        url = URL(string: UrlParts.baseUrl + "movie/\(movieId)/videos")
-        url = url?.appending("api_key", value: UrlParts.apiKey)
-        guard let urlNotNil = url else {
+        guard
+            let url = URL(string: UrlParts.baseUrl + "movie/\(movieId)/videos")?
+                .appending("api_key", value: UrlParts.apiKey)
+        else {
             return
         }
-        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
@@ -183,6 +183,7 @@ private struct CreditsResponse: Codable {
     let cast: [CastEntry]?
     let crew: [CrewEntry]?
 }
+
 private struct MoviesListResponse: Codable {
     let page: Int?
     let totalResults: Int?

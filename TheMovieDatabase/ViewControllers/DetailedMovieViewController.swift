@@ -11,6 +11,8 @@ import AVKit
 
 class DetailedMovieViewController: UIViewController {
 
+    static let identifier = String(describing: DetailedMovieViewController.self)
+
     var movieId: Int?
     private let extractor = LinkExtractor()
     private let service = MoviesLoadingService()
@@ -83,7 +85,7 @@ class DetailedMovieViewController: UIViewController {
         backdropImage.addGestureRecognizer(tap)
         backdropImage.isUserInteractionEnabled = true
 
-        favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
+        favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
         favoriteButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: favoriteButton)
         navigationItem.rightBarButtonItem = barButtonItem
@@ -166,7 +168,10 @@ class DetailedMovieViewController: UIViewController {
 
         originalLanguage.text = detailedMovie?.originalLanguage
         backdropImage.loadFullPicture(path: detailedMovie?.backdropPath)
-        guard let date = detailedMovie?.releaseDate?.prefix(4), let vote = detailedMovie?.voteAverage else {
+        guard
+            let date = detailedMovie?.releaseDate?.prefix(4),
+            let vote = detailedMovie?.voteAverage
+        else {
             return
         }
         voteLabel.textColor = UIColor.color(forVote: vote)
@@ -189,13 +194,16 @@ class DetailedMovieViewController: UIViewController {
     @objc
     private func imageTapped() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let fullViewVC = storyboard.instantiateViewController(withIdentifier: "FullPosterViewController")
-            as? FullPosterViewController  else {
+        guard
+            let fullViewVC = storyboard.instantiateViewController(
+                withIdentifier: FullPosterViewController.identifier
+            ) as? FullPosterViewController
+        else {
             return
         }
-        navigationController?.pushViewController(fullViewVC, animated: true)
         fullViewVC.movieId = detailedMovie?.id
         fullViewVC.posterPath = detailedMovie?.posterPath
+        navigationController?.pushViewController(fullViewVC, animated: true)
     }
 
     @objc
@@ -203,7 +211,7 @@ class DetailedMovieViewController: UIViewController {
 
         if isFavorite {
             isFavorite = false
-            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
             service.removeMovie(id: movieId)
             service.removeDetailedMovie(id: movieId)
         } else {
@@ -220,10 +228,12 @@ class DetailedMovieViewController: UIViewController {
             favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
         } else {
             isFavorite = false
-            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntatted"), for: .normal)
+            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
         }
     }
 }
+
+// MARK: - UICollectionViewDelegate
 
 extension DetailedMovieViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -240,9 +250,33 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
                     vc.player?.play()
                 }
             }
+        } else if collectionView == castCollectionView {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard
+                let personVC = storyboard.instantiateViewController(
+                    identifier: PersonViewController.identifier
+                ) as? PersonViewController
+            else {
+                return
+            }
+            personVC.personId = cast[indexPath.row].id
+            navigationController?.pushViewController(personVC, animated: true)
+        } else if collectionView == crewCollectionView {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard
+                let personVC = storyboard.instantiateViewController(
+                    identifier: PersonViewController.identifier
+                ) as? PersonViewController
+            else {
+                return
+            }
+            personVC.personId = crew[indexPath.row].id
+            navigationController?.pushViewController(personVC, animated: true)
         }
     }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension DetailedMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -260,19 +294,28 @@ extension DetailedMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == crewCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonCollectionViewCell.identifier,
-                                                          for: indexPath) as? PersonCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: PersonCollectionViewCell.identifier,
+                for: indexPath
+            ) as? PersonCollectionViewCell
             cell?.configureCrew(crewEntry: crew[indexPath.row])
+
             return cell ?? UICollectionViewCell()
         } else if collectionView == castCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonCollectionViewCell.identifier,
-                                                          for: indexPath) as? PersonCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: PersonCollectionViewCell.identifier,
+                for: indexPath
+            ) as? PersonCollectionViewCell
             cell?.configureCast(castEntry: cast[indexPath.row])
+
             return cell ?? UICollectionViewCell()
         } else if collectionView == videosCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCollectionViewCell.identifier,
-                                                          for: indexPath) as? VideoCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: VideoCollectionViewCell.identifier,
+                for: indexPath
+            ) as? VideoCollectionViewCell
             cell?.configure(video: videos[indexPath.row])
+
             return cell ?? UICollectionViewCell()
         } else {
             return UICollectionViewCell()
