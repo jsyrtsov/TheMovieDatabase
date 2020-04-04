@@ -11,8 +11,10 @@ import ExpandableLabel
 
 class PersonViewController: UIViewController {
 
+    static let identifier = String(describing: PersonViewController.self)
+
     var personId: Int?
-    private let service = MoviesLoadingService()
+    private let service = PersonLoadingService()
     private var person: Person?
     private var personImages: [PersonImage] = []
 
@@ -54,7 +56,6 @@ class PersonViewController: UIViewController {
     private func configureView() {
         biography.numberOfLines = 6
         biography.collapsedAttributedLink = NSAttributedString(string: "Show more")
-        biography.expandedAttributedLink = NSAttributedString(string: "")
 
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self

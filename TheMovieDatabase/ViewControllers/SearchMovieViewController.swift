@@ -27,7 +27,8 @@ class SearchMovieViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "myCell")
+        tableView.register(UINib(nibName: MovieTableViewCell.identifier, bundle: nil),
+                           forCellReuseIdentifier: MovieTableViewCell.identifier)
         let search = UISearchController(searchResultsController: nil)
         self.navigationItem.searchController = search
         search.searchBar.delegate = self
@@ -57,7 +58,7 @@ class SearchMovieViewController: UIViewController {
     }
 }
 
-// MARK: UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension SearchMovieViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,7 +66,8 @@ extension SearchMovieViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as? MovieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier,
+                                                 for: indexPath) as? MovieTableViewCell
         cell?.configure(movie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }
@@ -77,21 +79,24 @@ extension SearchMovieViewController: UITableViewDataSource {
     }
 }
 
-// MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension SearchMovieViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "DetailedMovieViewController")
-            as? DetailedMovieViewController else {
+        guard
+            let detailedVC = storyboard.instantiateViewController(
+                withIdentifier: DetailedMovieViewController.identifier
+            ) as? DetailedMovieViewController
+        else {
             return
         }
-        navigationController?.pushViewController(detailedVC, animated: true)
         detailedVC.movieId = movies[indexPath.row].id
+        navigationController?.pushViewController(detailedVC, animated: true)
     }
 }
 
-// MARK: UISearchBarDelegate
+// MARK: - UISearchBarDelegate
 extension SearchMovieViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

@@ -11,6 +11,8 @@ import AVKit
 
 class DetailedMovieViewController: UIViewController {
 
+    static let identifier = String(describing: DetailedMovieViewController.self)
+
     var movieId: Int?
     private let extractor = LinkExtractor()
     private let service = MoviesLoadingService()
@@ -189,13 +191,16 @@ class DetailedMovieViewController: UIViewController {
     @objc
     private func imageTapped() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let fullViewVC = storyboard.instantiateViewController(withIdentifier: "FullPosterViewController")
-            as? FullPosterViewController  else {
+        guard
+            let fullViewVC = storyboard.instantiateViewController(
+                    withIdentifier: FullPosterViewController.identifier
+                ) as? FullPosterViewController
+        else {
             return
         }
-        navigationController?.pushViewController(fullViewVC, animated: true)
         fullViewVC.movieId = detailedMovie?.id
         fullViewVC.posterPath = detailedMovie?.posterPath
+        navigationController?.pushViewController(fullViewVC, animated: true)
     }
 
     @objc
@@ -225,7 +230,7 @@ class DetailedMovieViewController: UIViewController {
     }
 }
 
-// MARK: UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 
 extension DetailedMovieViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -244,25 +249,25 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
             }
         } else if collectionView == castCollectionView {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let personVC = storyboard.instantiateViewController(identifier: "PersonViewController")
-                as? PersonViewController else {
+            guard let personVC = storyboard.instantiateViewController(identifier: PersonViewController
+                .identifier) as? PersonViewController else {
                 return
             }
-            navigationController?.pushViewController(personVC, animated: true)
             personVC.personId = cast[indexPath.row].id
+            navigationController?.pushViewController(personVC, animated: true)
         } else if collectionView == crewCollectionView {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let personVC = storyboard.instantiateViewController(identifier: "PersonViewController")
-                as? PersonViewController else {
+            guard let personVC = storyboard.instantiateViewController(identifier: PersonViewController
+                .identifier) as? PersonViewController else {
                 return
             }
-            navigationController?.pushViewController(personVC, animated: true)
             personVC.personId = crew[indexPath.row].id
+            navigationController?.pushViewController(personVC, animated: true)
         }
     }
 }
 
-// MARK: UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
 extension DetailedMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

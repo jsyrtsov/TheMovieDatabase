@@ -86,21 +86,24 @@ class FeedViewController: UIViewController {
     }
 }
 
-// MARK: TableViewDelegate
+// MARK: - TableViewDelegate
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let detailedVC = storyboard.instantiateViewController(withIdentifier: "DetailedMovieViewController")
-            as? DetailedMovieViewController else {
+        guard
+            let detailedVC = storyboard.instantiateViewController(
+                    withIdentifier: DetailedMovieViewController.identifier
+                ) as? DetailedMovieViewController
+        else {
             return
         }
-        navigationController?.pushViewController(detailedVC, animated: true)
         detailedVC.movieId = movies[indexPath.row].id
+        navigationController?.pushViewController(detailedVC, animated: true)
     }
 }
 
-// MARK: TableViewDataSource
+// MARK: - TableViewDataSource
 extension FeedViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
