@@ -34,10 +34,10 @@ class MoviesLoadingService {
             url = url?.appending("query", value: query)
         }
 
-        url = url?.appending("api_key", value: UrlParts.apiKey)
-        url = url?.appending("page", value: String(currentPage))
-
-        guard let urlNotNil = url else {
+        guard
+            let urlNotNil = url?.appending("api_key", value: UrlParts.apiKey)?
+                .appending("page", value: String(currentPage))
+        else {
             return
         }
         URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in

@@ -166,13 +166,13 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
-		28939DDC24239E7D003772C7 /* Main Service */ = {
+		28939DDC24239E7D003772C7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				28520072240D719300A8FB05 /* MoviesLoadingService.swift */,
 				28DF2431243891F4004F08D0 /* PersonLoadingService.swift */,
 			);
-			path = "Main Service";
+			path = Services;
 			sourceTree = "<group>";
 		};
 		289AE6E2240033740029719B = {
@@ -203,7 +203,7 @@
 				28FD53CC24058F7C00AD4923 /* Views */,
 				28FD53CB24058E6C00AD4923 /* ViewControllers */,
 				28908AF7241BDB2000B64835 /* Realm */,
-				28939DDC24239E7D003772C7 /* Main Service */,
+				28939DDC24239E7D003772C7 /* Services */,
 				288E935D240673F300D67930 /* Network */,
 				288E935C240667FC00D67930 /* Extensions */,
 				289AE6F0240033740029719B /* SceneDelegate.swift */,

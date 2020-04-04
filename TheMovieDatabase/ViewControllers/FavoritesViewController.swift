@@ -47,14 +47,15 @@ class FavoritesViewController: UIViewController {
 }
 
 // MARK: - TableViewDelegate
+
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard
             let detailedVC = storyboard.instantiateViewController(
-                    withIdentifier: DetailedMovieViewController.identifier
-                ) as? DetailedMovieViewController
+                withIdentifier: DetailedMovieViewController.identifier
+            ) as? DetailedMovieViewController
         else {
             return
         }
@@ -64,14 +65,17 @@ extension FavoritesViewController: UITableViewDelegate {
 }
 
 // MARK: - TableViewDataSource
+
 extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier,
-                                                 for: indexPath) as? MovieTableViewCell
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: MovieTableViewCell.identifier,
+            for: indexPath
+        ) as? MovieTableViewCell
         cell?.configure(movie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }

@@ -11,13 +11,13 @@ import Foundation
 class PersonLoadingService {
 
     func loadPerson(personId: Int, completion: @escaping (Person?) -> Void) {
-        var url: URL?
-        url = URL(string: UrlParts.baseUrl + "person/\(personId)")
-        url = url?.appending("api_key", value: UrlParts.apiKey)
-        guard let urlNotNil = url else {
+        guard
+            let url = URL(string: UrlParts.baseUrl + "person/\(personId)")?
+                .appending("api_key", value: UrlParts.apiKey)
+        else {
             return
         }
-        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
@@ -35,13 +35,13 @@ class PersonLoadingService {
     }
 
     func loadPersonImages(personId: Int, completion: @escaping ([PersonImage]?) -> Void) {
-        var url: URL?
-        url = URL(string: UrlParts.baseUrl + "person/\(personId)/images")
-        url = url?.appending("api_key", value: UrlParts.apiKey)
-        guard let urlNotNil = url else {
+        guard
+            let url = URL(string: UrlParts.baseUrl + "person/\(personId)/images")?
+                .appending("api_key", value: UrlParts.apiKey)
+        else {
             return
         }
-        URLSession.shared.dataTask(with: urlNotNil) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {

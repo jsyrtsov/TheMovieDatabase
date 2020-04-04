@@ -168,7 +168,10 @@ class DetailedMovieViewController: UIViewController {
 
         originalLanguage.text = detailedMovie?.originalLanguage
         backdropImage.loadFullPicture(path: detailedMovie?.backdropPath)
-        guard let date = detailedMovie?.releaseDate?.prefix(4), let vote = detailedMovie?.voteAverage else {
+        guard
+            let date = detailedMovie?.releaseDate?.prefix(4),
+            let vote = detailedMovie?.voteAverage
+        else {
             return
         }
         voteLabel.textColor = UIColor.color(forVote: vote)
@@ -193,8 +196,8 @@ class DetailedMovieViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard
             let fullViewVC = storyboard.instantiateViewController(
-                    withIdentifier: FullPosterViewController.identifier
-                ) as? FullPosterViewController
+                withIdentifier: FullPosterViewController.identifier
+            ) as? FullPosterViewController
         else {
             return
         }
@@ -249,16 +252,22 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
             }
         } else if collectionView == castCollectionView {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let personVC = storyboard.instantiateViewController(identifier: PersonViewController
-                .identifier) as? PersonViewController else {
+            guard
+                let personVC = storyboard.instantiateViewController(
+                    identifier: PersonViewController.identifier
+                ) as? PersonViewController
+            else {
                 return
             }
             personVC.personId = cast[indexPath.row].id
             navigationController?.pushViewController(personVC, animated: true)
         } else if collectionView == crewCollectionView {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let personVC = storyboard.instantiateViewController(identifier: PersonViewController
-                .identifier) as? PersonViewController else {
+            guard
+                let personVC = storyboard.instantiateViewController(
+                    identifier: PersonViewController.identifier
+                ) as? PersonViewController
+            else {
                 return
             }
             personVC.personId = crew[indexPath.row].id
@@ -285,19 +294,28 @@ extension DetailedMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == crewCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonCollectionViewCell.identifier,
-                                                          for: indexPath) as? PersonCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: PersonCollectionViewCell.identifier,
+                for: indexPath
+            ) as? PersonCollectionViewCell
             cell?.configureCrew(crewEntry: crew[indexPath.row])
+
             return cell ?? UICollectionViewCell()
         } else if collectionView == castCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonCollectionViewCell.identifier,
-                                                          for: indexPath) as? PersonCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: PersonCollectionViewCell.identifier,
+                for: indexPath
+            ) as? PersonCollectionViewCell
             cell?.configureCast(castEntry: cast[indexPath.row])
+
             return cell ?? UICollectionViewCell()
         } else if collectionView == videosCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCollectionViewCell.identifier,
-                                                          for: indexPath) as? VideoCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: VideoCollectionViewCell.identifier,
+                for: indexPath
+            ) as? VideoCollectionViewCell
             cell?.configure(video: videos[indexPath.row])
+
             return cell ?? UICollectionViewCell()
         } else {
             return UICollectionViewCell()

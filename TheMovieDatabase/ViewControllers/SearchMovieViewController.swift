@@ -47,7 +47,10 @@ class SearchMovieViewController: UIViewController {
     private func loadMovies(query: String) {
         service.strategy = .search(query: query)
         service.loadMovies { [weak self] (results) in
-            guard let movies = results, let self = self else {
+            guard
+                let movies = results,
+                let self = self
+            else {
                 return
             }
             self.movies = movies
@@ -59,6 +62,7 @@ class SearchMovieViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
+
 extension SearchMovieViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,8 +70,10 @@ extension SearchMovieViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier,
-                                                 for: indexPath) as? MovieTableViewCell
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: MovieTableViewCell.identifier,
+            for: indexPath
+        ) as? MovieTableViewCell
         cell?.configure(movie: movies[indexPath.row])
         return cell ?? UITableViewCell()
     }
@@ -80,6 +86,7 @@ extension SearchMovieViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
+
 extension SearchMovieViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -97,6 +104,7 @@ extension SearchMovieViewController: UITableViewDelegate {
 }
 
 // MARK: - UISearchBarDelegate
+
 extension SearchMovieViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

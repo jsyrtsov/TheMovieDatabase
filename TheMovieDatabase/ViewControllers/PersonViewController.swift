@@ -79,6 +79,8 @@ class PersonViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
+
 extension PersonViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return personImages.count
@@ -86,12 +88,16 @@ extension PersonViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonImagesCollectionViewCell.identifier,
-                                                      for: indexPath) as? PersonImagesCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: PersonImagesCollectionViewCell.identifier,
+            for: indexPath
+        ) as? PersonImagesCollectionViewCell
         cell?.configure(personImage: personImages[indexPath.row])
         return cell ?? UICollectionViewCell()
     }
 }
+
+// MARK: - UICollectionViewDelegate
 
 extension PersonViewController: UICollectionViewDelegate {
 
