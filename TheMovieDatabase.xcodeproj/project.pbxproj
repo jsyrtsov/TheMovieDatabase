@@ -13,6 +13,9 @@
 		28078C1424296DE300040DD3 /* LinkExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28078C1324296DE300040DD3 /* LinkExtractor.swift */; };
 		28078C16242A7CD900040DD3 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28078C15242A7CD900040DD3 /* UIColor.swift */; };
 		280AFE70240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280AFE6F240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift */; };
+		28331CC22438FF5E0028CCE5 /* PersonModuleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28331CC12438FF5E0028CCE5 /* PersonModuleConfigurator.swift */; };
+		28331CC4243900350028CCE5 /* PersonViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28331CC3243900350028CCE5 /* PersonViewController.storyboard */; };
+		28331CC6243904770028CCE5 /* PersonPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28331CC5243904770028CCE5 /* PersonPresenter.swift */; };
 		283892892420200400016011 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283892872420200400016011 /* MovieTableViewCell.swift */; };
 		2838928A2420200400016011 /* MovieTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283892882420200400016011 /* MovieTableViewCell.xib */; };
 		28520071240A698F00A8FB05 /* UrlParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28520070240A698F00A8FB05 /* UrlParts.swift */; };
@@ -68,6 +71,9 @@
 		28078C1324296DE300040DD3 /* LinkExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkExtractor.swift; sourceTree = "<group>"; };
 		28078C15242A7CD900040DD3 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		280AFE6F240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesServiceLoadingStrategy.swift; sourceTree = "<group>"; };
+		28331CC12438FF5E0028CCE5 /* PersonModuleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModuleConfigurator.swift; sourceTree = "<group>"; };
+		28331CC3243900350028CCE5 /* PersonViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PersonViewController.storyboard; sourceTree = "<group>"; };
+		28331CC5243904770028CCE5 /* PersonPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonPresenter.swift; sourceTree = "<group>"; };
 		283892872420200400016011 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		283892882420200400016011 /* MovieTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieTableViewCell.xib; sourceTree = "<group>"; };
 		28520070240A698F00A8FB05 /* UrlParts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlParts.swift; sourceTree = "<group>"; };
@@ -134,6 +140,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28331CC02438FDED0028CCE5 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				28BB5E86242E61B400BA62F8 /* PersonViewController.swift */,
+				28331CC5243904770028CCE5 /* PersonPresenter.swift */,
+				28331CC3243900350028CCE5 /* PersonViewController.storyboard */,
+				28331CC12438FF5E0028CCE5 /* PersonModuleConfigurator.swift */,
+				28D8B4B52432102800A6BCDE /* PersonImagesCollectionViewCell.xib */,
+				28D8B4B42432102800A6BCDE /* PersonImagesCollectionViewCell.swift */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
 		288E935C240667FC00D67930 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,14 +261,13 @@
 			children = (
 				289AE7102400675A0029719B /* FeedViewController.swift */,
 				28C75EE724257EFC00BB6E70 /* DetailedMovieViewController.swift */,
-				28BB5E86242E61B400BA62F8 /* PersonViewController.swift */,
+				28331CC02438FDED0028CCE5 /* Person */,
 				28966092240FDD9000505732 /* FullPosterViewController.swift */,
 				289AE712240067790029719B /* FavoritesViewController.swift */,
 				289AE7142400678D0029719B /* SearchMovieViewController.swift */,
 				28C75EE924260D8E00BB6E70 /* PersonCollectionViewCell.swift */,
 				28078C0F24294C4800040DD3 /* VideoCollectionViewCell.swift */,
 				283892872420200400016011 /* MovieTableViewCell.swift */,
-				28D8B4B42432102800A6BCDE /* PersonImagesCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -261,7 +279,6 @@
 				283892882420200400016011 /* MovieTableViewCell.xib */,
 				28078C1024294C4800040DD3 /* VideoCollectionViewCell.xib */,
 				28C75EEA24260D8E00BB6E70 /* PersonCollectionViewCell.xib */,
-				28D8B4B52432102800A6BCDE /* PersonImagesCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -375,6 +392,7 @@
 				28C75EEC24260D8E00BB6E70 /* PersonCollectionViewCell.xib in Resources */,
 				28D8B4B72432102800A6BCDE /* PersonImagesCollectionViewCell.xib in Resources */,
 				289AE6F8240033770029719B /* Assets.xcassets in Resources */,
+				28331CC4243900350028CCE5 /* PersonViewController.storyboard in Resources */,
 				28078C1224294C4800040DD3 /* VideoCollectionViewCell.xib in Resources */,
 				2838928A2420200400016011 /* MovieTableViewCell.xib in Resources */,
 				289AE6F6240033740029719B /* Main.storyboard in Resources */,
@@ -483,6 +501,7 @@
 				28C75EE824257EFC00BB6E70 /* DetailedMovieViewController.swift in Sources */,
 				289AE7152400678D0029719B /* SearchMovieViewController.swift in Sources */,
 				280AFE70240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift in Sources */,
+				28331CC22438FF5E0028CCE5 /* PersonModuleConfigurator.swift in Sources */,
 				28C75EEE24260DD300BB6E70 /* UIView.swift in Sources */,
 				28D8B4B92432120F00A6BCDE /* PersonImage.swift in Sources */,
 				289AE6EF240033740029719B /* AppDelegate.swift in Sources */,
@@ -496,6 +515,7 @@
 				289AE7112400675A0029719B /* FeedViewController.swift in Sources */,
 				28C75EF22426181500BB6E70 /* CastEntry.swift in Sources */,
 				28078C16242A7CD900040DD3 /* UIColor.swift in Sources */,
+				28331CC6243904770028CCE5 /* PersonPresenter.swift in Sources */,
 				289AE713240067790029719B /* FavoritesViewController.swift in Sources */,
 				28908AF6241BDB1A00B64835 /* StorageService.swift in Sources */,
 				2896608F240F8B5800505732 /* DetailedMovie.swift in Sources */,

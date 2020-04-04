@@ -14,6 +14,7 @@ class PersonViewController: UIViewController {
     static let identifier = String(describing: PersonViewController.self)
 
     var personId: Int?
+    var presenter: PersonPresenter?
     private let service = PersonLoadingService()
     private var person: Person?
     private var personImages: [PersonImage] = []
@@ -30,27 +31,17 @@ class PersonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        loadPersonDetails()
+        presenter?.loadPersonDetails()
     }
 
-    private func loadPersonDetails() {
-        guard let personId = personId else {
-            return
-        }
-        service.loadPerson(personId: personId) { [weak self] (result) in
-            guard let result = result, let self = self else {
-                return
-            }
-            self.person = result
-            self.updateView()
-        }
-        service.loadPersonImages(personId: personId) { [weak self] (result) in
-            guard let result = result, let self = self else {
-                return
-            }
-            self.personImages = result
-            self.imagesCollectionView.reloadData()
-        }
+    func configure(withPerson person: Person?) {
+        self.person = person
+        self.updateView()
+    }
+
+    func configure(withPersonImages personImages: [PersonImage]) {
+        self.personImages = personImages
+        self.imagesCollectionView.reloadData()
     }
 
     private func configureView() {

@@ -251,16 +251,8 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
                 }
             }
         } else if collectionView == castCollectionView {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard
-                let personVC = storyboard.instantiateViewController(
-                    identifier: PersonViewController.identifier
-                ) as? PersonViewController
-            else {
-                return
-            }
-            personVC.personId = cast[indexPath.row].id
-            navigationController?.pushViewController(personVC, animated: true)
+            let controller = PersonModuleConfigurator().configure(personId: cast[indexPath.row].id)
+            navigationController?.pushViewController(controller, animated: true)
         } else if collectionView == crewCollectionView {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard
