@@ -13,9 +13,7 @@ class PersonViewController: UIViewController {
 
     static let identifier = String(describing: PersonViewController.self)
 
-    var personId: Int?
     var presenter: PersonPresenter?
-    private let service = PersonLoadingService()
     private var person: Person?
     private var personImages: [PersonImage] = []
 

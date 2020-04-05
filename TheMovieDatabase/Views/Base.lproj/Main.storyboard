@@ -477,41 +477,6 @@
             </objects>
             <point key="canvasLocation" x="3572" y="-221.28935532233885"/>
         </scene>
-        <!--Full Poster View Controller-->
-        <scene sceneID="D0v-Bb-Put">
-            <objects>
-                <viewController storyboardIdentifier="FullPosterViewController" id="coi-Y0-auH" customClass="FullPosterViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="iuR-vP-kxo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pg1-tC-xMJ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="inA-gS-jgb">
-                                <rect key="frame" x="177" y="323" width="20" height="20"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="pg1-tC-xMJ" firstAttribute="top" secondItem="cf1-HS-vua" secondAttribute="top" id="2UX-W7-OLb"/>
-                            <constraint firstItem="inA-gS-jgb" firstAttribute="centerX" secondItem="cf1-HS-vua" secondAttribute="centerX" id="NqI-ub-dU0"/>
-                            <constraint firstItem="inA-gS-jgb" firstAttribute="centerY" secondItem="cf1-HS-vua" secondAttribute="centerY" id="SiQ-p5-ipV"/>
-                            <constraint firstItem="pg1-tC-xMJ" firstAttribute="bottom" secondItem="cf1-HS-vua" secondAttribute="bottom" id="T6d-jp-Zum"/>
-                            <constraint firstItem="pg1-tC-xMJ" firstAttribute="trailing" secondItem="cf1-HS-vua" secondAttribute="trailing" id="UKG-ys-Kwz"/>
-                            <constraint firstItem="pg1-tC-xMJ" firstAttribute="leading" secondItem="cf1-HS-vua" secondAttribute="leading" id="hku-OS-pcx"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="cf1-HS-vua"/>
-                    </view>
-                    <connections>
-                        <outlet property="activityIndicator" destination="inA-gS-jgb" id="ogh-YS-AxI"/>
-                        <outlet property="imageView" destination="pg1-tC-xMJ" id="i3l-Zl-E3D"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Npr-Mj-dWd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3572" y="817.24137931034488"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="wJH-M0-fHI">
             <objects>

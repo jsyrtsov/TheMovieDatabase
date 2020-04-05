@@ -1,5 +1,5 @@
 //
-//  FullPosterViewController.swift
+//  FullPictureViewController.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/4/20.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class FullPosterViewController: UIViewController {
+class FullPictureViewController: UIViewController {
 
-    static let identifier = String(describing: FullPosterViewController.self)
+    static let identifier = String(describing: FullPictureViewController.self)
 
     var movieId: Int?
     var posterPath: String?

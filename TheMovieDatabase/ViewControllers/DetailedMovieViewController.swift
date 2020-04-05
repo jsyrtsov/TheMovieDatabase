@@ -193,17 +193,9 @@ class DetailedMovieViewController: UIViewController {
 
     @objc
     private func imageTapped() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard
-            let fullViewVC = storyboard.instantiateViewController(
-                withIdentifier: FullPosterViewController.identifier
-            ) as? FullPosterViewController
-        else {
-            return
-        }
-        fullViewVC.movieId = detailedMovie?.id
-        fullViewVC.posterPath = detailedMovie?.posterPath
-        navigationController?.pushViewController(fullViewVC, animated: true)
+        let fullPictureVC = FullPictureModuleConfigurator().configure()
+        fullPictureVC.posterPath = detailedMovie?.posterPath
+        navigationController?.pushViewController(fullPictureVC, animated: true)
     }
 
     @objc
@@ -251,11 +243,11 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
                 }
             }
         } else if collectionView == castCollectionView {
-            let controller = PersonModuleConfigurator().configure(personId: cast[indexPath.row].id)
-            navigationController?.pushViewController(controller, animated: true)
+            let personVC = PersonModuleConfigurator().configure(personId: cast[indexPath.row].id)
+            navigationController?.pushViewController(personVC, animated: true)
         } else if collectionView == crewCollectionView {
-            let controller = PersonModuleConfigurator().configure(personId: crew[indexPath.row].id)
-            navigationController?.pushViewController(controller, animated: true)
+            let personVC = PersonModuleConfigurator().configure(personId: crew[indexPath.row].id)
+            navigationController?.pushViewController(personVC, animated: true)
         }
     }
 }
