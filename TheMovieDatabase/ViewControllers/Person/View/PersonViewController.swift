@@ -45,8 +45,14 @@ class PersonViewController: UIViewController {
     }
 
     private func configureView() {
+        biography.shouldCollapse = true
         biography.numberOfLines = 6
-        biography.collapsedAttributedLink = NSAttributedString(string: "Show more")
+        biography.collapsedAttributedLink = NSAttributedString(
+            string: "Show more", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]
+        )
+        biography.expandedAttributedLink = NSAttributedString(
+            string: "Show less", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]
+        )
 
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self

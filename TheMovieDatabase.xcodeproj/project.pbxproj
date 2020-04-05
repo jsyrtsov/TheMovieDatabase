@@ -143,14 +143,46 @@
 		28331CC02438FDED0028CCE5 /* Person */ = {
 			isa = PBXGroup;
 			children = (
-				28BB5E86242E61B400BA62F8 /* PersonViewController.swift */,
+				28331CC8243912E00028CCE5 /* Configurator */,
+				28331CC7243912B40028CCE5 /* Presenter */,
+				28331CC9243912FB0028CCE5 /* View */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		28331CC7243912B40028CCE5 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
 				28331CC5243904770028CCE5 /* PersonPresenter.swift */,
-				28331CC3243900350028CCE5 /* PersonViewController.storyboard */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		28331CC8243912E00028CCE5 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
 				28331CC12438FF5E0028CCE5 /* PersonModuleConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		28331CC9243912FB0028CCE5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				28BB5E86242E61B400BA62F8 /* PersonViewController.swift */,
+				28331CC3243900350028CCE5 /* PersonViewController.storyboard */,
+				28331CCA243913270028CCE5 /* Cells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		28331CCA243913270028CCE5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
 				28D8B4B52432102800A6BCDE /* PersonImagesCollectionViewCell.xib */,
 				28D8B4B42432102800A6BCDE /* PersonImagesCollectionViewCell.swift */,
 			);
-			path = Person;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		288E935C240667FC00D67930 /* Extensions */ = {
@@ -261,13 +293,13 @@
 			children = (
 				289AE7102400675A0029719B /* FeedViewController.swift */,
 				28C75EE724257EFC00BB6E70 /* DetailedMovieViewController.swift */,
-				28331CC02438FDED0028CCE5 /* Person */,
 				28966092240FDD9000505732 /* FullPosterViewController.swift */,
 				289AE712240067790029719B /* FavoritesViewController.swift */,
 				289AE7142400678D0029719B /* SearchMovieViewController.swift */,
 				28C75EE924260D8E00BB6E70 /* PersonCollectionViewCell.swift */,
 				28078C0F24294C4800040DD3 /* VideoCollectionViewCell.swift */,
 				283892872420200400016011 /* MovieTableViewCell.swift */,
+				28331CC02438FDED0028CCE5 /* Person */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
