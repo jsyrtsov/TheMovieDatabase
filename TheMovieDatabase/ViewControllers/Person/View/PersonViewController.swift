@@ -48,10 +48,10 @@ class PersonViewController: UIViewController {
         biography.shouldCollapse = true
         biography.numberOfLines = 6
         biography.collapsedAttributedLink = NSAttributedString(
-            string: "Show more", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]
+            string: "Show more", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
         )
         biography.expandedAttributedLink = NSAttributedString(
-            string: "Show less", attributes: [NSAttributedString.Key.foregroundColor: UIColor.blue]
+            string: "Show less", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
         )
 
         imagesCollectionView.delegate = self
@@ -98,4 +98,18 @@ extension PersonViewController: UICollectionViewDataSource {
 
 extension PersonViewController: UICollectionViewDelegate {
 
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension PersonViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == imagesCollectionView {
+            return CGSize(width: 51, height: 77)
+        } else {
+            return CGSize(width: 0, height: 0)
+        }
+    }
 }

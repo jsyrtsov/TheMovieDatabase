@@ -88,6 +88,7 @@ class FeedViewController: UIViewController {
 }
 
 // MARK: - TableViewDelegate
+
 extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -105,6 +106,7 @@ extension FeedViewController: UITableViewDelegate {
 }
 
 // MARK: - TableViewDataSource
+
 extension FeedViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

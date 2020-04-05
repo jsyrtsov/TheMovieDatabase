@@ -306,3 +306,21 @@ extension DetailedMovieViewController: UICollectionViewDataSource {
         }
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension DetailedMovieViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == castCollectionView {
+            return CGSize(width: 143, height: 85)
+        } else if collectionView == crewCollectionView {
+            return CGSize(width: 143, height: 85)
+        } else if collectionView == videosCollectionView {
+            return CGSize(width: 179, height: 130)
+        } else {
+            return CGSize(width: 0, height: 0)
+        }
+    }
+}
