@@ -314,11 +314,11 @@ extension DetailedMovieViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == castCollectionView {
-            return CGSize(width: 143, height: 85)
+            return PersonCollectionViewCell.size
         } else if collectionView == crewCollectionView {
-            return CGSize(width: 143, height: 85)
+            return PersonCollectionViewCell.size
         } else if collectionView == videosCollectionView {
-            return CGSize(width: 179, height: 130)
+            return VideoCollectionViewCell.size
         } else {
             return CGSize(width: 0, height: 0)
         }

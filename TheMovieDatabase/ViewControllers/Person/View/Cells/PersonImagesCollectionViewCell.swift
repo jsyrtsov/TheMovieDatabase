@@ -11,6 +11,7 @@ import UIKit
 class PersonImagesCollectionViewCell: UICollectionViewCell {
 
     static let identifier = String(describing: PersonImagesCollectionViewCell.self)
+    static let size = CGSize(width: 51, height: 77)
 
     @IBOutlet weak private var profileImage: UIImageView!
 

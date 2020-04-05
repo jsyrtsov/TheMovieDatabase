@@ -107,7 +107,7 @@ extension PersonViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == imagesCollectionView {
-            return CGSize(width: 51, height: 77)
+            return PersonImagesCollectionViewCell.size
         } else {
             return CGSize(width: 0, height: 0)
         }

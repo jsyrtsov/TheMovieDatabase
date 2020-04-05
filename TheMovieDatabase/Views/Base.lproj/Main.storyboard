@@ -498,13 +498,11 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="inA-gS-jgb" firstAttribute="leading" secondItem="cf1-HS-vua" secondAttribute="leading" constant="177" id="1Wt-TD-mLe"/>
                             <constraint firstItem="pg1-tC-xMJ" firstAttribute="top" secondItem="cf1-HS-vua" secondAttribute="top" id="2UX-W7-OLb"/>
-                            <constraint firstItem="cf1-HS-vua" firstAttribute="trailing" secondItem="inA-gS-jgb" secondAttribute="trailing" constant="178" id="F9m-kj-1Ir"/>
+                            <constraint firstItem="inA-gS-jgb" firstAttribute="centerX" secondItem="cf1-HS-vua" secondAttribute="centerX" id="NqI-ub-dU0"/>
+                            <constraint firstItem="inA-gS-jgb" firstAttribute="centerY" secondItem="cf1-HS-vua" secondAttribute="centerY" id="SiQ-p5-ipV"/>
                             <constraint firstItem="pg1-tC-xMJ" firstAttribute="bottom" secondItem="cf1-HS-vua" secondAttribute="bottom" id="T6d-jp-Zum"/>
                             <constraint firstItem="pg1-tC-xMJ" firstAttribute="trailing" secondItem="cf1-HS-vua" secondAttribute="trailing" id="UKG-ys-Kwz"/>
-                            <constraint firstItem="cf1-HS-vua" firstAttribute="bottom" secondItem="inA-gS-jgb" secondAttribute="bottom" constant="324" id="ZJT-CB-wJ0"/>
-                            <constraint firstItem="inA-gS-jgb" firstAttribute="top" secondItem="cf1-HS-vua" secondAttribute="top" constant="323" id="dYY-r5-bdQ"/>
                             <constraint firstItem="pg1-tC-xMJ" firstAttribute="leading" secondItem="cf1-HS-vua" secondAttribute="leading" id="hku-OS-pcx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cf1-HS-vua"/>
