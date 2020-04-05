@@ -21,8 +21,8 @@ class DetailedMovieViewController: UIViewController {
     private var cast: [CastEntry] = []
     private var videos: [Video] = []
     private var isFavorite = false
-    private let favoriteButton = UIButton(type: .custom)
 
+    private let favoriteButton = UIButton(type: .custom)
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var runtime: UILabel!
     @IBOutlet weak private var revenue: UILabel!
@@ -41,15 +41,15 @@ class DetailedMovieViewController: UIViewController {
     @IBOutlet weak private var castCollectionView: UICollectionView!
     @IBOutlet weak private var crewCollectionView: UICollectionView!
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        checkFavorite()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         loadDetails()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        checkFavorite()
     }
 
     private func configureView() {

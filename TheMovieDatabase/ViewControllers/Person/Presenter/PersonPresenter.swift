@@ -8,12 +8,25 @@
 
 import Foundation
 
-class PersonPresenter {
-    weak var view: PersonViewController?
+class PersonPresenter: PersonViewOutput, PersonModuleInput {
+
+    // MARK: - Properties
+
+    weak var view: PersonViewInput?
+    var router: PersonRouterInput?
     private let service = PersonLoadingService()
-    private let personId: Int?
-    init(personId: Int?) {
+    private var personId: Int?
+
+    // MARK: - PersonModuleInput
+
+    func configure(personId: Int?) {
         self.personId = personId
+    }
+
+    // MARK: - PersonViewOutput
+
+    func showFullPicture(picturePath: String?) {
+        router?.showFullPicture(picturePath: picturePath)
     }
 
     func loadPersonDetails() {

@@ -19,8 +19,12 @@ class PersonModuleConfigurator {
                 "Can't load PersonViewController from storyboard, check that controller is initial view controller"
             )
         }
-        let presenter = PersonPresenter(personId: personId)
-        view.presenter = presenter
+        let router = PersonRouter()
+        let presenter = PersonPresenter()
+        presenter.configure(personId: personId)
+        router.view = view
+        presenter.router = router
+        view.output = presenter
         presenter.view = view
         return view
     }

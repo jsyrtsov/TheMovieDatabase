@@ -9,13 +9,17 @@
 import UIKit
 import ExpandableLabel
 
-class PersonViewController: UIViewController {
+class PersonViewController: UIViewController, PersonViewInput, ModuleTransitionable {
+
+    // MARK: - Properties
 
     static let identifier = String(describing: PersonViewController.self)
 
-    var presenter: PersonPresenter?
+    var output: PersonViewOutput?
     private var person: Person?
     private var personImages: [PersonImage] = []
+
+    // MARK: - Subviews
 
     @IBOutlet weak private var name: UILabel!
     @IBOutlet weak private var birthday: UILabel!
@@ -26,11 +30,15 @@ class PersonViewController: UIViewController {
     @IBOutlet weak private var additionalInfoShadow: UIView!
     @IBOutlet weak private var imagesCollectionView: UICollectionView!
 
+    // MARK: - UIViewController
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        presenter?.loadPersonDetails()
+        output?.loadPersonDetails()
     }
+
+    // MARK: - PersonViewInput
 
     func configure(withPerson person: Person?) {
         self.person = person
@@ -41,6 +49,8 @@ class PersonViewController: UIViewController {
         self.personImages = personImages
         self.imagesCollectionView.reloadData()
     }
+
+    // MARK: - Private Methods
 
     private func configureView() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
@@ -79,14 +89,9 @@ class PersonViewController: UIViewController {
 
     @objc
     private func imageTapped() {
-        loadImage(picturePath: person?.profilePath)
+        output?.showFullPicture(picturePath: person?.profilePath)
     }
 
-    private func loadImage(picturePath: String?) {
-        let fullPictureVC = FullPictureModuleConfigurator().configure()
-        fullPictureVC.picturePath = picturePath
-        navigationController?.pushViewController(fullPictureVC, animated: true)
-    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -112,7 +117,7 @@ extension PersonViewController: UICollectionViewDataSource {
 extension PersonViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == imagesCollectionView {
-            loadImage(picturePath: personImages[indexPath.row].filePath)
+            output?.showFullPicture(picturePath: personImages[indexPath.row].filePath)
         }
     }
 }
