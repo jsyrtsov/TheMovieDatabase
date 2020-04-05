@@ -43,6 +43,10 @@ class PersonViewController: UIViewController {
     }
 
     private func configureView() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        profileImage.addGestureRecognizer(tap)
+        profileImage.isUserInteractionEnabled = true
+
         biography.shouldCollapse = true
         biography.numberOfLines = 6
         biography.collapsedAttributedLink = NSAttributedString(
@@ -71,6 +75,13 @@ class PersonViewController: UIViewController {
         placeOfBirth.text = person?.placeOfBirth
         profileImage.loadPicture(posterPath: person?.profilePath)
         biography.text = person?.biography
+    }
+
+    @objc
+    private func imageTapped() {
+        let fullPictureVC = FullPictureModuleConfigurator().configure()
+        fullPictureVC.picturePath = person?.profilePath
+        navigationController?.pushViewController(fullPictureVC, animated: true)
     }
 }
 

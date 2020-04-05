@@ -194,7 +194,7 @@ class DetailedMovieViewController: UIViewController {
     @objc
     private func imageTapped() {
         let fullPictureVC = FullPictureModuleConfigurator().configure()
-        fullPictureVC.posterPath = detailedMovie?.posterPath
+        fullPictureVC.picturePath = detailedMovie?.posterPath
         navigationController?.pushViewController(fullPictureVC, animated: true)
     }
 

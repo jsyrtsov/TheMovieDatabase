@@ -9,7 +9,7 @@
 import UIKit
 
 class FullPictureViewController: UIViewController {
-    var posterPath: String?
+    var picturePath: String?
 
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var imageView: UIImageView!
@@ -25,7 +25,7 @@ class FullPictureViewController: UIViewController {
     }
 
     private func loadPic() {
-        imageView.loadFullPicture(path: posterPath)
+        imageView.loadFullPicture(path: picturePath)
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
     }
