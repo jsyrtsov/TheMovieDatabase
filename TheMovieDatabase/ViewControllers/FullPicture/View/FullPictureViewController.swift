@@ -26,7 +26,5 @@ class FullPictureViewController: UIViewController {
 
     private func loadPic() {
         imageView.loadFullPicture(path: picturePath)
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
     }
 }
