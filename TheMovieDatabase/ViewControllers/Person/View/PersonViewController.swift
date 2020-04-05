@@ -79,8 +79,12 @@ class PersonViewController: UIViewController {
 
     @objc
     private func imageTapped() {
+        loadImage(picturePath: person?.profilePath)
+    }
+
+    private func loadImage(picturePath: String?) {
         let fullPictureVC = FullPictureModuleConfigurator().configure()
-        fullPictureVC.picturePath = person?.profilePath
+        fullPictureVC.picturePath = picturePath
         navigationController?.pushViewController(fullPictureVC, animated: true)
     }
 }
@@ -106,7 +110,11 @@ extension PersonViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension PersonViewController: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == imagesCollectionView {
+            loadImage(picturePath: personImages[indexPath.row].filePath)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
