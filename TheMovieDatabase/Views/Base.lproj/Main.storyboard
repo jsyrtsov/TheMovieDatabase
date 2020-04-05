@@ -20,19 +20,17 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="gC7-Ge-pX7">
-                                <rect key="frame" x="177.5" y="322" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="347" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="nwY-w2-uH1" firstAttribute="bottom" secondItem="gC7-Ge-pX7" secondAttribute="bottom" constant="276" id="3Gh-in-7sB"/>
                             <constraint firstItem="izS-uZ-Axf" firstAttribute="leading" secondItem="nwY-w2-uH1" secondAttribute="leading" id="3JX-jq-NKL"/>
-                            <constraint firstItem="nwY-w2-uH1" firstAttribute="trailing" secondItem="gC7-Ge-pX7" secondAttribute="trailing" constant="177.5" id="5JW-rq-PGX"/>
+                            <constraint firstItem="gC7-Ge-pX7" firstAttribute="centerX" secondItem="nwY-w2-uH1" secondAttribute="centerX" id="VB6-ka-Mfq"/>
+                            <constraint firstItem="gC7-Ge-pX7" firstAttribute="centerY" secondItem="nwY-w2-uH1" secondAttribute="centerY" id="k84-vo-fGu"/>
                             <constraint firstItem="izS-uZ-Axf" firstAttribute="top" secondItem="nwY-w2-uH1" secondAttribute="top" id="lAR-60-r1Z"/>
                             <constraint firstItem="izS-uZ-Axf" firstAttribute="trailing" secondItem="nwY-w2-uH1" secondAttribute="trailing" id="riq-qy-tNI"/>
-                            <constraint firstItem="gC7-Ge-pX7" firstAttribute="top" secondItem="nwY-w2-uH1" secondAttribute="top" constant="226" id="so1-Up-boG"/>
                             <constraint firstAttribute="bottom" secondItem="izS-uZ-Axf" secondAttribute="bottom" id="v4a-yK-o62"/>
-                            <constraint firstItem="gC7-Ge-pX7" firstAttribute="leading" secondItem="nwY-w2-uH1" secondAttribute="leading" constant="177.5" id="yrG-4G-OOB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nwY-w2-uH1"/>
                     </view>
@@ -59,19 +57,17 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="buV-xb-bUI">
-                                <rect key="frame" x="177.5" y="322" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="347" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="hoD-gO-AqE" secondAttribute="bottom" id="4xw-r6-vRQ"/>
-                            <constraint firstItem="buV-xb-bUI" firstAttribute="leading" secondItem="COR-tC-oyL" secondAttribute="leading" constant="177.5" id="8Nu-3y-EvH"/>
+                            <constraint firstItem="buV-xb-bUI" firstAttribute="centerX" secondItem="COR-tC-oyL" secondAttribute="centerX" id="5nD-bF-kgs"/>
                             <constraint firstItem="hoD-gO-AqE" firstAttribute="top" secondItem="jwo-hU-llb" secondAttribute="top" id="Bvj-UM-Jp6"/>
-                            <constraint firstItem="COR-tC-oyL" firstAttribute="trailing" secondItem="buV-xb-bUI" secondAttribute="trailing" constant="177.5" id="Ceq-Lh-Yku"/>
-                            <constraint firstItem="COR-tC-oyL" firstAttribute="bottom" secondItem="buV-xb-bUI" secondAttribute="bottom" constant="276" id="FxY-Zb-JPy"/>
                             <constraint firstItem="hoD-gO-AqE" firstAttribute="trailing" secondItem="COR-tC-oyL" secondAttribute="trailing" id="KG2-14-6f9"/>
-                            <constraint firstItem="buV-xb-bUI" firstAttribute="top" secondItem="COR-tC-oyL" secondAttribute="top" constant="226" id="RCJ-hw-xbm"/>
                             <constraint firstItem="hoD-gO-AqE" firstAttribute="leading" secondItem="COR-tC-oyL" secondAttribute="leading" id="bcz-VC-Yaw"/>
+                            <constraint firstItem="buV-xb-bUI" firstAttribute="centerY" secondItem="COR-tC-oyL" secondAttribute="centerY" id="xU6-bg-b17"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="COR-tC-oyL"/>
                     </view>
