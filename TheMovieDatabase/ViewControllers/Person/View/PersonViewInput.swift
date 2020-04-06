@@ -11,4 +11,5 @@ import Foundation
 protocol PersonViewInput: class {
     func configure(withPerson person: Person?)
     func configure(withPersonImages personImages: [PersonImage])
+    func configure(withPersonCredits personCast: [PersonMovie], personCrew: [PersonMovie])
 }

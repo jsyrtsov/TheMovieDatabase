@@ -11,4 +11,5 @@ import Foundation
 protocol PersonViewOutput: class {
     func loadPersonDetails()
     func showFullPicture(picturePath: String?)
+    func loadPersonCredits()
 }

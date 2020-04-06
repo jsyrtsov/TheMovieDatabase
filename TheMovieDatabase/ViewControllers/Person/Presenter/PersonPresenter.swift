@@ -46,4 +46,20 @@ class PersonPresenter: PersonViewOutput, PersonModuleInput {
             self.view?.configure(withPersonImages: result)
         }
     }
+
+    func loadPersonCredits() {
+        guard let personId = personId else {
+            return
+        }
+        service.loadPersonCredits(personId: personId) { [weak self] (personCast, personCrew) in
+            guard
+                let personCast = personCast,
+                let personCrew = personCrew,
+                let self = self
+            else {
+                return
+            }
+            self.view?.configure(withPersonCredits: personCast, personCrew: personCrew)
+        }
+    }
 }

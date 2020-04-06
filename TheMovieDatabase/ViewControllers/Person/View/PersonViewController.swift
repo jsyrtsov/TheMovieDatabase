@@ -18,18 +18,22 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
     var output: PersonViewOutput?
     private var person: Person?
     private var personImages: [PersonImage] = []
+    private var personMovies: [PersonMovie] = []
 
     // MARK: - Subviews
 
     @IBOutlet weak private var name: UILabel!
     @IBOutlet weak private var birthday: UILabel!
     @IBOutlet weak private var placeOfBirth: UILabel!
+    @IBOutlet weak private var knownFor: UILabel!
     @IBOutlet weak private var biography: ExpandableLabel!
     @IBOutlet weak private var profileImage: UIImageView!
     @IBOutlet weak private var baseInfoShadow: UIView!
     @IBOutlet weak private var additionalInfoShadow: UIView!
     @IBOutlet weak private var imagesCollectionView: UICollectionView!
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var tableViewHeight: NSLayoutConstraint!
 
     // MARK: - UIViewController
 
@@ -37,6 +41,7 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         super.viewDidLoad()
         configureView()
         output?.loadPersonDetails()
+        output?.loadPersonCredits()
     }
 
     // MARK: - PersonViewInput
@@ -51,11 +56,20 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         self.imagesCollectionView.reloadData()
     }
 
+    func configure(withPersonCredits personCast: [PersonMovie], personCrew: [PersonMovie]) {
+        self.personMovies = personCast
+        self.personMovies.append(contentsOf: personCrew)
+        //personMovies.sorted NADO TUT  !!!!!
+        self.tableView.reloadData()
+        tableViewHeight.constant = CGFloat(personMovies.count * 70)
+    }
+
     // MARK: - Private Methods
 
     private func configureView() {
         activityIndicator.startAnimating()
         hideToggle()
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         profileImage.addGestureRecognizer(tap)
         profileImage.isUserInteractionEnabled = true
@@ -69,6 +83,11 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
             string: "Show less", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
         )
 
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: PersonMovieTableViewCell.identifier, bundle: nil),
+                           forCellReuseIdentifier: PersonMovieTableViewCell.identifier)
+
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
         imagesCollectionView.register(UINib(nibName: PersonImagesCollectionViewCell.identifier, bundle: nil),
@@ -80,9 +99,12 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         baseInfoShadow.applyShadow(radius: 10, opacity: 0.08, offsetW: 4, offsetH: 4)
         additionalInfoShadow.layer.cornerRadius = 20
         additionalInfoShadow.applyShadow(radius: 10, opacity: 0.08, offsetW: 4, offsetH: 4)
+
+        //var personMovies = personCast + personCrew
     }
 
     private func hideToggle() {
+        knownFor.isHidden.toggle()
         name.isHidden.toggle()
         placeOfBirth.isHidden.toggle()
         biography.isHidden.toggle()
@@ -93,6 +115,7 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
         hideToggle()
+        knownFor.text = person?.knownForDepartment
         name.text = person?.name
         birthday.text = person?.birthday
         placeOfBirth.text = person?.placeOfBirth
@@ -105,6 +128,31 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         output?.showFullPicture(picturePath: person?.profilePath)
     }
 
+}
+
+// MARK: - UITableViewDelegate
+
+extension PersonViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension PersonViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return personMovies.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: PersonMovieTableViewCell.identifier,
+            for: indexPath
+        ) as? PersonMovieTableViewCell
+        cell?.configure(personMovie: personMovies[indexPath.row])
+        return cell ?? UITableViewCell()
+    }
 }
 
 // MARK: - UICollectionViewDataSource

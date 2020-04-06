@@ -57,9 +57,39 @@ class PersonLoadingService {
             }
         }.resume()
     }
+
+    func loadPersonCredits(personId: Int, completion: @escaping ([PersonMovie]?, [PersonMovie]?) -> Void) {
+        guard
+            let url = URL(string: UrlParts.baseUrl + "person/\(personId)/movie_credits")?
+                .appending("api_key", value: UrlParts.apiKey)
+        else {
+            return
+        }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            guard let data = data else {
+                return
+            }
+            do {
+                let result = try decoder.decode(PersonCreditsResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(result.cast, result.crew)
+                }
+            } catch {
+                completion(nil, nil)
+            }
+        }.resume()
+    }
 }
 
 private struct PersonImagesResponse: Codable {
     let profiles: [PersonImage]?
+    let id: Int?
+}
+
+private struct PersonCreditsResponse: Codable {
+    let cast: [PersonMovie]?
+    let crew: [PersonMovie]?
     let id: Int?
 }
