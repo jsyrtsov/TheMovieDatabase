@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7VA-mO-hdZ">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Full Picture View Controller-->
+        <scene sceneID="AMf-a7-ABI">
+            <objects>
+                <viewController storyboardIdentifier="FullPosterViewController" id="7VA-mO-hdZ" customClass="FullPictureViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NbP-8B-SBC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="mfx-ta-etJ">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EJU-YY-coc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mfx-ta-etJ" firstAttribute="centerY" secondItem="u5e-Xg-MfA" secondAttribute="centerY" id="9H2-y8-060"/>
+                            <constraint firstItem="EJU-YY-coc" firstAttribute="top" secondItem="u5e-Xg-MfA" secondAttribute="top" id="RGV-6J-AMv"/>
+                            <constraint firstItem="mfx-ta-etJ" firstAttribute="centerX" secondItem="u5e-Xg-MfA" secondAttribute="centerX" id="XEJ-Ge-d4u"/>
+                            <constraint firstItem="EJU-YY-coc" firstAttribute="bottom" secondItem="u5e-Xg-MfA" secondAttribute="bottom" id="ltg-B0-waq"/>
+                            <constraint firstItem="EJU-YY-coc" firstAttribute="leading" secondItem="u5e-Xg-MfA" secondAttribute="leading" id="tvZ-8R-LFO"/>
+                            <constraint firstItem="EJU-YY-coc" firstAttribute="trailing" secondItem="u5e-Xg-MfA" secondAttribute="trailing" id="zO5-w5-3sj"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="u5e-Xg-MfA"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="mfx-ta-etJ" id="lPs-ox-c7q"/>
+                        <outlet property="imageView" destination="EJU-YY-coc" id="ya1-Iv-2UG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fzc-CK-uDY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3572" y="817.24137931034488"/>
+        </scene>
+    </scenes>
+</document>

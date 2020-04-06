@@ -9,14 +9,17 @@
 import UIKit
 import ExpandableLabel
 
-class PersonViewController: UIViewController {
+class PersonViewController: UIViewController, PersonViewInput, ModuleTransitionable {
+
+    // MARK: - Properties
 
     static let identifier = String(describing: PersonViewController.self)
 
-    var personId: Int?
-    private let service = PersonLoadingService()
+    var output: PersonViewOutput?
     private var person: Person?
     private var personImages: [PersonImage] = []
+
+    // MARK: - Subviews
 
     @IBOutlet weak private var name: UILabel!
     @IBOutlet weak private var birthday: UILabel!
@@ -27,35 +30,41 @@ class PersonViewController: UIViewController {
     @IBOutlet weak private var additionalInfoShadow: UIView!
     @IBOutlet weak private var imagesCollectionView: UICollectionView!
 
+    // MARK: - UIViewController
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        loadPersonDetails()
+        output?.loadPersonDetails()
     }
 
-    private func loadPersonDetails() {
-        guard let personId = personId else {
-            return
-        }
-        service.loadPerson(personId: personId) { [weak self] (result) in
-            guard let result = result, let self = self else {
-                return
-            }
-            self.person = result
-            self.updateView()
-        }
-        service.loadPersonImages(personId: personId) { [weak self] (result) in
-            guard let result = result, let self = self else {
-                return
-            }
-            self.personImages = result
-            self.imagesCollectionView.reloadData()
-        }
+    // MARK: - PersonViewInput
+
+    func configure(withPerson person: Person?) {
+        self.person = person
+        self.updateView()
     }
+
+    func configure(withPersonImages personImages: [PersonImage]) {
+        self.personImages = personImages
+        self.imagesCollectionView.reloadData()
+    }
+
+    // MARK: - Private Methods
 
     private func configureView() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        profileImage.addGestureRecognizer(tap)
+        profileImage.isUserInteractionEnabled = true
+
+        biography.shouldCollapse = true
         biography.numberOfLines = 6
-        biography.collapsedAttributedLink = NSAttributedString(string: "Show more")
+        biography.collapsedAttributedLink = NSAttributedString(
+            string: "Show more", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
+        )
+        biography.expandedAttributedLink = NSAttributedString(
+            string: "Show less", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
+        )
 
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
@@ -77,6 +86,12 @@ class PersonViewController: UIViewController {
         profileImage.loadPicture(posterPath: person?.profilePath)
         biography.text = person?.biography
     }
+
+    @objc
+    private func imageTapped() {
+        output?.showFullPicture(picturePath: person?.profilePath)
+    }
+
 }
 
 // MARK: - UICollectionViewDataSource
@@ -100,5 +115,23 @@ extension PersonViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension PersonViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == imagesCollectionView {
+            output?.showFullPicture(picturePath: personImages[indexPath.row].filePath)
+        }
+    }
+}
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension PersonViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == imagesCollectionView {
+            return PersonImagesCollectionViewCell.size
+        } else {
+            return CGSize(width: 0, height: 0)
+        }
+    }
 }

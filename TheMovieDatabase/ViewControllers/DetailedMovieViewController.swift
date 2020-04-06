@@ -21,8 +21,8 @@ class DetailedMovieViewController: UIViewController {
     private var cast: [CastEntry] = []
     private var videos: [Video] = []
     private var isFavorite = false
-    private let favoriteButton = UIButton(type: .custom)
 
+    private let favoriteButton = UIButton(type: .custom)
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var runtime: UILabel!
     @IBOutlet weak private var revenue: UILabel!
@@ -41,15 +41,15 @@ class DetailedMovieViewController: UIViewController {
     @IBOutlet weak private var castCollectionView: UICollectionView!
     @IBOutlet weak private var crewCollectionView: UICollectionView!
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        checkFavorite()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         loadDetails()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        checkFavorite()
     }
 
     private func configureView() {
@@ -193,17 +193,9 @@ class DetailedMovieViewController: UIViewController {
 
     @objc
     private func imageTapped() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard
-            let fullViewVC = storyboard.instantiateViewController(
-                withIdentifier: FullPosterViewController.identifier
-            ) as? FullPosterViewController
-        else {
-            return
-        }
-        fullViewVC.movieId = detailedMovie?.id
-        fullViewVC.posterPath = detailedMovie?.posterPath
-        navigationController?.pushViewController(fullViewVC, animated: true)
+        let fullPictureVC = FullPictureModuleConfigurator().configure()
+        fullPictureVC.picturePath = detailedMovie?.posterPath
+        navigationController?.pushViewController(fullPictureVC, animated: true)
     }
 
     @objc
@@ -251,26 +243,10 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
                 }
             }
         } else if collectionView == castCollectionView {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard
-                let personVC = storyboard.instantiateViewController(
-                    identifier: PersonViewController.identifier
-                ) as? PersonViewController
-            else {
-                return
-            }
-            personVC.personId = cast[indexPath.row].id
+            let personVC = PersonModuleConfigurator().configure(personId: cast[indexPath.row].id)
             navigationController?.pushViewController(personVC, animated: true)
         } else if collectionView == crewCollectionView {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard
-                let personVC = storyboard.instantiateViewController(
-                    identifier: PersonViewController.identifier
-                ) as? PersonViewController
-            else {
-                return
-            }
-            personVC.personId = crew[indexPath.row].id
+            let personVC = PersonModuleConfigurator().configure(personId: crew[indexPath.row].id)
             navigationController?.pushViewController(personVC, animated: true)
         }
     }
@@ -319,6 +295,24 @@ extension DetailedMovieViewController: UICollectionViewDataSource {
             return cell ?? UICollectionViewCell()
         } else {
             return UICollectionViewCell()
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension DetailedMovieViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == castCollectionView {
+            return PersonCollectionViewCell.size
+        } else if collectionView == crewCollectionView {
+            return PersonCollectionViewCell.size
+        } else if collectionView == videosCollectionView {
+            return VideoCollectionViewCell.size
+        } else {
+            return CGSize(width: 0, height: 0)
         }
     }
 }

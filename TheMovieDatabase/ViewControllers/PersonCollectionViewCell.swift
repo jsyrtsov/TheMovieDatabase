@@ -11,6 +11,7 @@ import UIKit
 class PersonCollectionViewCell: UICollectionViewCell {
 
     static let identifier = String(describing: PersonCollectionViewCell.self)
+    static let size = CGSize(width: 143, height: 85)
 
     @IBOutlet weak private var baseShadowView: UIView!
     @IBOutlet weak private var profileImage: UIImageView!
