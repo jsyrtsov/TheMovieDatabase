@@ -10,17 +10,25 @@ import UIKit
 
 class SearchMovieViewController: UIViewController {
 
-    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak private var tableView: UITableView!
+    // MARK: - Properties
 
     private var service = MoviesLoadingService()
     private var query = ""
     private var movies: [Movie] = []
 
+    // MARK: - Subviews
+
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak private var tableView: UITableView!
+
+    // MARK: - UIViewController
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
     }
+
+    // MARK: - Private Methods
 
     private func configureView() {
         activityIndicator.isHidden = true

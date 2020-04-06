@@ -10,20 +10,26 @@ import UIKit
 
 class FeedViewController: UIViewController {
 
-    private var segmentedControl: UISegmentedControl?
+    // MARK: - Properties
 
+    private lazy var service = MoviesLoadingService()
+    private var movies: [Movie] = []
+
+    // MARK: - Subviews
+
+    private var segmentedControl: UISegmentedControl?
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
 
-    private lazy var service = MoviesLoadingService()
-
-    private var movies: [Movie] = []
+    // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         loadMovies()
     }
+
+    // MARK: - Private Methods
 
     private func configureView() {
         tableView.delegate = self

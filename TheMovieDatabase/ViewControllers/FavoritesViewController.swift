@@ -10,12 +10,23 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
 
+    // MARK: - Properties
+
+    private let service = MoviesLoadingService()
+    private var movies: [Movie] = []
+
+    // MARK: - Subviews
+
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var blankImage: UIImageView!
     @IBOutlet weak private var blankTitle: UILabel!
 
-    private let service = MoviesLoadingService()
-    private var movies: [Movie] = []
+    // MARK: - UIViewController
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureView()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -32,10 +43,7 @@ class FavoritesViewController: UIViewController {
         tableView.reloadData()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureView()
-    }
+    // MARK: - Private Methods
 
     private func configureView() {
         tableView.delegate = self

@@ -10,23 +10,33 @@ import UIKit
 
 class VideoCollectionViewCell: UICollectionViewCell {
 
+    // MARK: - Properties
+
     static let identifier = String(describing: VideoCollectionViewCell.self)
     static let size = CGSize(width: 179, height: 130)
+
+    // MARK: - Subviews
 
     @IBOutlet weak private var baseShadowView: UIView!
     @IBOutlet weak private var imageShadowView: UIView!
     @IBOutlet weak private var previewImage: UIImageView!
     @IBOutlet weak private var title: UILabel!
 
+    // MARK: - UICollectionViewCell
+
     override func awakeFromNib() {
         super.awakeFromNib()
         configureView()
     }
 
+    // MARK: - Methods
+
     func configure(video: Video) {
         previewImage.loadVideoPreview(key: video.key)
         title.text = video.name
     }
+
+    // MARK: - Private Methods
 
     private func configureView() {
         previewImage.layer.cornerRadius = 5

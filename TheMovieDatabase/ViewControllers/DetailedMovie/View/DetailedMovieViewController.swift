@@ -11,6 +11,8 @@ import AVKit
 
 class DetailedMovieViewController: UIViewController {
 
+    // MARK: - Properties
+
     static let identifier = String(describing: DetailedMovieViewController.self)
 
     var movieId: Int?
@@ -21,6 +23,8 @@ class DetailedMovieViewController: UIViewController {
     private var cast: [CastEntry] = []
     private var videos: [Video] = []
     private var isFavorite = false
+
+    // MARK: - Subviews
 
     private let favoriteButton = UIButton(type: .custom)
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
@@ -41,6 +45,8 @@ class DetailedMovieViewController: UIViewController {
     @IBOutlet weak private var castCollectionView: UICollectionView!
     @IBOutlet weak private var crewCollectionView: UICollectionView!
 
+    // MARK: - UIViewController
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -51,6 +57,8 @@ class DetailedMovieViewController: UIViewController {
         super.viewWillAppear(true)
         checkFavorite()
     }
+
+    // MARK: - Private Methods
 
     private func configureView() {
         activityIndicator.startAnimating()
@@ -133,8 +141,8 @@ class DetailedMovieViewController: UIViewController {
             let director = self.crew[directorIndex]
             self.crew.remove(at: directorIndex)
             self.crew.insert(director, at: 0)
-            self.crew = Array(self.crew.prefix(15))
-            self.cast = Array(self.cast.prefix(15))
+            self.crew = Array(self.crew.prefix(20))
+            self.cast = Array(self.cast.prefix(20))
             self.castCollectionView.reloadData()
             self.crewCollectionView.reloadData()
         }
@@ -205,7 +213,6 @@ class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
-
         if isFavorite {
             isFavorite = false
             favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)

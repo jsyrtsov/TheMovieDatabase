@@ -10,7 +10,11 @@ import UIKit
 
 class MovieTableViewCell: UITableViewCell {
 
+    // MARK: - Properties
+
     static let identifier = String(describing: MovieTableViewCell.self)
+
+    // MARK: - Subviews
 
     @IBOutlet weak private var cellView: UIView!
     @IBOutlet weak private var shadowImageView: UIView!
@@ -21,10 +25,14 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak private var year: UILabel!
     @IBOutlet weak private var voteAverage: UILabel!
 
+    // MARK: - UITableViewCell
+
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
     }
+
+    // MARK: - Methods
 
     func configure(movie: Movie) {
         title.text = movie.title
@@ -38,6 +46,8 @@ class MovieTableViewCell: UITableViewCell {
         }
         posterImageView.loadPicture(posterPath: movie.posterPath)
     }
+
+    // MARK: - Private Methods
 
     private func configureUI() {
         cellView.layer.cornerRadius = 10

@@ -99,8 +99,6 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         baseInfoShadow.applyShadow(radius: 10, opacity: 0.08, offsetW: 4, offsetH: 4)
         additionalInfoShadow.layer.cornerRadius = 20
         additionalInfoShadow.applyShadow(radius: 10, opacity: 0.08, offsetW: 4, offsetH: 4)
-
-        //var personMovies = personCast + personCrew
     }
 
     private func hideToggle() {

@@ -10,18 +10,26 @@ import UIKit
 
 class PersonCollectionViewCell: UICollectionViewCell {
 
+    // MARK: - Properties
+
     static let identifier = String(describing: PersonCollectionViewCell.self)
     static let size = CGSize(width: 143, height: 85)
+
+    // MARK: - Subviews
 
     @IBOutlet weak private var baseShadowView: UIView!
     @IBOutlet weak private var profileImage: UIImageView!
     @IBOutlet weak private var nameLabel: UILabel!
     @IBOutlet weak private var characterOrJobLabel: UILabel!
 
+    // MARK: - UICollectionViewCell
+
     override func awakeFromNib() {
         super.awakeFromNib()
         configureView()
     }
+
+    // MARK: - Methods
 
     func configureCast(castEntry: CastEntry) {
         if castEntry.profilePath == nil {
@@ -42,6 +50,8 @@ class PersonCollectionViewCell: UICollectionViewCell {
         nameLabel.text = crewEntry.name
         characterOrJobLabel.text = crewEntry.job
     }
+
+    // MARK: - Private Methods
 
     private func configureView() {
         profileImage.layer.cornerRadius = 5
