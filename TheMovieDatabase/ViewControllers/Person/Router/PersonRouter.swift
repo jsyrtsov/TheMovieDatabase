@@ -19,6 +19,6 @@ class PersonRouter: PersonRouterInput {
     func showFullPicture(picturePath: String?) {
         let fullPictureVC = FullPictureModuleConfigurator().configure()
         fullPictureVC.picturePath = picturePath
-        view?.push(module: fullPictureVC, animated: true)
+        view?.push(module: fullPictureVC, animated: true, hideTabBar: true)
     }
 }
