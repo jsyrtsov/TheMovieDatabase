@@ -54,11 +54,7 @@ class DetailedMovieViewController: UIViewController {
 
     private func configureView() {
         activityIndicator.startAnimating()
-        titleLabel.isHidden = true
-        overviewLabel.isHidden = true
-        voteLabel.isHidden = true
-        releaseYearLabel.isHidden = true
-        taglineLabel.isHidden = true
+        hideToggle()
 
         navigationItem.largeTitleDisplayMode = .never
 
@@ -89,6 +85,19 @@ class DetailedMovieViewController: UIViewController {
         favoriteButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: favoriteButton)
         navigationItem.rightBarButtonItem = barButtonItem
+    }
+
+    private func hideToggle() {
+        titleLabel.isHidden.toggle()
+        overviewLabel.isHidden.toggle()
+        voteLabel.isHidden.toggle()
+        releaseYearLabel.isHidden.toggle()
+        taglineLabel.isHidden.toggle()
+        releaseDate.isHidden.toggle()
+        runtime.isHidden.toggle()
+        budget.isHidden.toggle()
+        revenue.isHidden.toggle()
+        originalLanguage.isHidden.toggle()
     }
 
     private func loadDetails() {
@@ -134,11 +143,7 @@ class DetailedMovieViewController: UIViewController {
     private func updateView() {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
-        titleLabel.isHidden = false
-        overviewLabel.isHidden = false
-        voteLabel.isHidden = false
-        releaseYearLabel.isHidden = false
-        taglineLabel.isHidden = false
+        hideToggle()
 
         if detailedMovie?.budget == 0 {
             budget.text = "Information is coming soon"

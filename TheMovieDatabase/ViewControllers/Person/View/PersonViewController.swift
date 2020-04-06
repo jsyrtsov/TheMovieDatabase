@@ -29,6 +29,7 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
     @IBOutlet weak private var baseInfoShadow: UIView!
     @IBOutlet weak private var additionalInfoShadow: UIView!
     @IBOutlet weak private var imagesCollectionView: UICollectionView!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
 
     // MARK: - UIViewController
 
@@ -53,6 +54,8 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
     // MARK: - Private Methods
 
     private func configureView() {
+        activityIndicator.startAnimating()
+        hideToggle()
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         profileImage.addGestureRecognizer(tap)
         profileImage.isUserInteractionEnabled = true
@@ -79,7 +82,17 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         additionalInfoShadow.applyShadow(radius: 10, opacity: 0.08, offsetW: 4, offsetH: 4)
     }
 
+    private func hideToggle() {
+        name.isHidden.toggle()
+        placeOfBirth.isHidden.toggle()
+        biography.isHidden.toggle()
+        birthday.isHidden.toggle()
+    }
+
     private func updateView() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        hideToggle()
         name.text = person?.name
         birthday.text = person?.birthday
         placeOfBirth.text = person?.placeOfBirth

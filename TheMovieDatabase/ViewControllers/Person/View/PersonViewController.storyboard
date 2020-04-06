@@ -125,10 +125,14 @@
                                                     <constraint firstItem="4rd-64-rIL" firstAttribute="leading" secondItem="U8i-Pf-bfg" secondAttribute="leading" constant="14" id="w6v-uU-2BL"/>
                                                 </constraints>
                                             </view>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="G1A-r7-cwh">
+                                                <rect key="frame" x="177.5" y="257" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="U8i-Pf-bfg" firstAttribute="leading" secondItem="xAG-x0-dvo" secondAttribute="leading" constant="13" id="6ij-0O-1UD"/>
                                             <constraint firstItem="W12-oM-jO3" firstAttribute="leading" secondItem="xAG-x0-dvo" secondAttribute="leading" constant="13" id="Dpz-d0-g1u"/>
+                                            <constraint firstItem="G1A-r7-cwh" firstAttribute="top" secondItem="W12-oM-jO3" secondAttribute="bottom" constant="50" id="L3w-rh-Uma"/>
                                             <constraint firstAttribute="trailing" secondItem="U8i-Pf-bfg" secondAttribute="trailing" constant="13" id="MvA-YT-kVS"/>
                                             <constraint firstItem="U8i-Pf-bfg" firstAttribute="centerX" secondItem="xAG-x0-dvo" secondAttribute="centerX" id="Q2a-8G-t5s"/>
                                             <constraint firstItem="W12-oM-jO3" firstAttribute="centerX" secondItem="xAG-x0-dvo" secondAttribute="centerX" id="iRE-wd-FZl"/>
@@ -147,6 +151,7 @@
                                     <constraint firstAttribute="bottom" secondItem="xAG-x0-dvo" secondAttribute="bottom" id="9aV-oG-fJO"/>
                                     <constraint firstItem="xAG-x0-dvo" firstAttribute="top" secondItem="1DE-JR-AlR" secondAttribute="top" id="SoS-hz-3Sn"/>
                                     <constraint firstItem="xAG-x0-dvo" firstAttribute="leading" secondItem="1DE-JR-AlR" secondAttribute="leading" id="ilf-UF-yjR"/>
+                                    <constraint firstItem="G1A-r7-cwh" firstAttribute="centerX" secondItem="1DE-JR-AlR" secondAttribute="centerX" id="lG2-6p-HzP"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -161,6 +166,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="1200"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="G1A-r7-cwh" id="WaF-dg-3AM"/>
                         <outlet property="additionalInfoShadow" destination="U8i-Pf-bfg" id="3pe-Yp-lRb"/>
                         <outlet property="baseInfoShadow" destination="W12-oM-jO3" id="pd9-ev-DJG"/>
                         <outlet property="biography" destination="cts-ir-zqn" id="efG-WM-Bn0"/>
