@@ -135,6 +135,7 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
 extension PersonViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        output?.showDetailedMovie(movieId: personMovies[indexPath.row].id)
     }
 }
 

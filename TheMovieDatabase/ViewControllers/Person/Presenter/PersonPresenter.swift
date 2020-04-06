@@ -29,6 +29,10 @@ class PersonPresenter: PersonViewOutput, PersonModuleInput {
         router?.showFullPicture(picturePath: picturePath)
     }
 
+    func showDetailedMovie(movieId: Int?) {
+        router?.showDetailedMovie(movieId: movieId)
+    }
+
     func loadPersonDetails() {
         guard let personId = personId else {
             return

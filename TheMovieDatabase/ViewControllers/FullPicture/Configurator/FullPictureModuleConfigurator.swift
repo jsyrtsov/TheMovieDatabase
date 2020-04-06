@@ -16,7 +16,7 @@ class FullPictureModuleConfigurator {
             ).instantiateInitialViewController() as? FullPictureViewController
         else {
             fatalError(
-                "Can't load PersonViewController from storyboard, check that controller is initial view controller"
+                "Can't load FullPictureViewController from storyboard, check that controller is initial view controller"
             )
         }
         return view

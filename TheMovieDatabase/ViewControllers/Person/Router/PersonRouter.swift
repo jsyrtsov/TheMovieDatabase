@@ -21,4 +21,10 @@ class PersonRouter: PersonRouterInput {
         fullPictureVC.picturePath = picturePath
         view?.push(module: fullPictureVC, animated: true, hideTabBar: true)
     }
+
+    func showDetailedMovie(movieId: Int?) {
+        let detailedMovieVC = DetailedMovieConfigurator().configure()
+        detailedMovieVC.movieId = movieId
+        view?.push(module: detailedMovieVC, animated: true)
+    }
 }

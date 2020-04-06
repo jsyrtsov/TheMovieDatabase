@@ -51,16 +51,9 @@ class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard
-            let detailedVC = storyboard.instantiateViewController(
-                withIdentifier: DetailedMovieViewController.identifier
-            ) as? DetailedMovieViewController
-        else {
-            return
-        }
-        detailedVC.movieId = movies[indexPath.row].id
-        navigationController?.pushViewController(detailedVC, animated: true)
+        let detailedMovieVC = DetailedMovieConfigurator().configure()
+        detailedMovieVC.movieId = movies[indexPath.row].id
+        navigationController?.pushViewController(detailedMovieVC, animated: true)
     }
 }
 

@@ -15,4 +15,5 @@ struct PersonMovie: Codable {
     let voteAverage: Double?
     let title: String?
     let posterPath: String?
+    let id: Int?
 }
