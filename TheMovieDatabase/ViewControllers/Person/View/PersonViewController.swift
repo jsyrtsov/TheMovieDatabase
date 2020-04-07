@@ -115,7 +115,12 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         hideToggle()
         knownFor.text = person?.knownForDepartment
         name.text = person?.name
-        birthday.text = person?.birthday
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        if let birthday = person?.birthday, let date = dateFormatter.date(from: birthday) {
+            dateFormatter.dateFormat = "dd MMM, yyyy"
+            self.birthday.text = dateFormatter.string(from: date)
+        }
         placeOfBirth.text = person?.placeOfBirth
         profileImage.loadPicture(posterPath: person?.profilePath)
         biography.text = person?.biography

@@ -188,12 +188,17 @@ class DetailedMovieViewController: UIViewController {
             return
         }
         voteLabel.textColor = UIColor.color(forVote: vote)
-        releaseDate.text = String(date)
         releaseYearLabel.text = String(date)
         taglineLabel.text = detailedMovie?.tagline
         overviewLabel.text = detailedMovie?.overview
         voteLabel.text = String(vote)
         titleLabel.text = detailedMovie?.title
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        if let releaseDate = detailedMovie?.releaseDate, let date = dateFormatter.date(from: releaseDate) {
+            dateFormatter.dateFormat = "dd MMM, yyyy"
+            self.releaseDate.text = dateFormatter.string(from: date)
+        }
     }
 
     private func configureShadows() {
