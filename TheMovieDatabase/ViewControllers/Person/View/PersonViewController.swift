@@ -118,7 +118,7 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
         if let birthday = person?.birthday, let date = dateFormatter.date(from: birthday) {
-            dateFormatter.dateFormat = "dd MMM, yyyy"
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
             self.birthday.text = dateFormatter.string(from: date)
         }
         placeOfBirth.text = person?.placeOfBirth

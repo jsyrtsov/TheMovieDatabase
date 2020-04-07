@@ -153,24 +153,25 @@ class DetailedMovieViewController: UIViewController {
         activityIndicator.isHidden = true
         hideToggle()
 
+        let numberFormatter = NumberFormatter()
+        numberFormatter.usesGroupingSeparator = true
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.locale = Locale(identifier: "en_EN")
+
         if detailedMovie?.budget == 0 {
             budget.text = "Information is coming soon"
-        } else if var budget = detailedMovie?.budget {
-            let budgetB = budget / 1000000000
-            let budgetM = (budget / 1000000) % 1000
-            let budgetT = (budget / 1000) % 1000
-            budget = budget % 1000
-            self.budget.text = "\(budgetB)B \(budgetM)M \(budgetT)T \(budget) $"
+        } else if let budget = detailedMovie?.budget,
+            let budgetFormatted = numberFormatter.string(from: budget as NSNumber) {
+            self.budget.text = String("$\(budgetFormatted)")
         }
+
         if detailedMovie?.revenue == 0 {
             revenue.text = "Information is coming soon"
-        } else if var revenue = detailedMovie?.revenue {
-            let revenueB = revenue / 1000000000
-            let revenueM = (revenue / 1000000) % 1000
-            let revenueT = (revenue / 1000) % 1000
-            revenue = revenue % 1000
-            self.revenue.text = "\(revenueB)B \(revenueM)M \(revenueT)T \(revenue) $"
+        } else if let revenue = detailedMovie?.revenue,
+            let revenueFormatted = numberFormatter.string(from: revenue as NSNumber) {
+            self.revenue.text = String("$\(revenueFormatted)")
         }
+
         if detailedMovie?.runtime == 0 {
             runtime.text = "Information is coming soon"
         } else if let runtime = detailedMovie?.runtime {
@@ -196,7 +197,7 @@ class DetailedMovieViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
         if let releaseDate = detailedMovie?.releaseDate, let date = dateFormatter.date(from: releaseDate) {
-            dateFormatter.dateFormat = "dd MMM, yyyy"
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
             self.releaseDate.text = dateFormatter.string(from: date)
         }
     }
