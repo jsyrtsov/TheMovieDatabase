@@ -1,12 +1,11 @@
 
 # TheMovieDatabase
 
-An app where you can know about popular, upcoming and now playing movies, watch trailers, also you can see cast and crew of movie and person's details. I used The Movie DataBase API. [See API](https://developers.themoviedb.org/3/getting-started/introduction) for details.
+It's an app where you can find out about popular, upcoming and now playing movies, watch trailers, also you can see the cast and the crew of the movie and person's details. Application uses TMDB API. [See API](https://developers.themoviedb.org/3/getting-started/introduction) for details.
 
 
 ## Overview
 
-Project is written on MVC architecture, but one module is written on SurfMVP architecture.
 Codestyle enforced by SwiftLint.
 Used as less as possible third party libraries, only when it's neccessary.
 All pull request are reviewed. 
