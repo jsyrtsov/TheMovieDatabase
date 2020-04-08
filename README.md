@@ -17,6 +17,7 @@ All pull request are reviewed.
 3. Search
 4. Detailed screen of the movie with overview, videos, cast and crew
 5. Detailed screen of the person with overview, images, credits
+6. Both landscape and portrait modes on every iPhone model are supported.
 
 ## Preview
 
