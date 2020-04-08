@@ -18,6 +18,10 @@ All pull request are reviewed.
 4. Detailed screen of the movie with overview, videos, cast and crew
 5. Detailed screen of the person with overview, images, credits
 
+## Preview
+
+Here is short GIF preview which demonstrates design and features of the App.
+
 <p align="center">
 	<img src="Images/longVersion.gif" />
 </p>
