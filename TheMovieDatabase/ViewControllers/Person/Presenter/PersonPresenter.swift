@@ -63,7 +63,7 @@ class PersonPresenter: PersonViewOutput, PersonModuleInput {
             else {
                 return
             }
-            self.view?.configure(withPersonCredits: personCast, personCrew: personCrew)
+            self.view?.configure(personCast: personCast, personCrew: personCrew)
         }
     }
 }

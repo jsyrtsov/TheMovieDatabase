@@ -56,7 +56,7 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         self.imagesCollectionView.reloadData()
     }
 
-    func configure(withPersonCredits personCast: [PersonMovie], personCrew: [PersonMovie]) {
+    func configure(personCast: [PersonMovie], personCrew: [PersonMovie]) {
         self.personMovies = personCast
         self.personMovies.append(contentsOf: personCrew)
         self.personMovies.sort {
