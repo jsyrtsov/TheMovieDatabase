@@ -19,5 +19,5 @@ All pull request are reviewed.
 5. Detailed screen of the person with overview, images, credits
 
 <p align="center">
-	<img src="Images/exampleVideo.gif" />
+	<img src="Images/longVersion.gif" />
 </p>
