@@ -17,7 +17,7 @@ All pull request are reviewed.
 2. List of Favorite movies (realm)
 3. Search
 4. Detailed screen of the movie with overview, videos, cast and crew
-5. Detailed screen of the person with overview, credits
+5. Detailed screen of the person with overview, images, credits
 
 <p align="center">
 	<img src="Images/exampleVideo.gif" />
