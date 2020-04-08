@@ -27,10 +27,10 @@ class PersonMovieTableViewCell: UITableViewCell {
     func configure(personMovie: PersonMovie) {
         posterImage.loadPicture(posterPath: personMovie.posterPath)
         title.text = personMovie.title
-        if personMovie.character == nil {
-            characterOrJob.text = personMovie.job
-        } else {
+        if personMovie.job == nil {
             characterOrJob.text = personMovie.character
+        } else {
+            characterOrJob.text = personMovie.job
         }
         if let vote = personMovie.voteAverage {
             voteAverage.text = String(vote)

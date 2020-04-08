@@ -59,7 +59,14 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
     func configure(withPersonCredits personCast: [PersonMovie], personCrew: [PersonMovie]) {
         self.personMovies = personCast
         self.personMovies.append(contentsOf: personCrew)
-        //personMovies.sorted NADO TUT  !!!!!
+        self.personMovies.sort {
+            var result: Bool
+            if let firstDate = $0.releaseDate, let secondDate = $1.releaseDate {
+                result = firstDate > secondDate
+                return result
+            }
+            return true
+        }
         self.tableView.reloadData()
         tableViewHeight.constant = CGFloat(personMovies.count * 70)
     }
