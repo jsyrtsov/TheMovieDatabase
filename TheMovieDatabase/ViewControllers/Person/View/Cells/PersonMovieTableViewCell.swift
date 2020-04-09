@@ -42,7 +42,7 @@ class PersonMovieTableViewCell: UITableViewCell {
     }
 
     private func configureUI() {
-        baseShadowView.applyShadow(radius: 6, opacity: 0.08, offsetW: 2, offsetH: 2)
+        baseShadowView.applyShadow(radius: 6, opacity: 0.06, offsetW: 2, offsetH: 2)
         baseShadowView.layer.cornerRadius = 5
         posterImage.layer.cornerRadius = 3
     }
