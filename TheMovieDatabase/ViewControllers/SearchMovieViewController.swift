@@ -44,7 +44,7 @@ class SearchMovieViewController: UIViewController {
 
     private func addMovies(query: String) {
         service.loadMovies { [weak self] (results) in
-            guard let movies = results, let self = self else {
+            guard let self = self, let movies = results else {
                 return
             }
             self.movies.append(contentsOf: movies)

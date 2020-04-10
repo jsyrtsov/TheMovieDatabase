@@ -10,7 +10,11 @@ import UIKit
 
 class PersonMovieTableViewCell: UITableViewCell {
 
+    // MARK: - Properties
+
     static let identifier = String(describing: PersonMovieTableViewCell.self)
+
+    // MARK: - Subviews
 
     @IBOutlet weak private var baseShadowView: UIView!
     @IBOutlet weak private var posterImage: UIImageView!
@@ -19,13 +23,25 @@ class PersonMovieTableViewCell: UITableViewCell {
     @IBOutlet weak private var voteAverage: UILabel!
     @IBOutlet weak private var releaseDate: UILabel!
 
+    // MARK: - UITableViewCell
+
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
     }
 
+    // MARK: - Methods
+
     func configure(personMovie: PersonMovie) {
-        posterImage.loadPicture(posterPath: personMovie.posterPath)
+        if personMovie.posterPath == nil {
+            posterImage.image = #imageLiteral(resourceName: "moviePosterPlaceHolder")
+            posterImage.backgroundColor = UIColor(red: 244 / 255,
+                                                  green: 244 / 255,
+                                                  blue: 244 / 255,
+                                                  alpha: 1)
+        } else {
+            posterImage.loadPicture(posterPath: personMovie.posterPath)
+        }
         title.text = personMovie.title
         if personMovie.job == nil {
             characterOrJob.text = personMovie.character
@@ -40,6 +56,8 @@ class PersonMovieTableViewCell: UITableViewCell {
             releaseDate.text = String(yearStr)
         }
     }
+
+    // MARK: - Private Methods
 
     private func configureUI() {
         baseShadowView.applyShadow(radius: 6, opacity: 0.06, offsetW: 2, offsetH: 2)

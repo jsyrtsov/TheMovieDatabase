@@ -10,6 +10,8 @@ import Foundation
 
 class PersonLoadingService {
 
+    // MARK: - Methods
+
     func loadPerson(personId: Int, completion: @escaping (Person?) -> Void) {
         guard
             let url = URL(string: UrlParts.baseUrl + "person/\(personId)")?
@@ -82,6 +84,8 @@ class PersonLoadingService {
         }.resume()
     }
 }
+
+// MARK: - Private Structs
 
 private struct PersonImagesResponse: Codable {
     let profiles: [PersonImage]?

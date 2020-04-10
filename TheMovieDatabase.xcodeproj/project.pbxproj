@@ -248,6 +248,7 @@
 			children = (
 				28C75EE724257EFC00BB6E70 /* DetailedMovieViewController.swift */,
 				2834E786243BDE590093460B /* DetailedMovieViewController.storyboard */,
+				28E1E44F244056270093B75F /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -367,6 +368,17 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		28E1E44F244056270093B75F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				28C75EEA24260D8E00BB6E70 /* PersonCollectionViewCell.xib */,
+				28C75EE924260D8E00BB6E70 /* PersonCollectionViewCell.swift */,
+				28078C1024294C4800040DD3 /* VideoCollectionViewCell.xib */,
+				28078C0F24294C4800040DD3 /* VideoCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		28E91C18243A602700068557 /* Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,8 +417,6 @@
 				289AE7102400675A0029719B /* FeedViewController.swift */,
 				289AE712240067790029719B /* FavoritesViewController.swift */,
 				289AE7142400678D0029719B /* SearchMovieViewController.swift */,
-				28C75EE924260D8E00BB6E70 /* PersonCollectionViewCell.swift */,
-				28078C0F24294C4800040DD3 /* VideoCollectionViewCell.swift */,
 				283892872420200400016011 /* MovieTableViewCell.swift */,
 				283B457D243A14BB004CE8D1 /* FullPicture */,
 				2834E781243BDD9A0093460B /* DetailedMovie */,
@@ -420,8 +430,6 @@
 			children = (
 				289AE6F4240033740029719B /* Main.storyboard */,
 				283892882420200400016011 /* MovieTableViewCell.xib */,
-				28078C1024294C4800040DD3 /* VideoCollectionViewCell.xib */,
-				28C75EEA24260D8E00BB6E70 /* PersonCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";

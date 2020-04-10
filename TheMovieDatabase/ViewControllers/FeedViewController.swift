@@ -80,8 +80,8 @@ class FeedViewController: UIViewController {
     private func loadMovies() {
         service.loadMovies { [weak self] (results) in
             guard
-                let movies = results,
-                let self = self
+                let self = self,
+                let movies = results
             else {
                 return
             }

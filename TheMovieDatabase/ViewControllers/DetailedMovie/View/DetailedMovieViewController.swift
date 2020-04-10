@@ -113,7 +113,7 @@ class DetailedMovieViewController: UIViewController {
             return
         }
         service.loadVideos(movieId: movieId) { [weak self] (result) in
-            guard let result = result, let self = self else {
+            guard let self = self, let result = result else {
                 return
             }
             self.videos = result
@@ -121,16 +121,18 @@ class DetailedMovieViewController: UIViewController {
         }
 
         service.loadDetails(movieId: movieId) { [weak self] (result) in
-            guard let result = result, let self = self else {
+            guard let self = self, let result = result else {
                 return
             }
             self.detailedMovie = result
             self.updateView()
         }
         service.loadCastAndCrew(movieId: movieId) { [weak self] (resultCast, resultCrew) in
-            guard let resultCast = resultCast,
-                let resultCrew = resultCrew,
-                let self = self else {
+            guard
+                let self = self,
+                let resultCast = resultCast,
+                let resultCrew = resultCrew
+            else {
                 return
             }
             self.crew = resultCrew

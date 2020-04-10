@@ -33,7 +33,11 @@ class PersonCollectionViewCell: UICollectionViewCell {
 
     func configureCast(castEntry: CastEntry) {
         if castEntry.profilePath == nil {
-            profileImage.image = #imageLiteral(resourceName: "person")
+            profileImage.image = #imageLiteral(resourceName: "personProfilePlaceHolder")
+            profileImage.backgroundColor = UIColor(red: 244 / 255,
+                                                   green: 244 / 255,
+                                                   blue: 244 / 255,
+                                                   alpha: 1)
         } else {
             profileImage.loadPicture(posterPath: castEntry.profilePath)
         }
@@ -43,7 +47,11 @@ class PersonCollectionViewCell: UICollectionViewCell {
 
     func configureCrew(crewEntry: CrewEntry) {
         if crewEntry.profilePath == nil {
-            profileImage.image = #imageLiteral(resourceName: "person")
+            profileImage.image = #imageLiteral(resourceName: "personProfilePlaceHolder")
+            profileImage.backgroundColor = UIColor(red: 244 / 255,
+                                                   green: 244 / 255,
+                                                   blue: 244 / 255,
+                                                   alpha: 1)
         } else {
             profileImage.loadPicture(posterPath: crewEntry.profilePath)
         }

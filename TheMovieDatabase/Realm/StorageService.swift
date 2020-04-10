@@ -10,7 +10,11 @@ import RealmSwift
 
 class StorageService {
 
+    // MARK: - Properties
+
     private let realm = try? Realm()
+
+    // MARK: - Methods
 
     func saveObject<T: Object>(object: T?) {
         try? realm?.write {

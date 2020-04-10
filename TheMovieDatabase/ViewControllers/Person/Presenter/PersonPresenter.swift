@@ -38,13 +38,13 @@ class PersonPresenter: PersonViewOutput, PersonModuleInput {
             return
         }
         service.loadPerson(personId: personId) { [weak self] (result) in
-            guard let result = result, let self = self else {
+            guard let self = self, let result = result else {
                 return
             }
             self.view?.configure(withPerson: result)
         }
         service.loadPersonImages(personId: personId) { [weak self] (result) in
-            guard let result = result, let self = self else {
+            guard let self = self, let result = result else {
                 return
             }
             self.view?.configure(withPersonImages: result)
@@ -57,9 +57,9 @@ class PersonPresenter: PersonViewOutput, PersonModuleInput {
         }
         service.loadPersonCredits(personId: personId) { [weak self] (personCast, personCrew) in
             guard
+                let self = self,
                 let personCast = personCast,
-                let personCrew = personCrew,
-                let self = self
+                let personCrew = personCrew
             else {
                 return
             }

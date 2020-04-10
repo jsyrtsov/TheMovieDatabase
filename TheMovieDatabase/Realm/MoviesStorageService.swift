@@ -11,7 +11,11 @@ import RealmSwift
 
 class MoviesStorageService: StorageService {
 
+    // MARK: - Properties
+
     private let realm = try? Realm()
+
+    // MARK: - Methods
 
     func getFavoriteMovies() -> [Movie] {
         guard let objects = realm?.objects(MovieObject.self) else {

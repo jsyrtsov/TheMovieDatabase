@@ -10,7 +10,13 @@ import Foundation
 import YoutubeDirectLinkExtractor
 
 class LinkExtractor {
+
+    // MARK: - Properties
+
     private let youtubeDirectLinkExtractor = YoutubeDirectLinkExtractor()
+
+    // MARK: - Methods
+
     func getUrlFromKey(key: String?, completion: @escaping (URL) -> Void) {
         guard let key = key else {
             return

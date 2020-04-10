@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lauchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="4i9-is-XV9">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="4i9-is-XV9">
                                 <rect key="frame" x="91.5" y="230.5" width="192" height="206"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="192" id="V3H-RE-YGo"/>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="lauchIcon" width="1536" height="1536"/>
+        <image name="launchIcon" width="1186" height="859"/>
     </resources>
 </document>
