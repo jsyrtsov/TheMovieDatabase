@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-class DetailedMovieViewController: UIViewController {
+final class DetailedMovieViewController: UIViewController {
 
     // MARK: - Properties
 
@@ -62,7 +62,7 @@ class DetailedMovieViewController: UIViewController {
 
     private func configureView() {
         activityIndicator.startAnimating()
-        hideToggle()
+        setMovieInformation(hidden: true)
 
         navigationItem.largeTitleDisplayMode = .never
 
@@ -95,17 +95,17 @@ class DetailedMovieViewController: UIViewController {
         navigationItem.rightBarButtonItem = barButtonItem
     }
 
-    private func hideToggle() {
-        titleLabel.isHidden.toggle()
-        overviewLabel.isHidden.toggle()
-        voteLabel.isHidden.toggle()
-        releaseYearLabel.isHidden.toggle()
-        taglineLabel.isHidden.toggle()
-        releaseDate.isHidden.toggle()
-        runtime.isHidden.toggle()
-        budget.isHidden.toggle()
-        revenue.isHidden.toggle()
-        originalLanguage.isHidden.toggle()
+    private func setMovieInformation(hidden isHidden: Bool) {
+        titleLabel.isHidden = isHidden
+        overviewLabel.isHidden = isHidden
+        voteLabel.isHidden = isHidden
+        releaseYearLabel.isHidden = isHidden
+        taglineLabel.isHidden = isHidden
+        releaseDate.isHidden = isHidden
+        runtime.isHidden = isHidden
+        budget.isHidden = isHidden
+        revenue.isHidden = isHidden
+        originalLanguage.isHidden = isHidden
     }
 
     private func loadDetails() {
@@ -153,7 +153,7 @@ class DetailedMovieViewController: UIViewController {
     private func updateView() {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
-        hideToggle()
+        setMovieInformation(hidden: false)
 
         let numberFormatter = NumberFormatter()
         numberFormatter.usesGroupingSeparator = true

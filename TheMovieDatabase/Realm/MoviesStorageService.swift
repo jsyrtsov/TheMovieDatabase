@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class MoviesStorageService: StorageService {
+final class MoviesStorageService: StorageService {
 
     // MARK: - Properties
 

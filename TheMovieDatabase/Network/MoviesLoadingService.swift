@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MoviesLoadingService {
+final class MoviesLoadingService {
 
     // MARK: - Properties
 

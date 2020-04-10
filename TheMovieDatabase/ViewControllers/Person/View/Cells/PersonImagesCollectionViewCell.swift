@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonImagesCollectionViewCell: UICollectionViewCell {
+final class PersonImagesCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Properties
 

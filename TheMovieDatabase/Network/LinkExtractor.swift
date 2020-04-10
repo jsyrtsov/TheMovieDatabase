@@ -9,7 +9,7 @@
 import Foundation
 import YoutubeDirectLinkExtractor
 
-class LinkExtractor {
+final class LinkExtractor {
 
     // MARK: - Properties
 

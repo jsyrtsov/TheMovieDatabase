@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonMovieTableViewCell: UITableViewCell {
+final class PersonMovieTableViewCell: UITableViewCell {
 
     // MARK: - Properties
 

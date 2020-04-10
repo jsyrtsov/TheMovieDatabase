@@ -9,7 +9,7 @@
 import UIKit
 import ExpandableLabel
 
-class PersonViewController: UIViewController, PersonViewInput, ModuleTransitionable {
+final class PersonViewController: UIViewController, PersonViewInput, ModuleTransitionable {
 
     // MARK: - Properties
 
@@ -67,7 +67,7 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
 
     private func configureView() {
         activityIndicator.startAnimating()
-        hideToggle()
+        setPersonInformation(hidden: true)
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         profileImage.addGestureRecognizer(tap)
@@ -100,18 +100,18 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         additionalInfoShadow.applyShadow(radius: 10, opacity: 0.08, offsetW: 4, offsetH: 4)
     }
 
-    private func hideToggle() {
-        knownFor.isHidden.toggle()
-        name.isHidden.toggle()
-        placeOfBirth.isHidden.toggle()
-        biography.isHidden.toggle()
-        birthday.isHidden.toggle()
+    private func setPersonInformation(hidden isHidden: Bool) {
+        knownFor.isHidden = isHidden
+        name.isHidden = isHidden
+        placeOfBirth.isHidden = isHidden
+        biography.isHidden = isHidden
+        birthday.isHidden = isHidden
     }
 
     private func updateView() {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
-        hideToggle()
+        setPersonInformation(hidden: false)
         knownFor.text = person?.knownForDepartment
         name.text = person?.name
         let dateFormatter = DateFormatter()

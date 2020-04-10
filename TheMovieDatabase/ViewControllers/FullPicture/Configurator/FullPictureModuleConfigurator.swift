@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FullPictureModuleConfigurator {
+final class FullPictureModuleConfigurator {
     func configure() -> FullPictureViewController {
         guard
             let view = UIStoryboard(

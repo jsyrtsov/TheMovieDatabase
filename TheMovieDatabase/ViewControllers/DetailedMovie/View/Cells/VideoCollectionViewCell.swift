@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VideoCollectionViewCell: UICollectionViewCell {
+final class VideoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Properties
 

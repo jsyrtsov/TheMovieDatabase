@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PersonRouter: PersonRouterInput {
+final class PersonRouter: PersonRouterInput {
 
     // MARK: - Properties
 

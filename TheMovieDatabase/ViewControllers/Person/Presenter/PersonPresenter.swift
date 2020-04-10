@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PersonPresenter: PersonViewOutput, PersonModuleInput {
+final class PersonPresenter: PersonViewOutput, PersonModuleInput {
 
     // MARK: - Properties
 

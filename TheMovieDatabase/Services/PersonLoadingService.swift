@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PersonLoadingService {
+final class PersonLoadingService {
 
     // MARK: - Methods
 

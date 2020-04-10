@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FullPictureViewController: UIViewController {
+final class FullPictureViewController: UIViewController {
 
     // MARK: - Properties
 

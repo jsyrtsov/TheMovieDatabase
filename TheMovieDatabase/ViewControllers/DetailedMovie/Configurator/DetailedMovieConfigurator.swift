@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailedMovieConfigurator {
+final class DetailedMovieConfigurator {
     func configure() -> DetailedMovieViewController {
         guard
             let view = UIStoryboard(
