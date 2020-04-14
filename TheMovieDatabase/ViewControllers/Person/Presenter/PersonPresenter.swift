@@ -16,6 +16,10 @@ final class PersonPresenter: PersonViewOutput, PersonModuleInput {
     var router: PersonRouterInput?
     private let service = PersonLoadingService()
     private var personId: Int?
+    private var personDetails: Person?
+    private var personCast: [PersonMovie] = []
+    private var personCrew: [PersonMovie] = []
+    private var personImages: [PersonImage] = []
 
     // MARK: - PersonModuleInput
 
@@ -33,28 +37,20 @@ final class PersonPresenter: PersonViewOutput, PersonModuleInput {
         router?.showDetailedMovie(movieId: movieId)
     }
 
-    func loadPersonDetails() {
+    func loadData() {
         guard let personId = personId else {
             return
         }
+        let loadDataGroup = DispatchGroup()
+        loadDataGroup.enter()
         service.loadPerson(personId: personId) { [weak self] (result) in
             guard let self = self, let result = result else {
                 return
             }
-            self.view?.configure(withPerson: result)
+            self.personDetails = result
+            loadDataGroup.leave()
         }
-        service.loadPersonImages(personId: personId) { [weak self] (result) in
-            guard let self = self, let result = result else {
-                return
-            }
-            self.view?.configure(withPersonImages: result)
-        }
-    }
-
-    func loadPersonCredits() {
-        guard let personId = personId else {
-            return
-        }
+        loadDataGroup.enter()
         service.loadPersonCredits(personId: personId) { [weak self] (personCast, personCrew) in
             guard
                 let self = self,
@@ -63,7 +59,22 @@ final class PersonPresenter: PersonViewOutput, PersonModuleInput {
             else {
                 return
             }
-            self.view?.configure(personCast: personCast, personCrew: personCrew)
+            self.personCast = personCast
+            self.personCrew = personCrew
+            loadDataGroup.leave()
+        }
+        loadDataGroup.enter()
+        service.loadPersonImages(personId: personId) { [weak self] (result) in
+            guard let self = self, let result = result else {
+                return
+            }
+            self.personImages = result
+            loadDataGroup.leave()
+        }
+        loadDataGroup.notify(queue: .main) {
+            self.view?.configure(withPerson: self.personDetails)
+            self.view?.configure(personCast: self.personCast, personCrew: self.personCrew)
+            self.view?.configure(withPersonImages: self.personImages)
         }
     }
 }

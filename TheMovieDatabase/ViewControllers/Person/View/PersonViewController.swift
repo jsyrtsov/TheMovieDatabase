@@ -40,8 +40,7 @@ final class PersonViewController: UIViewController, PersonViewInput, ModuleTrans
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        output?.loadPersonDetails()
-        output?.loadPersonCredits()
+        output?.loadData()
     }
 
     // MARK: - PersonViewInput
