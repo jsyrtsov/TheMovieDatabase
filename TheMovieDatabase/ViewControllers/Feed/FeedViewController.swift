@@ -32,6 +32,7 @@ final class FeedViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureView() {
+        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()

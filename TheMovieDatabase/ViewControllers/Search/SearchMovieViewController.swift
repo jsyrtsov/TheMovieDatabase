@@ -31,6 +31,7 @@ final class SearchMovieViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureView() {
+        navigationController?.navigationBar.prefersLargeTitles = true
         activityIndicator.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self

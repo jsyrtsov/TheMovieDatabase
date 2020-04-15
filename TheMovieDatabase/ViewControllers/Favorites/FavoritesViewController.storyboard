@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TRq-77-hrJ">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Favorites-->
+        <scene sceneID="9j8-LG-K0i">
+            <objects>
+                <viewController storyboardIdentifier="FavoritesViewController" id="TRq-77-hrJ" customClass="FavoritesViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nOW-wy-AmN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ufN-Wk-7K8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank" translatesAutoresizingMaskIntoConstraints="NO" id="zdg-O6-pnz">
+                                <rect key="frame" x="161" y="156" width="53" height="234"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is nothing. Try to add something in favorites" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXy-FL-pwu">
+                                <rect key="frame" x="87" y="401" width="200" height="32"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ufN-Wk-7K8" secondAttribute="bottom" id="6wJ-E4-IYN"/>
+                            <constraint firstItem="zdg-O6-pnz" firstAttribute="top" secondItem="ted-go-mx3" secondAttribute="top" constant="156" id="7mY-p1-haV"/>
+                            <constraint firstItem="ufN-Wk-7K8" firstAttribute="leading" secondItem="ted-go-mx3" secondAttribute="leading" id="ArO-Ha-5CI"/>
+                            <constraint firstItem="ted-go-mx3" firstAttribute="trailing" secondItem="fXy-FL-pwu" secondAttribute="trailing" constant="88" id="BvM-YZ-SfN"/>
+                            <constraint firstItem="ted-go-mx3" firstAttribute="bottom" secondItem="fXy-FL-pwu" secondAttribute="bottom" constant="234" id="E0c-z5-2zt"/>
+                            <constraint firstItem="ted-go-mx3" firstAttribute="trailing" secondItem="zdg-O6-pnz" secondAttribute="trailing" constant="161" id="Hor-yR-6e0"/>
+                            <constraint firstItem="fXy-FL-pwu" firstAttribute="leading" secondItem="ted-go-mx3" secondAttribute="leading" constant="87" id="P36-UX-GCd"/>
+                            <constraint firstItem="ufN-Wk-7K8" firstAttribute="top" secondItem="nOW-wy-AmN" secondAttribute="top" id="W3C-EI-1Qw"/>
+                            <constraint firstItem="ted-go-mx3" firstAttribute="bottom" secondItem="zdg-O6-pnz" secondAttribute="bottom" constant="277" id="XoB-vq-8ta"/>
+                            <constraint firstItem="fXy-FL-pwu" firstAttribute="top" secondItem="zdg-O6-pnz" secondAttribute="bottom" constant="11" id="jlW-bR-Bif"/>
+                            <constraint firstItem="zdg-O6-pnz" firstAttribute="leading" secondItem="ted-go-mx3" secondAttribute="leading" constant="161" id="odD-gU-5lz"/>
+                            <constraint firstItem="ufN-Wk-7K8" firstAttribute="trailing" secondItem="ted-go-mx3" secondAttribute="trailing" id="qoJ-hv-0fu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ted-go-mx3"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Favorites" id="Agk-H5-rVQ"/>
+                    <connections>
+                        <outlet property="blankImage" destination="zdg-O6-pnz" id="1I8-b8-FhV"/>
+                        <outlet property="blankTitle" destination="fXy-FL-pwu" id="UvL-lI-icD"/>
+                        <outlet property="tableView" destination="ufN-Wk-7K8" id="DTD-Qh-tG4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4qz-01-lfD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2500" y="817.24137931034488"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="blank" width="61" height="77"/>
+    </resources>
+</document>
