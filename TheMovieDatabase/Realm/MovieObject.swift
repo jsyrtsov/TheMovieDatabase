@@ -8,7 +8,7 @@
 
 import RealmSwift
 
-class MovieObject: Object {
+final class MovieObject: Object {
     @objc dynamic var backdropPath: String?
     let id = RealmOptional<Int>()
     let voteAverage = RealmOptional<Double>()

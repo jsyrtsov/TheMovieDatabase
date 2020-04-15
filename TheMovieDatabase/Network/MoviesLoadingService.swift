@@ -8,7 +8,10 @@
 
 import Foundation
 
-class MoviesLoadingService {
+final class MoviesLoadingService {
+
+    // MARK: - Properties
+
     private let storageMoviesService = MoviesStorageService()
     private var totalPages: Int = 1
     private var currentPage: Int = 1
@@ -19,6 +22,8 @@ class MoviesLoadingService {
             currentPage = 1
         }
     }
+
+    // MARK: - Methods
 
     func loadMovies(completion: @escaping ([Movie]?) -> Void) {
         var baseUrl: URL?
@@ -172,6 +177,8 @@ class MoviesLoadingService {
         storageMoviesService.getMovieInfo(id: id)
     }
 }
+
+// MARK: - Private Structs
 
 private struct VideosResponse: Codable {
     let id: Int?

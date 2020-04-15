@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonModuleConfigurator {
+final class PersonModuleConfigurator {
     func configure(personId: Int?) -> PersonViewController {
         guard
             let view = UIStoryboard(

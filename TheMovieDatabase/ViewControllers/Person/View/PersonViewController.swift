@@ -9,7 +9,7 @@
 import UIKit
 import ExpandableLabel
 
-class PersonViewController: UIViewController, PersonViewInput, ModuleTransitionable {
+final class PersonViewController: UIViewController, PersonViewInput, ModuleTransitionable {
 
     // MARK: - Properties
 
@@ -18,24 +18,29 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
     var output: PersonViewOutput?
     private var person: Person?
     private var personImages: [PersonImage] = []
+    private var personMovies: [PersonMovie] = []
 
     // MARK: - Subviews
 
     @IBOutlet weak private var name: UILabel!
     @IBOutlet weak private var birthday: UILabel!
     @IBOutlet weak private var placeOfBirth: UILabel!
+    @IBOutlet weak private var knownFor: UILabel!
     @IBOutlet weak private var biography: ExpandableLabel!
     @IBOutlet weak private var profileImage: UIImageView!
     @IBOutlet weak private var baseInfoShadow: UIView!
     @IBOutlet weak private var additionalInfoShadow: UIView!
     @IBOutlet weak private var imagesCollectionView: UICollectionView!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var tableViewHeight: NSLayoutConstraint!
 
     // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        output?.loadPersonDetails()
+        output?.loadData()
     }
 
     // MARK: - PersonViewInput
@@ -50,9 +55,19 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         self.imagesCollectionView.reloadData()
     }
 
+    func configure(personCast: [PersonMovie], personCrew: [PersonMovie]) {
+        self.personMovies = personCast
+        self.personMovies.append(contentsOf: personCrew)
+        self.tableView.reloadData()
+        tableViewHeight.constant = CGFloat(personMovies.count * 70)
+    }
+
     // MARK: - Private Methods
 
     private func configureView() {
+        activityIndicator.startAnimating()
+        setPersonInformation(hidden: true)
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         profileImage.addGestureRecognizer(tap)
         profileImage.isUserInteractionEnabled = true
@@ -65,6 +80,11 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         biography.expandedAttributedLink = NSAttributedString(
             string: "Show less", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemBlue]
         )
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: PersonMovieTableViewCell.identifier, bundle: nil),
+                           forCellReuseIdentifier: PersonMovieTableViewCell.identifier)
 
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
@@ -79,9 +99,26 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         additionalInfoShadow.applyShadow(radius: 10, opacity: 0.08, offsetW: 4, offsetH: 4)
     }
 
+    private func setPersonInformation(hidden isHidden: Bool) {
+        knownFor.isHidden = isHidden
+        name.isHidden = isHidden
+        placeOfBirth.isHidden = isHidden
+        biography.isHidden = isHidden
+        birthday.isHidden = isHidden
+    }
+
     private func updateView() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        setPersonInformation(hidden: false)
+        knownFor.text = person?.knownForDepartment
         name.text = person?.name
-        birthday.text = person?.birthday
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        if let birthday = person?.birthday, let date = dateFormatter.date(from: birthday) {
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
+            self.birthday.text = dateFormatter.string(from: date)
+        }
         placeOfBirth.text = person?.placeOfBirth
         profileImage.loadPicture(posterPath: person?.profilePath)
         biography.text = person?.biography
@@ -92,6 +129,32 @@ class PersonViewController: UIViewController, PersonViewInput, ModuleTransitiona
         output?.showFullPicture(picturePath: person?.profilePath)
     }
 
+}
+
+// MARK: - UITableViewDelegate
+
+extension PersonViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        output?.showDetailedMovie(movieId: personMovies[indexPath.row].id)
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension PersonViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return personMovies.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: PersonMovieTableViewCell.identifier,
+            for: indexPath
+        ) as? PersonMovieTableViewCell
+        cell?.configure(personMovie: personMovies[indexPath.row])
+        return cell ?? UITableViewCell()
+    }
 }
 
 // MARK: - UICollectionViewDataSource

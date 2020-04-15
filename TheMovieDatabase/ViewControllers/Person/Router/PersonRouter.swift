@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PersonRouter: PersonRouterInput {
+final class PersonRouter: PersonRouterInput {
 
     // MARK: - Properties
 
@@ -20,5 +20,11 @@ class PersonRouter: PersonRouterInput {
         let fullPictureVC = FullPictureModuleConfigurator().configure()
         fullPictureVC.picturePath = picturePath
         view?.push(module: fullPictureVC, animated: true, hideTabBar: true)
+    }
+
+    func showDetailedMovie(movieId: Int?) {
+        let detailedMovieVC = DetailedMovieConfigurator().configure()
+        detailedMovieVC.movieId = movieId
+        view?.push(module: detailedMovieVC, animated: true)
     }
 }

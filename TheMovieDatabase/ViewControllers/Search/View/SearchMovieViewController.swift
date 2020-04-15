@@ -8,21 +8,30 @@
 
 import UIKit
 
-class SearchMovieViewController: UIViewController {
+final class SearchMovieViewController: UIViewController {
 
-    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak private var tableView: UITableView!
+    // MARK: - Properties
 
     private var service = MoviesLoadingService()
     private var query = ""
     private var movies: [Movie] = []
+
+    // MARK: - Subviews
+
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak private var tableView: UITableView!
+
+    // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
     }
 
+    // MARK: - Private Methods
+
     private func configureView() {
+        navigationController?.navigationBar.prefersLargeTitles = true
         activityIndicator.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self
@@ -36,7 +45,7 @@ class SearchMovieViewController: UIViewController {
 
     private func addMovies(query: String) {
         service.loadMovies { [weak self] (results) in
-            guard let movies = results, let self = self else {
+            guard let self = self, let movies = results else {
                 return
             }
             self.movies.append(contentsOf: movies)
@@ -90,16 +99,9 @@ extension SearchMovieViewController: UITableViewDataSource {
 extension SearchMovieViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard
-            let detailedVC = storyboard.instantiateViewController(
-                withIdentifier: DetailedMovieViewController.identifier
-            ) as? DetailedMovieViewController
-        else {
-            return
-        }
-        detailedVC.movieId = movies[indexPath.row].id
-        navigationController?.pushViewController(detailedVC, animated: true)
+        let detailedMovieVC = DetailedMovieConfigurator().configure()
+        detailedMovieVC.movieId = movies[indexPath.row].id
+        navigationController?.pushViewController(detailedMovieVC, animated: true)
     }
 }
 

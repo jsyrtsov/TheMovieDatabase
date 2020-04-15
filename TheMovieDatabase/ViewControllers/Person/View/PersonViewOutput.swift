@@ -9,6 +9,7 @@
 import Foundation
 
 protocol PersonViewOutput: class {
-    func loadPersonDetails()
+    func loadData()
     func showFullPicture(picturePath: String?)
+    func showDetailedMovie(movieId: Int?)
 }

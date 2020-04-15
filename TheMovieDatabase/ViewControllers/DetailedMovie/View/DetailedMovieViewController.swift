@@ -9,7 +9,9 @@
 import UIKit
 import AVKit
 
-class DetailedMovieViewController: UIViewController {
+final class DetailedMovieViewController: UIViewController {
+
+    // MARK: - Properties
 
     static let identifier = String(describing: DetailedMovieViewController.self)
 
@@ -21,6 +23,8 @@ class DetailedMovieViewController: UIViewController {
     private var cast: [CastEntry] = []
     private var videos: [Video] = []
     private var isFavorite = false
+
+    // MARK: - Subviews
 
     private let favoriteButton = UIButton(type: .custom)
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
@@ -41,6 +45,8 @@ class DetailedMovieViewController: UIViewController {
     @IBOutlet weak private var castCollectionView: UICollectionView!
     @IBOutlet weak private var crewCollectionView: UICollectionView!
 
+    // MARK: - UIViewController
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -52,13 +58,11 @@ class DetailedMovieViewController: UIViewController {
         checkFavorite()
     }
 
+    // MARK: - Private Methods
+
     private func configureView() {
         activityIndicator.startAnimating()
-        titleLabel.isHidden = true
-        overviewLabel.isHidden = true
-        voteLabel.isHidden = true
-        releaseYearLabel.isHidden = true
-        taglineLabel.isHidden = true
+        setMovieInformation(hidden: true)
 
         navigationItem.largeTitleDisplayMode = .never
 
@@ -91,12 +95,25 @@ class DetailedMovieViewController: UIViewController {
         navigationItem.rightBarButtonItem = barButtonItem
     }
 
+    private func setMovieInformation(hidden isHidden: Bool) {
+        titleLabel.isHidden = isHidden
+        overviewLabel.isHidden = isHidden
+        voteLabel.isHidden = isHidden
+        releaseYearLabel.isHidden = isHidden
+        taglineLabel.isHidden = isHidden
+        releaseDate.isHidden = isHidden
+        runtime.isHidden = isHidden
+        budget.isHidden = isHidden
+        revenue.isHidden = isHidden
+        originalLanguage.isHidden = isHidden
+    }
+
     private func loadDetails() {
         guard let movieId = movieId else {
             return
         }
         service.loadVideos(movieId: movieId) { [weak self] (result) in
-            guard let result = result, let self = self else {
+            guard let self = self, let result = result else {
                 return
             }
             self.videos = result
@@ -104,16 +121,18 @@ class DetailedMovieViewController: UIViewController {
         }
 
         service.loadDetails(movieId: movieId) { [weak self] (result) in
-            guard let result = result, let self = self else {
+            guard let self = self, let result = result else {
                 return
             }
             self.detailedMovie = result
             self.updateView()
         }
         service.loadCastAndCrew(movieId: movieId) { [weak self] (resultCast, resultCrew) in
-            guard let resultCast = resultCast,
-                let resultCrew = resultCrew,
-                let self = self else {
+            guard
+                let self = self,
+                let resultCast = resultCast,
+                let resultCrew = resultCrew
+            else {
                 return
             }
             self.crew = resultCrew
@@ -124,8 +143,8 @@ class DetailedMovieViewController: UIViewController {
             let director = self.crew[directorIndex]
             self.crew.remove(at: directorIndex)
             self.crew.insert(director, at: 0)
-            self.crew = Array(self.crew.prefix(15))
-            self.cast = Array(self.cast.prefix(15))
+            self.crew = Array(self.crew.prefix(20))
+            self.cast = Array(self.cast.prefix(20))
             self.castCollectionView.reloadData()
             self.crewCollectionView.reloadData()
         }
@@ -134,30 +153,27 @@ class DetailedMovieViewController: UIViewController {
     private func updateView() {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
-        titleLabel.isHidden = false
-        overviewLabel.isHidden = false
-        voteLabel.isHidden = false
-        releaseYearLabel.isHidden = false
-        taglineLabel.isHidden = false
+        setMovieInformation(hidden: false)
+
+        let numberFormatter = NumberFormatter()
+        numberFormatter.usesGroupingSeparator = true
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.locale = Locale(identifier: "en_EN")
 
         if detailedMovie?.budget == 0 {
             budget.text = "Information is coming soon"
-        } else if var budget = detailedMovie?.budget {
-            let budgetB = budget / 1000000000
-            let budgetM = (budget / 1000000) % 1000
-            let budgetT = (budget / 1000) % 1000
-            budget = budget % 1000
-            self.budget.text = "\(budgetB)B \(budgetM)M \(budgetT)T \(budget) $"
+        } else if let budget = detailedMovie?.budget,
+            let budgetFormatted = numberFormatter.string(from: budget as NSNumber) {
+            self.budget.text = String("$\(budgetFormatted)")
         }
+
         if detailedMovie?.revenue == 0 {
             revenue.text = "Information is coming soon"
-        } else if var revenue = detailedMovie?.revenue {
-            let revenueB = revenue / 1000000000
-            let revenueM = (revenue / 1000000) % 1000
-            let revenueT = (revenue / 1000) % 1000
-            revenue = revenue % 1000
-            self.revenue.text = "\(revenueB)B \(revenueM)M \(revenueT)T \(revenue) $"
+        } else if let revenue = detailedMovie?.revenue,
+            let revenueFormatted = numberFormatter.string(from: revenue as NSNumber) {
+            self.revenue.text = String("$\(revenueFormatted)")
         }
+
         if detailedMovie?.runtime == 0 {
             runtime.text = "Information is coming soon"
         } else if let runtime = detailedMovie?.runtime {
@@ -175,12 +191,17 @@ class DetailedMovieViewController: UIViewController {
             return
         }
         voteLabel.textColor = UIColor.color(forVote: vote)
-        releaseDate.text = String(date)
         releaseYearLabel.text = String(date)
         taglineLabel.text = detailedMovie?.tagline
         overviewLabel.text = detailedMovie?.overview
         voteLabel.text = String(vote)
         titleLabel.text = detailedMovie?.title
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        if let releaseDate = detailedMovie?.releaseDate, let date = dateFormatter.date(from: releaseDate) {
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
+            self.releaseDate.text = dateFormatter.string(from: date)
+        }
     }
 
     private func configureShadows() {
@@ -200,7 +221,6 @@ class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
-
         if isFavorite {
             isFavorite = false
             favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
@@ -236,10 +256,10 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
                     return
                 }
                 let player = AVPlayer(url: url)
-                let vc = AVPlayerViewController()
-                vc.player = player
-                self.present(vc, animated: true) {
-                    vc.player?.play()
+                let avPlayerViewController = AVPlayerViewController()
+                avPlayerViewController.player = player
+                self.present(avPlayerViewController, animated: true) {
+                    avPlayerViewController.player?.play()
                 }
             }
         } else if collectionView == castCollectionView {

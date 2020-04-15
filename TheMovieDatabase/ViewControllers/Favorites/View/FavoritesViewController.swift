@@ -8,14 +8,25 @@
 
 import UIKit
 
-class FavoritesViewController: UIViewController {
+final class FavoritesViewController: UIViewController {
+
+    // MARK: - Properties
+
+    private let service = MoviesLoadingService()
+    private var movies: [Movie] = []
+
+    // MARK: - Subviews
 
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var blankImage: UIImageView!
     @IBOutlet weak private var blankTitle: UILabel!
 
-    private let service = MoviesLoadingService()
-    private var movies: [Movie] = []
+    // MARK: - UIViewController
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureView()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -32,12 +43,10 @@ class FavoritesViewController: UIViewController {
         tableView.reloadData()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureView()
-    }
+    // MARK: - Private Methods
 
     private func configureView() {
+        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: MovieTableViewCell.identifier, bundle: nil),
@@ -51,16 +60,9 @@ class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard
-            let detailedVC = storyboard.instantiateViewController(
-                withIdentifier: DetailedMovieViewController.identifier
-            ) as? DetailedMovieViewController
-        else {
-            return
-        }
-        detailedVC.movieId = movies[indexPath.row].id
-        navigationController?.pushViewController(detailedVC, animated: true)
+        let detailedMovieVC = DetailedMovieConfigurator().configure()
+        detailedMovieVC.movieId = movies[indexPath.row].id
+        navigationController?.pushViewController(detailedMovieVC, animated: true)
     }
 }
 
