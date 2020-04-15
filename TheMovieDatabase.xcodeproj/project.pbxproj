@@ -36,7 +36,6 @@
 		2896608F240F8B5800505732 /* DetailedMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896608E240F8B5800505732 /* DetailedMovie.swift */; };
 		28966093240FDD9000505732 /* FullPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28966092240FDD9000505732 /* FullPictureViewController.swift */; };
 		289AE6EF240033740029719B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AE6EE240033740029719B /* AppDelegate.swift */; };
-		289AE6F1240033740029719B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AE6F0240033740029719B /* SceneDelegate.swift */; };
 		289AE6F6240033740029719B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 289AE6F4240033740029719B /* Main.storyboard */; };
 		289AE6F8240033770029719B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 289AE6F7240033770029719B /* Assets.xcassets */; };
 		289AE6FB240033770029719B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 289AE6F9240033770029719B /* LaunchScreen.storyboard */; };
@@ -108,7 +107,6 @@
 		28966092240FDD9000505732 /* FullPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPictureViewController.swift; sourceTree = "<group>"; };
 		289AE6EB240033740029719B /* TheMovieDatabase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMovieDatabase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		289AE6EE240033740029719B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		289AE6F0240033740029719B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		289AE6F5240033740029719B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		289AE6F7240033770029719B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		289AE6FA240033770029719B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -342,7 +340,6 @@
 				28908AF7241BDB2000B64835 /* Realm */,
 				28939DDC24239E7D003772C7 /* Services */,
 				288E935D240673F300D67930 /* Network */,
-				289AE6F0240033740029719B /* SceneDelegate.swift */,
 				289AE6F7240033770029719B /* Assets.xcassets */,
 				289AE6F9240033770029719B /* LaunchScreen.storyboard */,
 				289AE6FC240033770029719B /* Info.plist */,
@@ -682,7 +679,6 @@
 				289AE713240067790029719B /* FavoritesViewController.swift in Sources */,
 				28908AF6241BDB1A00B64835 /* StorageService.swift in Sources */,
 				2896608F240F8B5800505732 /* DetailedMovie.swift in Sources */,
-				289AE6F1240033740029719B /* SceneDelegate.swift in Sources */,
 				28908AF9241BDCA800B64835 /* MovieObject.swift in Sources */,
 				28520071240A698F00A8FB05 /* UrlParts.swift in Sources */,
 				28520077240DA55700A8FB05 /* URL.swift in Sources */,
@@ -855,7 +851,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72X79CX8K3;
 				INFOPLIST_FILE = TheMovieDatabase/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -875,7 +871,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72X79CX8K3;
 				INFOPLIST_FILE = TheMovieDatabase/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

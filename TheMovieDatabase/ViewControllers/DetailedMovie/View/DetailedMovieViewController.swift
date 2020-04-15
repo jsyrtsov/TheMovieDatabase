@@ -256,10 +256,10 @@ extension DetailedMovieViewController: UICollectionViewDelegate {
                     return
                 }
                 let player = AVPlayer(url: url)
-                let vc = AVPlayerViewController()
-                vc.player = player
-                self.present(vc, animated: true) {
-                    vc.player?.play()
+                let avPlayerViewController = AVPlayerViewController()
+                avPlayerViewController.player = player
+                self.present(avPlayerViewController, animated: true) {
+                    avPlayerViewController.player?.play()
                 }
             }
         } else if collectionView == castCollectionView {

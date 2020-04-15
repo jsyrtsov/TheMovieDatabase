@@ -290,7 +290,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="Ivc-GA-48f" secondAttribute="trailing" constant="14" id="zMf-tm-5Y1"/>
                                                 </constraints>
                                             </view>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ZwT-80-oyc">
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZwT-80-oyc">
                                                 <rect key="frame" x="177.5" y="262" width="20" height="20"/>
                                             </activityIndicatorView>
                                         </subviews>
