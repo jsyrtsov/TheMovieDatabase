@@ -26,51 +26,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         let tabBarController = UITabBarController()
-        guard
-            let feedViewController = UIStoryboard(
-                name: String(describing: FeedViewController.self), bundle: Bundle.main
-            ).instantiateInitialViewController() as? FeedViewController
-        else {
-            fatalError(
-                """
-                Can't load FeedViewController from storyboard, check that controller is initial view controller
-                """
-            )
-        }
-        guard
-            let favoritesViewController = UIStoryboard(
-                name: String(describing: FavoritesViewController.self), bundle: Bundle.main
-            ).instantiateInitialViewController() as? FavoritesViewController
-        else {
-            fatalError(
-                """
-                Can't load FavoritesViewController from storyboard, check that controller is initial view controller
-                """
-            )
-        }
-        guard
-            let searchMovieViewController = UIStoryboard(
-                name: String(describing: SearchMovieViewController.self), bundle: Bundle.main
-            ).instantiateInitialViewController() as? SearchMovieViewController
-        else {
-            fatalError(
-                """
-                Can't load SearchMovieViewControllerb from storyboard, check that controller is initial view controller
-                """
-            )
-        }
+        let feedViewController = FeedConfigurator().configure()
+        let favoritesViewController = FavoritesConfigurator().configure()
+        let searchMovieViewController = SearchMovieConfigurator().configure()
+
+        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: #imageLiteral(resourceName: "iconFeed"), tag: 0)
+        favoritesViewController.tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "iconFavorite"), tag: 0)
+        searchMovieViewController.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "iconSearch"), tag: 0)
+
         tabBarController.setViewControllers([
             UINavigationController(rootViewController: feedViewController),
             UINavigationController(rootViewController: favoritesViewController),
             UINavigationController(rootViewController: searchMovieViewController)
         ], animated: true)
-
-        tabBarController.tabBar.items?[0].title = "Feed"
-        tabBarController.tabBar.items?[0].image = #imageLiteral(resourceName: "iconFeed")
-        tabBarController.tabBar.items?[1].title = "Favorites"
-        tabBarController.tabBar.items?[1].image = #imageLiteral(resourceName: "iconFavorite")
-        tabBarController.tabBar.items?[2].title = "Search"
-        tabBarController.tabBar.items?[2].image = #imageLiteral(resourceName: "iconSearch")
 
         window?.rootViewController = tabBarController
     }
