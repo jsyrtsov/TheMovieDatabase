@@ -44,8 +44,10 @@ final class ProfileViewController: UIViewController {
             authService.logout { (result) in
                 print(result)
             }
+//            UserDefaults.standard.wantAsGuest = true
             appDelegate?.initializeAuthView()
         } else {
+//            UserDefaults.standard.wantAsGuest = false
             appDelegate?.initializeAuthView()
         }
     }

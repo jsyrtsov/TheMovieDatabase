@@ -87,6 +87,7 @@ final class AuthorizationService {
                 DispatchQueue.main.async {
                     completion(result.success)
                     UserDefaults.standard.isLogged = false
+                    UserDefaults.standard.loginViewWasShown = false
                     if result.success {
                         do {
                             try Locksmith.updateData(data: ["sessionId": ""], forUserAccount: "loggedUserAccout")

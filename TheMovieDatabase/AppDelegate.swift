@@ -21,11 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         if UserDefaults.standard.loginViewWasShown {
-            if UserDefaults.standard.wantAsGuest {
-                initializeRootView()
-            } else {
-                initializeAuthView()
-            }
+            initializeRootView()
         } else {
             UserDefaults.standard.loginViewWasShown = true
             initializeAuthView()

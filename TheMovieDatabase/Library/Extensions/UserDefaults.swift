@@ -14,10 +14,10 @@ extension UserDefaults {
         set { set(newValue, forKey: #function) }
     }
 
-    var wantAsGuest: Bool {
-        get { return bool(forKey: #function) }
-        set { set(newValue, forKey: #function) }
-    }
+//    var wantAsGuest: Bool {
+//        get { return bool(forKey: #function) }
+//        set { set(newValue, forKey: #function) }
+//    }
 
     var loginViewWasShown: Bool {
         get { return bool(forKey: #function) }
