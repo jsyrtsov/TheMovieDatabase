@@ -7,11 +7,9 @@
 //
 
 import Foundation
+import Locksmith
 
 final class AuthorizationService {
-
-    var sessionId = ""
-    private var success = false
 
     // MARK: - Methods
 
@@ -30,16 +28,23 @@ final class AuthorizationService {
                 else {
                     return
                 }
-                self.getSessionId(token: token) { [weak self] (success, sessionId) in
+                self.getSessionId(token: token) { (success, sessionId) in
                     guard
-                        let self = self,
                         let sessionId = sessionId
                     else {
                         return
                     }
-                    self.sessionId = sessionId
-                    self.success = success
-                    print(self.sessionId)
+                    do {
+                        try Locksmith.updateData(data: ["sessionId": sessionId], forUserAccount: "loggedUserAccout")
+                    } catch {
+                        //OBRABOTKA OSHIBKI
+                        print("unable to save")
+                    }
+                    if success {
+                        UserDefaults.standard.isLogged = true
+                    } else {
+                        UserDefaults.standard.isLogged = false
+                    }
                 }
             }
         }
@@ -67,6 +72,7 @@ final class AuthorizationService {
                 }
             } catch {
                 completion(nil)
+                UserDefaults.standard.isLogged = false
             }
         }.resume()
     }
@@ -105,6 +111,7 @@ final class AuthorizationService {
                 }
             } catch {
                 completion(false, nil)
+                UserDefaults.standard.isLogged = false
             }
         }.resume()
     }
@@ -136,6 +143,7 @@ final class AuthorizationService {
                 }
             } catch {
                 completion(false, nil)
+                UserDefaults.standard.isLogged = false
             }
         }.resume()
     }

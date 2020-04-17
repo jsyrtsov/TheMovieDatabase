@@ -58,6 +58,9 @@
 		28C75EF42426181C00BB6E70 /* CrewEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EF32426181C00BB6E70 /* CrewEntry.swift */; };
 		28D6F7A52449B313001C9C24 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D6F7A42449B313001C9C24 /* UserDefaults.swift */; };
 		28D6F7A72449BE97001C9C24 /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D6F7A62449BE97001C9C24 /* AuthorizationService.swift */; };
+		28D6F7A92449F852001C9C24 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D6F7A82449F852001C9C24 /* ProfileViewController.swift */; };
+		28D6F7AB2449F8B3001C9C24 /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28D6F7AA2449F8B3001C9C24 /* ProfileViewController.storyboard */; };
+		28D6F7AE2449F8D3001C9C24 /* ProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D6F7AD2449F8D3001C9C24 /* ProfileConfigurator.swift */; };
 		28D8B4B32431F59900A6BCDE /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8B4B22431F59900A6BCDE /* Person.swift */; };
 		28D8B4B62432102800A6BCDE /* PersonImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8B4B42432102800A6BCDE /* PersonImagesCollectionViewCell.swift */; };
 		28D8B4B72432102800A6BCDE /* PersonImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28D8B4B52432102800A6BCDE /* PersonImagesCollectionViewCell.xib */; };
@@ -142,6 +145,9 @@
 		28C75EF32426181C00BB6E70 /* CrewEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewEntry.swift; sourceTree = "<group>"; };
 		28D6F7A42449B313001C9C24 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		28D6F7A62449BE97001C9C24 /* AuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
+		28D6F7A82449F852001C9C24 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		28D6F7AA2449F8B3001C9C24 /* ProfileViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileViewController.storyboard; sourceTree = "<group>"; };
+		28D6F7AD2449F8D3001C9C24 /* ProfileConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileConfigurator.swift; sourceTree = "<group>"; };
 		28D8B4B22431F59900A6BCDE /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		28D8B4B42432102800A6BCDE /* PersonImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		28D8B4B52432102800A6BCDE /* PersonImagesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonImagesCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -291,8 +297,8 @@
 		286356732449A58600572385 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2863566F2449A53700572385 /* AuthorizationViewController.storyboard */,
 				286356712449A55C00572385 /* AuthorizationViewController.swift */,
+				2863566F2449A53700572385 /* AuthorizationViewController.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -411,6 +417,32 @@
 				28E91C14243A5FBB00068557 /* PersonRouterInput.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		28D6F7AC2449F8BA001C9C24 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				28D6F7AF2449F8DD001C9C24 /* Configurator */,
+				28D6F7B02449F8E9001C9C24 /* View */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		28D6F7AF2449F8DD001C9C24 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				28D6F7AD2449F8D3001C9C24 /* ProfileConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		28D6F7B02449F8E9001C9C24 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				28D6F7A82449F852001C9C24 /* ProfileViewController.swift */,
+				28D6F7AA2449F8B3001C9C24 /* ProfileViewController.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		28E1E44F244056270093B75F /* Cells */ = {
@@ -538,6 +570,7 @@
 			isa = PBXGroup;
 			children = (
 				283892872420200400016011 /* MovieTableViewCell.swift */,
+				28D6F7AC2449F8BA001C9C24 /* Profile */,
 				28A9612D2449A46A00C053D9 /* Authorization */,
 				28E1E4502447250C0093B75F /* Feed */,
 				28E1E453244725C00093B75F /* Favorites */,
@@ -676,6 +709,7 @@
 				28331CC4243900350028CCE5 /* PersonViewController.storyboard in Resources */,
 				28078C1224294C4800040DD3 /* VideoCollectionViewCell.xib in Resources */,
 				2838928A2420200400016011 /* MovieTableViewCell.xib in Resources */,
+				28D6F7AB2449F8B3001C9C24 /* ProfileViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,6 +816,7 @@
 				28AB0BDF243A56B80018B08E /* PersonViewInput.swift in Sources */,
 				288E935B240667F700D67930 /* UIImageView.swift in Sources */,
 				28C75EE824257EFC00BB6E70 /* DetailedMovieViewController.swift in Sources */,
+				28D6F7A92449F852001C9C24 /* ProfileViewController.swift in Sources */,
 				289AE7152400678D0029719B /* SearchMovieViewController.swift in Sources */,
 				280AFE70240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift in Sources */,
 				28331CC22438FF5E0028CCE5 /* PersonModuleConfigurator.swift in Sources */,
@@ -789,6 +824,7 @@
 				28AB0BDD243A56AD0018B08E /* PersonViewOutput.swift in Sources */,
 				28C75EEE24260DD300BB6E70 /* UIView.swift in Sources */,
 				28D8B4B92432120F00A6BCDE /* PersonImage.swift in Sources */,
+				28D6F7AE2449F8D3001C9C24 /* ProfileConfigurator.swift in Sources */,
 				28AB0BE3243A58DF0018B08E /* PersonRouter.swift in Sources */,
 				289AE6EF240033740029719B /* AppDelegate.swift in Sources */,
 				286356722449A55C00572385 /* AuthorizationViewController.swift in Sources */,

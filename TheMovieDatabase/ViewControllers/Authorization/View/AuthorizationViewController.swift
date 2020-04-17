@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Locksmith
 
 final class AuthorizationViewController: UIViewController {
 
@@ -39,8 +40,7 @@ final class AuthorizationViewController: UIViewController {
     }
 
     @IBAction private func tryAsGuestAction(_ sender: Any) {
-        UserDefaults.standard.isLogged = true
+        UserDefaults.standard.wantAsGuest = true
         appDelegate?.initializeRootView()
-        print(#function)
     }
 }

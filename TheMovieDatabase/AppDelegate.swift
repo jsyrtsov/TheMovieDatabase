@@ -20,10 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 
-        UserDefaults.standard.isLogged = false
-        if UserDefaults.standard.isLogged {
-            initializeRootView()
+        if UserDefaults.standard.loginViewWasShown {
+            if UserDefaults.standard.wantAsGuest {
+                initializeRootView()
+            } else {
+                initializeAuthView()
+            }
         } else {
+            UserDefaults.standard.loginViewWasShown = true
             initializeAuthView()
         }
         return true
@@ -39,15 +43,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let feedViewController = FeedConfigurator().configure()
         let favoritesViewController = FavoritesConfigurator().configure()
         let searchMovieViewController = SearchMovieConfigurator().configure()
+        let profileViewController = ProfileConfigurator().configure()
 
         feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: #imageLiteral(resourceName: "iconFeed"), tag: 0)
         favoritesViewController.tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "iconFavorite"), tag: 0)
         searchMovieViewController.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "iconSearch"), tag: 0)
+        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: #imageLiteral(resourceName: "iconSearch"), tag: 0)
 
         tabBarController.setViewControllers([
             UINavigationController(rootViewController: feedViewController),
             UINavigationController(rootViewController: favoritesViewController),
-            UINavigationController(rootViewController: searchMovieViewController)
+            UINavigationController(rootViewController: searchMovieViewController),
+            UINavigationController(rootViewController: profileViewController)
         ], animated: true)
 
         window?.rootViewController = tabBarController
