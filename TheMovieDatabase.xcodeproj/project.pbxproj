@@ -57,7 +57,7 @@
 		28C75EF22426181500BB6E70 /* CastEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EF12426181500BB6E70 /* CastEntry.swift */; };
 		28C75EF42426181C00BB6E70 /* CrewEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EF32426181C00BB6E70 /* CrewEntry.swift */; };
 		28D6F7A52449B313001C9C24 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D6F7A42449B313001C9C24 /* UserDefaults.swift */; };
-		28D6F7A72449BE97001C9C24 /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D6F7A62449BE97001C9C24 /* AuthorizationService.swift */; };
+		28D6F7A72449BE97001C9C24 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D6F7A62449BE97001C9C24 /* ProfileService.swift */; };
 		28D6F7A92449F852001C9C24 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D6F7A82449F852001C9C24 /* ProfileViewController.swift */; };
 		28D6F7AB2449F8B3001C9C24 /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28D6F7AA2449F8B3001C9C24 /* ProfileViewController.storyboard */; };
 		28D6F7AE2449F8D3001C9C24 /* ProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D6F7AD2449F8D3001C9C24 /* ProfileConfigurator.swift */; };
@@ -144,7 +144,7 @@
 		28C75EF12426181500BB6E70 /* CastEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastEntry.swift; sourceTree = "<group>"; };
 		28C75EF32426181C00BB6E70 /* CrewEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewEntry.swift; sourceTree = "<group>"; };
 		28D6F7A42449B313001C9C24 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
-		28D6F7A62449BE97001C9C24 /* AuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
+		28D6F7A62449BE97001C9C24 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		28D6F7A82449F852001C9C24 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		28D6F7AA2449F8B3001C9C24 /* ProfileViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileViewController.storyboard; sourceTree = "<group>"; };
 		28D6F7AD2449F8D3001C9C24 /* ProfileConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileConfigurator.swift; sourceTree = "<group>"; };
@@ -346,7 +346,7 @@
 		28939DDC24239E7D003772C7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				28D6F7A62449BE97001C9C24 /* AuthorizationService.swift */,
+				28D6F7A62449BE97001C9C24 /* ProfileService.swift */,
 				28520072240D719300A8FB05 /* MoviesLoadingService.swift */,
 				280AFE6F240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift */,
 				28DF2431243891F4004F08D0 /* PersonLoadingService.swift */,
@@ -809,7 +809,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28C75EF42426181C00BB6E70 /* CrewEntry.swift in Sources */,
-				28D6F7A72449BE97001C9C24 /* AuthorizationService.swift in Sources */,
+				28D6F7A72449BE97001C9C24 /* ProfileService.swift in Sources */,
 				285924C5241FDA5300E5F54A /* MoviesStorageService.swift in Sources */,
 				28078C1124294C4800040DD3 /* VideoCollectionViewCell.swift in Sources */,
 				28E1E463244739CF0093B75F /* FavoritesConfigurator.swift in Sources */,

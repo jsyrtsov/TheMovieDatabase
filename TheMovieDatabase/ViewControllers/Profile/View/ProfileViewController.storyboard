@@ -39,6 +39,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7Vi-Ye-aiB"/>
                     </view>
+                    <connections>
+                        <outlet property="loginButton" destination="VPV-DE-UEC" id="Afb-xl-yyl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPI-dq-qF1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

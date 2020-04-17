@@ -1,5 +1,5 @@
 //
-//  AuthorizationService.swift
+//  ProfileService.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 4/17/20.
@@ -9,7 +9,11 @@
 import Foundation
 import Locksmith
 
-final class AuthorizationService {
+final class ProfileService {
+
+    // MARK: - Properties
+
+    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
 
     // MARK: - Methods
 
@@ -28,8 +32,9 @@ final class AuthorizationService {
                 else {
                     return
                 }
-                self.getSessionId(token: token) { (success, sessionId) in
+                self.getSessionId(token: token) { [weak self] (success, sessionId) in
                     guard
+                        let self = self,
                         let sessionId = sessionId
                     else {
                         return
@@ -41,6 +46,7 @@ final class AuthorizationService {
                         print("unable to save")
                     }
                     if success {
+                        self.appDelegate?.initializeRootView()
                         UserDefaults.standard.isLogged = true
                     } else {
                         UserDefaults.standard.isLogged = false
@@ -48,6 +54,10 @@ final class AuthorizationService {
                 }
             }
         }
+    }
+
+    func getAccountDetails(sessionId: String) {
+
     }
 
     // MARK: - Private methods

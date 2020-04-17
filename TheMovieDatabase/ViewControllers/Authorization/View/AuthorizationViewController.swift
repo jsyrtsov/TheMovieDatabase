@@ -14,7 +14,7 @@ final class AuthorizationViewController: UIViewController {
     // MARK: - Properties
 
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    private let service = AuthorizationService()
+    private let service = ProfileService()
 
     // MARK: - Subviews
 

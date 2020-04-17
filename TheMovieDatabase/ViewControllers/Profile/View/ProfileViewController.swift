@@ -13,6 +13,10 @@ final class ProfileViewController: UIViewController {
     // MARK: - Properties
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
 
+    // MARK: - Subviews
+
+    @IBOutlet weak private var loginButton: UIButton!
+
     // MARK: - UIViewController
 
     override func viewDidLoad() {
@@ -29,7 +33,14 @@ final class ProfileViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureView() {
-        navigationController?.title = "Profile"
+        self.title = "Profile"
         navigationController?.navigationBar.prefersLargeTitles = true
+        loginButton.tintColor = .systemBlue
+        if UserDefaults.standard.isLogged {
+            loginButton.setTitle("LOG OUT", for: .normal)
+            loginButton.tintColor = .red
+        } else {
+            loginButton.setTitle("LOG IN", for: .normal)
+        }
     }
 }
