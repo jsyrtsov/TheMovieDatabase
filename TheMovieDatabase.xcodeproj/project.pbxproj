@@ -32,6 +32,7 @@
 		286356702449A53700572385 /* AuthorizationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2863566F2449A53700572385 /* AuthorizationViewController.storyboard */; };
 		286356722449A55C00572385 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286356712449A55C00572385 /* AuthorizationViewController.swift */; };
 		286356752449A5A600572385 /* AuthorizationConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286356742449A5A600572385 /* AuthorizationConfigurator.swift */; };
+		287FF422244A401E00BDE868 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287FF421244A401E00BDE868 /* Account.swift */; };
 		288E935B240667F700D67930 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288E935A240667F700D67930 /* UIImageView.swift */; };
 		28908AF6241BDB1A00B64835 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908AF5241BDB1A00B64835 /* StorageService.swift */; };
 		28908AF9241BDCA800B64835 /* MovieObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908AF8241BDCA800B64835 /* MovieObject.swift */; };
@@ -115,6 +116,7 @@
 		2863566F2449A53700572385 /* AuthorizationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AuthorizationViewController.storyboard; sourceTree = "<group>"; };
 		286356712449A55C00572385 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		286356742449A5A600572385 /* AuthorizationConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationConfigurator.swift; sourceTree = "<group>"; };
+		287FF421244A401E00BDE868 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		288E935A240667F700D67930 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		28908AF5241BDB1A00B64835 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		28908AF8241BDCA800B64835 /* MovieObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieObject.swift; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				28D8B4B22431F59900A6BCDE /* Person.swift */,
 				28D8B4B82432120F00A6BCDE /* PersonImage.swift */,
 				28090F60243B411200F53156 /* PersonMovie.swift */,
+				287FF421244A401E00BDE868 /* Account.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				289AE713240067790029719B /* FavoritesViewController.swift in Sources */,
 				28908AF6241BDB1A00B64835 /* StorageService.swift in Sources */,
 				2896608F240F8B5800505732 /* DetailedMovie.swift in Sources */,
+				287FF422244A401E00BDE868 /* Account.swift in Sources */,
 				28908AF9241BDCA800B64835 /* MovieObject.swift in Sources */,
 				28D6F7A52449B313001C9C24 /* UserDefaults.swift in Sources */,
 				28520071240A698F00A8FB05 /* UrlParts.swift in Sources */,

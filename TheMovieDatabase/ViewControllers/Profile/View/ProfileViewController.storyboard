@@ -29,17 +29,24 @@
                                     <action selector="loginAction:" destination="jga-ZF-1Do" eventType="touchUpInside" id="8wg-lW-GEq"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jlh-aD-ERj">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="jlh-aD-ERj" firstAttribute="centerY" secondItem="7Vi-Ye-aiB" secondAttribute="centerY" id="8x6-as-8qW"/>
                             <constraint firstItem="VPV-DE-UEC" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="Bwx-ce-EwB"/>
                             <constraint firstItem="T5N-d8-RZJ" firstAttribute="centerY" secondItem="7Vi-Ye-aiB" secondAttribute="centerY" id="KcG-uy-tcL"/>
                             <constraint firstItem="VPV-DE-UEC" firstAttribute="top" secondItem="T5N-d8-RZJ" secondAttribute="bottom" constant="50" id="LRh-0m-RSp"/>
                             <constraint firstItem="T5N-d8-RZJ" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="Rzm-tp-z7h"/>
+                            <constraint firstItem="jlh-aD-ERj" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="lhU-NB-Rx6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7Vi-Ye-aiB"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="jlh-aD-ERj" id="NY4-yO-MhJ"/>
+                        <outlet property="helloLabel" destination="T5N-d8-RZJ" id="cFe-Y4-eb7"/>
                         <outlet property="loginButton" destination="VPV-DE-UEC" id="Afb-xl-yyl"/>
                     </connections>
                 </viewController>

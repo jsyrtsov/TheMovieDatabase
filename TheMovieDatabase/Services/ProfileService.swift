@@ -56,8 +56,31 @@ final class ProfileService {
         }
     }
 
-    func getAccountDetails(sessionId: String) {
-
+    func getAccountDetails(completion: @escaping (Account?) -> Void) {
+        let dictionary = Locksmith.loadDataForUserAccount(userAccount: "loggedUserAccout")
+        guard
+            let sessionId = dictionary?["sessionId"] as? String,
+            let url = URL(string: UrlParts.baseUrl + "account")?
+                .appending("api_key", value: UrlParts.apiKey)?
+                .appending("session_id", value: sessionId)
+        else {
+            return
+        }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            guard let data = data else {
+                return
+            }
+            do {
+                let result = try decoder.decode(Account.self, from: data)
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            } catch {
+                completion(nil)
+            }
+        }.resume()
     }
 
     // MARK: - Private methods

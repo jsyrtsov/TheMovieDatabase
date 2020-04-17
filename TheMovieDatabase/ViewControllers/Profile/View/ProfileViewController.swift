@@ -12,16 +12,23 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Properties
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private let service = ProfileService()
+    private var account: Account?
 
     // MARK: - Subviews
 
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var loginButton: UIButton!
+    @IBOutlet weak private var helloLabel: UILabel!
 
     // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        if UserDefaults.standard.isLogged {
+            getAccountDetails()
+        }
     }
 
     // MARK: - IBActions
@@ -32,8 +39,23 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Private Methods
 
+    private func getAccountDetails() {
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        setAccountDetails(hidden: true)
+        service.getAccountDetails { [weak self] (account) in
+            guard
+                let self = self,
+                let account = account
+            else {
+                return
+            }
+            self.account = account
+            self.updateView()
+        }
+    }
+
     private func configureView() {
-        self.title = "Profile"
         navigationController?.navigationBar.prefersLargeTitles = true
         loginButton.tintColor = .systemBlue
         if UserDefaults.standard.isLogged {
@@ -42,5 +64,20 @@ final class ProfileViewController: UIViewController {
         } else {
             loginButton.setTitle("LOG IN", for: .normal)
         }
+    }
+
+    private func updateView() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        setAccountDetails(hidden: false)
+        guard let username = account?.username else {
+            return
+        }
+        self.title = username
+        helloLabel.text = "hello, \(username)"
+    }
+
+    private func setAccountDetails(hidden isHidden: Bool) {
+        helloLabel.isHidden = isHidden
     }
 }
