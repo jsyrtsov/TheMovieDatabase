@@ -14,7 +14,7 @@ final class AuthorizationViewController: UIViewController {
     // MARK: - Properties
 
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    private let service = ProfileService()
+    private let service = AuthorizationService()
 
     // MARK: - Subviews
 
@@ -36,7 +36,7 @@ final class AuthorizationViewController: UIViewController {
         else {
             return
         }
-        service.authorizeUser(login: login, password: password)
+        service.login(login: login, password: password)
     }
 
     @IBAction private func tryAsGuestAction(_ sender: Any) {

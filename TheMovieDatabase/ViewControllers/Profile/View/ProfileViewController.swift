@@ -13,6 +13,7 @@ final class ProfileViewController: UIViewController {
     // MARK: - Properties
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let service = ProfileService()
+    private let authService = AuthorizationService()
     private var account: Account?
 
     // MARK: - Subviews
@@ -28,13 +29,25 @@ final class ProfileViewController: UIViewController {
         configureView()
         if UserDefaults.standard.isLogged {
             getAccountDetails()
+        } else {
+            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
+            self.title = "Profile"
+            helloLabel.text = "hello, guest"
         }
     }
 
     // MARK: - IBActions
 
     @IBAction private func loginAction(_ sender: Any) {
-        appDelegate?.initializeAuthView()
+        if UserDefaults.standard.isLogged {
+            authService.logout { (result) in
+                print(result)
+            }
+            appDelegate?.initializeAuthView()
+        } else {
+            appDelegate?.initializeAuthView()
+        }
     }
 
     // MARK: - Private Methods

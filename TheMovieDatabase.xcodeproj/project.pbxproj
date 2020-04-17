@@ -33,6 +33,7 @@
 		286356722449A55C00572385 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286356712449A55C00572385 /* AuthorizationViewController.swift */; };
 		286356752449A5A600572385 /* AuthorizationConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286356742449A5A600572385 /* AuthorizationConfigurator.swift */; };
 		287FF422244A401E00BDE868 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287FF421244A401E00BDE868 /* Account.swift */; };
+		287FF424244A4C0A00BDE868 /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287FF423244A4C0A00BDE868 /* AuthorizationService.swift */; };
 		288E935B240667F700D67930 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288E935A240667F700D67930 /* UIImageView.swift */; };
 		28908AF6241BDB1A00B64835 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908AF5241BDB1A00B64835 /* StorageService.swift */; };
 		28908AF9241BDCA800B64835 /* MovieObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908AF8241BDCA800B64835 /* MovieObject.swift */; };
@@ -117,6 +118,7 @@
 		286356712449A55C00572385 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		286356742449A5A600572385 /* AuthorizationConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationConfigurator.swift; sourceTree = "<group>"; };
 		287FF421244A401E00BDE868 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		287FF423244A4C0A00BDE868 /* AuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
 		288E935A240667F700D67930 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		28908AF5241BDB1A00B64835 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		28908AF8241BDCA800B64835 /* MovieObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieObject.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				28D6F7A62449BE97001C9C24 /* ProfileService.swift */,
+				287FF423244A4C0A00BDE868 /* AuthorizationService.swift */,
 				28520072240D719300A8FB05 /* MoviesLoadingService.swift */,
 				280AFE6F240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift */,
 				28DF2431243891F4004F08D0 /* PersonLoadingService.swift */,
@@ -820,6 +823,7 @@
 				288E935B240667F700D67930 /* UIImageView.swift in Sources */,
 				28C75EE824257EFC00BB6E70 /* DetailedMovieViewController.swift in Sources */,
 				28D6F7A92449F852001C9C24 /* ProfileViewController.swift in Sources */,
+				287FF424244A4C0A00BDE868 /* AuthorizationService.swift in Sources */,
 				289AE7152400678D0029719B /* SearchMovieViewController.swift in Sources */,
 				280AFE70240E80E200D887A8 /* MoviesServiceLoadingStrategy.swift in Sources */,
 				28331CC22438FF5E0028CCE5 /* PersonModuleConfigurator.swift in Sources */,
