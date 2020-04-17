@@ -17,14 +17,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        initializeRootView()
-        return true
-    }
-
-    private func initializeRootView() {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 
+        UserDefaults.standard.isLogged = false
+        if UserDefaults.standard.isLogged {
+            initializeRootView()
+        } else {
+            initializeAuthView()
+        }
+        return true
+    }
+
+    func initializeAuthView() {
+        let authorizationVC = AuthorizationConfigurator().configure()
+        window?.rootViewController = authorizationVC
+    }
+
+    func initializeRootView() {
         let tabBarController = UITabBarController()
         let feedViewController = FeedConfigurator().configure()
         let favoritesViewController = FavoritesConfigurator().configure()
