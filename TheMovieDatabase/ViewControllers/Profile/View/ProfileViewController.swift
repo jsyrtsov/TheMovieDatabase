@@ -27,7 +27,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        if UserDefaults.standard.isLogged {
+        if authService.getSessionId() != nil {
             getAccountDetails()
         } else {
             activityIndicator.stopAnimating()
@@ -40,14 +40,13 @@ final class ProfileViewController: UIViewController {
     // MARK: - IBActions
 
     @IBAction private func loginAction(_ sender: Any) {
-        if UserDefaults.standard.isLogged {
+        if authService.getSessionId() != nil {
             authService.logout { (result) in
-                print(result)
+                //MAYBE DO SOMETHING HERE, MAYBE DO NOT
             }
-//            UserDefaults.standard.wantAsGuest = true
             appDelegate?.initializeAuthView()
         } else {
-//            UserDefaults.standard.wantAsGuest = false
+            UserDefaults.standard.loginViewWasShown = false
             appDelegate?.initializeAuthView()
         }
     }
@@ -73,7 +72,7 @@ final class ProfileViewController: UIViewController {
     private func configureView() {
         navigationController?.navigationBar.prefersLargeTitles = true
         loginButton.tintColor = .systemBlue
-        if UserDefaults.standard.isLogged {
+        if authService.getSessionId() != nil {
             loginButton.setTitle("LOG OUT", for: .normal)
             loginButton.tintColor = .red
         } else {

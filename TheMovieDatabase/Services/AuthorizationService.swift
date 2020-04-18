@@ -17,51 +17,49 @@ final class AuthorizationService {
 
     // MARK: - Methods
 
+    func getSessionId() -> String? {
+        return Locksmith.getSessionId()
+    }
+
     func login(login: String, password: String) {
-           getToken { [weak self] (token) in
-               guard
-                   let self = self,
-                   let token = token
-               else {
-                   return
-               }
-               self.validateToken(token: token, login: login, password: password) { [weak self] (success, token) in
-                   guard
-                       let self = self,
-                       let token = token
-                   else {
-                       return
-                   }
-                   self.getSessionId(token: token) { [weak self] (success, sessionId) in
-                       guard
-                           let self = self,
-                           let sessionId = sessionId
-                       else {
-                           return
-                       }
-                       do {
-                           try Locksmith.updateData(data: ["sessionId": sessionId], forUserAccount: "loggedUserAccout")
-                       } catch {
-                           //OBRABOTKA OSHIBKI
-                           print("unable to save")
-                       }
-                       if success {
-                           self.appDelegate?.initializeRootView()
-                           UserDefaults.standard.isLogged = true
-                       } else {
-                           UserDefaults.standard.isLogged = false
-                       }
-                   }
-               }
-           }
-       }
+        getToken { [weak self] (token) in
+            guard
+                let self = self,
+                let token = token
+            else {
+                return
+            }
+            self.validateToken(token: token, login: login, password: password) { [weak self] (success, token) in
+                guard
+                    let self = self,
+                    let token = token
+                else {
+                    return
+                }
+                self.getSessionId(token: token) { [weak self] (success, sessionId) in
+                    guard
+                        let self = self,
+                        let sessionId = sessionId
+                    else {
+                        return
+                    }
+                    Locksmith.save(sessionId: sessionId)
+                    if success {
+                        self.appDelegate?.initializeRootView()
+                        UserDefaults.standard.loginViewWasShown = true
+                    } else {
+                        Locksmith.deleteUserAccount()
+                    }
+                }
+            }
+        }
+    }
 
     func logout(completion: @escaping (Bool) -> Void) {
-        let dictionary = Locksmith.loadDataForUserAccount(userAccount: "loggedUserAccout")
         guard
             let url = URL(string: UrlParts.baseUrl + "authentication/session")?
                 .appending("api_key", value: UrlParts.apiKey),
-            let sessionId = dictionary?["sessionId"] as? String
+            let sessionId = self.getSessionId()
         else {
             return
         }
@@ -86,15 +84,9 @@ final class AuthorizationService {
                 let result = try decoder.decode(GetSessionIdResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(result.success)
-                    UserDefaults.standard.isLogged = false
                     UserDefaults.standard.loginViewWasShown = false
                     if result.success {
-                        do {
-                            try Locksmith.updateData(data: ["sessionId": ""], forUserAccount: "loggedUserAccout")
-                        } catch {
-                            //OBRABOTKA OSHIBKI
-                            print("unable to save")
-                        }
+                        Locksmith.deleteUserAccount()
                     }
                 }
             } catch {
@@ -125,7 +117,6 @@ final class AuthorizationService {
                 }
             } catch {
                 completion(nil)
-                UserDefaults.standard.isLogged = false
             }
         }.resume()
     }
@@ -164,7 +155,6 @@ final class AuthorizationService {
                 }
             } catch {
                 completion(false, nil)
-                UserDefaults.standard.isLogged = false
             }
         }.resume()
     }
@@ -196,7 +186,6 @@ final class AuthorizationService {
                 }
             } catch {
                 completion(false, nil)
-                UserDefaults.standard.isLogged = false
             }
         }.resume()
     }

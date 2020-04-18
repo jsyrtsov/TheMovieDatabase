@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Locksmith
 
 final class AuthorizationViewController: UIViewController {
 
@@ -30,7 +29,6 @@ final class AuthorizationViewController: UIViewController {
     // MARK: - IBActions
 
     @IBAction private func signInAction(_ sender: Any) {
-//        UserDefaults.standard.wantAsGuest = false
         guard
             let login = loginTextField.text,
             let password = passwordTextField.text
@@ -42,7 +40,6 @@ final class AuthorizationViewController: UIViewController {
 
     @IBAction private func tryAsGuestAction(_ sender: Any) {
         UserDefaults.standard.loginViewWasShown = true
-//        UserDefaults.standard.wantAsGuest = true
         appDelegate?.initializeRootView()
     }
 }
