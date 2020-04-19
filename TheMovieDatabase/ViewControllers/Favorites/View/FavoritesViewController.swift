@@ -35,11 +35,9 @@ final class FavoritesViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if Locksmith.getSessionId() == nil {
-            movies = service.getFavoriteMovies()
-            updateView()
-            tableView.reloadData()
-        }
+        movies = service.getFavoriteMovies()
+        updateView()
+        tableView.reloadData()
     }
 
     // MARK: - Private Methods
@@ -57,12 +55,19 @@ final class FavoritesViewController: UIViewController {
         guard let accountId = accountId else {
             return
         }
+        let movies = service.getFavoriteMovies()
+        for movie in movies {
+            service.removeMovie(id: movie.id)
+        }
         service.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
             guard
                 let self = self,
                 let movies = movies
             else {
                 return
+            }
+            for movie in movies {
+                self.service.saveMovie(movie: movie)
             }
             self.movies = movies
             self.updateView()

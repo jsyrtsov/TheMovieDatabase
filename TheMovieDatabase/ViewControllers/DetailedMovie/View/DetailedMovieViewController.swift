@@ -8,6 +8,7 @@
 
 import UIKit
 import AVKit
+import Locksmith
 
 final class DetailedMovieViewController: UIViewController {
 
@@ -19,6 +20,7 @@ final class DetailedMovieViewController: UIViewController {
     var movie: Movie?
     private let extractor = LinkExtractor()
     private let service = MoviesLoadingService()
+    private let profileService = ProfileService()
     private var detailedMovie: DetailedMovie?
     private var crew: [CrewEntry] = []
     private var cast: [CastEntry] = []
@@ -28,6 +30,7 @@ final class DetailedMovieViewController: UIViewController {
     // MARK: - Subviews
 
     private let favoriteButton = UIButton(type: .custom)
+    private let favoriteActivityIndicator = UIActivityIndicatorView(style: .gray)
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var runtime: UILabel!
     @IBOutlet weak private var revenue: UILabel!
@@ -222,16 +225,40 @@ final class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
-        if isFavorite {
-            isFavorite = false
-            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
-            service.removeMovie(id: movieId)
-            service.removeDetailedMovie(id: movieId)
+        if Locksmith.getSessionId() != nil {
+            guard let movieId = movieId else {
+                return
+            }
+            profileService.setFavoriteTo(!isFavorite, movieId: movieId) { [weak self] (result) in
+                guard let self = self else {
+                    return
+                }
+                if result {
+                    if self.isFavorite {
+                        self.isFavorite = false
+                        self.favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
+                        self.service.removeMovie(id: movieId)
+                    } else {
+                        self.isFavorite = true
+                        self.favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
+                        self.service.saveMovie(movie: self.movie)
+                    }
+                } else {
+                    print("not success")
+                }
+            }
         } else {
-            isFavorite = true
-            favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
-            service.saveDetailedMovie(detailedMovie: detailedMovie)
-            service.saveMovie(movie: movie)
+            if isFavorite {
+                isFavorite = false
+                favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
+                service.removeMovie(id: movieId)
+                service.removeDetailedMovie(id: movieId)
+            } else {
+                isFavorite = true
+                favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
+                service.saveDetailedMovie(detailedMovie: detailedMovie)
+                service.saveMovie(movie: movie)
+            }
         }
     }
 

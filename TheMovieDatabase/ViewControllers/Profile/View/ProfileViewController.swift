@@ -12,7 +12,8 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Properties
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    private let service = ProfileService()
+    private let profileService = ProfileService()
+    private let moviesLoadingService = MoviesLoadingService()
     private let authService = AuthorizationService()
     private var account: Account?
 
@@ -44,12 +45,20 @@ final class ProfileViewController: UIViewController {
     }
 
     @IBAction private func logInOrOutAction(_ sender: Any) {
+        let movies = moviesLoadingService.getFavoriteMovies()
         if authService.getSessionId() != nil {
             authService.logout { (result) in
                 //MAYBE DO SOMETHING HERE, MAYBE DO NOT
             }
+            for movie in movies {
+                moviesLoadingService.removeMovie(id: movie.id)
+            }
             appDelegate?.initializeAuthView()
         } else {
+            for movie in movies {
+                moviesLoadingService.removeMovie(id: movie.id)
+                moviesLoadingService.removeDetailedMovie(id: movie.id)
+            }
             UserDefaults.standard.loginViewWasShown = false
             appDelegate?.initializeAuthView()
         }
@@ -61,7 +70,7 @@ final class ProfileViewController: UIViewController {
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
         setAccountDetails(hidden: true)
-        service.getAccountDetails { [weak self] (account) in
+        profileService.getAccountDetails { [weak self] (account) in
             guard
                 let self = self,
                 let account = account
