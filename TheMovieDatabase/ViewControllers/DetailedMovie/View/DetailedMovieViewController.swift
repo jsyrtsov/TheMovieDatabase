@@ -198,7 +198,7 @@ final class DetailedMovieViewController: UIViewController {
         voteLabel.text = String(vote)
         titleLabel.text = detailedMovie?.title
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-mm-dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         if let releaseDate = detailedMovie?.releaseDate, let date = dateFormatter.date(from: releaseDate) {
             dateFormatter.dateFormat = "MMMM dd, yyyy"
             self.releaseDate.text = dateFormatter.string(from: date)

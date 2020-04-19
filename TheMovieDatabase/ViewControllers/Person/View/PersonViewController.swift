@@ -114,7 +114,7 @@ final class PersonViewController: UIViewController, PersonViewInput, ModuleTrans
         knownFor.text = person?.knownForDepartment
         name.text = person?.name
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-mm-dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         if let birthday = person?.birthday, let date = dateFormatter.date(from: birthday) {
             dateFormatter.dateFormat = "MMMM dd, yyyy"
             self.birthday.text = dateFormatter.string(from: date)
