@@ -95,8 +95,8 @@ final class DetailedMovieViewController: UIViewController {
 
         favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
         favoriteButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
-        let barButtonItem = UIBarButtonItem(customView: favoriteButton)
-        navigationItem.rightBarButtonItem = barButtonItem
+        let buttonBarButtonItem = UIBarButtonItem(customView: favoriteButton)
+        navigationItem.rightBarButtonItem = buttonBarButtonItem
     }
 
     private func setMovieInformation(hidden isHidden: Bool) {
@@ -226,6 +226,10 @@ final class DetailedMovieViewController: UIViewController {
     @objc
     private func likeTapped() {
         if Locksmith.getSessionId() != nil {
+            var barButtonItem = UIBarButtonItem(customView: favoriteActivityIndicator)
+            navigationItem.rightBarButtonItem = barButtonItem
+            favoriteActivityIndicator.startAnimating()
+            favoriteActivityIndicator.hidesWhenStopped = true
             guard let movieId = movieId else {
                 return
             }
@@ -234,13 +238,18 @@ final class DetailedMovieViewController: UIViewController {
                     return
                 }
                 if result {
+                    self.favoriteActivityIndicator.stopAnimating()
                     if self.isFavorite {
                         self.isFavorite = false
                         self.favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
+                        barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
+                        self.navigationItem.rightBarButtonItem = barButtonItem
                         self.service.removeMovie(id: movieId)
                     } else {
                         self.isFavorite = true
                         self.favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
+                        barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
+                        self.navigationItem.rightBarButtonItem = barButtonItem
                         self.service.saveMovie(movie: self.movie)
                     }
                 } else {
