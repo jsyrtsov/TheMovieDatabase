@@ -14,6 +14,7 @@ final class AuthorizationService {
     // MARK: - Properties
 
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private let profileService = ProfileService()
 
     // MARK: - Methods
 
@@ -45,7 +46,17 @@ final class AuthorizationService {
                     }
                     Locksmith.save(sessionId: sessionId)
                     if success {
-                        self.appDelegate?.initializeRootView()
+                        self.profileService.getAccountDetails { (account) in
+                            guard
+                                let accountId = account?.id,
+                                let username = account?.username
+                            else {
+                                return
+                            }
+                            UserDefaults.standard.accountId = accountId
+                            UserDefaults.standard.username = username
+                            self.appDelegate?.initializeRootView()
+                        }
                         UserDefaults.standard.loginViewWasShown = true
                     } else {
                         Locksmith.deleteUserAccount()
@@ -87,6 +98,8 @@ final class AuthorizationService {
                     UserDefaults.standard.loginViewWasShown = false
                     if result.success {
                         Locksmith.deleteUserAccount()
+                        UserDefaults.standard.username = "Guest"
+                        UserDefaults.standard.accountId = 0
                     }
                 }
             } catch {

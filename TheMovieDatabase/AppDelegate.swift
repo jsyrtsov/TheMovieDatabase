@@ -38,13 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         let feedViewController = FeedConfigurator().configure()
         let favoritesViewController = FavoritesConfigurator().configure()
+        favoritesViewController.accountId = UserDefaults.standard.accountId
         let searchMovieViewController = SearchMovieConfigurator().configure()
         let profileViewController = ProfileConfigurator().configure()
 
         feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: #imageLiteral(resourceName: "iconFeed"), tag: 0)
         favoritesViewController.tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "iconFavorite"), tag: 0)
         searchMovieViewController.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "search"), tag: 0)
-        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: #imageLiteral(resourceName: "iconProfile"), tag: 0)
+        profileViewController.tabBarItem = UITabBarItem(title: UserDefaults.standard.username, image: #imageLiteral(resourceName: "iconProfile"), tag: 0)
 
         tabBarController.setViewControllers([
             UINavigationController(rootViewController: feedViewController),

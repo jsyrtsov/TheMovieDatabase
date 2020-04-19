@@ -101,6 +101,7 @@ extension FeedViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let detailedMovieVC = DetailedMovieConfigurator().configure()
         detailedMovieVC.movieId = movies[indexPath.row].id
+        detailedMovieVC.movie = movies[indexPath.row]
         navigationController?.pushViewController(detailedMovieVC, animated: true)
     }
 }

@@ -64,8 +64,7 @@ final class MoviesStorageService: StorageService {
     }
 
     func saveDetailedMovie(detailedMovie: DetailedMovie?) {
-        var detailedMovieObject: DetailedMovieObject?
-        detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
+        let detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
                                                   backdropPath: detailedMovie?.backdropPath,
                                                   overview: detailedMovie?.overview,
                                                   posterPath: detailedMovie?.posterPath,
@@ -88,24 +87,14 @@ final class MoviesStorageService: StorageService {
         removeObjectWithId(object: DetailedMovieObject.self, id: id)
     }
 
-    func saveMovie(detailedMovie: DetailedMovie?) {
-
-        let movie = Movie(backdropPath: detailedMovie?.backdropPath,
-                          posterPath: detailedMovie?.posterPath,
-                          id: detailedMovie?.id,
-                          title: detailedMovie?.title,
-                          voteAverage: detailedMovie?.voteAverage,
-                          overview: detailedMovie?.overview,
-                          releaseDate: detailedMovie?.releaseDate)
-
-        var movieObject: MovieObject?
-        movieObject = MovieObject(backdropPath: movie.backdropPath,
-                                  id: movie.id,
-                                  voteAverage: movie.voteAverage,
-                                  releaseDate: movie.releaseDate,
-                                  posterPath: movie.posterPath,
-                                  title: movie.title,
-                                  overview: movie.overview)
+    func saveMovie(movie: Movie?) {
+        let movieObject = MovieObject(backdropPath: movie?.backdropPath,
+                                  id: movie?.id,
+                                  voteAverage: movie?.voteAverage,
+                                  releaseDate: movie?.releaseDate,
+                                  posterPath: movie?.posterPath,
+                                  title: movie?.title,
+                                  overview: movie?.overview)
         saveObject(object: movieObject)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Locksmith
 
 final class MoviesLoadingService {
 
@@ -72,6 +73,42 @@ final class MoviesLoadingService {
         }.resume()
     }
 
+    func loadFavoriteMovies(accountId: Int, completion: @escaping ([Movie]?) -> Void) {
+        guard
+            let url = URL(string: UrlParts.baseUrl + "account/\(accountId)/favorite/movies")?
+                .appending("api_key", value: UrlParts.apiKey)?
+                .appending("session_id", value: Locksmith.getSessionId())?
+                .appending("page", value: String(currentPage))
+        else {
+            return
+        }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            guard let data = data else {
+                return
+            }
+            do {
+                let result = try decoder.decode(MoviesListResponse.self, from: data)
+                DispatchQueue.main.async {
+                    guard let totalPages = result.totalPages else {
+                        return
+                    }
+                    self.totalPages = totalPages
+                    if self.currentPage < totalPages {
+                        self.canLoadMore = true
+                    } else {
+                        self.canLoadMore = false
+                    }
+                    self.currentPage += 1
+                    completion(result.results)
+                }
+            } catch {
+                completion(nil)
+            }
+        }.resume()
+    }
+
     func loadDetails(movieId: Int, completion: @escaping (DetailedMovie?) -> Void) {
         guard
             let url = URL(string: UrlParts.baseUrl + "movie/\(movieId)")?
@@ -83,10 +120,9 @@ final class MoviesLoadingService {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return
-                    DispatchQueue.main.async {
-                        completion(self.storageMoviesService.getMovieInfo(id: movieId))
-                    }
+                return DispatchQueue.main.async {
+                    completion(self.storageMoviesService.getMovieInfo(id: movieId))
+                }
             }
             do {
                 let result = try decoder.decode(DetailedMovie.self, from: data)
@@ -149,8 +185,8 @@ final class MoviesLoadingService {
         }.resume()
     }
 
-    func saveMovie(detailedMovie: DetailedMovie?) {
-        storageMoviesService.saveMovie(detailedMovie: detailedMovie)
+    func saveMovie(movie: Movie?) {
+        storageMoviesService.saveMovie(movie: movie)
     }
 
     func saveDetailedMovie(detailedMovie: DetailedMovie?) {

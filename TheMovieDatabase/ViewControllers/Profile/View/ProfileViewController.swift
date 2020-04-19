@@ -32,14 +32,18 @@ final class ProfileViewController: UIViewController {
         } else {
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
-            self.title = "Profile"
-            helloLabel.text = "hello, guest"
         }
     }
 
     // MARK: - IBActions
 
-    @IBAction private func loginAction(_ sender: Any) {
+    @IBAction private func showFavoriteMovies(_ sender: Any) {
+        let favoritesVC = FavoritesConfigurator().configure()
+        favoritesVC.accountId = UserDefaults.standard.accountId
+        navigationController?.pushViewController(favoritesVC, animated: true)
+    }
+
+    @IBAction private func logInOrOutAction(_ sender: Any) {
         if authService.getSessionId() != nil {
             authService.logout { (result) in
                 //MAYBE DO SOMETHING HERE, MAYBE DO NOT
@@ -72,6 +76,8 @@ final class ProfileViewController: UIViewController {
     private func configureView() {
         navigationController?.navigationBar.prefersLargeTitles = true
         loginButton.tintColor = .systemBlue
+        self.title = UserDefaults.standard.username
+        helloLabel.text = "hello, \(UserDefaults.standard.username)"
         if authService.getSessionId() != nil {
             loginButton.setTitle("LOG OUT", for: .normal)
             loginButton.tintColor = .red
@@ -84,11 +90,6 @@ final class ProfileViewController: UIViewController {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
         setAccountDetails(hidden: false)
-        guard let username = account?.username else {
-            return
-        }
-        self.title = username
-        helloLabel.text = "hello, \(username)"
     }
 
     private func setAccountDetails(hidden isHidden: Bool) {

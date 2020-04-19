@@ -13,4 +13,14 @@ extension UserDefaults {
         get { return bool(forKey: #function) }
         set { set(newValue, forKey: #function) }
     }
+
+    var accountId: Int {
+        get { return integer(forKey: #function) }
+        set { set(newValue, forKey: #function) }
+    }
+
+    var username: String {
+        get { return string(forKey: #function) ?? "Guest" }
+        set { set(newValue, forKey: #function) }
+    }
 }

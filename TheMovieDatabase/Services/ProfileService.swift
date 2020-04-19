@@ -18,9 +18,8 @@ final class ProfileService {
     // MARK: - Methods
 
     func getAccountDetails(completion: @escaping (Account?) -> Void) {
-        let dictionary = Locksmith.loadDataForUserAccount(userAccount: Locksmith.loggedUserAccount)
         guard
-            let sessionId = dictionary?["sessionId"] as? String,
+            let sessionId = Locksmith.getSessionId(),
             let url = URL(string: UrlParts.baseUrl + "account")?
                 .appending("api_key", value: UrlParts.apiKey)?
                 .appending("session_id", value: sessionId)

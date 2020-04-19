@@ -16,6 +16,7 @@ final class DetailedMovieViewController: UIViewController {
     static let identifier = String(describing: DetailedMovieViewController.self)
 
     var movieId: Int?
+    var movie: Movie?
     private let extractor = LinkExtractor()
     private let service = MoviesLoadingService()
     private var detailedMovie: DetailedMovie?
@@ -230,7 +231,7 @@ final class DetailedMovieViewController: UIViewController {
             isFavorite = true
             favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
             service.saveDetailedMovie(detailedMovie: detailedMovie)
-            service.saveMovie(detailedMovie: detailedMovie)
+            service.saveMovie(movie: movie)
         }
     }
 

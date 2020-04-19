@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Locksmith
 
 final class FavoritesViewController: UIViewController {
 
     // MARK: - Properties
 
+    var accountId: Int?
     private let service = MoviesLoadingService()
     private var movies: [Movie] = []
 
@@ -26,21 +28,18 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        if Locksmith.getSessionId() != nil {
+            loadFavoriteMovies()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        movies = service.getFavoriteMovies()
-        if movies.isEmpty {
-            tableView.isHidden = true
-            blankImage.isHidden = false
-            blankTitle.isHidden = false
-        } else {
-            tableView.isHidden = false
-            blankImage.isHidden = true
-            blankTitle.isHidden = true
+        if Locksmith.getSessionId() == nil {
+            movies = service.getFavoriteMovies()
+            updateView()
+            tableView.reloadData()
         }
-        tableView.reloadData()
     }
 
     // MARK: - Private Methods
@@ -53,6 +52,35 @@ final class FavoritesViewController: UIViewController {
                            forCellReuseIdentifier: MovieTableViewCell.identifier)
         tableView.tableFooterView = UIView()
     }
+
+    private func loadFavoriteMovies() {
+        guard let accountId = accountId else {
+            return
+        }
+        service.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
+            guard
+                let self = self,
+                let movies = movies
+            else {
+                return
+            }
+            self.movies = movies
+            self.updateView()
+            self.tableView.reloadData()
+        }
+    }
+
+    private func updateView() {
+        if movies.isEmpty {
+            tableView.isHidden = true
+            blankImage.isHidden = false
+            blankTitle.isHidden = false
+        } else {
+            tableView.isHidden = false
+            blankImage.isHidden = true
+            blankTitle.isHidden = true
+        }
+    }
 }
 
 // MARK: - TableViewDelegate
@@ -62,6 +90,7 @@ extension FavoritesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let detailedMovieVC = DetailedMovieConfigurator().configure()
         detailedMovieVC.movieId = movies[indexPath.row].id
+        detailedMovieVC.movie = movies[indexPath.row]
         navigationController?.pushViewController(detailedMovieVC, animated: true)
     }
 }
