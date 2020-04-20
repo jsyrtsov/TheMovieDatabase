@@ -15,6 +15,7 @@ final class FavoritesViewController: UIViewController {
 
     var accountId: Int?
     private let service = MoviesLoadingService()
+    private let profileService = ProfileService()
     private var movies: [Movie] = []
     private var wasShown = false
 
@@ -145,19 +146,41 @@ extension FavoritesViewController: UITableViewDataSource {
             return
         }
         if editingStyle == .delete {
-            service.removeMovie(id: movieId)
-            service.removeDetailedMovie(id: movieId)
+            if Locksmith.getSessionId() != nil {
+                profileService.setFavoriteTo(false, movieId: movieId) { [weak self] (success) in
+                    guard let self = self else {
+                        return
+                    }
+                    if success {
+                        self.service.removeMovie(id: movieId)
+                        self.movies = self.service.getFavoriteMovies()
+                        if self.movies.isEmpty {
+                            tableView.isHidden = true
+                            self.blankImage.isHidden = false
+                            self.blankTitle.isHidden = false
+                        } else {
+                            tableView.isHidden = false
+                            self.blankImage.isHidden = true
+                            self.blankTitle.isHidden = true
+                        }
+                        tableView.reloadData()
+                    }
+                }
+            } else {
+                service.removeMovie(id: movieId)
+                service.removeDetailedMovie(id: movieId)
+                movies = service.getFavoriteMovies()
+                if movies.isEmpty {
+                    tableView.isHidden = true
+                    blankImage.isHidden = false
+                    blankTitle.isHidden = false
+                } else {
+                    tableView.isHidden = false
+                    blankImage.isHidden = true
+                    blankTitle.isHidden = true
+                }
+                tableView.reloadData()
+            }
         }
-        movies = service.getFavoriteMovies()
-        if movies.isEmpty {
-            tableView.isHidden = true
-            blankImage.isHidden = false
-            blankTitle.isHidden = false
-        } else {
-            tableView.isHidden = false
-            blankImage.isHidden = true
-            blankTitle.isHidden = true
-        }
-        tableView.reloadData()
     }
 }
