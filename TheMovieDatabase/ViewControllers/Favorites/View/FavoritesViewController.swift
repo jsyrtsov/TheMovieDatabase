@@ -16,12 +16,14 @@ final class FavoritesViewController: UIViewController {
     var accountId: Int?
     private let service = MoviesLoadingService()
     private var movies: [Movie] = []
+    private var wasShown = false
 
     // MARK: - Subviews
 
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var blankImage: UIImageView!
     @IBOutlet weak private var blankTitle: UILabel!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
 
     // MARK: - UIViewController
 
@@ -35,14 +37,27 @@ final class FavoritesViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        movies = service.getFavoriteMovies()
-        updateView()
-        tableView.reloadData()
+        if wasShown {
+            movies = service.getFavoriteMovies()
+            if movies.isEmpty {
+                tableView.isHidden = true
+                blankImage.isHidden = false
+                blankTitle.isHidden = false
+            } else {
+                tableView.isHidden = false
+                blankImage.isHidden = true
+                blankTitle.isHidden = true
+            }
+            tableView.reloadData()
+        } else {
+            wasShown = true
+        }
     }
 
     // MARK: - Private Methods
 
     private func configureView() {
+        activityIndicator.isHidden = true
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.delegate = self
         tableView.dataSource = self
@@ -52,6 +67,11 @@ final class FavoritesViewController: UIViewController {
     }
 
     private func loadFavoriteMovies() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        blankImage.isHidden = true
+        blankTitle.isHidden = true
+
         guard let accountId = accountId else {
             return
         }
@@ -76,6 +96,8 @@ final class FavoritesViewController: UIViewController {
     }
 
     private func updateView() {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
         if movies.isEmpty {
             tableView.isHidden = true
             blankImage.isHidden = false

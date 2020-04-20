@@ -66,7 +66,7 @@ final class ProfileService {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return
+                return completion(false)
             }
             do {
                 let result = try decoder.decode(SetFavoriteResponse.self, from: data)

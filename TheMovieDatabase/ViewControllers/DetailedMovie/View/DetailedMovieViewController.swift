@@ -253,7 +253,7 @@ final class DetailedMovieViewController: UIViewController {
                         self.service.saveMovie(movie: self.movie)
                     }
                 } else {
-                    print("not success")
+                    print("unable to change state")
                 }
             }
         } else {

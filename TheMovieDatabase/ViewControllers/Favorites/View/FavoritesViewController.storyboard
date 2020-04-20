@@ -29,6 +29,9 @@
                                 <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6AI-MT-DON">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -39,6 +42,8 @@
                             <constraint firstItem="ted-go-mx3" firstAttribute="bottom" secondItem="fXy-FL-pwu" secondAttribute="bottom" constant="234" id="E0c-z5-2zt"/>
                             <constraint firstItem="ted-go-mx3" firstAttribute="trailing" secondItem="zdg-O6-pnz" secondAttribute="trailing" constant="161" id="Hor-yR-6e0"/>
                             <constraint firstItem="fXy-FL-pwu" firstAttribute="leading" secondItem="ted-go-mx3" secondAttribute="leading" constant="87" id="P36-UX-GCd"/>
+                            <constraint firstItem="6AI-MT-DON" firstAttribute="centerX" secondItem="ted-go-mx3" secondAttribute="centerX" id="Tuu-Gm-Gph"/>
+                            <constraint firstItem="6AI-MT-DON" firstAttribute="centerY" secondItem="ted-go-mx3" secondAttribute="centerY" id="UsM-qA-HYZ"/>
                             <constraint firstItem="ufN-Wk-7K8" firstAttribute="top" secondItem="nOW-wy-AmN" secondAttribute="top" id="W3C-EI-1Qw"/>
                             <constraint firstItem="ted-go-mx3" firstAttribute="bottom" secondItem="zdg-O6-pnz" secondAttribute="bottom" constant="277" id="XoB-vq-8ta"/>
                             <constraint firstItem="fXy-FL-pwu" firstAttribute="top" secondItem="zdg-O6-pnz" secondAttribute="bottom" constant="11" id="jlW-bR-Bif"/>
@@ -49,6 +54,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Favorites" id="Agk-H5-rVQ"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="6AI-MT-DON" id="Cyd-Jb-FeJ"/>
                         <outlet property="blankImage" destination="zdg-O6-pnz" id="1I8-b8-FhV"/>
                         <outlet property="blankTitle" destination="fXy-FL-pwu" id="UvL-lI-icD"/>
                         <outlet property="tableView" destination="ufN-Wk-7K8" id="DTD-Qh-tG4"/>
