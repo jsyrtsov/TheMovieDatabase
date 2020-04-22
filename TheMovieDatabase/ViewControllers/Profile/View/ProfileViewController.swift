@@ -11,6 +11,7 @@ import UIKit
 final class ProfileViewController: UIViewController {
 
     // MARK: - Properties
+
     private let profileService = ProfileService()
     private let moviesLoadingService = MoviesLoadingService()
     private let authorizationService = AuthorizationService()
@@ -27,12 +28,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        if AuthorizationService.getSessionId() != nil {
-            getAccountDetails()
-        } else {
-            activityIndicator.stopAnimating()
-            activityIndicator.isHidden = true
-        }
+        getAccountDetails()
     }
 
     // MARK: - IBActions
@@ -66,9 +62,6 @@ final class ProfileViewController: UIViewController {
     // MARK: - Private Methods
 
     private func getAccountDetails() {
-        activityIndicator.startAnimating()
-        activityIndicator.isHidden = false
-        setAccountDetails(hidden: true)
         profileService.getAccountDetails { [weak self] (account) in
             guard
                 let self = self,
@@ -82,10 +75,12 @@ final class ProfileViewController: UIViewController {
     }
 
     private func configureView() {
+        activityIndicator.startAnimating()
+        setAccountDetails(hidden: true)
         navigationController?.navigationBar.prefersLargeTitles = true
         loginButton.tintColor = .systemBlue
         self.title = UserDefaults.standard.username
-        helloLabel.text = "hello, \(UserDefaults.standard.username)"
+        helloLabel.text = "Hello, \(UserDefaults.standard.username)"
         if AuthorizationService.getSessionId() != nil {
             loginButton.setTitle("LOG OUT", for: .normal)
             loginButton.tintColor = .red

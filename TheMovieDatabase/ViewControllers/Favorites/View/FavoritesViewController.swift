@@ -30,9 +30,7 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        if AuthorizationService.getSessionId() != nil {
-            loadFavoriteMovies()
-        }
+        loadFavoriteMovies()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -40,13 +38,9 @@ final class FavoritesViewController: UIViewController {
         if wasShown {
             movies = moviesLoadingService.getFavoriteMovies()
             if movies.isEmpty {
-                tableView.isHidden = true
-                blankImage.isHidden = false
-                blankTitle.isHidden = false
+                setBlankState(hidden: false)
             } else {
-                tableView.isHidden = false
-                blankImage.isHidden = true
-                blankTitle.isHidden = true
+                setBlankState(hidden: true)
             }
             tableView.reloadData()
         } else {
@@ -57,7 +51,8 @@ final class FavoritesViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureView() {
-        activityIndicator.isHidden = true
+        activityIndicator.startAnimating()
+        setBlankState(hidden: true)
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.delegate = self
         tableView.dataSource = self
@@ -67,16 +62,7 @@ final class FavoritesViewController: UIViewController {
     }
 
     private func loadFavoriteMovies() {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-        blankImage.isHidden = true
-        blankTitle.isHidden = true
-
-        let movies = moviesLoadingService.getFavoriteMovies()
-        for movie in movies {
-            moviesLoadingService.removeMovie(id: movie.id)
-        }
-        moviesLoadingService.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
+        moviesLoadingService.TESTloadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
             guard
                 let self = self,
                 let movies = movies
@@ -90,17 +76,19 @@ final class FavoritesViewController: UIViewController {
     }
 
     private func updateView() {
-        activityIndicator.isHidden = true
+        activityIndicator.hidesWhenStopped = true
         activityIndicator.stopAnimating()
         if movies.isEmpty {
-            tableView.isHidden = true
-            blankImage.isHidden = false
-            blankTitle.isHidden = false
+            setBlankState(hidden: false)
         } else {
-            tableView.isHidden = false
-            blankImage.isHidden = true
-            blankTitle.isHidden = true
+            setBlankState(hidden: true)
         }
+    }
+
+    private func setBlankState(hidden isHidden: Bool) {
+        blankImage.isHidden = isHidden
+        blankTitle.isHidden = isHidden
+        tableView.isHidden = !isHidden
     }
 }
 

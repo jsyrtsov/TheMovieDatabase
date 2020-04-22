@@ -13,7 +13,6 @@ final class MoviesLoadingService {
     // MARK: - Properties
 
     private let storageMoviesService = MoviesStorageService()
-    //private let authorizationService = AuthorizationService()
     private var totalPages: Int = 1
     private var currentPage: Int = 1
     private var query: String?
@@ -73,49 +72,57 @@ final class MoviesLoadingService {
         }.resume()
     }
 
-    func loadFavoriteMovies(accountId: Int, completion: @escaping ([Movie]?) -> Void) {
-        guard
-            let url = URL(string: UrlParts.baseUrl + "account/\(accountId)/favorite/movies")?
-                .appending("api_key", value: UrlParts.apiKey)?
-                .appending("session_id", value: AuthorizationService.getSessionId())?
-                .appending("page", value: String(currentPage))
-        else {
-            return
-        }
-        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+    func TESTloadFavoriteMovies(accountId: Int, completion: @escaping ([Movie]?) -> Void) {
+        if AuthorizationService.getSessionId() != nil {
+            let movies = self.getFavoriteMovies()
+            for movie in movies {
+                self.removeMovie(id: movie.id)
+            }
             guard
-                let self = self,
-                let data = data
+                let url = URL(string: UrlParts.baseUrl + "account/\(accountId)/favorite/movies")?
+                    .appending("api_key", value: UrlParts.apiKey)?
+                    .appending("session_id", value: AuthorizationService.getSessionId())?
+                    .appending("page", value: String(currentPage))
             else {
                 return
             }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            do {
-                let result = try decoder.decode(MoviesListResponse.self, from: data)
-                DispatchQueue.main.async {
-                    guard
-                        let totalPages = result.totalPages,
-                        let movies = result.results
-                    else {
-                        return
-                    }
-                    self.totalPages = totalPages
-                    if self.currentPage < totalPages {
-                        self.canLoadMore = true
-                    } else {
-                        self.canLoadMore = false
-                    }
-                    self.currentPage += 1
-                    for movie in movies {
-                        self.storageMoviesService.saveMovie(movie: movie)
-                    }
-                    completion(movies)
+            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+                guard
+                    let self = self,
+                    let data = data
+                else {
+                    return
                 }
-            } catch {
-                completion(nil)
-            }
-        }.resume()
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                do {
+                    let result = try decoder.decode(MoviesListResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        guard
+                            let totalPages = result.totalPages,
+                            let movies = result.results
+                        else {
+                            return
+                        }
+                        self.totalPages = totalPages
+                        if self.currentPage < totalPages {
+                            self.canLoadMore = true
+                        } else {
+                            self.canLoadMore = false
+                        }
+                        self.currentPage += 1
+                        for movie in movies {
+                            self.storageMoviesService.saveMovie(movie: movie)
+                        }
+                        completion(movies)
+                    }
+                } catch {
+                    completion(nil)
+                }
+            }.resume()
+        } else {
+            completion(storageMoviesService.getFavoriteMovies())
+        }
     }
 
     func loadDetails(movieId: Int, completion: @escaping (DetailedMovie?) -> Void) {
