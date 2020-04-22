@@ -18,8 +18,8 @@ final class AuthorizationService {
 
     // MARK: - Methods
 
-    func getSessionId() -> String? {
-        return Locksmith.getSessionId()
+    static func getSessionId() -> String? {
+        return Locksmith.sessionId
     }
 
     func login(login: String, password: String) {
@@ -70,7 +70,7 @@ final class AuthorizationService {
         guard
             let url = URL(string: UrlParts.baseUrl + "authentication/session")?
                 .appending("api_key", value: UrlParts.apiKey),
-            let sessionId = self.getSessionId()
+            let sessionId = AuthorizationService.getSessionId()
         else {
             return
         }

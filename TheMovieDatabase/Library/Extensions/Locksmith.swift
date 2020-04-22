@@ -11,7 +11,7 @@ import Locksmith
 
 extension Locksmith {
     static let loggedUserAccount = "loggedUserAccout"
-    static func getSessionId() -> String? {
+    static var sessionId: String? {
         let dictionary = Locksmith.loadDataForUserAccount(userAccount: Locksmith.loggedUserAccount)
         guard
             let sessionId = dictionary?["sessionId"] as? String

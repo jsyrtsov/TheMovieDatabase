@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Locksmith
 
 final class ProfileService {
 
@@ -15,7 +14,7 @@ final class ProfileService {
 
     func getAccountDetails(completion: @escaping (Account?) -> Void) {
         guard
-            let sessionId = Locksmith.getSessionId(),
+            let sessionId = AuthorizationService.getSessionId(),
             let url = URL(string: UrlParts.baseUrl + "account")?
                 .appending("api_key", value: UrlParts.apiKey)?
                 .appending("session_id", value: sessionId)
@@ -49,7 +48,7 @@ final class ProfileService {
             let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: []),
             let url = URL(string: UrlParts.baseUrl + "account/\(UserDefaults.standard.accountId)/favorite")?
                 .appending("api_key", value: UrlParts.apiKey)?
-                .appending("session_id", value: Locksmith.getSessionId())
+                .appending("session_id", value: AuthorizationService.getSessionId())
         else {
             return completion(false)
         }

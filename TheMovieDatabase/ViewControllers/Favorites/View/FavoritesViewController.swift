@@ -15,7 +15,6 @@ final class FavoritesViewController: UIViewController {
     private let accountId = UserDefaults.standard.accountId
     private let moviesLoadingService = MoviesLoadingService()
     private let profileService = ProfileService()
-    private let authorizationService = AuthorizationService()
     private var movies: [Movie] = []
     private var wasShown = false
 
@@ -31,7 +30,7 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        if authorizationService.getSessionId() != nil {
+        if AuthorizationService.getSessionId() != nil {
             loadFavoriteMovies()
         }
     }
@@ -140,7 +139,7 @@ extension FavoritesViewController: UITableViewDataSource {
             return
         }
         if editingStyle == .delete {
-            if authorizationService.getSessionId() != nil {
+            if AuthorizationService.getSessionId() != nil {
                 profileService.setFavoriteTo(false, movieId: movieId) { [weak self] (success) in
                     guard let self = self else {
                         return

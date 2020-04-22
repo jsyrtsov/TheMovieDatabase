@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import Locksmith
 
 final class MoviesLoadingService {
 
     // MARK: - Properties
 
     private let storageMoviesService = MoviesStorageService()
+    //private let authorizationService = AuthorizationService()
     private var totalPages: Int = 1
     private var currentPage: Int = 1
     private var query: String?
@@ -77,7 +77,7 @@ final class MoviesLoadingService {
         guard
             let url = URL(string: UrlParts.baseUrl + "account/\(accountId)/favorite/movies")?
                 .appending("api_key", value: UrlParts.apiKey)?
-                .appending("session_id", value: Locksmith.getSessionId())?
+                .appending("session_id", value: AuthorizationService.getSessionId())?
                 .appending("page", value: String(currentPage))
         else {
             return

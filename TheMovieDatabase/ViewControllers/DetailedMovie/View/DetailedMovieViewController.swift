@@ -20,7 +20,6 @@ final class DetailedMovieViewController: UIViewController {
     private let extractor = LinkExtractor()
     private let moviesLoadingService = MoviesLoadingService()
     private let profileService = ProfileService()
-    private let authorizationService = AuthorizationService()
     private var detailedMovie: DetailedMovie?
     private var crew: [CrewEntry] = []
     private var cast: [CastEntry] = []
@@ -225,7 +224,7 @@ final class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
-        if authorizationService.getSessionId() != nil {
+        if AuthorizationService.getSessionId() != nil {
             var barButtonItem = UIBarButtonItem(customView: favoriteActivityIndicator)
             navigationItem.rightBarButtonItem = barButtonItem
             favoriteActivityIndicator.startAnimating()

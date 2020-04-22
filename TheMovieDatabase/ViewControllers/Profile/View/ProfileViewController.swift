@@ -27,7 +27,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        if authorizationService.getSessionId() != nil {
+        if AuthorizationService.getSessionId() != nil {
             getAccountDetails()
         } else {
             activityIndicator.stopAnimating()
@@ -45,7 +45,7 @@ final class ProfileViewController: UIViewController {
     @IBAction private func logInOrOutAction(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let movies = moviesLoadingService.getFavoriteMovies()
-        if authorizationService.getSessionId() != nil {
+        if AuthorizationService.getSessionId() != nil {
             authorizationService.logout { (result) in
                 //MAYBE DO SOMETHING HERE, MAYBE DO NOT
             }
@@ -86,7 +86,7 @@ final class ProfileViewController: UIViewController {
         loginButton.tintColor = .systemBlue
         self.title = UserDefaults.standard.username
         helloLabel.text = "hello, \(UserDefaults.standard.username)"
-        if authorizationService.getSessionId() != nil {
+        if AuthorizationService.getSessionId() != nil {
             loginButton.setTitle("LOG OUT", for: .normal)
             loginButton.tintColor = .red
         } else {
