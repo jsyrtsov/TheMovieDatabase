@@ -62,7 +62,7 @@ final class FavoritesViewController: UIViewController {
     }
 
     private func loadFavoriteMovies() {
-        moviesLoadingService.TESTloadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
+        moviesLoadingService.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
             guard
                 let self = self,
                 let movies = movies
@@ -126,41 +126,25 @@ extension FavoritesViewController: UITableViewDataSource {
         guard let movieId = movies[indexPath.row].id else {
             return
         }
+        let detailedMovie = moviesLoadingService.getMovieInfo(id: movieId)
         if editingStyle == .delete {
-            if AuthorizationService.getSessionId() != nil {
-                profileService.setFavoriteTo(false, movieId: movieId) { [weak self] (success) in
-                    guard let self = self else {
-                        return
-                    }
-                    if success {
-                        self.moviesLoadingService.removeMovie(id: movieId)
-                        self.movies = self.moviesLoadingService.getFavoriteMovies()
-                        if self.movies.isEmpty {
-                            tableView.isHidden = true
-                            self.blankImage.isHidden = false
-                            self.blankTitle.isHidden = false
-                        } else {
-                            tableView.isHidden = false
-                            self.blankImage.isHidden = true
-                            self.blankTitle.isHidden = true
-                        }
-                        tableView.reloadData()
-                    }
+            profileService.setFavoriteTo(
+                false,
+                movie: movies[indexPath.row],
+                detailedMovie: detailedMovie
+            ) { [weak self] (result, movies) in
+                guard let self = self, let movies = movies else {
+                    return
                 }
-            } else {
-                moviesLoadingService.removeMovie(id: movieId)
-                moviesLoadingService.removeDetailedMovie(id: movieId)
-                movies = moviesLoadingService.getFavoriteMovies()
-                if movies.isEmpty {
-                    tableView.isHidden = true
-                    blankImage.isHidden = false
-                    blankTitle.isHidden = false
-                } else {
-                    tableView.isHidden = false
-                    blankImage.isHidden = true
-                    blankTitle.isHidden = true
+                if result {
+                    self.movies = movies
+                    if self.movies.isEmpty {
+                        self.setBlankState(hidden: false)
+                    } else {
+                        self.setBlankState(hidden: true)
+                    }
+                    tableView.reloadData()
                 }
-                tableView.reloadData()
             }
         }
     }

@@ -72,7 +72,7 @@ final class MoviesLoadingService {
         }.resume()
     }
 
-    func TESTloadFavoriteMovies(accountId: Int, completion: @escaping ([Movie]?) -> Void) {
+    func loadFavoriteMovies(accountId: Int, completion: @escaping ([Movie]?) -> Void) {
         if AuthorizationService.getSessionId() != nil {
             let movies = self.getFavoriteMovies()
             for movie in movies {

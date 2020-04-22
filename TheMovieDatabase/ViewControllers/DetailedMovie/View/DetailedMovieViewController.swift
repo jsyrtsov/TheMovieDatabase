@@ -224,48 +224,31 @@ final class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
-        if AuthorizationService.getSessionId() != nil {
-            var barButtonItem = UIBarButtonItem(customView: favoriteActivityIndicator)
-            navigationItem.rightBarButtonItem = barButtonItem
-            favoriteActivityIndicator.startAnimating()
-            favoriteActivityIndicator.hidesWhenStopped = true
-            guard let movieId = movieId else {
+        var barButtonItem = UIBarButtonItem(customView: favoriteActivityIndicator)
+        navigationItem.rightBarButtonItem = barButtonItem
+        favoriteActivityIndicator.startAnimating()
+        favoriteActivityIndicator.hidesWhenStopped = true
+        profileService.setFavoriteTo(!isFavorite,
+                                     movie: movie,
+                                     detailedMovie: detailedMovie) { [weak self] (result, movies) in
+            guard let self = self else {
                 return
             }
-            profileService.setFavoriteTo(!isFavorite, movieId: movieId) { [weak self] (result) in
-                guard let self = self else {
-                    return
-                }
-                if result {
-                    self.favoriteActivityIndicator.stopAnimating()
-                    if self.isFavorite {
-                        self.isFavorite = false
-                        self.favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
-                        barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
-                        self.navigationItem.rightBarButtonItem = barButtonItem
-                        self.moviesLoadingService.removeMovie(id: movieId)
-                    } else {
-                        self.isFavorite = true
-                        self.favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
-                        barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
-                        self.navigationItem.rightBarButtonItem = barButtonItem
-                        self.moviesLoadingService.saveMovie(movie: self.movie)
-                    }
+            if result {
+                self.favoriteActivityIndicator.stopAnimating()
+                if self.isFavorite {
+                    self.isFavorite = false
+                    self.favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
+                    barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
+                    self.navigationItem.rightBarButtonItem = barButtonItem
                 } else {
-                    print("unable to change state")
+                    self.isFavorite = true
+                    self.favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
+                    barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
+                    self.navigationItem.rightBarButtonItem = barButtonItem
                 }
-            }
-        } else {
-            if isFavorite {
-                isFavorite = false
-                favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
-                moviesLoadingService.removeMovie(id: movieId)
-                moviesLoadingService.removeDetailedMovie(id: movieId)
             } else {
-                isFavorite = true
-                favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
-                moviesLoadingService.saveDetailedMovie(detailedMovie: detailedMovie)
-                moviesLoadingService.saveMovie(movie: movie)
+                print("unable to change state")
             }
         }
     }

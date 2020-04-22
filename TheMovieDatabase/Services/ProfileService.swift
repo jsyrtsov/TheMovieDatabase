@@ -12,6 +12,7 @@ final class ProfileService {
 
     // MARK: - Properties
 
+    private let moviesLoadingService = MoviesLoadingService()
     private let guestAccount = Account(id: nil,
                                        name: "Guest",
                                        username: "Guest",
@@ -49,47 +50,73 @@ final class ProfileService {
         }
     }
 
-    func setFavoriteTo(_ isFavorite: Bool, movieId: Int, completion: @escaping (Bool) -> Void) {
-        let userData = [
-            "media_type": "movie",
-            "media_id": movieId,
-            "favorite": isFavorite
-        ] as [String: Any]
-        guard
-            let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: []),
-            let url = URL(string: UrlParts.baseUrl + "account/\(UserDefaults.standard.accountId)/favorite")?
-                .appending("api_key", value: UrlParts.apiKey)?
-                .appending("session_id", value: AuthorizationService.getSessionId())
-        else {
-            return completion(false)
+    func setFavoriteTo(_ isFavorite: Bool,
+                       movie: Movie?,
+                       detailedMovie: DetailedMovie?,
+                       completion: @escaping (Bool, [Movie]?) -> Void) {
+        guard let movieId = movie?.id else {
+            return
         }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        urlRequest.httpBody = httpBody
-        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            guard let data = data else {
-                return completion(false)
+        if AuthorizationService.getSessionId() != nil {
+            let userData = [
+                "media_type": "movie",
+                "media_id": movieId,
+                "favorite": isFavorite
+            ] as [String: Any]
+            guard
+                let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: []),
+                let url = URL(string: UrlParts.baseUrl + "account/\(UserDefaults.standard.accountId)/favorite")?
+                    .appending("api_key", value: UrlParts.apiKey)?
+                    .appending("session_id", value: AuthorizationService.getSessionId())
+            else {
+                return completion(false, [])
             }
-            do {
-                let result = try decoder.decode(SetFavoriteResponse.self, from: data)
-                DispatchQueue.main.async {
-                    guard let statusCode = result.statusCode else {
-                        return
-                    }
-                    if statusCode == 1 || statusCode == 13 {
-                        completion(true)
-                    } else {
-                        completion(false)
-                    }
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = "POST"
+            urlRequest.httpBody = httpBody
+            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+            URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                guard let data = data else {
+                    return completion(false, [])
                 }
-            } catch {
-                completion(false)
+                do {
+                    let result = try decoder.decode(SetFavoriteResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        guard let statusCode = result.statusCode else {
+                            return
+                        }
+                        if statusCode == 1 || statusCode == 13 {
+                            if isFavorite {
+                                self.moviesLoadingService.saveMovie(movie: movie)
+                                self.moviesLoadingService.saveDetailedMovie(detailedMovie: detailedMovie)
+                            } else {
+                                self.moviesLoadingService.removeMovie(id: movieId)
+                                self.moviesLoadingService.removeDetailedMovie(id: movieId)
+                            }
+                            let movies = self.moviesLoadingService.getFavoriteMovies()
+                            completion(true, movies)
+                        } else {
+                            completion(false, [])
+                        }
+                    }
+                } catch {
+                    completion(false, [])
+                }
+            }.resume()
+        } else {
+            if isFavorite {
+                self.moviesLoadingService.saveMovie(movie: movie)
+                self.moviesLoadingService.saveDetailedMovie(detailedMovie: detailedMovie)
+            } else {
+                self.moviesLoadingService.removeMovie(id: movieId)
+                self.moviesLoadingService.removeDetailedMovie(id: movieId)
             }
-        }.resume()
+            let movies = self.moviesLoadingService.getFavoriteMovies()
+            completion(true, movies)
+        }
     }
 }
 
