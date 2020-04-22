@@ -8,7 +8,6 @@
 
 import UIKit
 import AVKit
-import Locksmith
 
 final class DetailedMovieViewController: UIViewController {
 
@@ -19,8 +18,9 @@ final class DetailedMovieViewController: UIViewController {
     var movieId: Int?
     var movie: Movie?
     private let extractor = LinkExtractor()
-    private let service = MoviesLoadingService()
+    private let moviesLoadingService = MoviesLoadingService()
     private let profileService = ProfileService()
+    private let authorizationService = AuthorizationService()
     private var detailedMovie: DetailedMovie?
     private var crew: [CrewEntry] = []
     private var cast: [CastEntry] = []
@@ -116,7 +116,7 @@ final class DetailedMovieViewController: UIViewController {
         guard let movieId = movieId else {
             return
         }
-        service.loadVideos(movieId: movieId) { [weak self] (result) in
+        moviesLoadingService.loadVideos(movieId: movieId) { [weak self] (result) in
             guard let self = self, let result = result else {
                 return
             }
@@ -124,14 +124,14 @@ final class DetailedMovieViewController: UIViewController {
             self.videosCollectionView.reloadData()
         }
 
-        service.loadDetails(movieId: movieId) { [weak self] (result) in
+        moviesLoadingService.loadDetails(movieId: movieId) { [weak self] (result) in
             guard let self = self, let result = result else {
                 return
             }
             self.detailedMovie = result
             self.updateView()
         }
-        service.loadCastAndCrew(movieId: movieId) { [weak self] (resultCast, resultCrew) in
+        moviesLoadingService.loadCastAndCrew(movieId: movieId) { [weak self] (resultCast, resultCrew) in
             guard
                 let self = self,
                 let resultCast = resultCast,
@@ -225,7 +225,7 @@ final class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
-        if Locksmith.getSessionId() != nil {
+        if authorizationService.getSessionId() != nil {
             var barButtonItem = UIBarButtonItem(customView: favoriteActivityIndicator)
             navigationItem.rightBarButtonItem = barButtonItem
             favoriteActivityIndicator.startAnimating()
@@ -244,13 +244,13 @@ final class DetailedMovieViewController: UIViewController {
                         self.favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
                         barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
                         self.navigationItem.rightBarButtonItem = barButtonItem
-                        self.service.removeMovie(id: movieId)
+                        self.moviesLoadingService.removeMovie(id: movieId)
                     } else {
                         self.isFavorite = true
                         self.favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
                         barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
                         self.navigationItem.rightBarButtonItem = barButtonItem
-                        self.service.saveMovie(movie: self.movie)
+                        self.moviesLoadingService.saveMovie(movie: self.movie)
                     }
                 } else {
                     print("unable to change state")
@@ -260,19 +260,19 @@ final class DetailedMovieViewController: UIViewController {
             if isFavorite {
                 isFavorite = false
                 favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
-                service.removeMovie(id: movieId)
-                service.removeDetailedMovie(id: movieId)
+                moviesLoadingService.removeMovie(id: movieId)
+                moviesLoadingService.removeDetailedMovie(id: movieId)
             } else {
                 isFavorite = true
                 favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
-                service.saveDetailedMovie(detailedMovie: detailedMovie)
-                service.saveMovie(movie: movie)
+                moviesLoadingService.saveDetailedMovie(detailedMovie: detailedMovie)
+                moviesLoadingService.saveMovie(movie: movie)
             }
         }
     }
 
     private func checkFavorite() {
-        if service.isListedMovie(id: movieId) {
+        if moviesLoadingService.isListedMovie(id: movieId) {
             isFavorite = true
             favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
         } else {

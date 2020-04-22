@@ -35,10 +35,6 @@ final class PersonMovieTableViewCell: UITableViewCell {
     func configure(personMovie: PersonMovie) {
         if personMovie.posterPath == nil {
             posterImage.image = #imageLiteral(resourceName: "moviePosterPlaceHolder")
-            posterImage.backgroundColor = UIColor(red: 244 / 255,
-                                                  green: 244 / 255,
-                                                  blue: 244 / 255,
-                                                  alpha: 1)
         } else {
             posterImage.loadPicture(posterPath: personMovie.posterPath)
         }
@@ -60,6 +56,7 @@ final class PersonMovieTableViewCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func configureUI() {
+        selectionStyle = .none
         baseShadowView.applyShadow(radius: 6, opacity: 0.06, offsetW: 2, offsetH: 2)
         baseShadowView.layer.cornerRadius = 5
         posterImage.layer.cornerRadius = 3

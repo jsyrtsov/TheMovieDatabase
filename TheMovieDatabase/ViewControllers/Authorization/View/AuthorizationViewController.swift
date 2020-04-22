@@ -12,7 +12,6 @@ final class AuthorizationViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let service = AuthorizationService()
 
     // MARK: - Subviews
@@ -39,6 +38,7 @@ final class AuthorizationViewController: UIViewController {
     }
 
     @IBAction private func tryAsGuestAction(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
         UserDefaults.standard.loginViewWasShown = true
         appDelegate?.initializeRootView()
     }

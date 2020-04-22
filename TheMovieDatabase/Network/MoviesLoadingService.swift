@@ -82,16 +82,22 @@ final class MoviesLoadingService {
         else {
             return
         }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            guard let data = data else {
+        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            guard
+                let self = self,
+                let data = data
+            else {
                 return
             }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             do {
                 let result = try decoder.decode(MoviesListResponse.self, from: data)
                 DispatchQueue.main.async {
-                    guard let totalPages = result.totalPages else {
+                    guard
+                        let totalPages = result.totalPages,
+                        let movies = result.results
+                    else {
                         return
                     }
                     self.totalPages = totalPages
@@ -101,7 +107,10 @@ final class MoviesLoadingService {
                         self.canLoadMore = false
                     }
                     self.currentPage += 1
-                    completion(result.results)
+                    for movie in movies {
+                        self.storageMoviesService.saveMovie(movie: movie)
+                    }
+                    completion(movies)
                 }
             } catch {
                 completion(nil)

@@ -11,10 +11,9 @@ import UIKit
 final class ProfileViewController: UIViewController {
 
     // MARK: - Properties
-    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let profileService = ProfileService()
     private let moviesLoadingService = MoviesLoadingService()
-    private let authService = AuthorizationService()
+    private let authorizationService = AuthorizationService()
     private var account: Account?
 
     // MARK: - Subviews
@@ -28,7 +27,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        if authService.getSessionId() != nil {
+        if authorizationService.getSessionId() != nil {
             getAccountDetails()
         } else {
             activityIndicator.stopAnimating()
@@ -40,14 +39,14 @@ final class ProfileViewController: UIViewController {
 
     @IBAction private func showFavoriteMovies(_ sender: Any) {
         let favoritesVC = FavoritesConfigurator().configure()
-        favoritesVC.accountId = UserDefaults.standard.accountId
         navigationController?.pushViewController(favoritesVC, animated: true)
     }
 
     @IBAction private func logInOrOutAction(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let movies = moviesLoadingService.getFavoriteMovies()
-        if authService.getSessionId() != nil {
-            authService.logout { (result) in
+        if authorizationService.getSessionId() != nil {
+            authorizationService.logout { (result) in
                 //MAYBE DO SOMETHING HERE, MAYBE DO NOT
             }
             for movie in movies {
@@ -87,7 +86,7 @@ final class ProfileViewController: UIViewController {
         loginButton.tintColor = .systemBlue
         self.title = UserDefaults.standard.username
         helloLabel.text = "hello, \(UserDefaults.standard.username)"
-        if authService.getSessionId() != nil {
+        if authorizationService.getSessionId() != nil {
             loginButton.setTitle("LOG OUT", for: .normal)
             loginButton.tintColor = .red
         } else {

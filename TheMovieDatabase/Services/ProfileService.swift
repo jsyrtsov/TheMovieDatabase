@@ -11,10 +11,6 @@ import Locksmith
 
 final class ProfileService {
 
-    // MARK: - Properties
-
-    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
-
     // MARK: - Methods
 
     func getAccountDetails(completion: @escaping (Account?) -> Void) {
@@ -55,7 +51,7 @@ final class ProfileService {
                 .appending("api_key", value: UrlParts.apiKey)?
                 .appending("session_id", value: Locksmith.getSessionId())
         else {
-            return
+            return completion(false)
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"

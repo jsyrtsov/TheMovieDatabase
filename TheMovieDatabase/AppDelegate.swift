@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         let feedViewController = FeedConfigurator().configure()
         let favoritesViewController = FavoritesConfigurator().configure()
-        favoritesViewController.accountId = UserDefaults.standard.accountId
         let searchMovieViewController = SearchMovieConfigurator().configure()
         let profileViewController = ProfileConfigurator().configure()
 

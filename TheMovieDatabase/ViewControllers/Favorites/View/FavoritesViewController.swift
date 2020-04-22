@@ -7,15 +7,15 @@
 //
 
 import UIKit
-import Locksmith
 
 final class FavoritesViewController: UIViewController {
 
     // MARK: - Properties
 
-    var accountId: Int?
-    private let service = MoviesLoadingService()
+    private let accountId = UserDefaults.standard.accountId
+    private let moviesLoadingService = MoviesLoadingService()
     private let profileService = ProfileService()
+    private let authorizationService = AuthorizationService()
     private var movies: [Movie] = []
     private var wasShown = false
 
@@ -31,7 +31,7 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        if Locksmith.getSessionId() != nil {
+        if authorizationService.getSessionId() != nil {
             loadFavoriteMovies()
         }
     }
@@ -39,7 +39,7 @@ final class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if wasShown {
-            movies = service.getFavoriteMovies()
+            movies = moviesLoadingService.getFavoriteMovies()
             if movies.isEmpty {
                 tableView.isHidden = true
                 blankImage.isHidden = false
@@ -73,26 +73,20 @@ final class FavoritesViewController: UIViewController {
         blankImage.isHidden = true
         blankTitle.isHidden = true
 
-        guard let accountId = accountId else {
-            return
-        }
-        let movies = service.getFavoriteMovies()
+        let movies = moviesLoadingService.getFavoriteMovies()
         for movie in movies {
-            service.removeMovie(id: movie.id)
+            moviesLoadingService.removeMovie(id: movie.id)
         }
-        service.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
+        moviesLoadingService.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
             guard
                 let self = self,
                 let movies = movies
             else {
                 return
             }
-            for movie in movies {
-                self.service.saveMovie(movie: movie)
-            }
             self.movies = movies
-            self.updateView()
             self.tableView.reloadData()
+            self.updateView()
         }
     }
 
@@ -146,14 +140,14 @@ extension FavoritesViewController: UITableViewDataSource {
             return
         }
         if editingStyle == .delete {
-            if Locksmith.getSessionId() != nil {
+            if authorizationService.getSessionId() != nil {
                 profileService.setFavoriteTo(false, movieId: movieId) { [weak self] (success) in
                     guard let self = self else {
                         return
                     }
                     if success {
-                        self.service.removeMovie(id: movieId)
-                        self.movies = self.service.getFavoriteMovies()
+                        self.moviesLoadingService.removeMovie(id: movieId)
+                        self.movies = self.moviesLoadingService.getFavoriteMovies()
                         if self.movies.isEmpty {
                             tableView.isHidden = true
                             self.blankImage.isHidden = false
@@ -167,9 +161,9 @@ extension FavoritesViewController: UITableViewDataSource {
                     }
                 }
             } else {
-                service.removeMovie(id: movieId)
-                service.removeDetailedMovie(id: movieId)
-                movies = service.getFavoriteMovies()
+                moviesLoadingService.removeMovie(id: movieId)
+                moviesLoadingService.removeDetailedMovie(id: movieId)
+                movies = moviesLoadingService.getFavoriteMovies()
                 if movies.isEmpty {
                     tableView.isHidden = true
                     blankImage.isHidden = false
