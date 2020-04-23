@@ -42,13 +42,20 @@ final class ProfileViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let movies = moviesLoadingService.getFavoriteMovies()
         if AuthorizationService.getSessionId() != nil {
-            authorizationService.logout { (result) in
-                //MAYBE DO SOMETHING HERE, MAYBE DO NOT
+            authorizationService.logout { [weak self] (result) in
+                guard let self = self else {
+                    return
+                }
+                switch result {
+                case .success(()):
+                    for movie in movies {
+                        self.moviesLoadingService.removeMovie(id: movie.id)
+                    }
+                    appDelegate?.initializeAuthView()
+                case .failure(let error):
+                    UIAlertController.showAlert(on: self, message: error.localizedDescription)
+                }
             }
-            for movie in movies {
-                moviesLoadingService.removeMovie(id: movie.id)
-            }
-            appDelegate?.initializeAuthView()
         } else {
             for movie in movies {
                 moviesLoadingService.removeMovie(id: movie.id)
@@ -62,15 +69,20 @@ final class ProfileViewController: UIViewController {
     // MARK: - Private Methods
 
     private func getAccountDetails() {
-        profileService.getAccountDetails { [weak self] (account) in
-            guard
-                let self = self,
-                let account = account
-            else {
+        profileService.getAccountDetails { [weak self] (result) in
+            guard let self = self else {
                 return
             }
-            self.account = account
-            self.updateView()
+            switch result {
+            case .success(let account):
+                guard let account = account else {
+                    return
+                }
+                self.account = account
+                self.updateView()
+            case .failure(let error):
+                UIAlertController.showAlert(on: self, message: error.localizedDescription)
+            }
         }
     }
 

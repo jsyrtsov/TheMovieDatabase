@@ -228,13 +228,16 @@ final class DetailedMovieViewController: UIViewController {
         navigationItem.rightBarButtonItem = barButtonItem
         favoriteActivityIndicator.startAnimating()
         favoriteActivityIndicator.hidesWhenStopped = true
-        profileService.setFavoriteTo(!isFavorite,
-                                     movie: movie,
-                                     detailedMovie: detailedMovie) { [weak self] (result, movies) in
+        profileService.setFavoriteTo(
+            !isFavorite,
+            movie: movie,
+            detailedMovie: detailedMovie
+        ) { [weak self] (result) in
             guard let self = self else {
                 return
             }
-            if result {
+            switch result {
+            case .success( _):
                 self.favoriteActivityIndicator.stopAnimating()
                 if self.isFavorite {
                     self.isFavorite = false
@@ -247,8 +250,8 @@ final class DetailedMovieViewController: UIViewController {
                     barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
                     self.navigationItem.rightBarButtonItem = barButtonItem
                 }
-            } else {
-                print("unable to change state")
+            case .failure(let error):
+                UIAlertController.showAlert(on: self, message: error.localizedDescription)
             }
         }
     }

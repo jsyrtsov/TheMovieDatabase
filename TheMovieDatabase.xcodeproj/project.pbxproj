@@ -53,6 +53,8 @@
 		28AB0BE1243A57CC0018B08E /* PersonModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AB0BE0243A57CC0018B08E /* PersonModuleInput.swift */; };
 		28AB0BE3243A58DF0018B08E /* PersonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AB0BE2243A58DF0018B08E /* PersonRouter.swift */; };
 		28BB5E87242E61B400BA62F8 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB5E86242E61B400BA62F8 /* PersonViewController.swift */; };
+		28BF15FE2451B30700CBAB41 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BF15FD2451B30700CBAB41 /* NetworkError.swift */; };
+		28BF16002451B9F200CBAB41 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BF15FF2451B9F200CBAB41 /* UIAlertController.swift */; };
 		28C75EE824257EFC00BB6E70 /* DetailedMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EE724257EFC00BB6E70 /* DetailedMovieViewController.swift */; };
 		28C75EEB24260D8E00BB6E70 /* PersonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75EE924260D8E00BB6E70 /* PersonCollectionViewCell.swift */; };
 		28C75EEC24260D8E00BB6E70 /* PersonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C75EEA24260D8E00BB6E70 /* PersonCollectionViewCell.xib */; };
@@ -143,6 +145,8 @@
 		28AB0BE0243A57CC0018B08E /* PersonModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModuleInput.swift; sourceTree = "<group>"; };
 		28AB0BE2243A58DF0018B08E /* PersonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRouter.swift; sourceTree = "<group>"; };
 		28BB5E86242E61B400BA62F8 /* PersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
+		28BF15FD2451B30700CBAB41 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		28BF15FF2451B9F200CBAB41 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		28C75EE724257EFC00BB6E70 /* DetailedMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedMovieViewController.swift; sourceTree = "<group>"; };
 		28C75EE924260D8E00BB6E70 /* PersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCollectionViewCell.swift; sourceTree = "<group>"; };
 		28C75EEA24260D8E00BB6E70 /* PersonCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -323,6 +327,7 @@
 				288E935A240667F700D67930 /* UIImageView.swift */,
 				28078C15242A7CD900040DD3 /* UIColor.swift */,
 				28C75EED24260DD300BB6E70 /* UIView.swift */,
+				28BF15FF2451B9F200CBAB41 /* UIAlertController.swift */,
 				28520076240DA55700A8FB05 /* URL.swift */,
 				28D6F7A42449B313001C9C24 /* UserDefaults.swift */,
 				287FF425244AF74300BDE868 /* Locksmith.swift */,
@@ -335,6 +340,7 @@
 			children = (
 				28520070240A698F00A8FB05 /* UrlParts.swift */,
 				28078C1324296DE300040DD3 /* LinkExtractor.swift */,
+				28BF15FD2451B30700CBAB41 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -818,6 +824,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28C75EF42426181C00BB6E70 /* CrewEntry.swift in Sources */,
+				28BF15FE2451B30700CBAB41 /* NetworkError.swift in Sources */,
 				28D6F7A72449BE97001C9C24 /* ProfileService.swift in Sources */,
 				285924C5241FDA5300E5F54A /* MoviesStorageService.swift in Sources */,
 				28078C1124294C4800040DD3 /* VideoCollectionViewCell.swift in Sources */,
@@ -836,6 +843,7 @@
 				28D8B4B92432120F00A6BCDE /* PersonImage.swift in Sources */,
 				28D6F7AE2449F8D3001C9C24 /* ProfileConfigurator.swift in Sources */,
 				28AB0BE3243A58DF0018B08E /* PersonRouter.swift in Sources */,
+				28BF16002451B9F200CBAB41 /* UIAlertController.swift in Sources */,
 				289AE6EF240033740029719B /* AppDelegate.swift in Sources */,
 				286356722449A55C00572385 /* AuthorizationViewController.swift in Sources */,
 				28D8B4B32431F59900A6BCDE /* Person.swift in Sources */,

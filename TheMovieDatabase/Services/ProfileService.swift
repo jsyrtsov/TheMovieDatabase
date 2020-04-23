@@ -20,7 +20,7 @@ final class ProfileService {
 
     // MARK: - Methods
 
-    func getAccountDetails(completion: @escaping (Account?) -> Void) {
+    func getAccountDetails(completion: @escaping (Result<Account?, Error>) -> Void) {
         if AuthorizationService.getSessionId() != nil {
             guard
                 let sessionId = AuthorizationService.getSessionId(),
@@ -31,29 +31,33 @@ final class ProfileService {
                 return
             }
             URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 guard let data = data else {
-                    return
+                    return completion(.failure(NetworkError.noDataProvided))
                 }
                 do {
                     let result = try decoder.decode(Account.self, from: data)
                     DispatchQueue.main.async {
-                        completion(result)
+                        completion(.success(result))
                     }
                 } catch {
-                    completion(nil)
+                    completion(.failure(NetworkError.failedToDecode))
                 }
             }.resume()
         } else {
-            completion(guestAccount)
+            completion(.success(guestAccount))
         }
     }
 
     func setFavoriteTo(_ isFavorite: Bool,
                        movie: Movie?,
                        detailedMovie: DetailedMovie?,
-                       completion: @escaping (Bool, [Movie]?) -> Void) {
+                       completion: @escaping (Result<[Movie]?, Error>) -> Void) {
         guard let movieId = movie?.id else {
             return
         }
@@ -69,7 +73,7 @@ final class ProfileService {
                     .appending("api_key", value: UrlParts.apiKey)?
                     .appending("session_id", value: AuthorizationService.getSessionId())
             else {
-                return completion(false, [])
+                return completion(.failure(NetworkError.invalidHttpBodyData))
             }
             var urlRequest = URLRequest(url: url)
             urlRequest.httpMethod = "POST"
@@ -77,10 +81,14 @@ final class ProfileService {
             urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
             urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
             URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 guard let data = data else {
-                    return completion(false, [])
+                    return completion(.failure(NetworkError.noDataProvided))
                 }
                 do {
                     let result = try decoder.decode(SetFavoriteResponse.self, from: data)
@@ -97,13 +105,11 @@ final class ProfileService {
                                 self.moviesLoadingService.removeDetailedMovie(id: movieId)
                             }
                             let movies = self.moviesLoadingService.getFavoriteMovies()
-                            completion(true, movies)
-                        } else {
-                            completion(false, [])
+                            completion(.success(movies))
                         }
                     }
                 } catch {
-                    completion(false, [])
+                    completion(.failure(NetworkError.failedToDecode))
                 }
             }.resume()
         } else {
@@ -115,7 +121,7 @@ final class ProfileService {
                 self.moviesLoadingService.removeDetailedMovie(id: movieId)
             }
             let movies = self.moviesLoadingService.getFavoriteMovies()
-            completion(true, movies)
+            completion(.success(movies))
         }
     }
 }

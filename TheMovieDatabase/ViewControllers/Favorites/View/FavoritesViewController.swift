@@ -38,9 +38,9 @@ final class FavoritesViewController: UIViewController {
         if wasShown {
             movies = moviesLoadingService.getFavoriteMovies()
             if movies.isEmpty {
-                setBlankState(hidden: false)
+                setEmptyState(hidden: false)
             } else {
-                setBlankState(hidden: true)
+                setEmptyState(hidden: true)
             }
             tableView.reloadData()
         } else {
@@ -52,7 +52,7 @@ final class FavoritesViewController: UIViewController {
 
     private func configureView() {
         activityIndicator.startAnimating()
-        setBlankState(hidden: true)
+        setEmptyState(hidden: true)
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.delegate = self
         tableView.dataSource = self
@@ -79,13 +79,13 @@ final class FavoritesViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
         activityIndicator.stopAnimating()
         if movies.isEmpty {
-            setBlankState(hidden: false)
+            setEmptyState(hidden: false)
         } else {
-            setBlankState(hidden: true)
+            setEmptyState(hidden: true)
         }
     }
 
-    private func setBlankState(hidden isHidden: Bool) {
+    private func setEmptyState(hidden isHidden: Bool) {
         blankImage.isHidden = isHidden
         blankTitle.isHidden = isHidden
         tableView.isHidden = !isHidden
@@ -132,18 +132,24 @@ extension FavoritesViewController: UITableViewDataSource {
                 false,
                 movie: movies[indexPath.row],
                 detailedMovie: detailedMovie
-            ) { [weak self] (result, movies) in
-                guard let self = self, let movies = movies else {
+            ) { [weak self] (result) in
+                guard let self = self else {
                     return
                 }
-                if result {
+                switch result {
+                case .success(let movies):
+                    guard let movies = movies else {
+                        return
+                    }
                     self.movies = movies
                     if self.movies.isEmpty {
-                        self.setBlankState(hidden: false)
+                        self.setEmptyState(hidden: false)
                     } else {
-                        self.setBlankState(hidden: true)
+                        self.setEmptyState(hidden: true)
                     }
                     tableView.reloadData()
+                case .failure(let error):
+                    UIAlertController.showAlert(on: self, message: error.localizedDescription)
                 }
             }
         }

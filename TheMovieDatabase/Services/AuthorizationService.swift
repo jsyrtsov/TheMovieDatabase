@@ -13,7 +13,6 @@ final class AuthorizationService {
 
     // MARK: - Properties
 
-    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let profileService = ProfileService()
 
     // MARK: - Methods
@@ -22,63 +21,81 @@ final class AuthorizationService {
         return Locksmith.sessionId
     }
 
-    func login(login: String, password: String) {
-        getToken { [weak self] (token) in
-            guard
-                let self = self,
-                let token = token
-            else {
+    func login(login: String,
+               password: String,
+               completion: @escaping (Result<Void, Error>) -> Void) {
+        getToken { [weak self] (result) in
+            guard let self = self else {
                 return
             }
-            self.validateToken(token: token, login: login, password: password) { [weak self] (success, token) in
-                guard
-                    let self = self,
-                    let token = token
-                else {
+            switch result {
+            case .success(let token):
+                guard let token = token else {
                     return
                 }
-                self.getSessionId(token: token) { [weak self] (success, sessionId) in
-                    guard
-                        let self = self,
-                        let sessionId = sessionId
-                    else {
+                self.validateToken(token: token, login: login, password: password) { [weak self] (result) in
+                    guard let self = self else {
                         return
                     }
-                    Locksmith.save(sessionId: sessionId)
-                    if success {
-                        self.profileService.getAccountDetails { (account) in
-                            guard
-                                let accountId = account?.id,
-                                let username = account?.username
-                            else {
-                                return
-                            }
-                            UserDefaults.standard.accountId = accountId
-                            UserDefaults.standard.username = username
-                            self.appDelegate?.initializeRootView()
+                    switch result {
+                    case .success(let token):
+                        guard let token = token else {
+                            return
                         }
-                        UserDefaults.standard.loginViewWasShown = true
-                    } else {
-                        Locksmith.deleteUserAccount()
+                        self.getSessionId(token: token) { [weak self] (result) in
+                                guard let self = self else {
+                                    return
+                                }
+                                switch result {
+                                case .success(let sessionId):
+                                    guard let sessionId = sessionId else {
+                                        return
+                                    }
+                                    Locksmith.save(sessionId: sessionId)
+                                    self.profileService.getAccountDetails { (result) in
+                                    switch result {
+                                        case .success(let account):
+                                            guard
+                                                let accountId = account?.id,
+                                                let username = account?.username
+                                            else {
+                                                return
+                                            }
+                                            UserDefaults.standard.accountId = accountId
+                                            UserDefaults.standard.username = username
+                                            completion(.success(()))
+                                        case .failure(let error):
+                                            completion(.failure(error))
+                                        }
+                                    }
+                                case .failure(let error):
+                                    completion(.failure(error))
+                                    Locksmith.deleteUserAccount()
+                                }
+                        }
+                    case .failure(let error):
+                        completion(.failure(error))
                     }
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
 
-    func logout(completion: @escaping (Bool) -> Void) {
+    func logout(completion: @escaping (Result<Void, Error>) -> Void) {
         guard
             let url = URL(string: UrlParts.baseUrl + "authentication/session")?
                 .appending("api_key", value: UrlParts.apiKey),
             let sessionId = AuthorizationService.getSessionId()
         else {
-            return
+            return completion(.failure(NetworkError.invalidSessionId))
         }
         let userData = ["session_id": sessionId]
         guard
             let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: [])
         else {
-            return
+            return completion(.failure(NetworkError.invalidHttpBodyData))
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "DELETE"
@@ -86,15 +103,19 @@ final class AuthorizationService {
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return
+                return completion(.failure(NetworkError.noDataProvided))
             }
             do {
                 let result = try decoder.decode(GetSessionIdResponse.self, from: data)
                 DispatchQueue.main.async {
-                    completion(result.success)
+                    completion(.success(()))
                     UserDefaults.standard.loginViewWasShown = false
                     if result.success {
                         Locksmith.deleteUserAccount()
@@ -103,14 +124,14 @@ final class AuthorizationService {
                     }
                 }
             } catch {
-                completion(false)
+                completion(.failure(NetworkError.failedToDecode))
             }
         }.resume()
     }
 
     // MARK: - Private methods
 
-    private func getToken(completion: @escaping (String?) -> Void) {
+    private func getToken(completion: @escaping (Result<String?, Error>) -> Void) {
         guard
             let url = URL(string: UrlParts.baseUrl + "authentication/token/new")?
                 .appending("api_key", value: UrlParts.apiKey)
@@ -118,18 +139,22 @@ final class AuthorizationService {
             return
         }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return
+                return completion(.failure(NetworkError.noDataProvided))
             }
             do {
                 let result = try decoder.decode(GetTokenResponse.self, from: data)
                 DispatchQueue.main.async {
-                    completion(result.requestToken)
+                    completion(.success(result.requestToken))
                 }
             } catch {
-                completion(nil)
+                completion(.failure(NetworkError.failedToDecode))
             }
         }.resume()
     }
@@ -137,7 +162,7 @@ final class AuthorizationService {
     private func validateToken(token: String,
                               login: String,
                               password: String,
-                              completion: @escaping (Bool, String?) -> Void) {
+                              completion: @escaping (Result<String?, Error>) -> Void) {
         let userData = [
             "username": login,
             "password": password,
@@ -148,7 +173,7 @@ final class AuthorizationService {
             let url = URL(string: UrlParts.baseUrl + "authentication/token/validate_with_login")?
                 .appending("api_key", value: UrlParts.apiKey)
         else {
-            return
+            return completion(.failure(NetworkError.invalidHttpBodyData))
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
@@ -156,30 +181,34 @@ final class AuthorizationService {
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return
+                return completion(.failure(NetworkError.noDataProvided))
             }
             do {
                 let result = try decoder.decode(ValidateTokenResponse.self, from: data)
                 DispatchQueue.main.async {
-                    completion(result.success, result.requestToken)
+                    completion(.success(result.requestToken))
                 }
             } catch {
-                completion(false, nil)
+                completion(.failure(NetworkError.failedToDecode))
             }
         }.resume()
     }
 
-    private func getSessionId(token: String, completion: @escaping (Bool, String?) -> Void) {
+    private func getSessionId(token: String, completion: @escaping (Result<String?, Error>) -> Void) {
         let userData = ["request_token": token]
         guard
             let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: []),
             let url = URL(string: UrlParts.baseUrl + "authentication/session/new")?
                 .appending("api_key", value: UrlParts.apiKey)
         else {
-            return
+            return completion(.failure(NetworkError.invalidHttpBodyData))
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
@@ -187,18 +216,22 @@ final class AuthorizationService {
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let data = data else {
-                return
+                return completion(.failure(NetworkError.noDataProvided))
             }
             do {
                 let result = try decoder.decode(GetSessionIdResponse.self, from: data)
                 DispatchQueue.main.async {
-                    completion(result.success, result.sessionId)
+                    completion(.success(result.sessionId))
                 }
             } catch {
-                completion(false, nil)
+                completion(.failure(NetworkError.failedToDecode))
             }
         }.resume()
     }

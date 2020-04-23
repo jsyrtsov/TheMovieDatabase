@@ -13,6 +13,7 @@ final class AuthorizationViewController: UIViewController {
     // MARK: - Properties
 
     private let service = AuthorizationService()
+    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
 
     // MARK: - Subviews
 
@@ -34,11 +35,20 @@ final class AuthorizationViewController: UIViewController {
         else {
             return
         }
-        service.login(login: login, password: password)
+        service.login(login: login, password: password) { [weak self] (result) in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success( _):
+                self.appDelegate?.initializeRootView()
+            case .failure(let error):
+                UIAlertController.showAlert(on: self, message: error.localizedDescription)
+            }
+        }
     }
 
     @IBAction private func tryAsGuestAction(_ sender: Any) {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
         UserDefaults.standard.loginViewWasShown = true
         appDelegate?.initializeRootView()
     }
