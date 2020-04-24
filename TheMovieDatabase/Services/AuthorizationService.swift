@@ -190,17 +190,15 @@ final class AuthorizationService {
             guard let data = data else {
                 return completion(.failure(NetworkError.noDataProvided))
             }
-            do {
-                let result = try decoder.decode(ValidateTokenResponse.self, from: data)
+            if let result = try? decoder.decode(ValidateTokenSuccessResponse.self, from: data) {
                 DispatchQueue.main.async {
-                    if let statusMessage = result.statusMessage, let statusCode = result.statusCode {
-                        let userInfo: [String: Any] = [NSLocalizedDescriptionKey: statusMessage]
-                        let error = NSError(domain: "", code: statusCode, userInfo: userInfo)
-                        completion(.failure(error))
-                    }
                     completion(.success(result.requestToken))
                 }
-            } catch {
+            } else if let result = try? decoder.decode(ValidateTokenFailureResponse.self, from: data) {
+                let userInfo: [String: Any] = [NSLocalizedDescriptionKey: result.statusMessage]
+                let error = NSError(domain: "", code: result.statusCode, userInfo: userInfo)
+                completion(.failure(error))
+            } else {
                 completion(.failure(NetworkError.failedToDecode))
             }
         }.resume()
@@ -250,12 +248,15 @@ private struct GetTokenResponse: Codable {
     let requestToken: String?
 }
 
-private struct ValidateTokenResponse: Codable {
-    let statusMessage: String?
-    let statusCode: Int?
+private struct ValidateTokenSuccessResponse: Codable {
     let success: Bool
     let expiresAt: String?
     let requestToken: String?
+}
+
+private struct ValidateTokenFailureResponse: Codable {
+    let statusMessage: String
+    let statusCode: Int
 }
 
 private struct GetSessionIdResponse: Codable {
