@@ -34,14 +34,14 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9N-Bt-dJy">
-                                <rect key="frame" x="160.5" y="416" width="54" height="30"/>
+                                <rect key="frame" x="160.5" y="376" width="54" height="30"/>
                                 <state key="normal" title="SIGN IN"/>
                                 <connections>
                                     <action selector="signInAction:" destination="8ks-0L-z0L" eventType="touchUpInside" id="AmH-Ne-a7l"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njl-lR-fef">
-                                <rect key="frame" x="147" y="496" width="81" height="30"/>
+                                <rect key="frame" x="147" y="456" width="81" height="30"/>
                                 <state key="normal" title="try as guest"/>
                                 <connections>
                                     <action selector="tryAsGuestAction:" destination="8ks-0L-z0L" eventType="touchUpInside" id="7W4-y3-2ha"/>
@@ -56,7 +56,7 @@
                             <constraint firstItem="dKs-QD-t7L" firstAttribute="leading" secondItem="GDz-SQ-tZi" secondAttribute="leading" constant="60" id="EcX-NE-7EZ"/>
                             <constraint firstItem="RFA-wj-dW0" firstAttribute="top" secondItem="dKs-QD-t7L" secondAttribute="bottom" constant="20" id="HqO-kj-3N1"/>
                             <constraint firstItem="Y9N-Bt-dJy" firstAttribute="centerX" secondItem="GDz-SQ-tZi" secondAttribute="centerX" id="Hsb-FI-VrO"/>
-                            <constraint firstItem="Y9N-Bt-dJy" firstAttribute="top" secondItem="RFA-wj-dW0" secondAttribute="bottom" constant="60" id="Mwu-Pg-ZOq"/>
+                            <constraint firstItem="Y9N-Bt-dJy" firstAttribute="top" secondItem="RFA-wj-dW0" secondAttribute="bottom" constant="20" id="Mwu-Pg-ZOq"/>
                             <constraint firstItem="GDz-SQ-tZi" firstAttribute="trailing" secondItem="RFA-wj-dW0" secondAttribute="trailing" constant="60" id="WB1-lo-cmd"/>
                             <constraint firstItem="njl-lR-fef" firstAttribute="top" secondItem="Y9N-Bt-dJy" secondAttribute="bottom" constant="50" id="eh6-qj-Coi"/>
                             <constraint firstItem="RFA-wj-dW0" firstAttribute="leading" secondItem="GDz-SQ-tZi" secondAttribute="leading" constant="60" id="iRu-H8-kKN"/>

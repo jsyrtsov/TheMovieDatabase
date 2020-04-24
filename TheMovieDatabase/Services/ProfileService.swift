@@ -93,7 +93,10 @@ final class ProfileService {
                 do {
                     let result = try decoder.decode(SetFavoriteResponse.self, from: data)
                     DispatchQueue.main.async {
-                        guard let statusCode = result.statusCode else {
+                        guard
+                            let statusCode = result.statusCode,
+                            let statusMessage = result.statusMessage
+                        else {
                             return
                         }
                         if statusCode == 1 || statusCode == 13 {
@@ -106,6 +109,11 @@ final class ProfileService {
                             }
                             let movies = self.moviesLoadingService.getFavoriteMovies()
                             completion(.success(movies))
+                        } else {
+                            let userInfo: [String: Any] = [NSLocalizedDescriptionKey: statusMessage]
+                            let error = NSError(domain: "", code: statusCode, userInfo: userInfo)
+                            completion(.failure(error))
+                            print(error.localizedDescription)
                         }
                     }
                 } catch {

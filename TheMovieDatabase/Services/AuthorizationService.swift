@@ -193,6 +193,11 @@ final class AuthorizationService {
             do {
                 let result = try decoder.decode(ValidateTokenResponse.self, from: data)
                 DispatchQueue.main.async {
+                    if let statusMessage = result.statusMessage, let statusCode = result.statusCode {
+                        let userInfo: [String: Any] = [NSLocalizedDescriptionKey: statusMessage]
+                        let error = NSError(domain: "", code: statusCode, userInfo: userInfo)
+                        completion(.failure(error))
+                    }
                     completion(.success(result.requestToken))
                 }
             } catch {
@@ -246,6 +251,8 @@ private struct GetTokenResponse: Codable {
 }
 
 private struct ValidateTokenResponse: Codable {
+    let statusMessage: String?
+    let statusCode: Int?
     let success: Bool
     let expiresAt: String?
     let requestToken: String?

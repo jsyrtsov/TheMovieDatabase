@@ -39,6 +39,7 @@ final class ProfileViewController: UIViewController {
     }
 
     @IBAction private func logInOrOutAction(_ sender: Any) {
+        UserDefaults.standard.loginViewWasShown = false
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let movies = moviesLoadingService.getFavoriteMovies()
         if AuthorizationService.getSessionId() != nil {
@@ -61,7 +62,6 @@ final class ProfileViewController: UIViewController {
                 moviesLoadingService.removeMovie(id: movie.id)
                 moviesLoadingService.removeDetailedMovie(id: movie.id)
             }
-            UserDefaults.standard.loginViewWasShown = false
             appDelegate?.initializeAuthView()
         }
     }
