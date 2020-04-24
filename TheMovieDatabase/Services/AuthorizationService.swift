@@ -116,7 +116,6 @@ final class AuthorizationService {
                 let result = try decoder.decode(GetSessionIdResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(.success(()))
-                    UserDefaults.standard.loginViewWasShown = false
                     if result.success {
                         Locksmith.deleteUserAccount()
                         UserDefaults.standard.username = "Guest"

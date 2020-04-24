@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaults.standard.loginViewWasShown {
             initializeRootView()
         } else {
-            UserDefaults.standard.loginViewWasShown = true
             initializeAuthView()
         }
         return true
