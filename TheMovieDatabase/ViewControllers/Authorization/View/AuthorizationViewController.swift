@@ -27,6 +27,7 @@ final class AuthorizationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        hideKeyboardWhenTappedAround()
     }
 
     // MARK: - IBActions
@@ -72,17 +73,33 @@ final class AuthorizationViewController: UIViewController {
         baseShadowView.applyShadow(radius: 10, opacity: 0.06, offsetW: 5, offsetH: 5)
     }
 
+    private func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc
+    private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     @objc
     private func keyboardWillShow(notification: NSNotification) {
         let userInfo = notification.userInfo
         guard var keyboardFrame = (userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        keyboardFrame = view.convert(keyboardFrame, from: nil)
 
-        var contentInset: UIEdgeInsets = self.scrollView.contentInset
-        contentInset.bottom = keyboardFrame.size.height
+        var contentInset: UIEdgeInsets = scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height + 20
         scrollView.contentInset = contentInset
+        scrollView.setContentOffset(CGPoint(x: 0,
+                                            y: scrollView.contentSize.height -
+                                                scrollView.bounds.size.height +
+                                                scrollView.contentInset.bottom),
+                                    animated: true)
     }
 
     @objc
