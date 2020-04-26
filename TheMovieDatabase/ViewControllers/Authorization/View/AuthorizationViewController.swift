@@ -60,7 +60,34 @@ final class AuthorizationViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureUI() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
         baseShadowView.layer.cornerRadius = 15
         baseShadowView.applyShadow(radius: 10, opacity: 0.06, offsetW: 5, offsetH: 5)
+    }
+
+    @objc
+    private func keyboardWillShow(notification: NSNotification) {
+        let userInfo = notification.userInfo
+        guard var keyboardFrame = (userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+
+        var contentInset: UIEdgeInsets = self.scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        scrollView.contentInset = contentInset
+    }
+
+    @objc
+    private func keyboardWillHide(notification: NSNotification) {
+        let contentInset: UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
     }
 }
