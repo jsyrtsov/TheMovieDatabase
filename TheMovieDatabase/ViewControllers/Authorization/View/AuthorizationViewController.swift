@@ -17,6 +17,8 @@ final class AuthorizationViewController: UIViewController {
 
     // MARK: - Subviews
 
+    @IBOutlet weak private var scrollView: UIScrollView!
+    @IBOutlet weak private var baseShadowView: UIView!
     @IBOutlet weak private var loginTextField: UITextField!
     @IBOutlet weak private var passwordTextField: UITextField!
 
@@ -24,6 +26,7 @@ final class AuthorizationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
     }
 
     // MARK: - IBActions
@@ -52,5 +55,12 @@ final class AuthorizationViewController: UIViewController {
     @IBAction private func tryAsGuestAction(_ sender: Any) {
         UserDefaults.standard.loginViewWasShown = true
         appDelegate?.initializeRootView()
+    }
+
+    // MARK: - Private Methods
+
+    private func configureUI() {
+        baseShadowView.layer.cornerRadius = 15
+        baseShadowView.applyShadow(radius: 10, opacity: 0.06, offsetW: 5, offsetH: 5)
     }
 }
