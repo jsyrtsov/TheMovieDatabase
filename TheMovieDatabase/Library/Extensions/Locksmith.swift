@@ -21,7 +21,7 @@ extension Locksmith {
         return sessionId
     }
 
-    static func save(sessionId: String) {
+    static func save(sessionId: String) throws {
         do {
             try Locksmith.updateData(data: ["sessionId": sessionId], forUserAccount: Locksmith.loggedUserAccount)
         } catch {
@@ -29,7 +29,7 @@ extension Locksmith {
         }
     }
 
-    static func deleteUserAccount() {
+    static func deleteUserAccount() throws {
         do {
             try Locksmith.deleteDataForUserAccount(userAccount: Locksmith.loggedUserAccount)
         } catch {

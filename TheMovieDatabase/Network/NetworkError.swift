@@ -13,6 +13,7 @@ enum NetworkError: LocalizedError {
     case failedToDecode
     case invalidHttpBodyData
     case invalidSessionId
+    case keychainReadError
 
     var errorDescription: String? {
         switch self {
@@ -24,6 +25,8 @@ enum NetworkError: LocalizedError {
             return "There is invalid data for HTTP body"
         case .invalidSessionId:
             return "There is invalid session id. Try to re-login"
+        case .keychainReadError:
+            return "There is keychain reading error"
         }
     }
 }

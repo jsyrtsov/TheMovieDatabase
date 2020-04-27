@@ -21,6 +21,7 @@ final class AuthorizationViewController: UIViewController {
     @IBOutlet weak private var baseShadowView: UIView!
     @IBOutlet weak private var loginTextField: UITextField!
     @IBOutlet weak private var passwordTextField: UITextField!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
 
     // MARK: - UIViewController
 
@@ -33,6 +34,8 @@ final class AuthorizationViewController: UIViewController {
     // MARK: - IBActions
 
     @IBAction private func signInAction(_ sender: Any) {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         guard
             let login = loginTextField.text,
             let password = passwordTextField.text
@@ -45,9 +48,15 @@ final class AuthorizationViewController: UIViewController {
             }
             switch result {
             case .success( _):
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
                 self.appDelegate?.initializeRootView()
                 UserDefaults.standard.loginViewWasShown = true
             case .failure(let error):
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                }
                 UIAlertController.showErrorAlert(on: self, message: error.localizedDescription)
             }
         }
@@ -61,6 +70,7 @@ final class AuthorizationViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureUI() {
+        activityIndicator.isHidden = true
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification,

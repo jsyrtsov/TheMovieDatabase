@@ -44,35 +44,43 @@ final class AuthorizationService {
                             return
                         }
                         self.getSessionId(token: token) { [weak self] (result) in
-                                guard let self = self else {
+                            guard let self = self else {
+                                return
+                            }
+                            switch result {
+                            case .success(let sessionId):
+                                guard let sessionId = sessionId else {
                                     return
                                 }
-                                switch result {
-                                case .success(let sessionId):
-                                    guard let sessionId = sessionId else {
-                                        return
-                                    }
-                                    Locksmith.save(sessionId: sessionId)
-                                    self.profileService.getAccountDetails { (result) in
-                                    switch result {
-                                        case .success(let account):
-                                            guard
-                                                let accountId = account?.id,
-                                                let username = account?.username
-                                            else {
-                                                return
-                                            }
-                                            UserDefaults.standard.accountId = accountId
-                                            UserDefaults.standard.username = username
-                                            completion(.success(()))
-                                        case .failure(let error):
-                                            completion(.failure(error))
-                                        }
-                                    }
-                                case .failure(let error):
-                                    completion(.failure(error))
-                                    Locksmith.deleteUserAccount()
+                                do {
+                                    try Locksmith.save(sessionId: sessionId)
+                                } catch {
+                                    completion(.failure(NetworkError.keychainReadError))
                                 }
+                                self.profileService.getAccountDetails { (result) in
+                                switch result {
+                                    case .success(let account):
+                                        guard
+                                            let accountId = account?.id,
+                                            let username = account?.username
+                                        else {
+                                            return
+                                        }
+                                        UserDefaults.standard.accountId = accountId
+                                        UserDefaults.standard.username = username
+                                        completion(.success(()))
+                                    case .failure(let error):
+                                        completion(.failure(error))
+                                    }
+                                }
+                            case .failure(let error):
+                                completion(.failure(error))
+                                do {
+                                    try Locksmith.deleteUserAccount()
+                                } catch {
+                                    completion(.failure(NetworkError.keychainReadError))
+                                }
+                            }
                         }
                     case .failure(let error):
                         completion(.failure(error))
@@ -125,7 +133,11 @@ final class AuthorizationService {
                     DispatchQueue.main.async {
                         completion(.success(()))
                         if result.success {
-                            Locksmith.deleteUserAccount()
+                            do {
+                                try Locksmith.deleteUserAccount()
+                            } catch {
+                                completion(.failure(NetworkError.keychainReadError))
+                            }
                             UserDefaults.standard.username = "Guest"
                             UserDefaults.standard.accountId = 0
                         }
