@@ -28,10 +28,10 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="33D-FM-BGv" secondAttribute="bottom" id="BET-5b-yjO"/>
                             <constraint firstItem="Xms-Bf-Nrm" firstAttribute="centerY" secondItem="kov-iP-LNf" secondAttribute="centerY" id="Nji-jP-azL"/>
-                            <constraint firstItem="33D-FM-BGv" firstAttribute="trailing" secondItem="kov-iP-LNf" secondAttribute="trailing" id="QCs-U2-ccW"/>
-                            <constraint firstItem="33D-FM-BGv" firstAttribute="leading" secondItem="kov-iP-LNf" secondAttribute="leading" id="SxB-eQ-5dw"/>
+                            <constraint firstItem="33D-FM-BGv" firstAttribute="trailing" secondItem="mAM-qX-kfW" secondAttribute="trailing" id="QCs-U2-ccW"/>
+                            <constraint firstItem="33D-FM-BGv" firstAttribute="leading" secondItem="mAM-qX-kfW" secondAttribute="leading" id="SxB-eQ-5dw"/>
                             <constraint firstItem="Xms-Bf-Nrm" firstAttribute="centerX" secondItem="kov-iP-LNf" secondAttribute="centerX" id="tYP-mt-sfy"/>
-                            <constraint firstItem="33D-FM-BGv" firstAttribute="top" secondItem="kov-iP-LNf" secondAttribute="top" id="yVR-GZ-dlQ"/>
+                            <constraint firstItem="33D-FM-BGv" firstAttribute="top" secondItem="mAM-qX-kfW" secondAttribute="top" id="yVR-GZ-dlQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kov-iP-LNf"/>
                     </view>
