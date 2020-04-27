@@ -17,6 +17,7 @@ final class FeedViewController: UIViewController {
 
     // MARK: - Subviews
 
+    private var refreshControl = UIRefreshControl()
     private var segmentedControl: UISegmentedControl?
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
@@ -45,6 +46,14 @@ final class FeedViewController: UIViewController {
         tableView.tableHeaderView = segmentedControl
         segmentedControl?.addTarget(self, action: #selector(FeedViewController.indexChanged(_:)), for: .valueChanged)
 
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+
+    @objc
+    private func refreshData() {
+        print("refreshed")
+        refreshControl.endRefreshing()
     }
 
     @objc
