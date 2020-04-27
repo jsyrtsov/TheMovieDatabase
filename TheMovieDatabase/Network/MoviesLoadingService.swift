@@ -73,7 +73,7 @@ final class MoviesLoadingService {
     }
 
     func loadFavoriteMovies(accountId: Int, completion: @escaping ([Movie]?) -> Void) {
-        if AuthorizationService.getSessionId() != nil {
+        if AuthorizationService.sessionId != nil {
             let movies = self.getFavoriteMovies()
             for movie in movies {
                 self.removeMovie(id: movie.id)
@@ -81,7 +81,7 @@ final class MoviesLoadingService {
             guard
                 let url = URL(string: UrlParts.baseUrl + "account/\(accountId)/favorite/movies")?
                     .appending("api_key", value: UrlParts.apiKey)?
-                    .appending("session_id", value: AuthorizationService.getSessionId())?
+                    .appending("session_id", value: AuthorizationService.sessionId)?
                     .appending("page", value: String(currentPage))
             else {
                 return
@@ -112,7 +112,7 @@ final class MoviesLoadingService {
                         }
                         self.currentPage += 1
                         for movie in movies {
-                            self.storageMoviesService.saveMovie(movie: movie)
+                            self.storageMoviesService.save(movie: movie)
                         }
                         completion(movies)
                     }
@@ -201,12 +201,12 @@ final class MoviesLoadingService {
         }.resume()
     }
 
-    func saveMovie(movie: Movie?) {
-        storageMoviesService.saveMovie(movie: movie)
+    func save(movie: Movie?) {
+        storageMoviesService.save(movie: movie)
     }
 
-    func saveDetailedMovie(detailedMovie: DetailedMovie?) {
-        storageMoviesService.saveDetailedMovie(detailedMovie: detailedMovie)
+    func save(detailedMovie: DetailedMovie?) {
+        storageMoviesService.save(detailedMovie: detailedMovie)
     }
 
     func isListedMovie(id: Int?) -> Bool {

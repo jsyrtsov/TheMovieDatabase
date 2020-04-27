@@ -149,7 +149,7 @@ extension FavoritesViewController: UITableViewDataSource {
                     }
                     tableView.reloadData()
                 case .failure(let error):
-                    UIAlertController.showAlert(on: self, message: error.localizedDescription)
+                    UIAlertController.showErrorAlert(on: self, message: error.localizedDescription)
                 }
             }
         }

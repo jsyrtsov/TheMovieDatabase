@@ -38,31 +38,19 @@ final class ProfileViewController: UIViewController {
         navigationController?.pushViewController(favoritesVC, animated: true)
     }
 
-    @IBAction private func logInOrOutAction(_ sender: Any) {
+    @IBAction private func logoutAction(_ sender: Any) {
         UserDefaults.standard.loginViewWasShown = false
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let movies = moviesLoadingService.getFavoriteMovies()
-        if AuthorizationService.getSessionId() != nil {
-            authorizationService.logout { [weak self] (result) in
-                guard let self = self else {
-                    return
-                }
-                switch result {
-                case .success(()):
-                    for movie in movies {
-                        self.moviesLoadingService.removeMovie(id: movie.id)
-                    }
-                    appDelegate?.initializeAuthView()
-                case .failure(let error):
-                    UIAlertController.showAlert(on: self, message: error.localizedDescription)
-                }
+        authorizationService.logout { [weak self] (result) in
+            guard let self = self else {
+                return
             }
-        } else {
-            for movie in movies {
-                moviesLoadingService.removeMovie(id: movie.id)
-                moviesLoadingService.removeDetailedMovie(id: movie.id)
+            switch result {
+            case .success(()):
+                appDelegate?.initializeAuthView()
+            case .failure(let error):
+                UIAlertController.showErrorAlert(on: self, message: error.localizedDescription)
             }
-            appDelegate?.initializeAuthView()
         }
     }
 
@@ -81,7 +69,7 @@ final class ProfileViewController: UIViewController {
                 self.account = account
                 self.updateView()
             case .failure(let error):
-                UIAlertController.showAlert(on: self, message: error.localizedDescription)
+                UIAlertController.showErrorAlert(on: self, message: error.localizedDescription)
             }
         }
     }
@@ -93,7 +81,7 @@ final class ProfileViewController: UIViewController {
         loginButton.tintColor = .systemBlue
         self.title = UserDefaults.standard.username
         helloLabel.text = "Hello, \(UserDefaults.standard.username)"
-        if AuthorizationService.getSessionId() != nil {
+        if AuthorizationService.sessionId != nil {
             loginButton.setTitle("LOG OUT", for: .normal)
             loginButton.tintColor = .red
         } else {

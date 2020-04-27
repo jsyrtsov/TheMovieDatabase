@@ -48,7 +48,7 @@ final class AuthorizationViewController: UIViewController {
                 self.appDelegate?.initializeRootView()
                 UserDefaults.standard.loginViewWasShown = true
             case .failure(let error):
-                UIAlertController.showAlert(on: self, message: error.localizedDescription)
+                UIAlertController.showErrorAlert(on: self, message: error.localizedDescription)
             }
         }
     }

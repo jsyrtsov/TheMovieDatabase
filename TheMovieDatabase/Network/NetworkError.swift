@@ -26,17 +26,4 @@ enum NetworkError: LocalizedError {
             return "There is invalid session id. Try to re-login"
         }
     }
-
-//    var localizedDescription: String {
-//        switch self {
-//        case .noDataProvided:
-//            return "No data was provided by server"
-//        case .failedToDecode:
-//            return "Failed to decode JSON from server"
-//        case .invalidHttpBodyData:
-//            return "There is invalid data for HTTP body"
-//        case .invalidSessionId:
-//            return "There is invalid session id. Try to re-login"
-//        }
-//    }
 }

@@ -13,14 +13,15 @@ final class AuthorizationService {
 
     // MARK: - Properties
 
+    static var sessionId: String? {
+        return Locksmith.sessionId
+    }
+    private let moviesLoadingService = MoviesLoadingService()
     private let profileService = ProfileService()
 
     // MARK: - Methods
 
-    static func getSessionId() -> String? {
-        return Locksmith.sessionId
-    }
-
+    // swiftlint:disable cyclomatic_complexity
     func login(login: String,
                password: String,
                completion: @escaping (Result<Void, Error>) -> Void) {
@@ -82,50 +83,60 @@ final class AuthorizationService {
             }
         }
     }
+    // swiftlint:enable cyclomatic_complexity
 
     func logout(completion: @escaping (Result<Void, Error>) -> Void) {
-        guard
-            let url = URL(string: UrlParts.baseUrl + "authentication/session")?
-                .appending("api_key", value: UrlParts.apiKey),
-            let sessionId = AuthorizationService.getSessionId()
-        else {
-            return completion(.failure(NetworkError.invalidSessionId))
+        let movies = moviesLoadingService.getFavoriteMovies()
+        for movie in movies {
+            moviesLoadingService.removeMovie(id: movie.id)
+            moviesLoadingService.removeDetailedMovie(id: movie.id)
         }
-        let userData = ["session_id": sessionId]
-        guard
-            let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: [])
-        else {
-            return completion(.failure(NetworkError.invalidHttpBodyData))
-        }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "DELETE"
-        urlRequest.httpBody = httpBody
-        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
+        if AuthorizationService.sessionId != nil {
+            guard
+                let url = URL(string: UrlParts.baseUrl + "authentication/session")?
+                    .appending("api_key", value: UrlParts.apiKey),
+                let sessionId = AuthorizationService.sessionId
+            else {
+                return completion(.failure(NetworkError.invalidSessionId))
             }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            guard let data = data else {
-                return completion(.failure(NetworkError.noDataProvided))
+            let userData = ["session_id": sessionId]
+            guard
+                let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: [])
+            else {
+                return completion(.failure(NetworkError.invalidHttpBodyData))
             }
-            do {
-                let result = try decoder.decode(GetSessionIdResponse.self, from: data)
-                DispatchQueue.main.async {
-                    completion(.success(()))
-                    if result.success {
-                        Locksmith.deleteUserAccount()
-                        UserDefaults.standard.username = "Guest"
-                        UserDefaults.standard.accountId = 0
-                    }
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = "DELETE"
+            urlRequest.httpBody = httpBody
+            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+            URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
                 }
-            } catch {
-                completion(.failure(NetworkError.failedToDecode))
-            }
-        }.resume()
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                guard let data = data else {
+                    return completion(.failure(NetworkError.noDataProvided))
+                }
+                do {
+                    let result = try decoder.decode(GetSessionIdResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(.success(()))
+                        if result.success {
+                            Locksmith.deleteUserAccount()
+                            UserDefaults.standard.username = "Guest"
+                            UserDefaults.standard.accountId = 0
+                        }
+                    }
+                } catch {
+                    completion(.failure(NetworkError.failedToDecode))
+                }
+            }.resume()
+        } else {
+            completion(.success(()))
+        }
     }
 
     // MARK: - Private methods

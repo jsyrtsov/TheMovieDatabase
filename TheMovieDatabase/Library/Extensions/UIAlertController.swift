@@ -9,9 +9,9 @@
 import UIKit
 
 extension UIAlertController {
-    static func showAlert(on vc: UIViewController, message: String?) {
+    static func showErrorAlert(on vc: UIViewController, message: String?) {
         DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "Error occured",
+            let alertController = UIAlertController(title: "Error occurred",
                                                     message: message,
                                                     preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

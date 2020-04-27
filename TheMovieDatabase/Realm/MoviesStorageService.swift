@@ -63,7 +63,18 @@ final class MoviesStorageService: StorageService {
         return isListed(object: MovieObject.self, id: id)
     }
 
-    func saveDetailedMovie(detailedMovie: DetailedMovie?) {
+    func save(movie: Movie?) {
+        let movieObject = MovieObject(backdropPath: movie?.backdropPath,
+                                  id: movie?.id,
+                                  voteAverage: movie?.voteAverage,
+                                  releaseDate: movie?.releaseDate,
+                                  posterPath: movie?.posterPath,
+                                  title: movie?.title,
+                                  overview: movie?.overview)
+        saveObject(object: movieObject)
+    }
+
+    func save(detailedMovie: DetailedMovie?) {
         let detailedMovieObject = DetailedMovieObject(title: detailedMovie?.title,
                                                   backdropPath: detailedMovie?.backdropPath,
                                                   overview: detailedMovie?.overview,
@@ -85,16 +96,5 @@ final class MoviesStorageService: StorageService {
 
     func removeDetailedMovieWithId(id: Int?) {
         removeObjectWithId(object: DetailedMovieObject.self, id: id)
-    }
-
-    func saveMovie(movie: Movie?) {
-        let movieObject = MovieObject(backdropPath: movie?.backdropPath,
-                                  id: movie?.id,
-                                  voteAverage: movie?.voteAverage,
-                                  releaseDate: movie?.releaseDate,
-                                  posterPath: movie?.posterPath,
-                                  title: movie?.title,
-                                  overview: movie?.overview)
-        saveObject(object: movieObject)
     }
 }

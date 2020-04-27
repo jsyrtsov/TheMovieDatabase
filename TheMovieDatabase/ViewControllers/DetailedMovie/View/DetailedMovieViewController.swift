@@ -251,7 +251,7 @@ final class DetailedMovieViewController: UIViewController {
                     self.navigationItem.rightBarButtonItem = barButtonItem
                 }
             case .failure(let error):
-                UIAlertController.showAlert(on: self, message: error.localizedDescription)
+                UIAlertController.showErrorAlert(on: self, message: error.localizedDescription)
             }
         }
     }

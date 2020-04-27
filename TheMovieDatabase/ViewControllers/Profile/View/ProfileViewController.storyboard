@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jga-ZF-1Do">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,27 +11,27 @@
             <objects>
                 <viewController storyboardIdentifier="ProfileViewController" id="jga-ZF-1Do" customClass="ProfileViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fpg-re-0ud">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hello there!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5N-d8-RZJ">
-                                <rect key="frame" x="144.5" y="323" width="86" height="21"/>
+                                <rect key="frame" x="257" y="289.5" width="86" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VPV-DE-UEC">
-                                <rect key="frame" x="165" y="394" width="45" height="30"/>
+                                <rect key="frame" x="277.5" y="360.5" width="45" height="30"/>
                                 <state key="normal" title="LOGIN"/>
                                 <connections>
-                                    <action selector="logInOrOutAction:" destination="jga-ZF-1Do" eventType="touchUpInside" id="8wg-lW-GEq"/>
+                                    <action selector="logoutAction:" destination="jga-ZF-1Do" eventType="touchUpInside" id="8wg-lW-GEq"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jlh-aD-ERj">
-                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mog-UA-aqR">
-                                <rect key="frame" x="103" y="191" width="169" height="30"/>
+                                <rect key="frame" x="215.5" y="157.5" width="169" height="30"/>
                                 <state key="normal" title="show my favorite movies"/>
                                 <connections>
                                     <action selector="showFavoriteMovies:" destination="jga-ZF-1Do" eventType="touchUpInside" id="t9m-R2-2p1"/>
