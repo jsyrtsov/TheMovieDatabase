@@ -54,7 +54,6 @@ final class FeedViewController: UIViewController {
     @objc
     private func refreshData() {
         loadMovies()
-//        self.refreshControl.endRefreshing()
     }
 
     @objc

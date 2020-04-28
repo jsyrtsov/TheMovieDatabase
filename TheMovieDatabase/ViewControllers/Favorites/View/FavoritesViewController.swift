@@ -19,6 +19,7 @@ final class FavoritesViewController: UIViewController {
 
     // MARK: - Subviews
 
+    private var refreshControl = UIRefreshControl()
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var blankImage: UIImageView!
     @IBOutlet weak private var blankTitle: UILabel!
@@ -58,6 +59,23 @@ final class FavoritesViewController: UIViewController {
         tableView.register(UINib(nibName: MovieTableViewCell.identifier, bundle: nil),
                            forCellReuseIdentifier: MovieTableViewCell.identifier)
         tableView.tableFooterView = UIView()
+
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+
+    @objc
+    private func refreshData() {
+        let service = MoviesLoadingService()
+        service.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
+            guard let self = self, let movies = movies else {
+                return
+            }
+            self.movies = movies
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }
     }
 
     private func loadFavoriteMovies() {
