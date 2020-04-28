@@ -16,7 +16,7 @@ final class AuthorizationService {
     static var sessionId: String? {
         return Locksmith.sessionId
     }
-    private let moviesLoadingService = MoviesLoadingService()
+    private let moviesService = MoviesService()
     private let profileService = ProfileService()
 
     // MARK: - Methods
@@ -94,10 +94,10 @@ final class AuthorizationService {
     // swiftlint:enable cyclomatic_complexity
 
     func logout(completion: @escaping (Result<Void, Error>) -> Void) {
-        let movies = moviesLoadingService.getFavoriteMovies()
+        let movies = moviesService.getFavoriteMovies()
         for movie in movies {
-            moviesLoadingService.removeMovie(id: movie.id)
-            moviesLoadingService.removeDetailedMovie(id: movie.id)
+            moviesService.removeMovie(id: movie.id)
+            moviesService.removeDetailedMovie(id: movie.id)
         }
         if AuthorizationService.sessionId != nil {
             guard
@@ -171,7 +171,7 @@ final class AuthorizationService {
                 return completion(.failure(NetworkError.noDataProvided))
             }
             do {
-                let result = try decoder.decode(GetTokenResponse.self, from: data)
+                let result = try decoder.decode(TokenResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(.success(result.requestToken))
                 }
@@ -212,13 +212,16 @@ final class AuthorizationService {
             guard let data = data else {
                 return completion(.failure(NetworkError.noDataProvided))
             }
-            if let result = try? decoder.decode(ValidateTokenSuccessResponse.self, from: data) {
+            if let result = try? decoder.decode(TokenResponse.self, from: data) {
                 DispatchQueue.main.async {
                     completion(.success(result.requestToken))
                 }
-            } else if let result = try? decoder.decode(ValidateTokenFailureResponse.self, from: data) {
-                let userInfo: [String: Any] = [NSLocalizedDescriptionKey: result.statusMessage]
-                let error = NSError(domain: "", code: result.statusCode, userInfo: userInfo)
+            } else if let result = try? decoder.decode(StatusResponse.self, from: data) {
+                guard let statusCode = result.statusCode, let statusMessage = result.statusMessage else {
+                    return
+                }
+                let userInfo: [String: Any] = [NSLocalizedDescriptionKey: statusMessage]
+                let error = NSError(domain: "", code: statusCode, userInfo: userInfo)
                 completion(.failure(error))
             } else {
                 completion(.failure(NetworkError.failedToDecode))
@@ -264,21 +267,10 @@ final class AuthorizationService {
 
 // MARK: - Private Structs
 
-private struct GetTokenResponse: Codable {
+private struct TokenResponse: Codable {
     let success: Bool
     let expiresAt: String?
     let requestToken: String?
-}
-
-private struct ValidateTokenSuccessResponse: Codable {
-    let success: Bool
-    let expiresAt: String?
-    let requestToken: String?
-}
-
-private struct ValidateTokenFailureResponse: Codable {
-    let statusMessage: String
-    let statusCode: Int
 }
 
 private struct GetSessionIdResponse: Codable {

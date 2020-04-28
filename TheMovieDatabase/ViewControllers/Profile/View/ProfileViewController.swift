@@ -13,7 +13,6 @@ final class ProfileViewController: UIViewController {
     // MARK: - Properties
 
     private let profileService = ProfileService()
-    private let moviesLoadingService = MoviesLoadingService()
     private let authorizationService = AuthorizationService()
     private var account: Account?
 

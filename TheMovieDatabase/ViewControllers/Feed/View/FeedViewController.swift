@@ -12,7 +12,7 @@ final class FeedViewController: UIViewController {
 
     // MARK: - Properties
 
-    private lazy var service = MoviesLoadingService()
+    private lazy var service = MoviesService()
     private var movies: [Movie] = []
 
     // MARK: - Subviews

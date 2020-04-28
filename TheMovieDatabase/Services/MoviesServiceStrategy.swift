@@ -1,5 +1,5 @@
 //
-//  MoviesServiceLoadingStrategy.swift
+//  MoviesServiceStrategy.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/3/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MoviesServiceLoadingStrategy {
+enum MoviesServiceStrategy {
     case popular
     case upcoming
     case nowPlaying

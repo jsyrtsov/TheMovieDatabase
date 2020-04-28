@@ -13,8 +13,7 @@ final class FavoritesViewController: UIViewController {
     // MARK: - Properties
 
     private let accountId = UserDefaults.standard.accountId
-    private let moviesLoadingService = MoviesLoadingService()
-    private let profileService = ProfileService()
+    private let moviesService = MoviesService()
     private var movies: [Movie] = []
     private var wasShown = false
 
@@ -36,7 +35,7 @@ final class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if wasShown {
-            movies = moviesLoadingService.getFavoriteMovies()
+            movies = moviesService.getFavoriteMovies()
             if movies.isEmpty {
                 setEmptyState(hidden: false)
             } else {
@@ -62,7 +61,7 @@ final class FavoritesViewController: UIViewController {
     }
 
     private func loadFavoriteMovies() {
-        moviesLoadingService.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
+        moviesService.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
             guard
                 let self = self,
                 let movies = movies
@@ -126,9 +125,9 @@ extension FavoritesViewController: UITableViewDataSource {
         guard let movieId = movies[indexPath.row].id else {
             return
         }
-        let detailedMovie = moviesLoadingService.getMovieInfo(id: movieId)
+        let detailedMovie = moviesService.getMovieInfo(id: movieId)
         if editingStyle == .delete {
-            profileService.setFavoriteTo(
+            moviesService.setFavoriteTo(
                 false,
                 movie: movies[indexPath.row],
                 detailedMovie: detailedMovie

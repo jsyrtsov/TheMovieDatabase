@@ -28,7 +28,7 @@ final class AuthorizationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        hideKeyboardWhenTappedAround()
+        endEditingWhenTapped()
     }
 
     // MARK: - IBActions
@@ -83,7 +83,7 @@ final class AuthorizationViewController: UIViewController {
         baseShadowView.applyShadow(radius: 10, opacity: 0.06, offsetW: 5, offsetH: 5)
     }
 
-    private func hideKeyboardWhenTappedAround() {
+    private func endEditingWhenTapped() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)

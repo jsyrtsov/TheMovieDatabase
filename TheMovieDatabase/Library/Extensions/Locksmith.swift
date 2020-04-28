@@ -22,18 +22,10 @@ extension Locksmith {
     }
 
     static func save(sessionId: String) throws {
-        do {
-            try Locksmith.updateData(data: ["sessionId": sessionId], forUserAccount: Locksmith.loggedUserAccount)
-        } catch {
-            print("unable to save")
-        }
+        try Locksmith.updateData(data: ["sessionId": sessionId], forUserAccount: Locksmith.loggedUserAccount)
     }
 
     static func deleteUserAccount() throws {
-        do {
-            try Locksmith.deleteDataForUserAccount(userAccount: Locksmith.loggedUserAccount)
-        } catch {
-            print("unable to delete")
-        }
+        try Locksmith.deleteDataForUserAccount(userAccount: Locksmith.loggedUserAccount)
     }
 }

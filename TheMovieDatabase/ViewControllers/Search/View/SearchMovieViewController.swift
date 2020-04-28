@@ -12,7 +12,7 @@ final class SearchMovieViewController: UIViewController {
 
     // MARK: - Properties
 
-    private var service = MoviesLoadingService()
+    private var service = MoviesService()
     private var query = ""
     private var movies: [Movie] = []
 

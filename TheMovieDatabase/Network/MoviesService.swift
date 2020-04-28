@@ -1,5 +1,5 @@
 //
-//  MoviesLoadingService.swift
+//  MoviesService.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 3/2/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class MoviesLoadingService {
+final class MoviesService {
 
     // MARK: - Properties
 
@@ -17,7 +17,7 @@ final class MoviesLoadingService {
     private var currentPage: Int = 1
     private var query: String?
     var canLoadMore: Bool = false
-    var strategy: MoviesServiceLoadingStrategy = .popular {
+    var strategy: MoviesServiceStrategy = .popular {
         didSet {
             currentPage = 1
         }
@@ -201,6 +201,85 @@ final class MoviesLoadingService {
         }.resume()
     }
 
+    func setFavoriteTo(_ isFavorite: Bool,
+                       movie: Movie?,
+                       detailedMovie: DetailedMovie?,
+                       completion: @escaping (Result<[Movie]?, Error>) -> Void) {
+        guard let movieId = movie?.id else {
+            return
+        }
+        if AuthorizationService.sessionId != nil {
+            let userData = [
+                "media_type": "movie",
+                "media_id": movieId,
+                "favorite": isFavorite
+            ] as [String: Any]
+            guard
+                let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: []),
+                let url = URL(string: UrlParts.baseUrl + "account/\(UserDefaults.standard.accountId)/favorite")?
+                    .appending("api_key", value: UrlParts.apiKey)?
+                    .appending("session_id", value: AuthorizationService.sessionId)
+            else {
+                return completion(.failure(NetworkError.invalidHttpBodyData))
+            }
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = "POST"
+            urlRequest.httpBody = httpBody
+            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+            URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                guard let data = data else {
+                    return completion(.failure(NetworkError.noDataProvided))
+                }
+                do {
+                    let result = try decoder.decode(StatusResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        guard
+                            let statusCode = result.statusCode,
+                            let statusMessage = result.statusMessage
+                        else {
+                            return
+                        }
+                        if statusCode == 1 || statusCode == 13 {
+                            if isFavorite {
+                                self.save(movie: movie)
+                                self.save(detailedMovie: detailedMovie)
+                            } else {
+                                self.removeMovie(id: movieId)
+                                self.removeDetailedMovie(id: movieId)
+                            }
+                            let movies = self.getFavoriteMovies()
+                            completion(.success(movies))
+                        } else {
+                            let userInfo: [String: Any] = [NSLocalizedDescriptionKey: statusMessage]
+                            let error = NSError(domain: "", code: statusCode, userInfo: userInfo)
+                            completion(.failure(error))
+                            print(error.localizedDescription)
+                        }
+                    }
+                } catch {
+                    completion(.failure(NetworkError.failedToDecode))
+                }
+            }.resume()
+        } else {
+            if isFavorite {
+                self.save(movie: movie)
+                self.save(detailedMovie: detailedMovie)
+            } else {
+                self.removeMovie(id: movieId)
+                self.removeDetailedMovie(id: movieId)
+            }
+            let movies = self.getFavoriteMovies()
+            completion(.success(movies))
+        }
+    }
+
     func save(movie: Movie?) {
         storageMoviesService.save(movie: movie)
     }
@@ -228,6 +307,13 @@ final class MoviesLoadingService {
     func getMovieInfo(id: Int?) -> DetailedMovie? {
         storageMoviesService.getMovieInfo(id: id)
     }
+}
+
+// MARK: - Structs
+
+struct StatusResponse: Codable {
+    let statusCode: Int?
+    let statusMessage: String?
 }
 
 // MARK: - Private Structs

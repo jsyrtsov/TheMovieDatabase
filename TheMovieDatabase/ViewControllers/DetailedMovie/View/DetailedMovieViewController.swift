@@ -18,8 +18,7 @@ final class DetailedMovieViewController: UIViewController {
     var movieId: Int?
     var movie: Movie?
     private let extractor = LinkExtractor()
-    private let moviesLoadingService = MoviesLoadingService()
-    private let profileService = ProfileService()
+    private let moviesService = MoviesService()
     private var detailedMovie: DetailedMovie?
     private var crew: [CrewEntry] = []
     private var cast: [CastEntry] = []
@@ -115,7 +114,7 @@ final class DetailedMovieViewController: UIViewController {
         guard let movieId = movieId else {
             return
         }
-        moviesLoadingService.loadVideos(movieId: movieId) { [weak self] (result) in
+        moviesService.loadVideos(movieId: movieId) { [weak self] (result) in
             guard let self = self, let result = result else {
                 return
             }
@@ -123,14 +122,14 @@ final class DetailedMovieViewController: UIViewController {
             self.videosCollectionView.reloadData()
         }
 
-        moviesLoadingService.loadDetails(movieId: movieId) { [weak self] (result) in
+        moviesService.loadDetails(movieId: movieId) { [weak self] (result) in
             guard let self = self, let result = result else {
                 return
             }
             self.detailedMovie = result
             self.updateView()
         }
-        moviesLoadingService.loadCastAndCrew(movieId: movieId) { [weak self] (resultCast, resultCrew) in
+        moviesService.loadCastAndCrew(movieId: movieId) { [weak self] (resultCast, resultCrew) in
             guard
                 let self = self,
                 let resultCast = resultCast,
@@ -228,7 +227,7 @@ final class DetailedMovieViewController: UIViewController {
         navigationItem.rightBarButtonItem = barButtonItem
         favoriteActivityIndicator.startAnimating()
         favoriteActivityIndicator.hidesWhenStopped = true
-        profileService.setFavoriteTo(
+        moviesService.setFavoriteTo(
             !isFavorite,
             movie: movie,
             detailedMovie: detailedMovie
@@ -257,7 +256,7 @@ final class DetailedMovieViewController: UIViewController {
     }
 
     private func checkFavorite() {
-        if moviesLoadingService.isListedMovie(id: movieId) {
+        if moviesService.isListedMovie(id: movieId) {
             isFavorite = true
             favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
         } else {
