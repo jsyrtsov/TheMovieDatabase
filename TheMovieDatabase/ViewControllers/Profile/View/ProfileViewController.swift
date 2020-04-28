@@ -80,7 +80,7 @@ final class ProfileViewController: UIViewController {
         loginButton.tintColor = .systemBlue
         self.title = UserDefaults.standard.username
         helloLabel.text = "Hello, \(UserDefaults.standard.username)"
-        if AuthorizationService.sessionId != nil {
+        if UserDefaults.standard.username != "Guest" {
             loginButton.setTitle("LOG OUT", for: .normal)
             loginButton.tintColor = .red
         } else {
