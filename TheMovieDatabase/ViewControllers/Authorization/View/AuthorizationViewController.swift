@@ -51,7 +51,6 @@ final class AuthorizationViewController: UIViewController {
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
                 self.appDelegate?.initializeRootView()
-                UserDefaults.standard.loginViewWasShown = true
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
@@ -63,7 +62,6 @@ final class AuthorizationViewController: UIViewController {
     }
 
     @IBAction private func tryAsGuestAction(_ sender: Any) {
-        UserDefaults.standard.loginViewWasShown = true
         appDelegate?.initializeRootView()
     }
 

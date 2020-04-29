@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func initializeRootView() {
+        UserDefaults.standard.loginViewWasShown = true
+
         let tabBarController = UITabBarController()
         let feedViewController = FeedConfigurator().configure()
         let favoritesViewController = FavoritesConfigurator().configure()

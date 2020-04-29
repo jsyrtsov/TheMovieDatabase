@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jga-ZF-1Do">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,27 +13,27 @@
             <objects>
                 <viewController storyboardIdentifier="ProfileViewController" id="jga-ZF-1Do" customClass="ProfileViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fpg-re-0ud">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hello there!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5N-d8-RZJ">
-                                <rect key="frame" x="257" y="289.5" width="86" height="21"/>
+                                <rect key="frame" x="164" y="442.5" width="86" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VPV-DE-UEC">
-                                <rect key="frame" x="277.5" y="360.5" width="45" height="30"/>
+                                <rect key="frame" x="184.5" y="513.5" width="45" height="30"/>
                                 <state key="normal" title="LOGIN"/>
                                 <connections>
                                     <action selector="logoutAction:" destination="jga-ZF-1Do" eventType="touchUpInside" id="8wg-lW-GEq"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jlh-aD-ERj">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mog-UA-aqR">
-                                <rect key="frame" x="215.5" y="157.5" width="169" height="30"/>
+                                <rect key="frame" x="122.5" y="310.5" width="169" height="30"/>
                                 <state key="normal" title="show my favorite movies"/>
                                 <connections>
                                     <action selector="showFavoriteMovies:" destination="jga-ZF-1Do" eventType="touchUpInside" id="t9m-R2-2p1"/>
@@ -55,6 +57,7 @@
                         <outlet property="activityIndicator" destination="jlh-aD-ERj" id="NY4-yO-MhJ"/>
                         <outlet property="helloLabel" destination="T5N-d8-RZJ" id="cFe-Y4-eb7"/>
                         <outlet property="loginButton" destination="VPV-DE-UEC" id="Afb-xl-yyl"/>
+                        <outlet property="showFavoritesButton" destination="Mog-UA-aqR" id="kfN-Fr-PqM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPI-dq-qF1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

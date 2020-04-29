@@ -21,6 +21,7 @@ final class ProfileViewController: UIViewController {
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var loginButton: UIButton!
     @IBOutlet weak private var helloLabel: UILabel!
+    @IBOutlet weak private var showFavoritesButton: UIButton!
 
     // MARK: - UIViewController
 
@@ -38,7 +39,6 @@ final class ProfileViewController: UIViewController {
     }
 
     @IBAction private func logoutAction(_ sender: Any) {
-        UserDefaults.standard.loginViewWasShown = false
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         authorizationService.logout { [weak self] (result) in
             guard let self = self else {
@@ -78,23 +78,28 @@ final class ProfileViewController: UIViewController {
         setAccountDetails(hidden: true)
         navigationController?.navigationBar.prefersLargeTitles = true
         loginButton.tintColor = .systemBlue
-        self.title = UserDefaults.standard.username
-        helloLabel.text = "Hello, \(UserDefaults.standard.username)"
-        if UserDefaults.standard.username != "Guest" {
+    }
+
+    private func updateView() {
+        guard let username = account?.username else {
+            return
+        }
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        if account?.username != "Guest" {
             loginButton.setTitle("LOG OUT", for: .normal)
             loginButton.tintColor = .red
         } else {
             loginButton.setTitle("LOG IN", for: .normal)
         }
-    }
-
-    private func updateView() {
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
+        self.title = username
+        helloLabel.text = "Hello, \(username)"
         setAccountDetails(hidden: false)
     }
 
     private func setAccountDetails(hidden isHidden: Bool) {
         helloLabel.isHidden = isHidden
+        loginButton.isHidden = isHidden
+        showFavoritesButton.isHidden = isHidden
     }
 }

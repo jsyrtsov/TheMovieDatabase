@@ -77,11 +77,7 @@ final class FavoritesViewController: UIViewController {
     private func updateView() {
         activityIndicator.hidesWhenStopped = true
         activityIndicator.stopAnimating()
-        if movies.isEmpty {
-            setEmptyState(hidden: false)
-        } else {
-            setEmptyState(hidden: true)
-        }
+        setEmptyState(hidden: !movies.isEmpty)
     }
 
     private func setEmptyState(hidden isHidden: Bool) {
@@ -141,11 +137,7 @@ extension FavoritesViewController: UITableViewDataSource {
                         return
                     }
                     self.movies = movies
-                    if self.movies.isEmpty {
-                        self.setEmptyState(hidden: false)
-                    } else {
-                        self.setEmptyState(hidden: true)
-                    }
+                    self.setEmptyState(hidden: !self.movies.isEmpty)
                     tableView.reloadData()
                 case .failure(let error):
                     UIAlertController.showErrorAlert(on: self, message: error.localizedDescription)

@@ -94,6 +94,7 @@ final class AuthorizationService {
     // swiftlint:enable cyclomatic_complexity
 
     func logout(completion: @escaping (Result<Void, Error>) -> Void) {
+        UserDefaults.standard.loginViewWasShown = false
         let movies = moviesService.getFavoriteMovies()
         for movie in movies {
             moviesService.removeMovie(id: movie.id)
