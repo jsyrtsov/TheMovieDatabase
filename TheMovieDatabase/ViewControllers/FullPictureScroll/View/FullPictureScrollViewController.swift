@@ -22,14 +22,6 @@ final class FullPictureScrollViewController: UIViewController {
         scroll.isPagingEnabled = true
         scroll.showsVerticalScrollIndicator = false
         scroll.showsHorizontalScrollIndicator = false
-        let window = UIApplication.shared.keyWindow
-        if let topPadding = window?.safeAreaInsets.top, let bottomPadding = window?.safeAreaInsets.bottom {
-            scroll.frame = CGRect(x: 0,
-                                  y: 0,
-                                  width: UIScreen.main.bounds.width,
-                                  height: UIScreen.main.bounds.height - topPadding - bottomPadding)
-        }
-
         return scroll
     }()
 
@@ -43,9 +35,22 @@ final class FullPictureScrollViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureUI() {
+        let window = UIApplication.shared.keyWindow
+
         navigationController?.view.backgroundColor = .white
         title = "\(currentImage + 1) / \(imagesArray.count)"
+
+        if
+            let topPadding = window?.safeAreaInsets.top,
+            let bottomPadding = window?.safeAreaInsets.bottom,
+            let navBarHeight = navigationController?.navigationBar.frame.height {
+            scrollView.frame = CGRect(x: 0,
+                                  y: 0,
+                                  width: UIScreen.main.bounds.width,
+                                  height: UIScreen.main.bounds.height - topPadding - bottomPadding - (navBarHeight / 2))
+        }
         view.backgroundColor = .white
+
         setupImages(imagesArray, currentImage)
         view.addSubview(scrollView)
     }
