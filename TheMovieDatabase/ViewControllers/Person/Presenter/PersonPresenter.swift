@@ -29,6 +29,10 @@ final class PersonPresenter: PersonViewOutput, PersonModuleInput {
 
     // MARK: - PersonViewOutput
 
+    func showFullPictureScroll(images: [String?]) {
+        router?.showFullPictureScroll(images: images)
+    }
+
     func showFullPicture(picturePath: String?) {
         router?.showFullPicture(picturePath: picturePath)
     }

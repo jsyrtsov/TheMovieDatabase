@@ -180,7 +180,9 @@ extension PersonViewController: UICollectionViewDataSource {
 extension PersonViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == imagesCollectionView {
-            output?.showFullPicture(picturePath: personImages[indexPath.row].filePath)
+            let images = personImages.map { $0.filePath }
+            output?.showFullPictureScroll(images: images)
+            //output?.showFullPicture(picturePath: personImages[indexPath.row].filePath)
         }
     }
 }
