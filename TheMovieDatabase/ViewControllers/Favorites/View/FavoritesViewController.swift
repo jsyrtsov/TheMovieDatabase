@@ -12,46 +12,78 @@ final class FavoritesViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let service = MoviesLoadingService()
+    private let accountId = UserDefaults.standard.accountId
+    private let moviesService = MoviesService()
     private var movies: [Movie] = []
+    private var wasShown = false
 
     // MARK: - Subviews
 
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var blankImage: UIImageView!
     @IBOutlet weak private var blankTitle: UILabel!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
 
     // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        loadFavoriteMovies()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        movies = service.getFavoriteMovies()
-        if movies.isEmpty {
-            tableView.isHidden = true
-            blankImage.isHidden = false
-            blankTitle.isHidden = false
+        if wasShown {
+            movies = moviesService.getFavoriteMovies()
+            if movies.isEmpty {
+                setEmptyState(hidden: false)
+            } else {
+                setEmptyState(hidden: true)
+            }
+            tableView.reloadData()
         } else {
-            tableView.isHidden = false
-            blankImage.isHidden = true
-            blankTitle.isHidden = true
+            wasShown = true
         }
-        tableView.reloadData()
     }
 
     // MARK: - Private Methods
 
     private func configureView() {
+        activityIndicator.startAnimating()
+        setEmptyState(hidden: true)
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: MovieTableViewCell.identifier, bundle: nil),
                            forCellReuseIdentifier: MovieTableViewCell.identifier)
         tableView.tableFooterView = UIView()
+    }
+
+    private func loadFavoriteMovies() {
+        moviesService.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
+            guard
+                let self = self,
+                let movies = movies
+            else {
+                return
+            }
+            self.movies = movies
+            self.tableView.reloadData()
+            self.updateView()
+        }
+    }
+
+    private func updateView() {
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.stopAnimating()
+        setEmptyState(hidden: !movies.isEmpty)
+    }
+
+    private func setEmptyState(hidden isHidden: Bool) {
+        blankImage.isHidden = isHidden
+        blankTitle.isHidden = isHidden
+        tableView.isHidden = !isHidden
     }
 }
 
@@ -62,6 +94,7 @@ extension FavoritesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let detailedMovieVC = DetailedMovieConfigurator().configure()
         detailedMovieVC.movieId = movies[indexPath.row].id
+        detailedMovieVC.movie = movies[indexPath.row]
         navigationController?.pushViewController(detailedMovieVC, animated: true)
     }
 }
@@ -88,20 +121,28 @@ extension FavoritesViewController: UITableViewDataSource {
         guard let movieId = movies[indexPath.row].id else {
             return
         }
+        let detailedMovie = moviesService.getMovieInfo(id: movieId)
         if editingStyle == .delete {
-            service.removeMovie(id: movieId)
-            service.removeDetailedMovie(id: movieId)
+            moviesService.setFavoriteTo(
+                false,
+                movie: movies[indexPath.row],
+                detailedMovie: detailedMovie
+            ) { [weak self] (result) in
+                guard let self = self else {
+                    return
+                }
+                switch result {
+                case .success(let movies):
+                    guard let movies = movies else {
+                        return
+                    }
+                    self.movies = movies
+                    self.setEmptyState(hidden: !self.movies.isEmpty)
+                    tableView.reloadData()
+                case .failure(let error):
+                    UIAlertController.showErrorAlert(on: self, message: error.localizedDescription)
+                }
+            }
         }
-        movies = service.getFavoriteMovies()
-        if movies.isEmpty {
-            tableView.isHidden = true
-            blankImage.isHidden = false
-            blankTitle.isHidden = false
-        } else {
-            tableView.isHidden = false
-            blankImage.isHidden = true
-            blankTitle.isHidden = true
-        }
-        tableView.reloadData()
     }
 }

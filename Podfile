@@ -14,6 +14,7 @@ pod 'Nuke'
 pod 'RealmSwift'
 pod 'YoutubeDirectLinkExtractor'
 pod 'ExpandableLabel'
+pod 'Locksmith'
 
   target 'TheMovieDatabaseTests' do
     inherit! :search_paths

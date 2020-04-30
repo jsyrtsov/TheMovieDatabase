@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jga-ZF-1Do">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Profile View Controller-->
+        <scene sceneID="2ke-wd-DKA">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" id="jga-ZF-1Do" customClass="ProfileViewController" customModule="TheMovieDatabase" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fpg-re-0ud">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hello there!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5N-d8-RZJ">
+                                <rect key="frame" x="164" y="442.5" width="86" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VPV-DE-UEC">
+                                <rect key="frame" x="184.5" y="513.5" width="45" height="30"/>
+                                <state key="normal" title="LOGIN"/>
+                                <connections>
+                                    <action selector="logoutAction:" destination="jga-ZF-1Do" eventType="touchUpInside" id="8wg-lW-GEq"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jlh-aD-ERj">
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mog-UA-aqR">
+                                <rect key="frame" x="122.5" y="310.5" width="169" height="30"/>
+                                <state key="normal" title="show my favorite movies"/>
+                                <connections>
+                                    <action selector="showFavoriteMovies:" destination="jga-ZF-1Do" eventType="touchUpInside" id="t9m-R2-2p1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="T5N-d8-RZJ" firstAttribute="top" secondItem="Mog-UA-aqR" secondAttribute="bottom" constant="102" id="5T3-C4-fIk"/>
+                            <constraint firstItem="jlh-aD-ERj" firstAttribute="centerY" secondItem="7Vi-Ye-aiB" secondAttribute="centerY" id="8x6-as-8qW"/>
+                            <constraint firstItem="VPV-DE-UEC" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="Bwx-ce-EwB"/>
+                            <constraint firstItem="T5N-d8-RZJ" firstAttribute="centerY" secondItem="7Vi-Ye-aiB" secondAttribute="centerY" id="KcG-uy-tcL"/>
+                            <constraint firstItem="VPV-DE-UEC" firstAttribute="top" secondItem="T5N-d8-RZJ" secondAttribute="bottom" constant="50" id="LRh-0m-RSp"/>
+                            <constraint firstItem="T5N-d8-RZJ" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="Rzm-tp-z7h"/>
+                            <constraint firstItem="Mog-UA-aqR" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="Zie-ga-aUa"/>
+                            <constraint firstItem="jlh-aD-ERj" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="lhU-NB-Rx6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7Vi-Ye-aiB"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="jlh-aD-ERj" id="NY4-yO-MhJ"/>
+                        <outlet property="helloLabel" destination="T5N-d8-RZJ" id="cFe-Y4-eb7"/>
+                        <outlet property="loginButton" destination="VPV-DE-UEC" id="Afb-xl-yyl"/>
+                        <outlet property="showFavoritesButton" destination="Mog-UA-aqR" id="kfN-Fr-PqM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sPI-dq-qF1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="214" y="80"/>
+        </scene>
+    </scenes>
+</document>

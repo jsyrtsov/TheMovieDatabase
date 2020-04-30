@@ -16,8 +16,9 @@ final class DetailedMovieViewController: UIViewController {
     static let identifier = String(describing: DetailedMovieViewController.self)
 
     var movieId: Int?
+    var movie: Movie?
     private let extractor = LinkExtractor()
-    private let service = MoviesLoadingService()
+    private let moviesService = MoviesService()
     private var detailedMovie: DetailedMovie?
     private var crew: [CrewEntry] = []
     private var cast: [CastEntry] = []
@@ -27,6 +28,7 @@ final class DetailedMovieViewController: UIViewController {
     // MARK: - Subviews
 
     private let favoriteButton = UIButton(type: .custom)
+    private let favoriteActivityIndicator = UIActivityIndicatorView(style: .gray)
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var runtime: UILabel!
     @IBOutlet weak private var revenue: UILabel!
@@ -91,8 +93,8 @@ final class DetailedMovieViewController: UIViewController {
 
         favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
         favoriteButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
-        let barButtonItem = UIBarButtonItem(customView: favoriteButton)
-        navigationItem.rightBarButtonItem = barButtonItem
+        let buttonBarButtonItem = UIBarButtonItem(customView: favoriteButton)
+        navigationItem.rightBarButtonItem = buttonBarButtonItem
     }
 
     private func setMovieInformation(hidden isHidden: Bool) {
@@ -112,7 +114,7 @@ final class DetailedMovieViewController: UIViewController {
         guard let movieId = movieId else {
             return
         }
-        service.loadVideos(movieId: movieId) { [weak self] (result) in
+        moviesService.loadVideos(movieId: movieId) { [weak self] (result) in
             guard let self = self, let result = result else {
                 return
             }
@@ -120,14 +122,14 @@ final class DetailedMovieViewController: UIViewController {
             self.videosCollectionView.reloadData()
         }
 
-        service.loadDetails(movieId: movieId) { [weak self] (result) in
+        moviesService.loadDetails(movieId: movieId) { [weak self] (result) in
             guard let self = self, let result = result else {
                 return
             }
             self.detailedMovie = result
             self.updateView()
         }
-        service.loadCastAndCrew(movieId: movieId) { [weak self] (resultCast, resultCrew) in
+        moviesService.loadCastAndCrew(movieId: movieId) { [weak self] (resultCast, resultCrew) in
             guard
                 let self = self,
                 let resultCast = resultCast,
@@ -197,7 +199,7 @@ final class DetailedMovieViewController: UIViewController {
         voteLabel.text = String(vote)
         titleLabel.text = detailedMovie?.title
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-mm-dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         if let releaseDate = detailedMovie?.releaseDate, let date = dateFormatter.date(from: releaseDate) {
             dateFormatter.dateFormat = "MMMM dd, yyyy"
             self.releaseDate.text = dateFormatter.string(from: date)
@@ -221,21 +223,40 @@ final class DetailedMovieViewController: UIViewController {
 
     @objc
     private func likeTapped() {
-        if isFavorite {
-            isFavorite = false
-            favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
-            service.removeMovie(id: movieId)
-            service.removeDetailedMovie(id: movieId)
-        } else {
-            isFavorite = true
-            favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
-            service.saveDetailedMovie(detailedMovie: detailedMovie)
-            service.saveMovie(detailedMovie: detailedMovie)
+        var barButtonItem = UIBarButtonItem(customView: favoriteActivityIndicator)
+        navigationItem.rightBarButtonItem = barButtonItem
+        favoriteActivityIndicator.startAnimating()
+        favoriteActivityIndicator.hidesWhenStopped = true
+        moviesService.setFavoriteTo(
+            !isFavorite,
+            movie: movie,
+            detailedMovie: detailedMovie
+        ) { [weak self] (result) in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success( _):
+                self.favoriteActivityIndicator.stopAnimating()
+                if self.isFavorite {
+                    self.isFavorite = false
+                    self.favoriteButton.setImage(#imageLiteral(resourceName: "likeUntapped"), for: .normal)
+                    barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
+                    self.navigationItem.rightBarButtonItem = barButtonItem
+                } else {
+                    self.isFavorite = true
+                    self.favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
+                    barButtonItem = UIBarButtonItem(customView: self.favoriteButton)
+                    self.navigationItem.rightBarButtonItem = barButtonItem
+                }
+            case .failure(let error):
+                UIAlertController.showErrorAlert(on: self, message: error.localizedDescription)
+            }
         }
     }
 
     private func checkFavorite() {
-        if service.isListedMovie(id: movieId) {
+        if moviesService.isListedMovie(id: movieId) {
             isFavorite = true
             favoriteButton.setImage(#imageLiteral(resourceName: "likeTapped"), for: .normal)
         } else {

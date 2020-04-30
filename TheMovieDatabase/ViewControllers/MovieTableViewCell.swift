@@ -35,6 +35,7 @@ final class MovieTableViewCell: UITableViewCell {
     // MARK: - Methods
 
     func configure(movie: Movie) {
+        selectionStyle = .none
         title.text = movie.title
         overview.text = movie.overview
         if let vote = movie.voteAverage {

@@ -17,27 +17,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        initializeRootView()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+
+        if UserDefaults.standard.loginViewWasShown {
+            initializeRootView()
+        } else {
+            initializeAuthView()
+        }
         return true
     }
 
-    private func initializeRootView() {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
+    func initializeAuthView() {
+        let authorizationVC = AuthorizationConfigurator().configure()
+        window?.rootViewController = authorizationVC
+    }
+
+    func initializeRootView() {
+        UserDefaults.standard.loginViewWasShown = true
 
         let tabBarController = UITabBarController()
         let feedViewController = FeedConfigurator().configure()
         let favoritesViewController = FavoritesConfigurator().configure()
         let searchMovieViewController = SearchMovieConfigurator().configure()
+        let profileViewController = ProfileConfigurator().configure()
 
         feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: #imageLiteral(resourceName: "iconFeed"), tag: 0)
         favoritesViewController.tabBarItem = UITabBarItem(title: "Favorites", image: #imageLiteral(resourceName: "iconFavorite"), tag: 0)
-        searchMovieViewController.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "iconSearch"), tag: 0)
+        searchMovieViewController.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "search"), tag: 0)
+        profileViewController.tabBarItem = UITabBarItem(title: UserDefaults.standard.username, image: #imageLiteral(resourceName: "iconProfile"), tag: 0)
 
         tabBarController.setViewControllers([
             UINavigationController(rootViewController: feedViewController),
             UINavigationController(rootViewController: favoritesViewController),
-            UINavigationController(rootViewController: searchMovieViewController)
+            UINavigationController(rootViewController: searchMovieViewController),
+            UINavigationController(rootViewController: profileViewController)
         ], animated: true)
 
         window?.rootViewController = tabBarController

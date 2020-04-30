@@ -1,5 +1,5 @@
 //
-//  PersonLoadingService.swift
+//  PersonService.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 4/4/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class PersonLoadingService {
+final class PersonService {
 
     // MARK: - Methods
 

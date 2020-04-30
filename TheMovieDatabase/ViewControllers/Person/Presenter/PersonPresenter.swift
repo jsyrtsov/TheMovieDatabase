@@ -14,7 +14,7 @@ final class PersonPresenter: PersonViewOutput, PersonModuleInput {
 
     weak var view: PersonViewInput?
     var router: PersonRouterInput?
-    private let service = PersonLoadingService()
+    private let service = PersonService()
     private var personId: Int?
     private var personDetails: Person?
     private var personCast: [PersonMovie] = []

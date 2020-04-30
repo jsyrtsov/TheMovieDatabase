@@ -12,7 +12,7 @@ final class FeedViewController: UIViewController {
 
     // MARK: - Properties
 
-    private lazy var service = MoviesLoadingService()
+    private lazy var service = MoviesService()
     private var movies: [Movie] = []
 
     // MARK: - Subviews
@@ -101,6 +101,7 @@ extension FeedViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let detailedMovieVC = DetailedMovieConfigurator().configure()
         detailedMovieVC.movieId = movies[indexPath.row].id
+        detailedMovieVC.movie = movies[indexPath.row]
         navigationController?.pushViewController(detailedMovieVC, animated: true)
     }
 }

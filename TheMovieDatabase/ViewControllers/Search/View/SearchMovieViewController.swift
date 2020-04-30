@@ -12,7 +12,7 @@ final class SearchMovieViewController: UIViewController {
 
     // MARK: - Properties
 
-    private var service = MoviesLoadingService()
+    private var service = MoviesService()
     private var query = ""
     private var movies: [Movie] = []
 
@@ -101,6 +101,7 @@ extension SearchMovieViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let detailedMovieVC = DetailedMovieConfigurator().configure()
         detailedMovieVC.movieId = movies[indexPath.row].id
+        detailedMovieVC.movie = movies[indexPath.row]
         navigationController?.pushViewController(detailedMovieVC, animated: true)
     }
 }
