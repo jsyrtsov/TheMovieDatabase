@@ -12,5 +12,5 @@ protocol PersonViewOutput: class {
     func loadData()
     func showFullPicture(picturePath: String?)
     func showDetailedMovie(movieId: Int?)
-    func showFullPictureScroll(images: [String?])
+    func showFullPictureScroll(images: [String?], currentImage: Int)
 }

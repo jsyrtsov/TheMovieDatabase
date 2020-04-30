@@ -13,6 +13,7 @@ final class FullPictureScrollViewController: UIViewController {
     // MARK: - Properties
 
     var imagesArray: [String?] = []
+    var currentImage = 0
 
     // MARK: - Subviews
 
@@ -21,7 +22,14 @@ final class FullPictureScrollViewController: UIViewController {
         scroll.isPagingEnabled = true
         scroll.showsVerticalScrollIndicator = false
         scroll.showsHorizontalScrollIndicator = false
-        scroll.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        let window = UIApplication.shared.keyWindow
+        if let topPadding = window?.safeAreaInsets.top, let bottomPadding = window?.safeAreaInsets.bottom {
+            scroll.frame = CGRect(x: 0,
+                                  y: 0,
+                                  width: UIScreen.main.bounds.width,
+                                  height: UIScreen.main.bounds.height - topPadding - bottomPadding)
+        }
+
         return scroll
     }()
 
@@ -35,25 +43,34 @@ final class FullPictureScrollViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureUI() {
+        view.backgroundColor = .white
+        setupImages(imagesArray, currentImage)
         view.addSubview(scrollView)
-        setupImages(imagesArray)
     }
 
-    private func setupImages(_ images: [String?]) {
+    private func setupImages(_ images: [String?], _ currentImage: Int) {
         for i in 0..<images.count {
             let imageView = UIImageView()
             imageView.loadFullPicture(path: images[i])
             let xPosition = UIScreen.main.bounds.width * CGFloat(i)
-            imageView.frame = CGRect(x: xPosition, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
+            imageView.frame = CGRect(x: xPosition,
+                                     y: 0,
+                                     width: scrollView.frame.width,
+                                     height: scrollView.frame.height)
             imageView.contentMode = .scaleAspectFit
 
             self.scrollView.contentSize.width = scrollView.frame.width * CGFloat(i + 1)
             self.scrollView.addSubview(imageView)
+            self.scrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width * CGFloat(currentImage),
+                                                     y: CGFloat(0)), animated: false)
             self.scrollView.delegate = self
         }
     }
 }
 
 extension FullPictureScrollViewController: UIScrollViewDelegate {
-
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //change index on navBar
+        scrollView.indexDisplayMode = .automatic
+    }
 }

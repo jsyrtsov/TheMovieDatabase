@@ -16,9 +16,10 @@ final class PersonRouter: PersonRouterInput {
 
     // MARK: - PersonRouterInput
 
-    func showFullPictureScroll(images: [String?]) {
+    func showFullPictureScroll(images: [String?], currentImage: Int) {
         let fullPictureScrollVC = FullPictureScrollConfigurator().configure()
         fullPictureScrollVC.imagesArray = images
+        fullPictureScrollVC.currentImage = currentImage
         view?.push(module: fullPictureScrollVC, animated: true, hideTabBar: true)
     }
 
