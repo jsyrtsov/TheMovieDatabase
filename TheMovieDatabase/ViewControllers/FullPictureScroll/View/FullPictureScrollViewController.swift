@@ -43,6 +43,7 @@ final class FullPictureScrollViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureUI() {
+        title = "\(currentImage + 1) / \(imagesArray.count)"
         view.backgroundColor = .white
         setupImages(imagesArray, currentImage)
         view.addSubview(scrollView)
@@ -68,9 +69,12 @@ final class FullPictureScrollViewController: UIViewController {
     }
 }
 
+// MARK: - UIScrollViewDelegate
+
 extension FullPictureScrollViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //change index on navBar
-        scrollView.indexDisplayMode = .automatic
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width) + 1
+        print("\(index)/\(imagesArray.count)")
+        self.title = "\(index) / \(imagesArray.count)"
     }
 }
