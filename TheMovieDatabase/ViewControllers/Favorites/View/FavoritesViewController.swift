@@ -69,8 +69,8 @@ final class FavoritesViewController: UIViewController {
     @objc
     private func refreshData() {
         let service = MoviesLoadingService()
-        service.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
-            guard let self = self, let movies = movies else {
+        service.loadFavoriteMovies(accountId: accountId) { (movies) in
+            guard let movies = movies else {
                 return
             }
             self.movies = movies

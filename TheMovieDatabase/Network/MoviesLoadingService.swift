@@ -86,11 +86,8 @@ final class MoviesLoadingService {
             else {
                 return
             }
-            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-                guard
-                    let self = self,
-                    let data = data
-                else {
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                guard let data = data else {
                     return
                 }
                 let decoder = JSONDecoder()
