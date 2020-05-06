@@ -57,10 +57,9 @@ final class FullPictureScrollViewController: UIViewController {
 
         if
             let topPadding = window?.safeAreaInsets.top,
-            let bottomPadding = window?.safeAreaInsets.bottom,
-            let navBarHeight = navigationController?.navigationBar.frame.height {
+            let bottomPadding = window?.safeAreaInsets.bottom {
             scrollView.frame = CGRect(x: 0,
-                                      y: navBarHeight,
+                                      y: topPadding,
                                       width: UIScreen.main.bounds.width,
                                       height: UIScreen.main.bounds.height - topPadding - bottomPadding)
         }
