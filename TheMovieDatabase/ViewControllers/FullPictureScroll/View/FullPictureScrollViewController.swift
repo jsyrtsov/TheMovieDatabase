@@ -15,13 +15,14 @@ final class FullPictureScrollViewController: UIViewController {
     var imagesArray: [String?] = []
     var currentImage = 0
 
-    private var state: State = .white {
+    private var imageViewsArray: [UIImageView] = []
+    private var state: State = .normal {
         didSet {
             switch state {
-            case .white:
+            case .normal:
                 view.backgroundColor = .white
                 navigationController?.isNavigationBarHidden = false
-            case .black:
+            case .fullScreen:
                 view.backgroundColor = .black
                 navigationController?.isNavigationBarHidden = true
             }
@@ -35,6 +36,7 @@ final class FullPictureScrollViewController: UIViewController {
         scrollView.isPagingEnabled = true
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
         return scrollView
     }()
 
@@ -48,22 +50,22 @@ final class FullPictureScrollViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureUI() {
-        scrollView.contentInsetAdjustmentBehavior = .never
-        scrollView.delegate = self
-        let window = UIApplication.shared.keyWindow
 
+        view.backgroundColor = .white
+
+        scrollView.delegate = self
         navigationController?.view.backgroundColor = .white
         title = "\(currentImage + 1) / \(imagesArray.count)"
 
+        let window = UIApplication.shared.keyWindow
         if
             let topPadding = window?.safeAreaInsets.top,
             let bottomPadding = window?.safeAreaInsets.bottom {
             scrollView.frame = CGRect(x: 0,
-                                      y: topPadding,
+                                      y: 0,
                                       width: UIScreen.main.bounds.width,
                                       height: UIScreen.main.bounds.height - topPadding - bottomPadding)
         }
-        view.backgroundColor = .white
 
         setupImages(imagesArray, currentImage)
         view.addSubview(scrollView)
@@ -71,19 +73,22 @@ final class FullPictureScrollViewController: UIViewController {
 
     private func setupImages(_ images: [String?], _ currentImage: Int) {
         for i in 0..<images.count {
+            let xPosition = UIScreen.main.bounds.width * CGFloat(i)
+
             let imageView = UIImageView()
+            imageView.clipsToBounds = true
+            imageView.layer.masksToBounds = true
+            imageView.frame = CGRect(x: xPosition,
+                                     y: 0,
+                                     width: UIScreen.main.bounds.width,
+                                     height: UIScreen.main.bounds.height)
+            imageView.isUserInteractionEnabled = true
+            imageView.contentMode = .scaleAspectFit
 
             let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
             imageView.addGestureRecognizer(tap)
-            imageView.isUserInteractionEnabled = true
 
             imageView.loadFullPicture(path: images[i])
-            let xPosition = UIScreen.main.bounds.width * CGFloat(i)
-            imageView.frame = CGRect(x: xPosition,
-                                     y: 0,
-                                     width: scrollView.frame.width,
-                                     height: scrollView.frame.height)
-            imageView.contentMode = .scaleAspectFit
 
             self.scrollView.contentSize.width = scrollView.frame.width * CGFloat(i + 1)
             self.scrollView.addSubview(imageView)
@@ -94,10 +99,10 @@ final class FullPictureScrollViewController: UIViewController {
 
     @objc
     private func imageTapped() {
-        if state == .white {
-            state = .black
+        if state == .normal {
+            state = .fullScreen
         } else {
-            state = .white
+            state = .normal
         }
     }
 }
@@ -106,14 +111,16 @@ final class FullPictureScrollViewController: UIViewController {
 
 extension FullPictureScrollViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width) + 1
-        self.title = "\(index) / \(imagesArray.count)"
+        if scrollView == self.scrollView {
+            let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width) + 1
+            self.title = "\(index) / \(imagesArray.count)"
+        }
     }
 }
 
 // MARK: - Private Enums
 
 private enum State {
-    case white
-    case black
+    case normal
+    case fullScreen
 }
