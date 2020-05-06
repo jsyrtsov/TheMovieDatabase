@@ -613,7 +613,6 @@
 		28FD53CB24058E6C00AD4923 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				283892872420200400016011 /* MovieTableViewCell.swift */,
 				28D6F7AC2449F8BA001C9C24 /* Profile */,
 				28A9612D2449A46A00C053D9 /* Authorization */,
 				28E1E4502447250C0093B75F /* Feed */,
@@ -631,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				283892882420200400016011 /* MovieTableViewCell.xib */,
+				283892872420200400016011 /* MovieTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

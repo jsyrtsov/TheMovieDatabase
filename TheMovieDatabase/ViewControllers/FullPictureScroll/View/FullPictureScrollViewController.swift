@@ -15,14 +15,27 @@ final class FullPictureScrollViewController: UIViewController {
     var imagesArray: [String?] = []
     var currentImage = 0
 
+    private var state: State = .white {
+        didSet {
+            switch state {
+            case .white:
+                view.backgroundColor = .white
+                navigationController?.isNavigationBarHidden = false
+            case .black:
+                view.backgroundColor = .black
+                navigationController?.isNavigationBarHidden = true
+            }
+        }
+    }
+
     // MARK: - Subviews
 
     private let scrollView: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.isPagingEnabled = true
-        scroll.showsVerticalScrollIndicator = false
-        scroll.showsHorizontalScrollIndicator = false
-        return scroll
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
     }()
 
     // MARK: - UIViewController
@@ -35,6 +48,8 @@ final class FullPictureScrollViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureUI() {
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.delegate = self
         let window = UIApplication.shared.keyWindow
 
         navigationController?.view.backgroundColor = .white
@@ -45,9 +60,9 @@ final class FullPictureScrollViewController: UIViewController {
             let bottomPadding = window?.safeAreaInsets.bottom,
             let navBarHeight = navigationController?.navigationBar.frame.height {
             scrollView.frame = CGRect(x: 0,
-                                  y: 0,
-                                  width: UIScreen.main.bounds.width,
-                                  height: UIScreen.main.bounds.height - topPadding - bottomPadding - (navBarHeight / 2))
+                                      y: navBarHeight,
+                                      width: UIScreen.main.bounds.width,
+                                      height: UIScreen.main.bounds.height - topPadding - bottomPadding)
         }
         view.backgroundColor = .white
 
@@ -58,6 +73,11 @@ final class FullPictureScrollViewController: UIViewController {
     private func setupImages(_ images: [String?], _ currentImage: Int) {
         for i in 0..<images.count {
             let imageView = UIImageView()
+
+            let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+            imageView.addGestureRecognizer(tap)
+            imageView.isUserInteractionEnabled = true
+
             imageView.loadFullPicture(path: images[i])
             let xPosition = UIScreen.main.bounds.width * CGFloat(i)
             imageView.frame = CGRect(x: xPosition,
@@ -70,7 +90,15 @@ final class FullPictureScrollViewController: UIViewController {
             self.scrollView.addSubview(imageView)
             self.scrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width * CGFloat(currentImage),
                                                      y: CGFloat(0)), animated: false)
-            self.scrollView.delegate = self
+        }
+    }
+
+    @objc
+    private func imageTapped() {
+        if state == .white {
+            state = .black
+        } else {
+            state = .white
         }
     }
 }
@@ -82,4 +110,11 @@ extension FullPictureScrollViewController: UIScrollViewDelegate {
         let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width) + 1
         self.title = "\(index) / \(imagesArray.count)"
     }
+}
+
+// MARK: - Private Enums
+
+private enum State {
+    case white
+    case black
 }
