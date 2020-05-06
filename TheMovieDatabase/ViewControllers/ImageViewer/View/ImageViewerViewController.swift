@@ -1,5 +1,5 @@
 //
-//  FullPictureScrollViewController.swift
+//  ImageViewerViewController.swift
 //  TheMovieDatabase
 //
 //  Created by Evgeny Syrtsov on 5/1/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FullPictureScrollViewController: UIViewController {
+final class ImageViewerViewController: UIViewController {
 
     // MARK: - Properties
 
@@ -109,12 +109,10 @@ final class FullPictureScrollViewController: UIViewController {
 
 // MARK: - UIScrollViewDelegate
 
-extension FullPictureScrollViewController: UIScrollViewDelegate {
+extension ImageViewerViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView == self.scrollView {
-            let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width) + 1
-            self.title = "\(index) / \(imagesArray.count)"
-        }
+        let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width) + 1
+        self.title = "\(index) / \(imagesArray.count)"
     }
 }
 

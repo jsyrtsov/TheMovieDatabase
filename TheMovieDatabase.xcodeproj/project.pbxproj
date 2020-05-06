@@ -52,8 +52,8 @@
 		28AB0BDF243A56B80018B08E /* PersonViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AB0BDE243A56B80018B08E /* PersonViewInput.swift */; };
 		28AB0BE1243A57CC0018B08E /* PersonModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AB0BE0243A57CC0018B08E /* PersonModuleInput.swift */; };
 		28AB0BE3243A58DF0018B08E /* PersonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AB0BE2243A58DF0018B08E /* PersonRouter.swift */; };
-		28AE4F54245B77BC0067B7F4 /* FullPictureScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE4F53245B77BC0067B7F4 /* FullPictureScrollViewController.swift */; };
-		28AE4F58245B788D0067B7F4 /* FullPictureScrollConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE4F57245B788D0067B7F4 /* FullPictureScrollConfigurator.swift */; };
+		28AE4F54245B77BC0067B7F4 /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE4F53245B77BC0067B7F4 /* ImageViewerViewController.swift */; };
+		28AE4F58245B788D0067B7F4 /* ImageViewerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE4F57245B788D0067B7F4 /* ImageViewerConfigurator.swift */; };
 		28BB5E87242E61B400BA62F8 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB5E86242E61B400BA62F8 /* PersonViewController.swift */; };
 		28BF15FE2451B30700CBAB41 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BF15FD2451B30700CBAB41 /* NetworkError.swift */; };
 		28BF16002451B9F200CBAB41 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BF15FF2451B9F200CBAB41 /* UIAlertController.swift */; };
@@ -146,8 +146,8 @@
 		28AB0BDE243A56B80018B08E /* PersonViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewInput.swift; sourceTree = "<group>"; };
 		28AB0BE0243A57CC0018B08E /* PersonModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModuleInput.swift; sourceTree = "<group>"; };
 		28AB0BE2243A58DF0018B08E /* PersonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRouter.swift; sourceTree = "<group>"; };
-		28AE4F53245B77BC0067B7F4 /* FullPictureScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPictureScrollViewController.swift; sourceTree = "<group>"; };
-		28AE4F57245B788D0067B7F4 /* FullPictureScrollConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPictureScrollConfigurator.swift; sourceTree = "<group>"; };
+		28AE4F53245B77BC0067B7F4 /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
+		28AE4F57245B788D0067B7F4 /* ImageViewerConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerConfigurator.swift; sourceTree = "<group>"; };
 		28BB5E86242E61B400BA62F8 /* PersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
 		28BF15FD2451B30700CBAB41 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		28BF15FF2451B9F200CBAB41 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
@@ -437,19 +437,19 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		28AE4F55245B78510067B7F4 /* FullPictureScroll */ = {
+		28AE4F55245B78510067B7F4 /* ImageViewer */ = {
 			isa = PBXGroup;
 			children = (
 				28AE4F59245B78930067B7F4 /* Configurator */,
 				28AE4F56245B78770067B7F4 /* View */,
 			);
-			path = FullPictureScroll;
+			path = ImageViewer;
 			sourceTree = "<group>";
 		};
 		28AE4F56245B78770067B7F4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				28AE4F53245B77BC0067B7F4 /* FullPictureScrollViewController.swift */,
+				28AE4F53245B77BC0067B7F4 /* ImageViewerViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -457,7 +457,7 @@
 		28AE4F59245B78930067B7F4 /* Configurator */ = {
 			isa = PBXGroup;
 			children = (
-				28AE4F57245B788D0067B7F4 /* FullPictureScrollConfigurator.swift */,
+				28AE4F57245B788D0067B7F4 /* ImageViewerConfigurator.swift */,
 			);
 			path = Configurator;
 			sourceTree = "<group>";
@@ -619,7 +619,7 @@
 				28E1E453244725C00093B75F /* Favorites */,
 				28E1E4572447263F0093B75F /* Search */,
 				283B457D243A14BB004CE8D1 /* FullPicture */,
-				28AE4F55245B78510067B7F4 /* FullPictureScroll */,
+				28AE4F55245B78510067B7F4 /* ImageViewer */,
 				2834E781243BDD9A0093460B /* DetailedMovie */,
 				28331CC02438FDED0028CCE5 /* Person */,
 			);
@@ -866,7 +866,7 @@
 				287FF424244A4C0A00BDE868 /* AuthorizationService.swift in Sources */,
 				289AE7152400678D0029719B /* SearchMovieViewController.swift in Sources */,
 				280AFE70240E80E200D887A8 /* MoviesServiceStrategy.swift in Sources */,
-				28AE4F54245B77BC0067B7F4 /* FullPictureScrollViewController.swift in Sources */,
+				28AE4F54245B77BC0067B7F4 /* ImageViewerViewController.swift in Sources */,
 				28331CC22438FF5E0028CCE5 /* PersonModuleConfigurator.swift in Sources */,
 				2834E784243BDDBF0093460B /* DetailedMovieConfigurator.swift in Sources */,
 				28AB0BDD243A56AD0018B08E /* PersonViewOutput.swift in Sources */,
@@ -909,7 +909,7 @@
 				28DF2432243891F4004F08D0 /* PersonService.swift in Sources */,
 				283892892420200400016011 /* MovieTableViewCell.swift in Sources */,
 				28D8B4B62432102800A6BCDE /* PersonImagesCollectionViewCell.swift in Sources */,
-				28AE4F58245B788D0067B7F4 /* FullPictureScrollConfigurator.swift in Sources */,
+				28AE4F58245B788D0067B7F4 /* ImageViewerConfigurator.swift in Sources */,
 				28078C0E2429474800040DD3 /* Video.swift in Sources */,
 				28BB5E87242E61B400BA62F8 /* PersonViewController.swift in Sources */,
 			);

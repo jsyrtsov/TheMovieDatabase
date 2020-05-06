@@ -47,13 +47,8 @@ final class FeedViewController: UIViewController {
         segmentedControl?.addTarget(self, action: #selector(FeedViewController.indexChanged(_:)), for: .valueChanged)
 
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(loadMovies), for: .valueChanged)
         tableView.refreshControl = refreshControl
-    }
-
-    @objc
-    private func refreshData() {
-        loadMovies()
     }
 
     @objc
@@ -86,6 +81,7 @@ final class FeedViewController: UIViewController {
         }
     }
 
+    @objc
     private func loadMovies() {
         service.loadMovies { [weak self] (results) in
             guard

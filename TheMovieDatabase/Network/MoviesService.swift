@@ -60,10 +60,11 @@ final class MoviesService {
                     self.totalPages = totalPages
                     if self.currentPage < totalPages {
                         self.canLoadMore = true
+                        self.currentPage += 1
                     } else {
                         self.canLoadMore = false
                     }
-                    self.currentPage += 1
+
                     completion(result.results)
                 }
             } catch {
@@ -107,10 +108,10 @@ final class MoviesService {
                     self.totalPages = totalPages
                     if self.currentPage < totalPages {
                         self.canLoadMore = true
+                        self.currentPage += 1
                     } else {
                         self.canLoadMore = false
                     }
-                    self.currentPage += 1
                     for movie in movies {
                         self.storageMoviesService.save(movie: movie)
                     }

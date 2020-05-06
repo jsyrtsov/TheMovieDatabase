@@ -61,23 +61,11 @@ final class FavoritesViewController: UIViewController {
         tableView.tableFooterView = UIView()
 
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(loadFavoriteMovies), for: .valueChanged)
         tableView.refreshControl = refreshControl
     }
-
+    
     @objc
-    private func refreshData() {
-        let service = MoviesService()
-        service.loadFavoriteMovies(accountId: accountId) { (movies) in
-            guard let movies = movies else {
-                return
-            }
-            self.movies = movies
-            self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
-        }
-    }
-
     private func loadFavoriteMovies() {
         moviesService.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
             guard
@@ -88,6 +76,7 @@ final class FavoritesViewController: UIViewController {
             }
             self.movies = movies
             self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
             self.updateView()
         }
     }
