@@ -68,9 +68,8 @@ extension AppDelegate: UITabBarControllerDelegate {
         let vc = viewController as? UINavigationController
         let array = vc?.viewControllers
         if tabBarController.selectedViewController === viewController && array?.count == 1 {
-            print("scroll now!")
+            viewController.scrollToTop()
         }
-        
         return true
     }
 }
