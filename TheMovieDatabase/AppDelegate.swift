@@ -62,44 +62,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: - UITabBarControllerDelegate
 
 extension AppDelegate: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController,
-                          didSelect viewController: UIViewController) {
-        let vc = viewController as? UINavigationController
-        let array = vc?.viewControllers
-        print(array?.count)
-        print("will be index is \(tabBarController.selectedIndex)")
-    }
+
     func tabBarController(_ tabBarController: UITabBarController,
                           shouldSelect viewController: UIViewController) -> Bool {
-        print("previous index is \(tabBarController.selectedIndex)")
         let vc = viewController as? UINavigationController
         let array = vc?.viewControllers
-        print(array?.count)
+        if tabBarController.selectedViewController === viewController && array?.count == 1 {
+            print("scroll now!")
+        }
+        
         return true
     }
-//    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool
-//    {
-//        guard let tabBarControllers = tabBarController.viewControllers
-//        else
-//        {
-//            // TabBar have no configured controllers
-//            return true
-//        }
-//
-//        if let newIndex = tabBarControllers.indexOf(viewController) where newIndex == tabBarController.selectedIndex
-//        {
-//            // Index won't change so we can scroll
-//
-//            guard let tableViewController = viewController as? UITableViewController // Or any other condition
-//            else
-//            {
-//                // We are not in UITableViewController
-//                return true
-//            }
-//
-//            tableViewController.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
-//        }
-//
-//        return true
-//    }
 }
