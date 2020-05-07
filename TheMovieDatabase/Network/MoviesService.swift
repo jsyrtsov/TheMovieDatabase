@@ -247,10 +247,8 @@ final class MoviesService {
                         if statusCode == 1 || statusCode == 13 {
                             if isFavorite {
                                 self.save(movie: movie)
-                                self.save(detailedMovie: detailedMovie)
                             } else {
                                 self.removeMovie(id: movieId)
-                                self.removeDetailedMovie(id: movieId)
                             }
                             let movies = self.getFavoriteMovies()
                             completion(.success(movies))

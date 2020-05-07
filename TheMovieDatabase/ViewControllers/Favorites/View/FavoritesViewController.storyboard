@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,10 +21,13 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank" translatesAutoresizingMaskIntoConstraints="NO" id="zdg-O6-pnz">
-                                <rect key="frame" x="161" y="156" width="53" height="234"/>
+                                <rect key="frame" x="157" y="295" width="61" height="77"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is nothing. Try to add something in favorites" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXy-FL-pwu">
-                                <rect key="frame" x="87" y="401" width="200" height="32"/>
+                                <rect key="frame" x="87.5" y="383" width="200" height="30.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="JdO-Re-geS"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -35,20 +38,16 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="fXy-FL-pwu" firstAttribute="centerX" secondItem="zdg-O6-pnz" secondAttribute="centerX" id="3iA-Rn-OOM"/>
                             <constraint firstAttribute="bottom" secondItem="ufN-Wk-7K8" secondAttribute="bottom" id="6wJ-E4-IYN"/>
-                            <constraint firstItem="zdg-O6-pnz" firstAttribute="top" secondItem="ted-go-mx3" secondAttribute="top" constant="156" id="7mY-p1-haV"/>
                             <constraint firstItem="ufN-Wk-7K8" firstAttribute="leading" secondItem="ted-go-mx3" secondAttribute="leading" id="ArO-Ha-5CI"/>
-                            <constraint firstItem="ted-go-mx3" firstAttribute="trailing" secondItem="fXy-FL-pwu" secondAttribute="trailing" constant="88" id="BvM-YZ-SfN"/>
-                            <constraint firstItem="ted-go-mx3" firstAttribute="bottom" secondItem="fXy-FL-pwu" secondAttribute="bottom" constant="234" id="E0c-z5-2zt"/>
-                            <constraint firstItem="ted-go-mx3" firstAttribute="trailing" secondItem="zdg-O6-pnz" secondAttribute="trailing" constant="161" id="Hor-yR-6e0"/>
-                            <constraint firstItem="fXy-FL-pwu" firstAttribute="leading" secondItem="ted-go-mx3" secondAttribute="leading" constant="87" id="P36-UX-GCd"/>
                             <constraint firstItem="6AI-MT-DON" firstAttribute="centerX" secondItem="ted-go-mx3" secondAttribute="centerX" id="Tuu-Gm-Gph"/>
                             <constraint firstItem="6AI-MT-DON" firstAttribute="centerY" secondItem="ted-go-mx3" secondAttribute="centerY" id="UsM-qA-HYZ"/>
                             <constraint firstItem="ufN-Wk-7K8" firstAttribute="top" secondItem="nOW-wy-AmN" secondAttribute="top" id="W3C-EI-1Qw"/>
-                            <constraint firstItem="ted-go-mx3" firstAttribute="bottom" secondItem="zdg-O6-pnz" secondAttribute="bottom" constant="277" id="XoB-vq-8ta"/>
                             <constraint firstItem="fXy-FL-pwu" firstAttribute="top" secondItem="zdg-O6-pnz" secondAttribute="bottom" constant="11" id="jlW-bR-Bif"/>
-                            <constraint firstItem="zdg-O6-pnz" firstAttribute="leading" secondItem="ted-go-mx3" secondAttribute="leading" constant="161" id="odD-gU-5lz"/>
+                            <constraint firstItem="zdg-O6-pnz" firstAttribute="centerX" secondItem="ted-go-mx3" secondAttribute="centerX" id="pBX-Iw-OnN"/>
                             <constraint firstItem="ufN-Wk-7K8" firstAttribute="trailing" secondItem="ted-go-mx3" secondAttribute="trailing" id="qoJ-hv-0fu"/>
+                            <constraint firstItem="zdg-O6-pnz" firstAttribute="centerY" secondItem="ted-go-mx3" secondAttribute="centerY" id="sND-dh-SDJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ted-go-mx3"/>
                     </view>

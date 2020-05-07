@@ -32,23 +32,14 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jlh-aD-ERj">
                                 <rect key="frame" x="197" y="443" width="20" height="20"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mog-UA-aqR">
-                                <rect key="frame" x="122.5" y="310.5" width="169" height="30"/>
-                                <state key="normal" title="show my favorite movies"/>
-                                <connections>
-                                    <action selector="showFavoriteMovies:" destination="jga-ZF-1Do" eventType="touchUpInside" id="t9m-R2-2p1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="T5N-d8-RZJ" firstAttribute="top" secondItem="Mog-UA-aqR" secondAttribute="bottom" constant="102" id="5T3-C4-fIk"/>
                             <constraint firstItem="jlh-aD-ERj" firstAttribute="centerY" secondItem="7Vi-Ye-aiB" secondAttribute="centerY" id="8x6-as-8qW"/>
                             <constraint firstItem="VPV-DE-UEC" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="Bwx-ce-EwB"/>
                             <constraint firstItem="T5N-d8-RZJ" firstAttribute="centerY" secondItem="7Vi-Ye-aiB" secondAttribute="centerY" id="KcG-uy-tcL"/>
                             <constraint firstItem="VPV-DE-UEC" firstAttribute="top" secondItem="T5N-d8-RZJ" secondAttribute="bottom" constant="50" id="LRh-0m-RSp"/>
                             <constraint firstItem="T5N-d8-RZJ" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="Rzm-tp-z7h"/>
-                            <constraint firstItem="Mog-UA-aqR" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="Zie-ga-aUa"/>
                             <constraint firstItem="jlh-aD-ERj" firstAttribute="centerX" secondItem="7Vi-Ye-aiB" secondAttribute="centerX" id="lhU-NB-Rx6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7Vi-Ye-aiB"/>
@@ -57,7 +48,6 @@
                         <outlet property="activityIndicator" destination="jlh-aD-ERj" id="NY4-yO-MhJ"/>
                         <outlet property="helloLabel" destination="T5N-d8-RZJ" id="cFe-Y4-eb7"/>
                         <outlet property="loginButton" destination="VPV-DE-UEC" id="Afb-xl-yyl"/>
-                        <outlet property="showFavoritesButton" destination="Mog-UA-aqR" id="kfN-Fr-PqM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPI-dq-qF1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

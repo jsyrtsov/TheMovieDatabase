@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.loginViewWasShown = true
 
         let tabBarController = UITabBarController()
+        tabBarController.delegate = self
         let feedViewController = FeedConfigurator().configure()
         let favoritesViewController = FavoritesConfigurator().configure()
         let searchMovieViewController = SearchMovieConfigurator().configure()
@@ -55,5 +56,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ], animated: true)
 
         window?.rootViewController = tabBarController
+    }
+}
+
+// MARK: - UITabBarControllerDelegate
+
+extension AppDelegate: UITabBarControllerDelegate {
+
+    func tabBarController(_ tabBarController: UITabBarController,
+                          shouldSelect viewController: UIViewController) -> Bool {
+        let vc = viewController as? UINavigationController
+        if tabBarController.selectedViewController === viewController && vc?.viewControllers.count == 1 {
+            viewController.scrollToTop()
+        }
+        return true
     }
 }

@@ -21,7 +21,6 @@ final class ProfileViewController: UIViewController {
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var loginButton: UIButton!
     @IBOutlet weak private var helloLabel: UILabel!
-    @IBOutlet weak private var showFavoritesButton: UIButton!
 
     // MARK: - UIViewController
 
@@ -32,11 +31,6 @@ final class ProfileViewController: UIViewController {
     }
 
     // MARK: - IBActions
-
-    @IBAction private func showFavoriteMovies(_ sender: Any) {
-        let favoritesVC = FavoritesConfigurator().configure()
-        navigationController?.pushViewController(favoritesVC, animated: true)
-    }
 
     @IBAction private func logoutAction(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -100,6 +94,5 @@ final class ProfileViewController: UIViewController {
     private func setAccountDetails(hidden isHidden: Bool) {
         helloLabel.isHidden = isHidden
         loginButton.isHidden = isHidden
-        showFavoritesButton.isHidden = isHidden
     }
 }
