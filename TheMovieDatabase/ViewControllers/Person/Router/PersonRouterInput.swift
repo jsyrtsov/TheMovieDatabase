@@ -11,4 +11,7 @@ import Foundation
 protocol PersonRouterInput: class {
     func showFullPicture(picturePath: String?)
     func showDetailedMovie(movieId: Int?)
+    // swiftlint:disable router_protocol_error
+    func showImageViewer(images: [String?], currentImage: Int)
+    // swiftlint:enable router_protocol_error
 }

@@ -30,6 +30,7 @@ final class FullPictureViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureView() {
+        navigationController?.view.backgroundColor = .white
         activityIndicator.startAnimating()
     }
 

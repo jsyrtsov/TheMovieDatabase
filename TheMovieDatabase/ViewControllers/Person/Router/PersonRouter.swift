@@ -16,6 +16,13 @@ final class PersonRouter: PersonRouterInput {
 
     // MARK: - PersonRouterInput
 
+    func showImageViewer(images: [String?], currentImage: Int) {
+        let imageViewerVC = ImageViewerConfigurator().configure()
+        imageViewerVC.imagesArray = images
+        imageViewerVC.currentImage = currentImage
+        view?.push(module: imageViewerVC, animated: true, hideTabBar: true)
+    }
+
     func showFullPicture(picturePath: String?) {
         let fullPictureVC = FullPictureModuleConfigurator().configure()
         fullPictureVC.picturePath = picturePath

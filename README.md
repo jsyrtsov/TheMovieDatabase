@@ -12,12 +12,13 @@ All pull request are reviewed.
 
 **Features:**
 
-1. List of Popular, Upcoming, Now Playing movies
-2. List of Favorite movies (realm)
-3. Search
-4. Detailed screen of the movie with overview, videos, cast and crew
-5. Detailed screen of the person with overview, images, credits
+1. List of Popular, Upcoming, Now Playing movies.
+2. List of Favorite movies (using Realm if user don't have account and using guest mode).
+3. Search.
+4. Detailed screen of the movie with overview, videos, cast and crew.
+5. Detailed screen of the person with overview, images (with image viewer), credits.
 6. Both landscape and portrait modes on every iPhone model are supported.
+7. Authorization for users who have account on TMDB and guest mode for those who don't.
 
 ## Preview
 

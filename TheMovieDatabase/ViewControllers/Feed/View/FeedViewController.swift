@@ -17,6 +17,7 @@ final class FeedViewController: UIViewController {
 
     // MARK: - Subviews
 
+    private var refreshControl = UIRefreshControl()
     private var segmentedControl: UISegmentedControl?
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var tableView: UITableView!
@@ -45,6 +46,9 @@ final class FeedViewController: UIViewController {
         tableView.tableHeaderView = segmentedControl
         segmentedControl?.addTarget(self, action: #selector(FeedViewController.indexChanged(_:)), for: .valueChanged)
 
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(loadMovies), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
 
     @objc
@@ -65,7 +69,6 @@ final class FeedViewController: UIViewController {
             tableView.reloadData()
             service.strategy = .upcoming
             loadMovies()
-
         case 2:
             self.activityIndicator.isHidden = false
             self.activityIndicator.startAnimating()
@@ -78,6 +81,7 @@ final class FeedViewController: UIViewController {
         }
     }
 
+    @objc
     private func loadMovies() {
         service.loadMovies { [weak self] (results) in
             guard
@@ -90,6 +94,7 @@ final class FeedViewController: UIViewController {
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
             self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
         }
     }
 }
