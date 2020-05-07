@@ -64,7 +64,7 @@ final class FavoritesViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(loadFavoriteMovies), for: .valueChanged)
         tableView.refreshControl = refreshControl
     }
-    
+
     @objc
     private func loadFavoriteMovies() {
         moviesService.loadFavoriteMovies(accountId: accountId) { [weak self] (movies) in
