@@ -10,11 +10,11 @@ target 'TheMovieDatabase' do
 
   # Pods for TheMovieDatabase
 
-pod 'Nuke'
-pod 'RealmSwift'
-pod 'YoutubeDirectLinkExtractor'
-pod 'ExpandableLabel'
-pod 'Locksmith'
+pod 'Nuke', '~> 8.2.0'
+pod 'RealmSwift', '~> 3.18.0'
+pod 'YoutubeDirectLinkExtractor', :path => 'Vendor/YoutubeDirectLinkExtractor'
+pod 'ExpandableLabel', '~> 0.5.2'
+pod 'Locksmith', '~> 4.0.0'
 
   target 'TheMovieDatabaseTests' do
     inherit! :search_paths
