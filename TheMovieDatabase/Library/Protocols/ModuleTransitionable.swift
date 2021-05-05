@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ModuleTransitionable: class {
+protocol ModuleTransitionable: AnyObject {
     func showModule(_ module: UIViewController)
     func dismissView(animated: Bool, completion: (() -> Void)?)
     func presentModule(_ module: UIViewController, animated: Bool, completion: (() -> Void)?)

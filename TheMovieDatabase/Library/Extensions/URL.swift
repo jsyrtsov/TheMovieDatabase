@@ -15,7 +15,7 @@ extension URL {
         }
 
         // Create array of existing query items
-        var queryItems: [URLQueryItem] = urlComponents.queryItems ??  []
+        var queryItems: [URLQueryItem] = urlComponents.queryItems ?? []
 
         // Create query item
         let queryItem = URLQueryItem(name: queryItem, value: value)

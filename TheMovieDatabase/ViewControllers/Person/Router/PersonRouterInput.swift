@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PersonRouterInput: class {
+protocol PersonRouterInput: AnyObject {
     func showFullPicture(picturePath: String?)
     func showDetailedMovie(movieId: Int?)
     // swiftlint:disable router_protocol_error

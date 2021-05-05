@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PersonViewInput: class {
+protocol PersonViewInput: AnyObject {
     func configure(withPerson person: Person?)
     func configure(withPersonImages personImages: [PersonImage])
     func configure(personCast: [PersonMovie], personCrew: [PersonMovie])
