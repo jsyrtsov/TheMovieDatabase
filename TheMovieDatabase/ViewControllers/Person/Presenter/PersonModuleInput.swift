@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol PersonModuleInput: class {
+protocol PersonModuleInput: AnyObject {
     func configure(personId: Int?)
 }

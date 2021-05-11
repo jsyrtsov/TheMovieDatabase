@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PersonViewOutput: class {
+protocol PersonViewOutput: AnyObject {
     func loadData()
     func showFullPicture(picturePath: String?)
     func showDetailedMovie(movieId: Int?)
